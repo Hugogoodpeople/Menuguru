@@ -1,6 +1,7 @@
 package pt.menuguru.menuguru6;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -126,6 +127,15 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
         */
 
         Log.v("msg", "clicado " + some_array[position]);
+
+        if (position == 0)
+        {
+            Intent intent = new Intent(this.getActivity(), MinhaConta.class);
+
+            startActivity(intent);
+
+        }
+
     }
 
     /**
