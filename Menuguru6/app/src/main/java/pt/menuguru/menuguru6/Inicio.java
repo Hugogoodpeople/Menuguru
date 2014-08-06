@@ -1,6 +1,9 @@
 package pt.menuguru.menuguru6;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,8 +55,37 @@ public class Inicio extends Fragment {
                 this.getActivity().finish();
                 return false;
             case R.id.action_pesquisa:
-                // Do Fragment menu item stuff here
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+
+                alertDialogBuilder
+                        .setItems(R.array.pesquisa, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which) {
+                                    case 0:
+                                        Intent myIntent = new Intent(getActivity(), Pesquisa_avancada.class);
+                                        startActivity(myIntent);
+                                        break;
+                                    case 1:
+                                        Intent myIntent2 = new Intent(getActivity(), Inspiracao.class);
+                                        startActivity(myIntent2);
+                                        break;
+                                    case 2:
+
+                                    default:
+                                        break;
+                                }
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
                 return true;
+
+
             default:
                 break;
         }

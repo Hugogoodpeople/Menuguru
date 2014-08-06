@@ -3,14 +3,15 @@ package pt.menuguru.menuguru6;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-<<<<<<< HEAD
+
 import android.content.Intent;
-=======
+
 import android.app.ListFragment;
 import android.content.Context;
 import android.os.Build;
->>>>>>> FETCH_HEAD
+
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -25,11 +26,6 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> FETCH_HEAD
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -86,14 +82,12 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
                 transaction.replace(R.id.container, new Reservas());
                 break;
             }
-<<<<<<< HEAD
-            case 2: {
-                transaction.replace(R.id.container, new Defenicoes());
-=======
+
+
             case 2:
             {
                 transaction.replace(R.id.container,new DefenicoesTesteFragment());
->>>>>>> FETCH_HEAD
+
                 break;
             }
             case 3: {

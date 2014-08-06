@@ -20,6 +20,14 @@
             android:name=".Localizacao"
             android:label="@string/title_activity_localizacao" >
         </activity>
+        <activity
+            android:name=".Pesquisa_avancada"
+            android:label="@string/title_activity_pesquisa_avancada" >
+        </activity>
+        <activity
+            android:name=".Inspiracao"
+            android:label="@string/title_activity_inspiracao" >
+        </activity>
     </application>
 
 </manifest>

@@ -5,12 +5,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import pt.menuguru.menuguru6.R;
@@ -27,6 +32,11 @@ public class Localizacao extends Activity {
             "Aveiro"
     };
     String value;
+
+    SearchView inputSearch;
+
+    ArrayAdapter<String> adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,13 +48,16 @@ public class Localizacao extends Activity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 
+        inputSearch = (SearchView) findViewById(R.id.searchView);
+
 
         listView = (ListView) findViewById(R.id.listV_localizacao);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, local);
 
         // Assign adapter to ListView
         listView.setAdapter(adapter);
+
 
         // ListView Item Click Listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -67,6 +80,10 @@ public class Localizacao extends Activity {
 
         });
     }
+
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
