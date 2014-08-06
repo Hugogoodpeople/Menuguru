@@ -131,9 +131,11 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
         if (position == 0)
         {
             Intent intent = new Intent(this.getActivity(), MinhaConta.class);
-
             startActivity(intent);
-
+        }else if (position == 3 || position == 4 || position == 5)
+        {
+            Intent intent = new Intent(this.getActivity(), ReadFileAssetsActivity.class);
+            startActivity(intent);
         }
 
     }
