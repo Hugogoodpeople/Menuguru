@@ -1,31 +1,21 @@
 package pt.menuguru.menuguru6;
 
-import android.app.Activity;
-
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
-
-    Fragment Defenicoes = new Defenicoes();
-    Fragment Reservas = new Reservas();
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -42,6 +32,7 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -50,6 +41,10 @@ public class MainActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+    }
+
+    public void setActionBarTitle(String title) {
+        setTitle(title);
     }
 
     @Override
@@ -68,31 +63,25 @@ public class MainActivity extends Activity
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         // tenho de meter aqui um switch case
 
-        switch (position)
-        {
-            case 0:
-            {
-                transaction.replace(R.id.container,new Inicio() );
+        switch (position) {
+            case 0: {
+                transaction.replace(R.id.container, new Inicio());
                 break;
             }
-            case 1:
-            {
+            case 1: {
                 transaction.replace(R.id.container, new Reservas());
                 break;
             }
-            case 2:
-            {
-                transaction.replace(R.id.container,new Defenicoes() );
+            case 2: {
+                transaction.replace(R.id.container, new Defenicoes());
                 break;
             }
-            case 3:
-            {
-                transaction.replace(R.id.container,new Destaques() );
+            case 3: {
+                transaction.replace(R.id.container, new Destaques());
                 break;
             }
-            case 4:
-            {
-                transaction.replace(R.id.container,new ComoFunciona() );
+            case 4: {
+                transaction.replace(R.id.container, new ComoFunciona());
                 break;
             }
         }
@@ -126,32 +115,30 @@ public class MainActivity extends Activity
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
-            // Only show items in the action bar relevant to this screen
-            // if the drawer is not showing. Otherwise, let the drawer
-            // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.main, menu);
-            restoreActionBar();
-            return true;
+    /*
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+            if (!mNavigationDrawerFragment.isDrawerOpen()) {
+                // Only show items in the action bar relevant to this screen
+                // if the drawer is not showing. Otherwise, let the drawer
+                // decide what to show in the action bar.
+                getMenuInflater().inflate(R.menu.main, menu);
+                restoreActionBar();
+                return true;
+            }
+            return super.onCreateOptionsMenu(menu);
         }
-        return super.onCreateOptionsMenu(menu);
-    }
-
+    */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -182,7 +169,7 @@ public class MainActivity extends Activity
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
+                                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }

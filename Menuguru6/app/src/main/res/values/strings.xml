@@ -15,5 +15,7 @@
     <string name="app_id">355132794636774</string>
     <string name="pesquisa">Pesquisa</string>
     <string name="localizacao">Localização</string>
+    <string name="title_activity_localizacao">Localizacao</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>

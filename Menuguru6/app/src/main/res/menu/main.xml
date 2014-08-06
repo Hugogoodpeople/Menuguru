@@ -1,13 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity" >
-    <item android:id="@+id/action_example"
-        android:title="@string/localizacao"
-        android:icon="@drawable/b_local"
-        android:showAsAction="withText|ifRoom" />
-    <item android:id="@+id/action_settings"
-        android:title="@string/pesquisa"
-        android:icon="@drawable/ic_action_search"
-        android:orderInCategory="100"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+    <item android:id="@+id/action_localizacao" android:title="@string/localizacao"
+        android:icon="@drawable/ic_local_w" android:showAsAction="withText|ifRoom" />
+    <item android:id="@+id/action_pesquisa" android:title="@string/pesquisa"
+        android:icon="@drawable/ic_find_w" android:orderInCategory="100"
         android:showAsAction="withText|ifRoom" />
 </menu>
