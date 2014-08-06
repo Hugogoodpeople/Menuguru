@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -32,7 +33,8 @@ public class Defenicoes extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
+        TextView t =(TextView) getActivity().findViewById(R.id.mytext);
+        t.setText("Defenições");
 
         some_array = getResources().getStringArray(R.array.defenicoes_array);
 
