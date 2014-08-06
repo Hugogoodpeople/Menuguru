@@ -15,7 +15,21 @@
     <string name="app_id">355132794636774</string>
     <string name="pesquisa">Pesquisa</string>
     <string name="localizacao">Localização</string>
+<<<<<<< HEAD
     <string name="title_activity_localizacao">Localizacao</string>
     <string name="hello_world">Hello world!</string>
+=======
+    <string-array name="defenicoes_array">
+        <item>A minha Conta</item>
+        <item>Favoritos</item>
+        <item>Idioma</item>
+        <item>Sobre a Menu Guru</item>
+        <item>Termos e Condições</item>
+        <item>Política de Privacidade</item>
+        <item>Espalhe a palavra</item>
+        <item>Diga-nos o que pensa</item>
+        <item>Classifique a App</item>
+    </string-array>
+>>>>>>> FETCH_HEAD
 
 </resources>
