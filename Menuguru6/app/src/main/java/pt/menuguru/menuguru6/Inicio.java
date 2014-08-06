@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -32,13 +34,27 @@ public class Inicio extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        //String value = getActivity().getIntent().getExtras().getString("local");
-        //getActivity().getActionBar().setCustomView(R.layout.xyz);
-        //getActivity().getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
+
+        getActivity().getActionBar().setCustomView(R.layout.tab_header);
+        getActivity().getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
+        getActivity().getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+        getActivity().getActionBar().setHomeButtonEnabled(true);
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        TextView t =(TextView) getActivity().findViewById(R.id.mytext);
+
         Intent intent = getActivity().getIntent();
         value = intent.getStringExtra("local");
         if(value == null || value.trim().equals("")){value="Perto de mim";}
-        ((MainActivity) getActivity()).setActionBarTitle(value);
+        t.setText(value);
+    }
+
+    public String getLocalidade() {
+        return value;
+    }
+
+    public void setLocalidade(String local) {
+        this.value = local;
     }
 
     @Override

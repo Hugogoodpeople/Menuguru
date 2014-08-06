@@ -6,189 +6,209 @@
     android:background="#dce5e5e5"
     android:padding="10dp"
     android:weightSum="100">
-    >
 
-    <LinearLayout
-        android:layout_marginTop="0dp"
-        android:id="@+id/nomes"
-        android:layout_height="35dp"
+    <ScrollView
         android:layout_width="fill_parent"
-        android:gravity = "center_horizontal"
-        android:weightSum="1.0">
-        <EditText
-            android:padding="5dp"
-
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text=""
-            android:id="@+id/edit_pnome"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.5"
-            android:hint="Primeiro nome"
-            android:textSize="14dp"
-            android:background="@drawable/textfields"
-             />
-        <EditText
-            android:padding="5dp"
-            android:background="@drawable/textfields"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text=""
-            android:id="@+id/edit_snome"
-            android:layout_gravity="center_horizontal"
-            android:layout_alignParentRight="true"
-            android:layout_weight="0.5"
-            android:hint="Sobrenome"
-            android:textSize="14dp"
-
-             />
-    </LinearLayout>
-    <LinearLayout
-
-        android:layout_marginTop="5dp"
-        android:id="@+id/cidade_data"
-        android:layout_height="35dp"
-        android:layout_width="fill_parent"
-        android:gravity = "center_horizontal"
-        android:layout_below="@id/nomes"
-        android:weightSum="1.0">
-        <EditText
-            android:padding="5dp"
-            android:background="@drawable/textfields"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text=""
-            android:id="@+id/edit_data_nascimento"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.5"
-            android:hint="Data"
-            android:textSize="14dp"
-            />
-        <EditText
-            android:padding="5dp"
-            android:background="@drawable/textfields"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text=""
-            android:id="@+id/edit_cidade"
-            android:layout_gravity="center_horizontal"
-            android:layout_alignParentRight="true"
-            android:layout_weight="0.5"
-            android:hint="Cidade"
-            android:textSize="14dp"
-            />
-    </LinearLayout>
-    <EditText
-        android:padding="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/textfields"
-        android:layout_width="fill_parent"
-        android:layout_height="35dp"
-        android:text=""
-        android:id="@+id/edit_telefone"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentRight="true"
-        android:hint="Telefone"
-        android:layout_below="@id/cidade_data"
-        android:textSize="14dp"
-        />
-    <EditText
-        android:padding="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/textfields"
-        android:layout_width="fill_parent"
-        android:layout_height="35dp"
-        android:text=""
-        android:id="@+id/edit_email"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentRight="true"
-        android:hint="Telefone"
-        android:layout_below="@id/edit_telefone"
-        android:textSize="14dp"
-        />
-    <EditText
-        android:padding="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/textfields"
-        android:layout_width="fill_parent"
-        android:layout_height="35dp"
-        android:text=""
-        android:id="@+id/edit_pass"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentRight="true"
-        android:hint="email"
-        android:layout_below="@id/edit_email"
-        android:textSize="14dp"
-        />
-    <LinearLayout
-        android:paddingTop="20px"
-        android:id="@+id/notificacoes"
-        android:layout_height="55dp"
-        android:layout_width="fill_parent"
-        android:gravity = "center_horizontal"
-        android:layout_below="@id/edit_pass"
-        android:weightSum="1.0">
-        <TextView
-            android:padding="5dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            android:text="Receber notificações"
-            android:id="@+id/notificacoes_texto"
-            android:layout_gravity="center_horizontal"
-            android:layout_alignParentRight="true"
-            android:textSize="14dp"
-            />
-        <Switch
-            android:layout_width="fill_parent"
-            android:layout_weight="0.6"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:textSize="14dp"
-            />
-        </LinearLayout>
-    <LinearLayout
-        android:id="@+id/newsletter"
-        android:layout_height="55dp"
-        android:layout_width="fill_parent"
-
-        android:gravity = "center_horizontal"
-        android:layout_below="@id/notificacoes"
-        android:weightSum="1.0">
-        <TextView
-            android:padding="5dp"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            android:text="Receber newsletter"
-            android:id="@+id/newsletter_textp"
-            android:layout_gravity="center_horizontal"
-            android:layout_alignParentRight="true"
-            android:textSize="14dp"
-            />
-        <Switch
-            android:layout_width="fill_parent"
-            android:layout_weight="0.6"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:textSize="14dp"
-            />
-    </LinearLayout>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Transferir favoritos"
-        android:id="@+id/button2"
-        android:layout_gravity="center_horizontal"
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView3"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="0dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/shape"
-        android:textColor="#ffff"
-        />
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:layout_marginTop="0dp"
+                android:id="@+id/nomes"
+                android:layout_height="35dp"
+                android:layout_width="fill_parent"
+                android:gravity = "center_horizontal"
+                android:weightSum="1.0">
+                <EditText
+                    android:padding="5dp"
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text=""
+                    android:id="@+id/edit_pnome"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.5"
+                    android:hint="Primeiro nome"
+                    android:textSize="14dp"
+                    android:background="@drawable/textfields"
+                     />
+                <EditText
+                    android:padding="5dp"
+                    android:background="@drawable/textfields"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text=""
+                    android:id="@+id/edit_snome"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_alignParentRight="true"
+                    android:layout_weight="0.5"
+                    android:hint="Sobrenome"
+                    android:textSize="14dp"
+
+                     />
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_marginTop="5dp"
+                android:id="@+id/cidade_data"
+                android:layout_height="35dp"
+                android:layout_width="fill_parent"
+                android:gravity = "center_horizontal"
+                android:layout_below="@id/nomes"
+                android:weightSum="1.0">
+                <EditText
+                    android:padding="5dp"
+                    android:background="@drawable/textfields"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text=""
+                    android:id="@+id/edit_data_nascimento"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="0.5"
+                    android:hint="Data"
+                    android:textSize="14dp"
+                    />
+                <EditText
+                    android:padding="5dp"
+                    android:background="@drawable/textfields"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text=""
+                    android:id="@+id/edit_cidade"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_alignParentRight="true"
+                    android:layout_weight="0.5"
+                    android:hint="Cidade"
+                    android:textSize="14dp"
+                    />
+            </LinearLayout>
+
+            <EditText
+                android:padding="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/textfields"
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:text=""
+                android:id="@+id/edit_telefone"
+                android:layout_gravity="center_horizontal"
+                android:layout_alignParentRight="true"
+                android:hint="Telefone"
+                android:layout_below="@id/cidade_data"
+                android:textSize="14dp"
+                />
+
+            <EditText
+                android:padding="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/textfields"
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:text=""
+                android:id="@+id/edit_email"
+                android:layout_gravity="center_horizontal"
+                android:layout_alignParentRight="true"
+                android:hint="Telefone"
+                android:layout_below="@id/edit_telefone"
+                android:textSize="14dp"
+                />
+
+            <EditText
+                android:padding="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/textfields"
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:text=""
+                android:id="@+id/edit_pass"
+                android:layout_gravity="center_horizontal"
+                android:layout_alignParentRight="true"
+                android:hint="email"
+                android:layout_below="@id/edit_email"
+                android:textSize="14dp"
+                />
+
+            <LinearLayout
+                android:paddingTop="20px"
+                android:id="@+id/notificacoes"
+                android:layout_height="55dp"
+                android:layout_width="fill_parent"
+                android:gravity = "center_horizontal"
+                android:layout_below="@id/edit_pass"
+                android:weightSum="1.0">
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:text="Receber notificações"
+                    android:id="@+id/notificacoes_texto"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_alignParentRight="true"
+                    android:textSize="14dp"
+                    />
+                <Switch
+                    android:layout_width="fill_parent"
+                    android:layout_weight="0.6"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textSize="14dp"
+                    />
+                </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/newsletter"
+                android:layout_height="55dp"
+                android:layout_width="fill_parent"
+
+                android:gravity = "center_horizontal"
+                android:layout_below="@id/notificacoes"
+                android:weightSum="1.0">
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:text="Receber newsletter"
+                    android:id="@+id/newsletter_textp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_alignParentRight="true"
+                    android:textSize="14dp"
+                    />
+                <Switch
+                    android:layout_width="fill_parent"
+                    android:layout_weight="0.6"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textSize="14dp"
+                    />
+            </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Transferir favoritos"
+                android:id="@+id/button2"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/shape"
+                android:textColor="#ffff"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/newsletter"
+                />
+
+        </RelativeLayout>
+    </ScrollView>
 
 
 </RelativeLayout>

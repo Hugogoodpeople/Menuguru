@@ -2,12 +2,13 @@ package pt.menuguru.menuguru6;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.TextView;
 
 
 /**
@@ -25,7 +26,8 @@ public class Destaques extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((MainActivity) getActivity()).setActionBarTitle("Destaque");
+        TextView t =(TextView) getActivity().findViewById(R.id.mytext);
+        t.setText("Destaque");
         return inflater.inflate(R.layout.fragment_destaques, container, false);
     }
 

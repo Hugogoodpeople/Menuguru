@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import pt.menuguru.menuguru6.R;
@@ -31,7 +32,7 @@ public class Localizacao extends Activity {
             "Lisboa",
             "Aveiro"
     };
-    String value;
+    public String value;
 
     SearchView inputSearch;
 
@@ -43,11 +44,16 @@ public class Localizacao extends Activity {
         setContentView(R.layout.activity_localizacao);
         Intent intent = getIntent();
         value = intent.getStringExtra("local");
-        setTitle(value);
+        //setTitle(value);
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-
+        getActionBar().setCustomView(R.layout.tab_header);
+        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
+        getActionBar().setHomeButtonEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        TextView t =(TextView) findViewById(R.id.mytext);
+        t.setText(value);
         inputSearch = (SearchView) findViewById(R.id.searchView);
 
 
