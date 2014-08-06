@@ -6,6 +6,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ListFragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,12 +21,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
-public class MainActivity extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 
-    Fragment Defenicoes = new Defenicoes();
-    Fragment Reservas = new Reservas();
+
+
+
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -62,8 +63,9 @@ public class MainActivity extends Activity
                 .commit();
         */
 
-        //Fragment newFragment = new Defenicoes();
+
         //Fragment newFragment = get;
+        FragmentManager fm = getFragmentManager();
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         // tenho de meter aqui um switch case
@@ -82,7 +84,7 @@ public class MainActivity extends Activity
             }
             case 2:
             {
-                transaction.replace(R.id.container,new Defenicoes() );
+                transaction.replace(R.id.container,new DefenicoesTesteFragment());
                 break;
             }
             case 3:
@@ -193,6 +195,10 @@ public class MainActivity extends Activity
             ((MainActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
+
+
     }
+
+
 
 }
