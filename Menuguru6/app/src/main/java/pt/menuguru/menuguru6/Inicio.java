@@ -1,5 +1,6 @@
 package pt.menuguru.menuguru6;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
@@ -32,7 +33,8 @@ public class Inicio extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         //String value = getActivity().getIntent().getExtras().getString("local");
-
+        //getActivity().getActionBar().setCustomView(R.layout.xyz);
+        //getActivity().getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
         Intent intent = getActivity().getIntent();
         value = intent.getStringExtra("local");
         if(value == null || value.trim().equals("")){value="Perto de mim";}
