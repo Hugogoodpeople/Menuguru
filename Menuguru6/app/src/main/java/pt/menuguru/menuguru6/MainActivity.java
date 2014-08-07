@@ -25,7 +25,6 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
 
 
-
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -58,7 +57,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
+        // update the activity_read_file content by replacing fragments
         /*
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
@@ -139,7 +138,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
                 // Only show items in the action bar relevant to this screen
                 // if the drawer is not showing. Otherwise, let the drawer
                 // decide what to show in the action bar.
-                getMenuInflater().inflate(R.menu.main, menu);
+                getMenuInflater().inflate(R.menu.activity_read_file, menu);
                 restoreActionBar();
                 return true;
             }

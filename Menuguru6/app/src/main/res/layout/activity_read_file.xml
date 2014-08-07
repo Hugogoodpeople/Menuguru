@@ -15,7 +15,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="hello"
-        android:id="@+id/txtContent" />
+        android:id="@+id/txtContent"
+        android:padding="10dp"
+        />
     
 	<ImageView
 	   android:layout_width="fill_parent"

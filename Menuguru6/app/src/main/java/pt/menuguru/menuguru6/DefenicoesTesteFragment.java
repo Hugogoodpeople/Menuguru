@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnItemClickListener {
 
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -135,6 +137,33 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
         }else if (position == 3 || position == 4 || position == 5)
         {
             Intent intent = new Intent(this.getActivity(), ReadFileAssetsActivity.class);
+
+
+
+            String mensagem = null;
+
+            switch (position)
+            {
+                case 3:
+                {
+                    mensagem = getString(R.string.sobre_menuguru);
+                    break;
+                }
+                case 4:
+                {
+                    mensagem = getString(R.string.termos_condicoes);
+                    break;
+                }
+                case 5:
+                {
+                    mensagem = getString(R.string.politica_privacidade);
+                    break;
+                }
+
+            }
+
+            intent.putExtra("menssagem", mensagem);
+
             startActivity(intent);
         }
 
