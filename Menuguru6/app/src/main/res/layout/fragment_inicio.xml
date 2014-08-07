@@ -13,7 +13,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="false"
         android:src="@drawable/bck_refugio"
-        android:scaleType="fitXY" />
+        android:scaleType="center" />
 
     <RatingBar
         android:layout_width="wrap_content"
@@ -62,7 +62,8 @@
         android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp" />
 
     <ImageView
         android:layout_width="50dp"
@@ -86,5 +87,14 @@
         android:layout_alignStart="@+id/imageView2"
         android:fontFamily=""
         android:textSize="@dimen/texto_10" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"></LinearLayout>
 
 </RelativeLayout>

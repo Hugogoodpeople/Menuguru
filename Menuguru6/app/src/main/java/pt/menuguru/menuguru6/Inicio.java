@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -16,21 +17,86 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class Inicio extends Fragment {
+public class Inicio extends Fragment implements AbsListView.OnItemClickListener {
 
     String value;
+
+    String[] some_array = null;
+
+    //private OnFragmentInteractionListener mListener;
+
+    /**
+     * The fragment's ListView/GridView.
+     */
+    private AbsListView mListView;
+
+    /**
+     * The Adapter which will be used to populate the ListView/GridView with
+     * Views.
+     */
+    private ListAdapter mAdapter;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        return inflater.inflate(R.layout.fragment_inicio, container, false);
+    }
 
 
+    public class MyListAdapter extends ArrayAdapter<String> {
+
+        Context myContext;
+
+        public MyListAdapter(Context context, int textViewResourceId,
+                             String[] objects) {
+            super(context, textViewResourceId, objects);
+            myContext = context;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            //return super.getView(position, convertView, parent);
+
+            LayoutInflater inflater =
+                    (LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View row=inflater.inflate(R.layout.fragment_inicio, parent, false);
+            TextView label=(TextView)row.findViewById(R.id.distancia);
+            label.setText(some_array[position]);
+            ImageView icon=(ImageView)row.findViewById(R.id.capa);
+
+            //Customize your icon here
+            icon.setImageResource(R.drawable.sem_foto);
+
+            return row;
+        }
+
+    }
+
+
+
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_defenicoesteste, container, false);
+
+        // Set the adapter
+        mListView = (AbsListView) view.findViewById(android.R.id.list);
+        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+
+        // Set OnItemClickListener so we can be notified on item clicks
+        mListView.setOnItemClickListener(this);
+
+        return view;
     }
 
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +116,15 @@ public class Inicio extends Fragment {
         value = intent.getStringExtra("local");
         if(value == null || value.trim().equals("")){value="Perto de mim";}
         t.setText(value);
+
+        some_array = getResources().getStringArray(R.array.defenicoes_array);
+
+        // TODO: Change Adapter to display your content
+        MyListAdapter myListAdapter =
+                new MyListAdapter(getActivity(), R.layout.row, some_array);
+        mAdapter =myListAdapter;
+
+
     }
 
     public String getLocalidade() {
