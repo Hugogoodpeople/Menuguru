@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +44,8 @@ public class Inicio extends Fragment {
         getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 
         TextView t =(TextView) getActivity().findViewById(R.id.mytext);
-
+        //ImageView imag = (ImageView) getActivity().findViewById(R.id.capa);
+        //imag.setImageResource(R.drawable.bck_refugio);
         Intent intent = getActivity().getIntent();
         value = intent.getStringExtra("local");
         if(value == null || value.trim().equals("")){value="Perto de mim";}
