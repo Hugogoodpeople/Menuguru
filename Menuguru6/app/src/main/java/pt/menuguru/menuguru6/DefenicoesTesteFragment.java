@@ -46,15 +46,31 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
         public View getView(int position, View convertView, ViewGroup parent) {
             //return super.getView(position, convertView, parent);
 
-            LayoutInflater inflater =
-                    (LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View row=inflater.inflate(R.layout.row, parent, false);
-            TextView label=(TextView)row.findViewById(R.id.month);
-            label.setText(some_array[position]);
-            ImageView icon=(ImageView)row.findViewById(R.id.icon);
+            View row;
+            if (position == 0 || position == 3 || position == 6) {
+                LayoutInflater inflater = (LayoutInflater) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                row = inflater.inflate(R.layout.row_header, parent, false);
+                TextView label = (TextView) row.findViewById(R.id.month);
+                label.setText(some_array[position]);
 
-            //Customize your icon here
-            icon.setImageResource(R.drawable.ic_launcher);
+                TextView label2 = (TextView) row.findViewById(R.id.headerText);
+                label2.setText(array_headers[position/3]);
+
+                ImageView icon = (ImageView) row.findViewById(R.id.icon);
+
+                //Customize your icon here
+                icon.setImageResource(R.drawable.ic_mdpi_right_b);
+            }else
+            {
+                LayoutInflater inflater = (LayoutInflater) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                row = inflater.inflate(R.layout.row, parent, false);
+                TextView label = (TextView) row.findViewById(R.id.month);
+                label.setText(some_array[position]);
+                ImageView icon = (ImageView) row.findViewById(R.id.icon);
+
+                //Customize your icon here
+                icon.setImageResource(R.drawable.ic_mdpi_right_b);
+            }
 
             return row;
         }
@@ -70,6 +86,7 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
     private String mParam1;
     private String mParam2;
     String[] some_array = null;
+    String[] array_headers = null;
 
     //private OnFragmentInteractionListener mListener;
 
@@ -111,10 +128,11 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
         }
 
         some_array = getResources().getStringArray(R.array.defenicoes_array);
+        array_headers = getResources().getStringArray(R.array.headersdefenicoes);
+
 
         // TODO: Change Adapter to display your content
-        MyListAdapter myListAdapter =
-                new MyListAdapter(getActivity(), R.layout.row, some_array);
+        MyListAdapter myListAdapter = new MyListAdapter(getActivity(), R.layout.row, some_array);
         mAdapter =myListAdapter;
 
         //mAdapter = new ArrayAdapter<String>( getActivity(), android.R.layout.simple_list_item_1,android.R.id.text1 ,some_array);

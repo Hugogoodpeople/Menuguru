@@ -34,9 +34,17 @@
         <item>Inspiração</item>
         <item>Cancelar</item>
     </string-array>
+    <string-array name="headersdefenicoes">
+        <item>Perfil</item>
+        <item>Info</item>
+        <item>Feedback</item>
+    </string-array>
+
 
     <string name="title_activity_pesquisa_avancada">Pesquisa_avancada</string>
     <string name="title_activity_inspiracao">Inspiracao</string>
+
+
 
     <string name="sobre_menuguru">"O QUE É A MENU GURU?
 
