@@ -1,9 +1,16 @@
 package pt.menuguru.menuguru6;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Environment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +18,48 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-
-
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 
 
 public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnItemClickListener {
 
+    public class MyListAdapter extends ArrayAdapter<String> {
 
+        Context myContext;
+
+        public MyListAdapter(Context context, int textViewResourceId,
+                             String[] objects) {
+            super(context, textViewResourceId, objects);
+            myContext = context;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            //return super.getView(position, convertView, parent);
+
+            LayoutInflater inflater =
+                    (LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View row=inflater.inflate(R.layout.row, parent, false);
+            TextView label=(TextView)row.findViewById(R.id.month);
+            label.setText(some_array[position]);
+            ImageView icon=(ImageView)row.findViewById(R.id.icon);
+
+            //Customize your icon here
+            icon.setImageResource(R.drawable.ic_launcher);
+
+            return row;
+        }
+
+    }
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -74,9 +113,11 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
         some_array = getResources().getStringArray(R.array.defenicoes_array);
 
         // TODO: Change Adapter to display your content
+        MyListAdapter myListAdapter =
+                new MyListAdapter(getActivity(), R.layout.row, some_array);
+        mAdapter =myListAdapter;
 
-
-        mAdapter = new ArrayAdapter<String>( getActivity(), android.R.layout.simple_list_item_1,android.R.id.text1 ,some_array);
+        //mAdapter = new ArrayAdapter<String>( getActivity(), android.R.layout.simple_list_item_1,android.R.id.text1 ,some_array);
 
     }
 
@@ -165,9 +206,43 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
             intent.putExtra("menssagem", mensagem);
 
             startActivity(intent);
+        }else if(position == 6) {
+            // este assim esta a funcionar
+
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
+
+/*
+            Uri phototUri = Uri.parse("http://menuguru.pt/layers/logo.png");
+
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, phototUri);
+            shareIntent.setType("image/*");
+            //startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
+            startActivity(shareIntent);
+*/
         }
 
+
     }
+
+
+    public static Drawable LoadImageFromWebOperations(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "src name");
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+
+
 
     /**
      * The default content for this Fragment has a TextView that is shown when
