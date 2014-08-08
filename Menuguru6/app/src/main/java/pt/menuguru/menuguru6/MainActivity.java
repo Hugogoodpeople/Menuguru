@@ -2,26 +2,25 @@ package pt.menuguru.menuguru6;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
+//import android.app.Fragment;
+
+
+
 import android.app.FragmentTransaction;
-
-import android.content.Intent;
-
-import android.app.ListFragment;
-import android.content.Context;
-import android.os.Build;
-
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 
-public class MainActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+
+
+public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 
 
@@ -67,7 +66,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
 
         //Fragment newFragment = get;
-        FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         // tenho de meter aqui um switch case
@@ -75,18 +74,16 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
         switch (position) {
             case 0: {
                 transaction.replace(R.id.container, new Inicio());
+                //transaction.replace(R.id.container, new Pagina_principal());
                 break;
             }
             case 1: {
                 transaction.replace(R.id.container, new Reservas());
                 break;
             }
-
-
             case 2:
             {
                 transaction.replace(R.id.container,new DefenicoesTesteFragment());
-
                 break;
             }
             case 3: {

@@ -1,16 +1,10 @@
 package pt.menuguru.menuguru6;
 
-import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.os.Environment;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,12 +16,8 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 
 public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnItemClickListener {
@@ -63,7 +53,7 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
             }else
             {
                 LayoutInflater inflater = (LayoutInflater) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                row = inflater.inflate(R.layout.row, parent, false);
+                row = inflater.inflate(R.layout.row_defenicoes, parent, false);
                 TextView label = (TextView) row.findViewById(R.id.month);
                 label.setText(some_array[position]);
                 ImageView icon = (ImageView) row.findViewById(R.id.icon);
@@ -132,7 +122,7 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
 
 
         // TODO: Change Adapter to display your content
-        MyListAdapter myListAdapter = new MyListAdapter(getActivity(), R.layout.row, some_array);
+        MyListAdapter myListAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
         mAdapter =myListAdapter;
 
         //mAdapter = new ArrayAdapter<String>( getActivity(), android.R.layout.simple_list_item_1,android.R.id.text1 ,some_array);

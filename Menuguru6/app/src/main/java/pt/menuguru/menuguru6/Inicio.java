@@ -2,15 +2,12 @@ package pt.menuguru.menuguru6;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,7 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class Inicio extends Fragment implements AbsListView.OnItemClickListener {
@@ -121,7 +117,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
         // TODO: Change Adapter to display your content
         MyListAdapter myListAdapter =
-                new MyListAdapter(getActivity(), R.layout.row, some_array);
+                new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
         mAdapter =myListAdapter;
 
 
