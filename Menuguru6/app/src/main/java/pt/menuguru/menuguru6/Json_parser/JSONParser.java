@@ -41,7 +41,7 @@ public class JSONParser {
 
 
             try {
-                jObjEnvio.put("city_id","18");
+                jObjEnvio.put("city_id","0");
                 jObjEnvio.put("lang","pt");
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,6 +55,19 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
         setTitle(title);
     }
 
+    public void asyncComplete(boolean success){
+
+        //refreshSthHere();
+        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.container, new MyFragment());
+        fragmentTransaction.commit();
+        Log.v("csdfsrgnn","ja passaram os 5");
+
+    }
+    
+
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the activity_read_file content by replacing fragments
@@ -75,6 +89,27 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
             case 0: {
                 //transaction.replace(R.id.container, new Inicio());
                 Fragment tabbed = new MyFragment();
+
+
+
+                new Thread(){
+                    public void run(){
+                        try {
+                            sleep(1500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        //Fragment newFragment = get;
+                        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+
+                        android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
+                        fragmentTransaction.replace(R.id.container, new MyFragment());
+
+// Commit the transaction
+                        fragmentTransaction.commit();
+                    }
+                }.start();
 
 
 
