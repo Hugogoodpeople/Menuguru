@@ -6,4 +6,6 @@
     android:divider="@android:color/transparent"
     android:dividerHeight="0dp"
     android:background="@drawable/bck_refugio"
-    tools:context=".NavigationDrawerFragment" />
+    android:textColor="#ffffffff"
+    tools:context=".NavigationDrawerFragment"
+    style="@style/Theme.MenuDrawer"/>

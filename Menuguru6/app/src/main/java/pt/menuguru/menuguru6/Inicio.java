@@ -117,19 +117,12 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
         // TODO: Change Adapter to display your content
         MyListAdapter myListAdapter =
-                new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
+                new MyListAdapter(getActivity(), R.layout.activity_my, some_array);
         mAdapter =myListAdapter;
 
 
     }
 
-    public String getLocalidade() {
-        return value;
-    }
-
-    public void setLocalidade(String local) {
-        this.value = local;
-    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
