@@ -74,7 +74,11 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
         switch (position) {
             case 0: {
                 //transaction.replace(R.id.container, new Inicio());
-                fragmentTransaction.replace(R.id.container, new MyFragment());
+                Fragment tabbed = new MyFragment();
+
+
+
+                fragmentTransaction.replace(R.id.container, tabbed);
                 break;
             }
             case 1: {

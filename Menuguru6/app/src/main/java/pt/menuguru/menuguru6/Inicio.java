@@ -2,7 +2,7 @@ package pt.menuguru.menuguru6;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
