@@ -2,14 +2,14 @@ package pt.menuguru.menuguru6;
 
 import android.app.ActionBar;
 import android.app.Activity;
-//import android.app.Fragment;
 
 
 
 import android.app.FragmentTransaction;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -66,38 +66,38 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
 
         //Fragment newFragment = get;
-        FragmentManager fm = getSupportFragmentManager();
+        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
         // tenho de meter aqui um switch case
 
         switch (position) {
             case 0: {
-                transaction.replace(R.id.container, new Inicio());
-                //transaction.replace(R.id.container, new Pagina_principal());
+                //transaction.replace(R.id.container, new Inicio());
+                fragmentTransaction.replace(R.id.container, new MyFragment());
                 break;
             }
             case 1: {
-                transaction.replace(R.id.container, new Reservas());
+                fragmentTransaction.replace(R.id.container, new Reservas());
                 break;
             }
             case 2:
             {
-                transaction.replace(R.id.container,new DefenicoesTesteFragment());
+                fragmentTransaction.replace(R.id.container,new DefenicoesTesteFragment());
                 break;
             }
             case 3: {
-                transaction.replace(R.id.container, new Destaques());
+                fragmentTransaction.replace(R.id.container, new Destaques());
                 break;
             }
             case 4: {
-                transaction.replace(R.id.container, new ComoFunciona());
+                fragmentTransaction.replace(R.id.container, new ComoFunciona());
                 break;
             }
         }
 
 // Commit the transaction
-        transaction.commit();
+        fragmentTransaction.commit();
 
     }
 

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +49,7 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
                 ImageView icon = (ImageView) row.findViewById(R.id.icon);
 
                 //Customize your icon here
-                icon.setImageResource(R.drawable.ic_mdpi_right_b);
+                icon.setImageResource(R.drawable.ic_right_b);
             }else
             {
                 LayoutInflater inflater = (LayoutInflater) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -59,7 +59,7 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
                 ImageView icon = (ImageView) row.findViewById(R.id.icon);
 
                 //Customize your icon here
-                icon.setImageResource(R.drawable.ic_mdpi_right_b);
+                icon.setImageResource(R.drawable.ic_right_b);
             }
 
             return row;
