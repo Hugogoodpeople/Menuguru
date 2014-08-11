@@ -1,8 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
     <item android:id="@+id/action_localizacao" android:title="@string/localizacao"
-        android:icon="@drawable/ic_local_w" android:showAsAction="withText|ifRoom" />
+        android:icon="@drawable/ic_local_b" android:showAsAction="withText|ifRoom" />
     <item android:id="@+id/action_pesquisa" android:title="@string/pesquisa"
-        android:icon="@drawable/ic_find_w" android:orderInCategory="100"
+        android:icon="@drawable/ic_find_b" android:orderInCategory="100"
         android:showAsAction="withText|ifRoom" />
 </menu>

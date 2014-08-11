@@ -55,10 +55,13 @@ public class ReadFileAssetsActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
+            case android.R.id.home: {
                 finish();
+                this.overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
+
 
                 return false;
+            }
             default:
                 break;
         }

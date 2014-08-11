@@ -214,6 +214,7 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
             intent.putExtra("menssagem", mensagem);
 
             startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
         }else if(position == 6) {
             // este assim esta a funcionar
 

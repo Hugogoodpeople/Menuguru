@@ -13,6 +13,14 @@
     </style>
 
 
+    <style name="Theme.MenuDrawer" parent="android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:titleTextStyle">@style/Theme.MenuDrawer.texto</item>
+    </style>
+    <style name="Theme.MenuDrawer.texto" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+
     <style name="foodRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/food_rating_bar_full</item>
         <item name="android:minHeight">25dip</item>

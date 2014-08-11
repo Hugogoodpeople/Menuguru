@@ -2,24 +2,36 @@ package pt.menuguru.menuguru6;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+
+
 import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import pt.menuguru.menuguru6.Json_parser.JSONParser;
 
 
 public class Inicio extends Fragment implements AbsListView.OnItemClickListener {
@@ -30,6 +42,16 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
     //private OnFragmentInteractionListener mListener;
 
+
+    private static String url = "http://10.0.2.2/JSON/";
+    //JSON Node Names
+    private static final String TAG_USER = "user";
+    private static final String TAG_ID = "id";
+    private static final String TAG_NAME = "name";
+    private static final String TAG_EMAIL = "email";
+    JSONArray user = null;
+
+
     /**
      * The fragment's ListView/GridView.
      */
@@ -39,12 +61,21 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private ListAdapter mAdapter;
+    private static MyListAdapter mAdapter;
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }
+
+    public void asyncComplete(boolean success){
+
+       // mAdapter.notifyDataSetChanged();
+
+
+    }
+
+
 
 
     public class MyListAdapter extends ArrayAdapter<String> {
@@ -78,8 +109,6 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,7 +121,95 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
 
+
+// we will using AsyncTask during parsing
+        new AsyncTaskParseJson(this).execute();
+
+
+
         return view;
+    }
+
+
+
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+        private Inicio delegate;
+
+        // set your json string url here
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_especiais_todos.php";
+
+        // contacts JSONArray
+        JSONArray dataJsonArr = null;
+
+        public AsyncTaskParseJson (Inicio delegate){
+            this.delegate = delegate;
+        }
+
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                JSONObject json = jParser.getJSONFromUrl(yourJsonStringUrl);
+
+                // get the array of users
+
+                dataJsonArr = json.getJSONArray("res");
+
+                // loop through all users
+
+
+                some_array =  new String[dataJsonArr.length()];
+                for (int i = 0; i < dataJsonArr.length(); i++) {
+
+                    JSONObject c = dataJsonArr.getJSONObject(i);
+
+                    // Storing each json item in variable
+                    String firstname = c.getString("descricao");
+
+
+                    // show the values in our logcat
+                    Log.v(TAG, "firstname: " + firstname
+                            );
+
+
+                    some_array[i] = firstname;
+
+
+                }
+
+                //some_array = getResources().getStringArray(R.array.defenicoes_array);
+
+                // TODO: Change Adapter to display your content
+                mAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
+
+
+                Log.v("sdffgddvsdsv","objecto = "+ json);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg)
+        {
+            delegate.asyncComplete(true);
+        }
     }
 
     public void onCreate(Bundle savedInstanceState) {
@@ -113,23 +230,21 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         if(value == null || value.trim().equals("")){value="Perto de mim";}
         t.setText(value);
 
+        /*
         some_array = getResources().getStringArray(R.array.defenicoes_array);
 
         // TODO: Change Adapter to display your content
+<<<<<<< HEAD
+        MyListAdapter myListAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
+=======
         MyListAdapter myListAdapter =
-                new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
+                new MyListAdapter(getActivity(), R.layout.activity_my, some_array);
+>>>>>>> FETCH_HEAD
         mAdapter =myListAdapter;
-
+    */
 
     }
 
-    public String getLocalidade() {
-        return value;
-    }
-
-    public void setLocalidade(String local) {
-        this.value = local;
-    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
