@@ -14,16 +14,11 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<ImageView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/com_facebook_picker_image"
-    android:layout_width="50dip"
-    android:layout_height="50dip"
-    android:layout_gravity="center_vertical"
-    android:src="@drawable/com_facebook_profile_default_icon" />
-<<<<<<< HEAD
-<!-- From: file:/Users/hugocosta/Documents/Menuguru%20VitorHugoCardinaly/Menuguru6/facebook/res/layout/com_facebook_picker_image.xml -->
-=======
-<!-- From: file:/Users/user/Desktop/Menuguru_VitorHugo/Menuguru6/facebook/res/layout/com_facebook_picker_image.xml -->
->>>>>>> FETCH_HEAD
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:state_pressed="true" 
+          android:drawable="@drawable/com_facebook_button_grey_pressed" />
+    <item android:state_focused="true" 
+          android:drawable="@drawable/com_facebook_button_grey_focused" />
+    <item android:drawable="@drawable/com_facebook_button_grey_normal" />
+</selector>
+<!-- From: file:/Users/user/Desktop/Menuguru_VitorHugo/Menuguru6/facebook/res/drawable/com_facebook_loginbutton_silver.xml -->
