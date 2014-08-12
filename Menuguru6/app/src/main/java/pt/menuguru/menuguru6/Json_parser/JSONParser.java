@@ -72,8 +72,6 @@ public class JSONParser {
             Log.e(TAG, "Error converting result " + e.toString());
         }
 
-<<<<<<< HEAD
-=======
         // try parse the string to a JSON object
         try {
             Log.v("Jsonparsercenas","Resultado json parser = "+ json);
@@ -82,7 +80,6 @@ public class JSONParser {
             Log.e(TAG, "Error parsing data " + e.toString());
         }
 
->>>>>>> FETCH_HEAD
         // return JSON String
         return json;
     }

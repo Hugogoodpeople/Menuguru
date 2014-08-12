@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.location.Location;
-import android.media.Rating;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.content.Context;
@@ -18,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -29,7 +27,6 @@ import android.widget.ImageView;
 
 
 import android.widget.ListAdapter;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -59,6 +56,12 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
     private static final String TAG_NAME = "name";
     private static final String TAG_EMAIL = "email";
     JSONArray user = null;
+
+
+
+
+
+
 
 
 
@@ -137,30 +140,15 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
             TextView label2=(TextView)row.findViewById(R.id.textView2);
             label2.setText(some_array[position].cosinhas);
 
-            TextView label3=(TextView)row.findViewById(R.id.textView3);
-            label3.setText(some_array[position].precoMedio);
-
-            TextView label4=(TextView)row.findViewById(R.id.distancia);
-            label4.setText("Distancia");
-
             ImageView icon=(ImageView)row.findViewById(R.id.capa);
-
-            RatingBar rating = (RatingBar)row.findViewById(R.id.ratingBar);
-
-            rating.setOnTouchListener(new View.OnTouchListener() {
-                public boolean onTouch(View v, MotionEvent event) {
-                    return true;
-                }
-            });
-            rating.setFocusable(false);
-
-            rating.setRating( Float.parseFloat(some_array[position].mediarating));
 
             //Customize your icon here
             //icon.setImageResource(R.drawable.sem_foto);
 
 
             imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImagem(), icon);
+
+
 
             return row;
         }
@@ -181,12 +169,11 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         mListView.setOnItemClickListener(this);
 
 
-        // we will using AsyncTask during parsing
+// we will using AsyncTask during parsing
         new AsyncTaskParseJson(this).execute();
 
 
 
-<<<<<<< HEAD
         return view;
     }
 
@@ -332,10 +319,19 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
 
                 Log.v("sdffgddvsdsv","objecto = "+ jsonObj);
-=======
->>>>>>> FETCH_HEAD
 
-        return view;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg)
+        {
+            delegate.asyncComplete(true);
+        }
     }
 
     public void onCreate(Bundle savedInstanceState) {
@@ -428,145 +424,4 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
         return false;
     }
-
-
-            // you can make this class as another java file so it will be separated from your main activity.
-            public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
-
-                final String TAG = "AsyncTaskParseJson.java";
-
-                private Inicio delegate;
-
-                // set your json string url here
-                //String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/json_search_cities.php";
-
-
-                // contacts JSONArray
-                JSONArray dataJsonArr = null;
-
-                public AsyncTaskParseJson (Inicio delegate){
-                    this.delegate = delegate;
-                }
-
-
-                @Override
-                protected void onPreExecute() {}
-
-                @Override
-                protected String doInBackground(String... arg0) {
-
-                    try {
-
-                        // instantiate our json parser
-                        JSONParser jParser = new JSONParser();
-
-                        // get json string from url
-                        // tenho de criar um jsonobject e adicionar la as cenas
-                        JSONObject dict = new JSONObject();
-
-
-                        dict.put("inicio","0");
-                        dict.put("not","pt");
-                        dict.put("lang","pt");
-                        dict.put("cidade_id","0");
-                        dict.put("lon","-8.30983");
-                        dict.put("ordem","relevancia");
-                        dict.put("user_id","0");
-                        dict.put("lat","41.3764");
-                        dict.put("face_id","0");
-
-
-
-                        JSONObject json = jParser.getJSONFromUrl("http://menuguru.pt/menuguru/webservices/data/versao5/json_pertomin_relevancia_noticiavideo.php",dict);
-                        //JSONObject json = jParser.getJSONFromUrl(" http://menuguru.pt/menuguru/webservices/data/json_search_cities.php",dict);
-
-
-                        // get the array of users
-
-                        dataJsonArr = json.getJSONArray("res");
-
-                        // loop through all users
-
-                        Log.v("sdffgddvsdsv","resultado do json = "+ json);
-
-
-                        some_array = new Restaurante[dataJsonArr.length()];
-                        for (int i = 0; i < dataJsonArr.length(); i++) {
-
-                            JSONObject c = dataJsonArr.getJSONObject(i);
-
-
-
-
-
-                            // Storing each json item in variable
-                            String firstname = c.getString("nome");
-
-                            // show the values in our logcat
-                            Log.v(TAG, "firstname: " + firstname
-                                    );
-
-
-                            Restaurante rest = new Restaurante();
-                            rest.setNome(firstname);
-
-                            rest.morada = c.getString("morada");
-
-                            //rest.cidade = c.getString("cidade");
-                            rest.urlImagem = c.getString("imagem");
-                            //rest.votacoes = c.getString("votacoes");
-                            //rest.morada = c.getString("morada");
-                            //rest.latitude = c.getString("lat");
-                            //rest.longitude = c.getString("lon");
-
-                            rest.tipo = c.getString("tipo");
-
-                            if (rest.tipo.equalsIgnoreCase("restaurante")) {
-                                rest.mediarating = c.getString("mediarating");
-                                rest.precoMedio = c.getString("precomedio");
-
-                                JSONArray cozinhas = c.getJSONArray("cozinhas");
-
-                                for (int z = 0; z < cozinhas.length(); z++) {
-                                    JSONObject cozinha = cozinhas.getJSONObject(z);
-                                    if (cozinhas.length() - 1 > z)
-                                        rest.cosinhas = rest.cosinhas + cozinha.getString("cozinhas_nome") + ", ";
-                                    else
-                                        rest.cosinhas = rest.cosinhas + "" + cozinha.getString("cozinhas_nome");
-                                }
-                                //rest.cosinhas = rest.cosinhas.substring(0, rest.cosinhas.length() - 1);
-                            }
-
-                            some_array[i] = rest;
-
-                        }
-
-                        //some_array = getResources().getStringArray(R.array.defenicoes_array);
-
-                        // TODO: Change Adapter to display your content
-                        mAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
-
-                        // Set OnItemClickListener so we can be notified on item clicks
-                        mListView.setOnItemClickListener(delegate);
-
-
-
-
-                        Log.v("sdffgddvsdsv","objecto = "+ json);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    return null;
-                }
-
-                @Override
-                protected void onPostExecute(String strFromDoInBg)
-                {
-                    delegate.asyncComplete(true);
-                }
-            }
-
-
 }
