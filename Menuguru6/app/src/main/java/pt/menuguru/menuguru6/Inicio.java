@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -27,6 +28,7 @@ import android.widget.ImageView;
 
 
 import android.widget.ListAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -140,15 +142,30 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
             TextView label2=(TextView)row.findViewById(R.id.textView2);
             label2.setText(some_array[position].cosinhas);
 
+            TextView label3=(TextView)row.findViewById(R.id.textView3);
+            label3.setText(some_array[position].precoMedio);
+
+            TextView label4=(TextView)row.findViewById(R.id.distancia);
+            label4.setText("Distancia");
+
             ImageView icon=(ImageView)row.findViewById(R.id.capa);
+
+            RatingBar rating = (RatingBar)row.findViewById(R.id.ratingBar);
+
+            rating.setOnTouchListener(new View.OnTouchListener() {
+                public boolean onTouch(View v, MotionEvent event) {
+                    return true;
+                }
+            });
+            rating.setFocusable(false);
+
+            rating.setRating( Float.parseFloat(some_array[position].mediarating));
 
             //Customize your icon here
             //icon.setImageResource(R.drawable.sem_foto);
 
 
             imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImagem(), icon);
-
-
 
             return row;
         }
@@ -286,22 +303,25 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                     //rest.longitude = c.getString("lon");
                     //rest.precoMedio = c.getString("precomedio");
 
-                    JSONArray cozinhas = c.getJSONArray("cozinhas");
+                    rest.tipo = c.getString("tipo");
 
-                    for (int z = 0; z < cozinhas.length(); z++)
-                    {
-                        JSONObject cozinha = cozinhas.getJSONObject(z);
-                        if (cozinhas.length()-1 > z)
-                            rest.cosinhas = rest.cosinhas + cozinha.getString("cozinhas_nome")+ ", ";
-                        else
-                            rest.cosinhas = rest.cosinhas + " " + cozinha.getString("cozinhas_nome");
+                    if (rest.tipo.equalsIgnoreCase("restaurante")) {
+                        rest.mediarating = c.getString("mediarating");
+                        rest.precoMedio = c.getString("precomedio");
+
+                        JSONArray cozinhas = c.getJSONArray("cozinhas");
+
+                        for (int z = 0; z < cozinhas.length(); z++) {
+                            JSONObject cozinha = cozinhas.getJSONObject(z);
+                            if (cozinhas.length() - 1 > z)
+                                rest.cosinhas = rest.cosinhas + cozinha.getString("cozinhas_nome") + ", ";
+                            else
+                                rest.cosinhas = rest.cosinhas + "" + cozinha.getString("cozinhas_nome");
+                        }
+                        //rest.cosinhas = rest.cosinhas.substring(0, rest.cosinhas.length() - 1);
                     }
-                    //rest.cosinhas = rest.cosinhas.substring(0, rest.cosinhas.length() - 1);
-
 
                     some_array[i] = rest;
-
-
 
                 }
 
@@ -381,10 +401,10 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_localizacao:
-                Intent myIntent = new Intent(getActivity(), Localizacao.class);
+                /*Intent myIntent = new Intent(getActivity(), Localizacao.class);
                 myIntent.putExtra("local", value); //Optional parameters
                 getActivity().startActivity(myIntent);
-                this.getActivity().finish();
+                this.getActivity().finish();*/
                 return false;
             case R.id.action_pesquisa:
 
