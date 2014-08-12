@@ -1,8 +1,6 @@
 
 Menuguru6/app/app.iml
 
-Menuguru6/app/src/main/res/drawable-hdpi/b_local.png
-
 Menuguru6/facebook/build/intermediates/bundles/debug/res/drawable/com_facebook_button_blue.xml
 
 Menuguru6/facebook/build/intermediates/bundles/debug/res/drawable/com_facebook_button_check.xml
@@ -72,6 +70,3 @@ Menuguru6/facebook/build/intermediates/bundles/debug/res/values/values.xml
 Menuguru6/facebook/build/intermediates/incremental/mergeAssets/debug/merger.xml
 
 Menuguru6/facebook/build/intermediates/incremental/packageResources/debug/merger.xml
-
-
-Menuguru6/app/src/main/AndroidManifest.xml

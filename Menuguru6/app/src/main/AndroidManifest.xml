@@ -5,10 +5,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-<<<<<<< HEAD
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-=======
->>>>>>> FETCH_HEAD
+
 
     <application
         android:allowBackup="true"
@@ -17,29 +16,35 @@
         android:theme="@style/Theme.MyAppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MinhaConta" />
+        <activity android:name=".MinhaConta"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Localizacao"
-            android:label="@string/title_activity_localizacao" >
+            android:label="@string/title_activity_localizacao"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".Pesquisa_avancada"
-            android:label="@string/title_activity_pesquisa_avancada" >
+            android:label="@string/title_activity_pesquisa_avancada"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".Inspiracao"
-            android:label="@string/title_activity_inspiracao" >
+            android:label="@string/title_activity_inspiracao"
+            android:screenOrientation="portrait">
         </activity>
 
         <activity
-            android:name=".ReadFileAssetsActivity" >
+            android:name=".ReadFileAssetsActivity"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
