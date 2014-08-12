@@ -31,7 +31,7 @@ public class JSONParser {
     static JSONObject jObjEnvio = new JSONObject();
     static String json = "";
 
-    public JSONObject getJSONFromUrl(String url, JSONObject dict) {
+    public String getJSONFromUrl(String url, JSONObject dict) {
 
         jObjEnvio = dict;
         // make HTTP request
@@ -72,14 +72,7 @@ public class JSONParser {
             Log.e(TAG, "Error converting result " + e.toString());
         }
 
-        // try parse the string to a JSON object
-        try {
-            jObj = new JSONObject(json);
-        } catch (JSONException e) {
-            Log.e(TAG, "Error parsing data " + e.toString());
-        }
-
         // return JSON String
-        return jObj;
+        return json;
     }
 }

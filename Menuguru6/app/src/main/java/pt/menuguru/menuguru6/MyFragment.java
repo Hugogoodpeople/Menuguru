@@ -3,20 +3,13 @@ package pt.menuguru.menuguru6;
 
 
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
-import android.widget.TabWidget;
-
-import java.util.ArrayList;
 
 public class MyFragment extends Fragment
 {
@@ -58,7 +51,7 @@ public class MyFragment extends Fragment
 
         // Here we load the content for each tab.
         mTabsAdapter.addTab(mTabHost.newTabSpec("Inicio").setIndicator("Sugestões"), Inicio.class, null);
-        mTabsAdapter.addTab(mTabHost.newTabSpec("Verde").setIndicator("Especias"), Verde.class, null);
+        mTabsAdapter.addTab(mTabHost.newTabSpec("Verde").setIndicator("Especias"), Especiais.class, null);
         mTabsAdapter.addTab(mTabHost.newTabSpec("Vermelha").setIndicator("Reservas"), Vermelha.class, null);
         //mTabsAdapter.addTab(mTabHost.newTabSpec("Branca").setIndicator("Branca"), Branca.class, null);
 

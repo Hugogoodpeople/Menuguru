@@ -1,31 +1,18 @@
 package pt.menuguru.menuguru6;
 
-import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.location.Location;
-import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-
-
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -38,36 +25,12 @@ import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Restaurante;
 
 
-
-public class Inicio extends Fragment implements AbsListView.OnItemClickListener {
+public class Especiais extends Fragment implements AbsListView.OnItemClickListener{
 
     String value;
 
     Restaurante[] some_array = null;
 
-    private MainActivity delegateInicio;
-    //private OnFragmentInteractionListener mListener;
-
-
-    private static String url = "http://10.0.2.2/JSON/";
-    //JSON Node Names
-    private static final String TAG_USER = "user";
-    private static final String TAG_ID = "id";
-    private static final String TAG_NAME = "name";
-    private static final String TAG_EMAIL = "email";
-    JSONArray user = null;
-
-
-
-
-
-    
-
-
-
-    /**
-     * The fragment's ListView/GridView.
-     */
     private AbsListView mListView;
 
     /**
@@ -76,39 +39,14 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
      */
     private static MyListAdapter mAdapter;
 
-
-
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }
 
-    public void asyncComplete(boolean success){
-
-       // mAdapter.notifyDataSetChanged();
-        mCallbacks.onButtonClicked();
-
-        //delegateInicio.asyncComplete(true);
-
-    }
-
-    private Callbacks mCallbacks;
 
 
-    public interface Callbacks {
-        //Callback for when button clicked.
-        public void onButtonClicked();
-    }
 
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        // Activities containing this fragment must implement its callbacks
-        mCallbacks = (Callbacks) activity;
-
-    }
 
 
 
@@ -132,7 +70,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
             //return super.getView(position, convertView, parent);
 
             LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View row=inflater.inflate(R.layout.fragment_inicio, parent, false);
+            View row=inflater.inflate(R.layout.fragment_especiais, parent, false);
             TextView label=(TextView)row.findViewById(R.id.textView);
             label.setText(some_array[position].nome);
 
@@ -154,11 +92,16 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         }
 
     }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_defenicoesteste, container, false);
 
         // Set the adapter
@@ -168,23 +111,18 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
 
-
-// we will using AsyncTask during parsing
-        new AsyncTaskParseJson(this).execute();
-
-
+       //
+       // new AsyncTaskParseJson(this).execute();
 
         return view;
     }
-
-
 
     // you can make this class as another java file so it will be separated from your main activity.
     public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
 
         final String TAG = "AsyncTaskParseJson.java";
 
-        private Inicio delegate;
+        private Especiais delegate;
 
         // set your json string url here
         //String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_especiais_todos.php";
@@ -193,7 +131,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         // contacts JSONArray
         JSONArray dataJsonArr = null;
 
-        public AsyncTaskParseJson (Inicio delegate){
+        public AsyncTaskParseJson (Especiais delegate){
             this.delegate = delegate;
         }
 
@@ -212,7 +150,6 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                 // get json string from url
                 // tenho de criar um jsonobject e adicionar la as cenas
                 JSONObject dict = new JSONObject();
-                JSONObject jsonObj = new JSONObject();
 
 
                 dict.put("inicio","0");
@@ -227,18 +164,11 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
 
 
-                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+               // String json = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
 
-                // try parse the string to a JSON object
-                try {
-                    Log.v("Ver Json ","Ele retorna isto"+jsonString);
-                    jsonObj = new JSONObject(jsonString);
-                } catch (JSONException e) {
-                    Log.e(TAG, "Error parsing data " + e.toString());
-                }
                 // get the array of users
 
-                dataJsonArr = jsonObj.getJSONArray("res");
+                //dataJsonArr = json.getJSONArray("res");
 
                 // loop through all users
 
@@ -270,7 +200,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
                     // show the values in our logcat
                     Log.v(TAG, "firstname: " + firstname
-                            );
+                    );
 
 
                     Restaurante rest = new Restaurante();
@@ -318,7 +248,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
 
 
-                Log.v("sdffgddvsdsv","objecto = "+ jsonObj);
+                //Log.v("sdffgddvsdsv","objecto = "+ json);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -330,98 +260,10 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         @Override
         protected void onPostExecute(String strFromDoInBg)
         {
-            delegate.asyncComplete(true);
+           // delegate.asyncComplete(true);
         }
     }
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-
-        getActivity().getActionBar().setCustomView(R.layout.tab_header);
-        getActivity().getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
-        getActivity().getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-        getActivity().getActionBar().setHomeButtonEnabled(true);
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-
-        TextView t =(TextView) getActivity().findViewById(R.id.mytext);
-        //ImageView imag = (ImageView) getActivity().findViewById(R.id.capa);
-        //imag.setImageResource(R.drawable.bck_refugio);
-        Intent intent = getActivity().getIntent();
-        value = intent.getStringExtra("local");
-        if(value == null || value.trim().equals("")){value="Perto de mim";}
-        t.setText(value);
-
-        /*
-        some_array = getResources().getStringArray(R.array.defenicoes_array);
-
-        // TODO: Change Adapter to display your content
-
-        MyListAdapter myListAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
-
-        MyListAdapter myListAdapter =
-                new MyListAdapter(getActivity(), R.layout.activity_my, some_array);
 
 
-        mAdapter =myListAdapter;
-
-    */
-
-
-    }
-
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_localizacao:
-                Intent myIntent = new Intent(getActivity(), Localizacao.class);
-                myIntent.putExtra("local", value); //Optional parameters
-                getActivity().startActivity(myIntent);
-                this.getActivity().finish();
-                return false;
-            case R.id.action_pesquisa:
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-
-                alertDialogBuilder
-                        .setItems(R.array.pesquisa, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                switch (which) {
-                                    case 0:
-                                        Intent myIntent = new Intent(getActivity(), Pesquisa_avancada.class);
-                                        startActivity(myIntent);
-                                        break;
-                                    case 1:
-                                        Intent myIntent2 = new Intent(getActivity(), Inspiracao.class);
-                                        startActivity(myIntent2);
-                                        break;
-                                    case 2:
-
-                                    default:
-                                        break;
-                                }
-                            }
-                        });
-
-                // create alert dialog
-                AlertDialog alertDialog = alertDialogBuilder.create();
-
-                // show it
-                alertDialog.show();
-                return true;
-
-
-            default:
-                break;
-        }
-
-        return false;
-    }
 }
