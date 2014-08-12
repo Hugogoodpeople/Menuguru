@@ -33,6 +33,10 @@
             android:name=".Inspiracao"
             android:label="@string/title_activity_inspiracao" >
         </activity>
+
+        <activity
+            android:name=".ReadFileAssetsActivity" >
+        </activity>
     </application>
 
 </manifest>
