@@ -1,6 +1,7 @@
 package pt.menuguru.menuguru6;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
@@ -32,13 +33,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
+import pt.menuguru.menuguru6.Utils.ImageLoader;
+import pt.menuguru.menuguru6.Utils.Restaurante;
+
 
 
 public class Inicio extends Fragment implements AbsListView.OnItemClickListener {
 
     String value;
 
-    String[] some_array = null;
+    Restaurante[] some_array = null;
 
     private MainActivity delegateInicio;
     //private OnFragmentInteractionListener mListener;
@@ -72,9 +76,26 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
     public void asyncComplete(boolean success){
 
        // mAdapter.notifyDataSetChanged();
-
+        mCallbacks.onButtonClicked();
 
         //delegateInicio.asyncComplete(true);
+
+    }
+
+    private Callbacks mCallbacks;
+
+
+    public interface Callbacks {
+        //Callback for when button clicked.
+        public void onButtonClicked();
+    }
+
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        // Activities containing this fragment must implement its callbacks
+        mCallbacks = (Callbacks) activity;
 
     }
 
@@ -83,13 +104,15 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
 
 
-    public class MyListAdapter extends ArrayAdapter<String> {
+    public class MyListAdapter extends ArrayAdapter<Restaurante> {
 
         Context myContext;
+        public ImageLoader imageLoader;
 
         public MyListAdapter(Context context, int textViewResourceId,
-                             String[] objects) {
+                             Restaurante[] objects) {
             super(context, textViewResourceId, objects);
+            imageLoader=new ImageLoader(getActivity().getApplicationContext());
             myContext = context;
         }
 
@@ -97,21 +120,29 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         public View getView(int position, View convertView, ViewGroup parent) {
             //return super.getView(position, convertView, parent);
 
-            LayoutInflater inflater =
-                    (LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View row=inflater.inflate(R.layout.fragment_inicio, parent, false);
-            TextView label=(TextView)row.findViewById(R.id.distancia);
-            label.setText(some_array[position]);
+            TextView label=(TextView)row.findViewById(R.id.textView);
+            label.setText(some_array[position].nome);
+
+
+            TextView label2=(TextView)row.findViewById(R.id.textView2);
+            label2.setText(some_array[position].cosinhas);
+
             ImageView icon=(ImageView)row.findViewById(R.id.capa);
 
             //Customize your icon here
-            icon.setImageResource(R.drawable.sem_foto);
+            //icon.setImageResource(R.drawable.sem_foto);
+
+
+            imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImagem(), icon);
+
+
 
             return row;
         }
 
     }
-
 
 
     @Override
@@ -145,7 +176,8 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         private Inicio delegate;
 
         // set your json string url here
-        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_especiais_todos.php";
+        //String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_especiais_todos.php";
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_pertomin_relevancia_noticiavideo.php";
 
         // contacts JSONArray
         JSONArray dataJsonArr = null;
@@ -167,7 +199,23 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                 JSONParser jParser = new JSONParser();
 
                 // get json string from url
-                JSONObject json = jParser.getJSONFromUrl(yourJsonStringUrl);
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+
+
+                dict.put("inicio","0");
+                dict.put("not","pt");
+                dict.put("lang","pt");
+                dict.put("cidade_id","0");
+                dict.put("lon","-8.30983");
+                dict.put("ordem","relevancia");
+                dict.put("user_id","0");
+                dict.put("lat","41.3764");
+                dict.put("face_id","0");
+
+
+
+                JSONObject json = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
 
                 // get the array of users
 
@@ -176,21 +224,64 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                 // loop through all users
 
 
-                some_array =  new String[dataJsonArr.length()];
+
+
+                some_array = new Restaurante[dataJsonArr.length()];
                 for (int i = 0; i < dataJsonArr.length(); i++) {
 
                     JSONObject c = dataJsonArr.getJSONObject(i);
 
-                    // Storing each json item in variable
-                    String firstname = c.getString("descricao");
+                    /*
+                    imagem = "/imagens_menuguru/restaurantes/pequena/custodio_a.jpg";
+                    lat = "41.3865250";
+                    lon = "-8.3102292";
+                    mediarating = "4.2";
+                    morada = "Rua Pena de Galo, 220 \n4815-516 Vizela";
+                    nome = "Casa de Pasto Cust\U00f3dio";
+                    pag = "";
+                    precomedio = "Almo\U00e7o At\U00e9 15\U20ac | Jantar At\U00e9 15\U20ac";
+                    telefone = "+351253587584";
+                    tipo = restaurante;
+                    votacoes = 5;
 
+                    * */
+
+                    // Storing each json item in variable
+                    String firstname = c.getString("nome");
 
                     // show the values in our logcat
                     Log.v(TAG, "firstname: " + firstname
                             );
 
 
-                    some_array[i] = firstname;
+                    Restaurante rest = new Restaurante();
+                    rest.setNome(firstname);
+
+                    rest.morada = c.getString("morada");
+                    //rest.mediarating = c.getString("mediarating");
+                    //rest.cidade = c.getString("cidade");
+                    rest.urlImagem = c.getString("imagem");
+                    //rest.votacoes = c.getString("votacoes");
+                    //rest.morada = c.getString("morada");
+                    //rest.latitude = c.getString("lat");
+                    //rest.longitude = c.getString("lon");
+                    //rest.precoMedio = c.getString("precomedio");
+
+                    JSONArray cozinhas = c.getJSONArray("cozinhas");
+
+                    for (int z = 0; z < cozinhas.length(); z++)
+                    {
+                        JSONObject cozinha = cozinhas.getJSONObject(z);
+                        if (cozinhas.length()-1 > z)
+                            rest.cosinhas = rest.cosinhas + cozinha.getString("cozinhas_nome")+ ", ";
+                        else
+                            rest.cosinhas = rest.cosinhas + " " + cozinha.getString("cozinhas_nome");
+                    }
+                    //rest.cosinhas = rest.cosinhas.substring(0, rest.cosinhas.length() - 1);
+
+
+                    some_array[i] = rest;
+
 
 
                 }
@@ -199,6 +290,13 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
                 // TODO: Change Adapter to display your content
                 mAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
+
+
+
+                // Set OnItemClickListener so we can be notified on item clicks
+                mListView.setOnItemClickListener(delegate);
+
+
 
 
                 Log.v("sdffgddvsdsv","objecto = "+ json);

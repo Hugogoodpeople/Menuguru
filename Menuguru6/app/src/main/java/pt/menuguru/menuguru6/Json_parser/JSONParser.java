@@ -31,21 +31,15 @@ public class JSONParser {
     static JSONObject jObjEnvio = new JSONObject();
     static String json = "";
 
-    public JSONObject getJSONFromUrl(String url) {
+    public JSONObject getJSONFromUrl(String url, JSONObject dict) {
 
+        jObjEnvio = dict;
         // make HTTP request
         try {
 
             DefaultHttpClient httpClient = new DefaultHttpClient();
             HttpPost httpPost = new HttpPost(url);
 
-
-            try {
-                jObjEnvio.put("city_id","0");
-                jObjEnvio.put("lang","pt");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
             StringEntity se = new StringEntity(jObjEnvio.toString());
 

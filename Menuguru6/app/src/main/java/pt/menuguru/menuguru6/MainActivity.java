@@ -21,9 +21,28 @@ import android.view.ViewGroup;
 
 
 
-public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks,Inicio.Callbacks {
 
 
+    // para o fragmento... nao gosto muito mas por enquanto é o que se arranja
+    Fragment framgmentoPrincipal;
+    private static boolean framgmentoPrincipalVisivel= false;
+
+    @Override
+    public void onButtonClicked() {
+
+        if (framgmentoPrincipalVisivel == false)
+        {
+           // android.support.v4.app.Fragment currentFragment = getSupportFragmentManager().findFragmentByTag("pagina_principal");
+            android.support.v4.app.FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
+            fragTransaction.detach(framgmentoPrincipal);
+            fragTransaction.attach(framgmentoPrincipal);
+            fragTransaction.commit();
+
+            framgmentoPrincipalVisivel = true;
+        }
+
+    }
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -70,48 +89,17 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        // update the activity_read_file content by replacing fragments
-        /*
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
-        */
 
-
-        //Fragment newFragment = get;
         android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
 
         android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        // tenho de meter aqui um switch case
+
 
         switch (position) {
             case 0: {
                 //transaction.replace(R.id.container, new Inicio());
                 Fragment tabbed = new MyFragment();
-
-
-
-                new Thread(){
-                    public void run(){
-                        try {
-                            sleep(1500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                        //Fragment newFragment = get;
-                        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
-
-                        android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-                        fragmentTransaction.replace(R.id.container, new MyFragment());
-
-// Commit the transaction
-                        fragmentTransaction.commit();
-                    }
-                }.start();
-
-
+                framgmentoPrincipal = tabbed;
 
                 fragmentTransaction.replace(R.id.container, tabbed);
                 break;
