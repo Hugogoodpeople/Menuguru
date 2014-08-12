@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pt.menuguru.menuguru6" >
-
-
-
-
-    <intent-filter>
-        <action android:name="android.intent.action.SEND" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <data android:mimeType="image/*" />
-    </intent-filter>
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+=======
+>>>>>>> FETCH_HEAD
 
     <application
         android:allowBackup="true"
@@ -31,9 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <activity android:name=".ReadFileAssetsActivity" />
         <activity android:name=".MinhaConta" />
         <activity
             android:name=".Localizacao"
@@ -47,7 +37,10 @@
             android:name=".Inspiracao"
             android:label="@string/title_activity_inspiracao" >
         </activity>
-    </application>
 
+        <activity
+            android:name=".ReadFileAssetsActivity" >
+        </activity>
+    </application>
 
 </manifest>
