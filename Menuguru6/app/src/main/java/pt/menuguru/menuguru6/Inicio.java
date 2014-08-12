@@ -3,6 +3,7 @@ package pt.menuguru.menuguru6;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.content.Context;
@@ -57,6 +58,13 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
     JSONArray user = null;
 
 
+
+
+
+    
+
+
+
     /**
      * The fragment's ListView/GridView.
      */
@@ -67,6 +75,9 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
      * Views.
      */
     private static MyListAdapter mAdapter;
+
+
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
