@@ -5,11 +5,11 @@ package pt.menuguru.menuguru6.Utils;
  */
 public class MenuEspecial {
 
+
+    public Restaurante restaurante;
     public String nome;
     public String db_id;
-    public String restaurante_id;
     public String urlImage;
-    public String nomeRestaurante;
     public String tipo;
     public String precoAntigo;
     public String precoNovo;
@@ -30,13 +30,6 @@ public class MenuEspecial {
         this.db_id = db_id;
     }
 
-    public String getRestaurante_id() {
-        return restaurante_id;
-    }
-
-    public void setRestaurante_id(String restaurante_id) {
-        this.restaurante_id = restaurante_id;
-    }
 
     public String getUrlImage() {
         return urlImage;
@@ -46,13 +39,6 @@ public class MenuEspecial {
         this.urlImage = urlImage;
     }
 
-    public String getNomeRestaurante() {
-        return nomeRestaurante;
-    }
-
-    public void setNomeRestaurante(String nomeRestaurante) {
-        this.nomeRestaurante = nomeRestaurante;
-    }
 
     public String getTipo() {
         return tipo;
@@ -78,4 +64,11 @@ public class MenuEspecial {
         this.precoNovo = precoNovo;
     }
 
+    public Restaurante getRestaurante() {
+        return restaurante;
+    }
+
+    public void setRestaurante(Restaurante restaurante) {
+        this.restaurante = restaurante;
+    }
 }

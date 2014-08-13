@@ -338,7 +338,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
 
 
-                Log.v("sdffgddvsdsv","objecto = "+ jsonObj);
+                Log.v("sdffgddvsdsv","objecto especial = "+ jsonObj);
 
             } catch (JSONException e) {
                 e.printStackTrace();

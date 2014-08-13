@@ -23,6 +23,7 @@ import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.MenuEspecial;
+import pt.menuguru.menuguru6.Utils.Restaurante;
 
 
 public class Especiais extends Fragment implements AbsListView.OnItemClickListener{
@@ -79,8 +80,11 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
             label.setText(some_array[position].nome);
 
 
-            TextView label2=(TextView)row.findViewById(R.id.nomeMenu);
-            label2.setText(some_array[position].nome);
+            TextView label2 = (TextView)row.findViewById(R.id.nomeMenu);
+
+
+
+            label2.setText(some_array[position].restaurante.getNome());
 
             ImageView icon=(ImageView)row.findViewById(R.id.capa);
 
@@ -201,34 +205,21 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
                     );
 
 
-                    MenuEspecial rest = new MenuEspecial();
-                    rest.setNome(firstname);
+                    MenuEspecial menu = new MenuEspecial();
+                    menu.setNome(firstname);
 
-                    //rest.morada = c.getString("morada");
-                    //rest.mediarating = c.getString("mediarating");
-                    //rest.cidade = c.getString("cidade");
-                    rest.urlImage = c.getString("imagem");
-                    //rest.votacoes = c.getString("votacoes");
-                    //rest.morada = c.getString("morada");
-                    //rest.latitude = c.getString("lat");
-                    //rest.longitude = c.getString("lon");
-                    //rest.precoMedio = c.getString("precomedio");
 
-                    /*
-                    JSONArray cozinhas = c.getJSONArray("cozinhas");
+                    menu.urlImage = c.getString("imagem");
 
-                    for (int z = 0; z < cozinhas.length(); z++)
-                    {
-                        JSONObject cozinha = cozinhas.getJSONObject(z);
-                        if (cozinhas.length()-1 > z)
-                            rest.cosinhas = rest.cosinhas + cozinha.getString("cozinhas_nome")+ ", ";
-                        else
-                            rest.cosinhas = rest.cosinhas + " " + cozinha.getString("cozinhas_nome");
-                    }
-                    //rest.cosinhas = rest.cosinhas.substring(0, rest.cosinhas.length() - 1);
 
-                    */
-                    some_array[i] = rest;
+                    Restaurante rest = new Restaurante();
+                    rest.setNome(c.getString("nome_rest"));
+
+                    menu.setRestaurante(rest);
+
+
+
+                    some_array[i] = menu;
 
 
 
