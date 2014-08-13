@@ -20,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
+import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.MenuEspecial;
 
@@ -162,7 +163,7 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
 
 
                 dict.put("lang","pt");
-                dict.put("cidade_id","0");
+                dict.put("cidade_id", Globals.getInstance().getCidedade_id());
 
 
 
