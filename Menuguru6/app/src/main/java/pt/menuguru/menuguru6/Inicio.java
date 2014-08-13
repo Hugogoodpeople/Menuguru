@@ -11,7 +11,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,7 +27,6 @@ import android.widget.ImageView;
 
 
 import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -105,12 +103,9 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         // Activities containing this fragment must implement its callbacks
-        mCallbacks = (Callbacks) activity;
+//        mCallbacks = (Callbacks) activity;
 
     }
-
-
-
 
 
 
@@ -137,13 +132,13 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
             if (some_array[position].tipo.equalsIgnoreCase("restaurante")) {
 
                 row=inflater.inflate(R.layout.fragment_inicio, parent, false);
-                TextView label2=(TextView)row.findViewById(R.id.textView2);
+                TextView label2=(TextView)row.findViewById(R.id.nomeMenu);
                 label2.setText(some_array[position].cosinhas);
 
-                TextView label3=(TextView)row.findViewById(R.id.textView3);
+                TextView label3=(TextView)row.findViewById(R.id.desconto);
                 label3.setText(some_array[position].precoMedio);
 
-                TextView label=(TextView)row.findViewById(R.id.textView);
+                TextView label=(TextView)row.findViewById(R.id.nomeRestaurante);
                 label.setText(some_array[position].nome);
 
                 ImageView icon=(ImageView)row.findViewById(R.id.capa);
@@ -252,7 +247,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                 dict.put("inicio","0");
                 dict.put("not","pt");
                 dict.put("lang","pt");
-                dict.put("cidade_id","0");
+                dict.put("cidade_id", Globals.getInstance().cidedade_id);
                 dict.put("lon", Globals.getInstance().getLongitude());
                 //dict.put("ordem","relevancia");
                 dict.put("ordem","distancia");
@@ -409,7 +404,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                 Intent myIntent = new Intent(getActivity(), Localizacao.class);
                 myIntent.putExtra("local", value); //Optional parameters
                 getActivity().startActivity(myIntent);
-                this.getActivity().finish();
+                //this.getActivity().finish();
                 return false;
             case R.id.action_pesquisa:
 

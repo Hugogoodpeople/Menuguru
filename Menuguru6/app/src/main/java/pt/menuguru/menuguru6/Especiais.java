@@ -1,6 +1,5 @@
 package pt.menuguru.menuguru6;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,14 +21,14 @@ import org.json.JSONObject;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
-import pt.menuguru.menuguru6.Utils.Restaurante;
+import pt.menuguru.menuguru6.Utils.MenuEspecial;
 
 
 public class Especiais extends Fragment implements AbsListView.OnItemClickListener{
 
     String value;
 
-    Restaurante[] some_array = null;
+    MenuEspecial[] some_array = null;
 
     private AbsListView mListView;
 
@@ -37,23 +36,33 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private static MyListAdapter mAdapter;
+    private static MyListAdapterEspeciais mAdapter;
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }
 
+    public void asyncComplete(boolean success){
+
+
+        // mCallbacks.onButtonClicked();
+
+        mAdapter = new MyListAdapterEspeciais(getActivity(), R.layout.row_defenicoes, some_array);
+        // Assign adapter to ListView
+        mListView.setAdapter(mAdapter);
+
+    }
 
 
 
-    public class MyListAdapter extends ArrayAdapter<Restaurante> {
+    public class MyListAdapterEspeciais extends ArrayAdapter<MenuEspecial> {
 
         Context myContext;
         public ImageLoader imageLoader;
 
-        public MyListAdapter(Context context, int textViewResourceId,
-                             Restaurante[] objects) {
+        public MyListAdapterEspeciais(Context context, int textViewResourceId,
+                                      MenuEspecial[] objects) {
             super(context, textViewResourceId, objects);
             imageLoader=new ImageLoader(getActivity().getApplicationContext());
             myContext = context;
@@ -65,12 +74,12 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
 
             LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View row=inflater.inflate(R.layout.fragment_especiais, parent, false);
-            TextView label=(TextView)row.findViewById(R.id.textView);
+            TextView label=(TextView)row.findViewById(R.id.nomeRestaurante);
             label.setText(some_array[position].nome);
 
 
-            TextView label2=(TextView)row.findViewById(R.id.textView2);
-            label2.setText(some_array[position].cosinhas);
+            TextView label2=(TextView)row.findViewById(R.id.nomeMenu);
+            label2.setText(some_array[position].nome);
 
             ImageView icon=(ImageView)row.findViewById(R.id.capa);
 
@@ -78,7 +87,7 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
             //icon.setImageResource(R.drawable.sem_foto);
 
 
-            imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImagem(), icon);
+            imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImage(), icon);
 
 
 
@@ -86,9 +95,13 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
         }
 
     }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        new AsyncTaskParseJson(this).execute();
 
     }
 
@@ -119,8 +132,8 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
         private Especiais delegate;
 
         // set your json string url here
-        //String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_especiais_todos.php";
-        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_pertomin_relevancia_noticiavideo.php";
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_especiais_todos.php";
+        //String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_pertomin_relevancia_noticiavideo.php";
 
         // contacts JSONArray
         JSONArray dataJsonArr = null;
@@ -144,72 +157,63 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
                 // get json string from url
                 // tenho de criar um jsonobject e adicionar la as cenas
                 JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
 
 
-                dict.put("inicio","0");
-                dict.put("not","pt");
+
                 dict.put("lang","pt");
                 dict.put("cidade_id","0");
-                dict.put("lon","-8.30983");
-                dict.put("ordem","relevancia");
-                dict.put("user_id","0");
-                dict.put("lat","41.3764");
-                dict.put("face_id","0");
 
 
 
-               // String json = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
 
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                // try parse the string to a JSON object
+                try {
+                    Log.v("Ver Json ","Ele retorna isto"+jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
                 // get the array of users
 
-                //dataJsonArr = json.getJSONArray("res");
+                dataJsonArr = jsonObj.getJSONArray("res");
 
                 // loop through all users
 
 
 
-
-                some_array = new Restaurante[dataJsonArr.length()];
+                some_array = new MenuEspecial[dataJsonArr.length()];
                 for (int i = 0; i < dataJsonArr.length(); i++) {
 
                     JSONObject c = dataJsonArr.getJSONObject(i);
 
-                    /*
-                    imagem = "/imagens_menuguru/restaurantes/pequena/custodio_a.jpg";
-                    lat = "41.3865250";
-                    lon = "-8.3102292";
-                    mediarating = "4.2";
-                    morada = "Rua Pena de Galo, 220 \n4815-516 Vizela";
-                    nome = "Casa de Pasto Cust\U00f3dio";
-                    pag = "";
-                    precomedio = "Almo\U00e7o At\U00e9 15\U20ac | Jantar At\U00e9 15\U20ac";
-                    telefone = "+351253587584";
-                    tipo = restaurante;
-                    votacoes = 5;
 
-                    * */
 
                     // Storing each json item in variable
                     String firstname = c.getString("nome");
 
                     // show the values in our logcat
-                    Log.v(TAG, "firstname: " + firstname
+                    Log.v(TAG, "Especial name: " + firstname
                     );
 
 
-                    Restaurante rest = new Restaurante();
+                    MenuEspecial rest = new MenuEspecial();
                     rest.setNome(firstname);
 
-                    rest.morada = c.getString("morada");
+                    //rest.morada = c.getString("morada");
                     //rest.mediarating = c.getString("mediarating");
                     //rest.cidade = c.getString("cidade");
-                    rest.urlImagem = c.getString("imagem");
+                    rest.urlImage = c.getString("imagem");
                     //rest.votacoes = c.getString("votacoes");
                     //rest.morada = c.getString("morada");
                     //rest.latitude = c.getString("lat");
                     //rest.longitude = c.getString("lon");
                     //rest.precoMedio = c.getString("precomedio");
 
+                    /*
                     JSONArray cozinhas = c.getJSONArray("cozinhas");
 
                     for (int z = 0; z < cozinhas.length(); z++)
@@ -222,7 +226,7 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
                     }
                     //rest.cosinhas = rest.cosinhas.substring(0, rest.cosinhas.length() - 1);
 
-
+                    */
                     some_array[i] = rest;
 
 
@@ -231,15 +235,16 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
 
                 //some_array = getResources().getStringArray(R.array.defenicoes_array);
 
+                /*
                 // TODO: Change Adapter to display your content
-                mAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
+                mAdapter = new MyListAdapterEspeciais(getActivity(), R.layout.row_defenicoes, some_array);
 
 
 
                 // Set OnItemClickListener so we can be notified on item clicks
                 mListView.setOnItemClickListener(delegate);
 
-
+                */
 
 
                 //Log.v("sdffgddvsdsv","objecto = "+ json);
@@ -254,7 +259,7 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
         @Override
         protected void onPostExecute(String strFromDoInBg)
         {
-           // delegate.asyncComplete(true);
+            delegate.asyncComplete(true);
         }
     }
 

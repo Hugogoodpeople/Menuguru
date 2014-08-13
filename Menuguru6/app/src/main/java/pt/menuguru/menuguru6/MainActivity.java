@@ -30,33 +30,24 @@ import android.widget.Toast;
 import pt.menuguru.menuguru6.Utils.Globals;
 
 
-public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks,
-        Inicio.Callbacks, LocationListener {
+public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, LocationListener {
 
 
     // para o fragmento... nao gosto muito mas por enquanto é o que se arranja
     Fragment framgmentoPrincipal;
-    private static boolean framgmentoPrincipalVisivel= false;
 
     private LocationManager locationManager;
     private String provider;
     public String latitude;
     public String longitude;
 
-    @Override
-    public void onButtonClicked() {
 
-        if (framgmentoPrincipalVisivel == false)
-        {
+    public void ReloadoTabs() {
            // android.support.v4.app.Fragment currentFragment = getSupportFragmentManager().findFragmentByTag("pagina_principal");
             android.support.v4.app.FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
             fragTransaction.detach(framgmentoPrincipal);
             fragTransaction.attach(framgmentoPrincipal);
             fragTransaction.commit();
-
-            framgmentoPrincipalVisivel = true;
-        }
-
     }
 
     /**
@@ -193,10 +184,11 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
         switch (position) {
             case 0: {
                 //transaction.replace(R.id.container, new Inicio());
-                Fragment tabbed = new MyFragment();
-                framgmentoPrincipal = tabbed;
-
-                fragmentTransaction.replace(R.id.container, tabbed);
+                if (framgmentoPrincipal == null) {
+                    Fragment tabbed = new MyFragment();
+                    framgmentoPrincipal = tabbed;
+                }
+                fragmentTransaction.replace(R.id.container, framgmentoPrincipal);
                 break;
             }
             case 1: {
