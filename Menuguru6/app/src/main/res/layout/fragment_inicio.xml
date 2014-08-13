@@ -21,12 +21,12 @@
         android:id="@+id/ratingBar"
         android:rating="5"
         android:stepSize="1"
-        style="@style/CustomRatingBar"
         android:numStars="5"
         android:layout_above="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="10dp"
+        style="@style/CustomRatingBar"/>
 
     <TextView
         android:layout_width="wrap_content"
