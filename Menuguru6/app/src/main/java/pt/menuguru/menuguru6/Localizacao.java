@@ -27,13 +27,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Locais;
-import pt.menuguru.menuguru6.Utils.Restaurante;
 
 
 public class Localizacao extends Activity {
@@ -43,11 +41,7 @@ public class Localizacao extends Activity {
 
     public String value;
 
-    public Locais[] some_array = null;
-
     SearchView inputSearch;
-
-    ArrayAdapter<Locais> adapter;
 
     private ProgressDialog progressDialog;
 
@@ -58,7 +52,6 @@ public class Localizacao extends Activity {
     public class MyListAdapter extends ArrayAdapter<Locais> {
 
         Context myContext;
-        public ImageLoader imageLoader;
 
         public MyListAdapter(Context context, int textViewResourceId,
                              Locais[] objects) {
@@ -199,27 +192,31 @@ public class Localizacao extends Activity {
 
                 Log.v("JsonObject","objecto = "+ jsonObj);
                 // loop through all users
-
+                Log.v("JsonObject","objecto = "+ jsonObj);
                 local = new Locais[dataJsonArr.length()];
-                some_array = new Locais[dataJsonArr.length()];
-
-
-                //local[0] = "Perto de mim";
+                                //local[0] = "Perto de mim";
+                //Locais localli = new Locais();
+                //localli.nome = "Perto de mim";
+                //localli.db_id = "0";
+                //local[0] = localli;
                 for (int i = 0; i < dataJsonArr.length(); i++) {
 
                     JSONObject c = dataJsonArr.getJSONObject(i);
                     Locais locall = new Locais();
+                    if(i==0){
+
+                    locall.nome = "Perto de mim";
+                    locall.db_id = "0";
+                    }else{
+                    //Locais locall = new Locais();
                     locall.nome = c.getString("nome");
                     locall.db_id = c.getString("id");
                     locall.longitude = c.getString("lon");
                     locall.latitude = c.getString("lat");
-
-
-                    //local = c.getString("nome");
+                    }
                     Log.v("Nome","objecto = "+ c.getString("nome"));
                     local[i] = locall;
                 }
-                Log.v("Nome","objecto = "+ some_array.toString());
 
             } catch (JSONException e) {
                 e.printStackTrace();

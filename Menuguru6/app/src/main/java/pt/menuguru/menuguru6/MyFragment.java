@@ -52,7 +52,7 @@ public class MyFragment extends Fragment
         // Here we load the content for each tab.
         mTabsAdapter.addTab(mTabHost.newTabSpec("Inicio").setIndicator("Sugestões"), Inicio.class, null);
         mTabsAdapter.addTab(mTabHost.newTabSpec("Verde").setIndicator("Especias"), Especiais.class, null);
-        mTabsAdapter.addTab(mTabHost.newTabSpec("Vermelha").setIndicator("Reservas"), Vermelha.class, null);
+        mTabsAdapter.addTab(mTabHost.newTabSpec("Vermelha").setIndicator("Reservas"), Procurar_mesa.class, null);
         //mTabsAdapter.addTab(mTabHost.newTabSpec("Branca").setIndicator("Branca"), Branca.class, null);
 
        // tenho de alguma maneira por o cenas a actualizar
