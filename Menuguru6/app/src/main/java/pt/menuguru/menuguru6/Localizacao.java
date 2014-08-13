@@ -30,6 +30,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
+import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Locais;
 import pt.menuguru.menuguru6.Utils.Restaurante;
@@ -52,6 +53,32 @@ public class Localizacao extends Activity {
 
 
     private static MyListAdapter mAdapter;
+
+
+    public class MyListAdapter extends ArrayAdapter<Locais> {
+
+        Context myContext;
+        public ImageLoader imageLoader;
+
+        public MyListAdapter(Context context, int textViewResourceId,
+                             Locais[] objects) {
+            super(context, textViewResourceId, objects);
+            myContext = context;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            //return super.getView(position, convertView, parent);
+
+            LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View row=inflater.inflate(R.layout.row_defenicoes, parent, false);
+            TextView label=(TextView)row.findViewById(R.id.month);
+            label.setText(local[position].nome);
+
+            return row;
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,12 +109,12 @@ public class Localizacao extends Activity {
         //mAdapter = new MyListAdapter(getApplicationContext(), R.layout.row_defenicoes, some_array);
 
         listView = (ListView) findViewById(R.id.listV_localizacao);
-        adapter = new ArrayAdapter<Locais>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, local);
+        //adapter = new ArrayAdapter<Locais>(this,android.R.layout.simple_list_item_1, android.R.id.text1, local);
 
         // Assign adapter to ListView
-        listView.setAdapter(adapter);
-
+        //listView.setAdapter(adapter);
+        mAdapter = new MyListAdapter(this, R.layout.row_defenicoes, local);
+        listView.setAdapter(mAdapter);
         // ListView Item Click Listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -101,13 +128,13 @@ public class Localizacao extends Activity {
                 // ListView Clicked item value
                 Locais itemValue = local[position];
                 Log.v("Clicou",itemValue.db_id);
-                //Globals.getInstance().setCidade_id( 12 );
+                Globals.getInstance().setCidedade_id(itemValue.db_id);
                 /*
                 Intent myIntent = new Intent(Localizacao.this, MainActivity.class);
                 myIntent.putExtra("local", itemValue); //Optional parameters
-                Localizacao.this.startActivity(myIntent);
+                Localizacao.this.startActivity(myIntent);*/
                 finish();
-                */
+
 
             }
 
@@ -174,6 +201,8 @@ public class Localizacao extends Activity {
 
                 local = new Locais[dataJsonArr.length()];
                 some_array = new Locais[dataJsonArr.length()];
+
+
                 //local[0] = "Perto de mim";
                 for (int i = 0; i < dataJsonArr.length(); i++) {
 
@@ -191,8 +220,6 @@ public class Localizacao extends Activity {
                 }
                 Log.v("Nome","objecto = "+ some_array.toString());
 
-
-                mAdapter = new MyListAdapter(getApplicationContext(), R.layout.row_defenicoes, local);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -206,30 +233,6 @@ public class Localizacao extends Activity {
     }
 
 
-    public class MyListAdapter extends ArrayAdapter<Locais> {
-
-        Context myContext;
-        public ImageLoader imageLoader;
-
-        public MyListAdapter(Context context, int textViewResourceId,
-                             Locais[] objects) {
-            super(context, textViewResourceId, objects);
-            myContext = context;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            //return super.getView(position, convertView, parent);
-
-            LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View row=inflater.inflate(R.layout.row_defenicoes, parent, false);
-            TextView label=(TextView)row.findViewById(R.id.month);
-            label.setText(local[position].nome);
-
-            return row;
-        }
-
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
