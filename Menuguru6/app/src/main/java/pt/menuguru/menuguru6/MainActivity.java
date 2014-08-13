@@ -6,6 +6,7 @@ import android.app.Activity;
 
 
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
@@ -18,12 +19,15 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import pt.menuguru.menuguru6.Utils.Globals;
 
 
 public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks,
@@ -36,8 +40,8 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
     private LocationManager locationManager;
     private String provider;
-    private String latitude;
-    private String longitude;
+    public String latitude;
+    public String longitude;
 
     @Override
     public void onButtonClicked() {
@@ -68,6 +72,11 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+
+
         setContentView(R.layout.activity_main);
 
 
@@ -89,8 +98,10 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
         Criteria criteria = new Criteria();
 
-        provider = locationManager.getBestProvider(criteria, false);
+        provider = locationManager.getBestProvider(criteria, true);
         Location location = locationManager.getLastKnownLocation(provider);
+
+        locationManager.requestLocationUpdates(provider, 0, 0, this);
 
         if (location != null) {
             System.out.println("Provider " + provider + " has been selected.");
@@ -100,41 +111,58 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
             latitude = "Location not available";
         }
 
+        Log.v("geolocsdfsdgf","A minha geolocalização lat= "+ latitude);
 // check if enabled and if not send user to the GSP settings
 // Better solution would be to display a dialog and suggesting to
 // go to the settings
         if (!enabled) {
-            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(intent);
+           // Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+           // startActivity(intent);
+            Context context = getApplicationContext();
+            CharSequence text = "Hello toast!";
+            int duration = Toast.LENGTH_LONG;
+
+            Toast toast = Toast.makeText(this, "Active a geolocalização", duration);
+            toast.show();
         }
+
+
     }
 
 
     @Override
     public void onLocationChanged(Location location) {
-        int lat = (int) (location.getLatitude());
-        int lng = (int) (location.getLongitude());
+        double lat = (location.getLatitude());
+        double lng = (location.getLongitude());
         longitude = String.valueOf(lng);
         latitude = String.valueOf(lat);
+        Log.v("geolocsdfsdgf","A minha geolocalização changed "+ latitude);
+        locationManager.removeUpdates(this);
+
+        Globals.getInstance().setLatitude(latitude);
+        Globals.getInstance().setLongitude(longitude);
+
+       // onButtonClicked();
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
         // TODO Auto-generated method stub
-
+        Log.v("geolocsdfsdgf","A minha geolocalização status "+ latitude);
     }
 
     @Override
     public void onProviderEnabled(String provider) {
         Toast.makeText(this, "Enabled new provider " + provider,
                 Toast.LENGTH_SHORT).show();
-
+        Log.v("geolocsdfsdgf","A minha geolocalização enable "+ latitude);
     }
 
     @Override
     public void onProviderDisabled(String provider) {
         Toast.makeText(this, "Disabled provider " + provider,
                 Toast.LENGTH_SHORT).show();
+        Log.v("geolocsdfsdgf","A minha geolocalização disable "+ latitude);
     }
 
     public void setActionBarTitle(String title) {

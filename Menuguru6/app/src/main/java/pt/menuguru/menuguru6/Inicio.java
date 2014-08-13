@@ -36,9 +36,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
+import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Restaurante;
-
+import pt.menuguru.menuguru6.Utils.Utils;
 
 
 public class Inicio extends Fragment implements AbsListView.OnItemClickListener {
@@ -145,8 +146,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
             TextView label3=(TextView)row.findViewById(R.id.textView3);
             label3.setText(some_array[position].precoMedio);
 
-            TextView label4=(TextView)row.findViewById(R.id.distancia);
-            label4.setText("Distancia");
+
 
             ImageView icon=(ImageView)row.findViewById(R.id.capa);
 
@@ -161,8 +161,21 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
             rating.setRating( Float.parseFloat(some_array[position].mediarating));
 
-            //Customize your icon here
-            //icon.setImageResource(R.drawable.sem_foto);
+
+            TextView label4 = (TextView) row.findViewById(R.id.distancia);
+            label4.setText("ND");
+
+            if (some_array[position].tipo.equalsIgnoreCase("restaurante")) {
+                Location locationRest = new Location("");
+                locationRest.setLatitude(Double.parseDouble(some_array[position].latitude));
+                locationRest.setLongitude(Double.parseDouble(some_array[position].longitude));
+
+                Location locationPhone = new Location("");
+                locationPhone.setLatitude(Double.parseDouble(Globals.getInstance().getLatitude()));
+                locationPhone.setLongitude(Double.parseDouble(Globals.getInstance().getLongitude()));
+
+                label4.setText(Utils.getDistance(locationPhone,locationRest));
+            }
 
 
             imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImagem(), icon);
@@ -236,10 +249,11 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                 dict.put("not","pt");
                 dict.put("lang","pt");
                 dict.put("cidade_id","0");
-                dict.put("lon","-8.30983");
-                dict.put("ordem","relevancia");
+                dict.put("lon", Globals.getInstance().getLongitude());
+                //dict.put("ordem","relevancia");
+                dict.put("ordem","distancia");
                 dict.put("user_id","0");
-                dict.put("lat","41.3764");
+                dict.put("lat",Globals.getInstance().getLatitude());
                 dict.put("face_id","0");
 
 
@@ -267,20 +281,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
                     JSONObject c = dataJsonArr.getJSONObject(i);
 
-                    /*
-                    imagem = "/imagens_menuguru/restaurantes/pequena/custodio_a.jpg";
-                    lat = "41.3865250";
-                    lon = "-8.3102292";
-                    mediarating = "4.2";
-                    morada = "Rua Pena de Galo, 220 \n4815-516 Vizela";
-                    nome = "Casa de Pasto Cust\U00f3dio";
-                    pag = "";
-                    precomedio = "Almo\U00e7o At\U00e9 15\U20ac | Jantar At\U00e9 15\U20ac";
-                    telefone = "+351253587584";
-                    tipo = restaurante;
-                    votacoes = 5;
 
-                    * */
 
                     // Storing each json item in variable
                     String firstname = c.getString("nome");
@@ -299,13 +300,13 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                     rest.urlImagem = c.getString("imagem");
                     //rest.votacoes = c.getString("votacoes");
                     //rest.morada = c.getString("morada");
-                    //rest.latitude = c.getString("lat");
-                    //rest.longitude = c.getString("lon");
                     //rest.precoMedio = c.getString("precomedio");
 
                     rest.tipo = c.getString("tipo");
 
                     if (rest.tipo.equalsIgnoreCase("restaurante")) {
+                        rest.latitude = c.getString("lat");
+                        rest.longitude = c.getString("lon");
                         rest.mediarating = c.getString("mediarating");
                         rest.precoMedio = c.getString("precomedio");
 

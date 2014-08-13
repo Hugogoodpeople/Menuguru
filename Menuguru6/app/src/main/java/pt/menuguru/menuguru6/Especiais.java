@@ -47,12 +47,6 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
 
 
 
-
-
-
-
-
-
     public class MyListAdapter extends ArrayAdapter<Restaurante> {
 
         Context myContext;
