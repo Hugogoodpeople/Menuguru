@@ -3,6 +3,7 @@ package pt.menuguru.menuguru6;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
@@ -71,7 +72,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
      */
     private static MyListAdapter mAdapter;
 
-
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -228,7 +229,16 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
 
         @Override
-        protected void onPreExecute() {}
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setCancelable(true);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -350,7 +360,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         @Override
         protected void onPostExecute(String strFromDoInBg)
         {
-            delegate.asyncComplete(true);
+            progressDialog.dismiss();delegate.asyncComplete(true);
         }
     }
 
@@ -404,7 +414,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                 Intent myIntent = new Intent(getActivity(), Localizacao.class);
                 myIntent.putExtra("local", value); //Optional parameters
                 getActivity().startActivity(myIntent);
-                //this.getActivity().finish();
+                this.getActivity().finish();
                 return false;
             case R.id.action_pesquisa:
 

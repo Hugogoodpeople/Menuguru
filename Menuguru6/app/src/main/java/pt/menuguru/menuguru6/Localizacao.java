@@ -129,10 +129,11 @@ public class Localizacao extends Activity {
                 Locais itemValue = local[position];
                 Log.v("Clicou",itemValue.db_id);
                 Globals.getInstance().setCidedade_id(itemValue.db_id);
-                /*
+
                 Intent myIntent = new Intent(Localizacao.this, MainActivity.class);
-                myIntent.putExtra("local", itemValue); //Optional parameters
-                Localizacao.this.startActivity(myIntent);*/
+                Localizacao.this.startActivity(myIntent);
+
+
                 finish();
 
 
