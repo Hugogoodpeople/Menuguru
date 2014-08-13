@@ -28,6 +28,7 @@ import android.widget.ImageView;
 
 
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -61,13 +62,6 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
     JSONArray user = null;
 
 
-
-
-
-
-
-
-
     /**
      * The fragment's ListView/GridView.
      */
@@ -89,10 +83,12 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
     public void asyncComplete(boolean success){
 
-       // mAdapter.notifyDataSetChanged();
-        mCallbacks.onButtonClicked();
 
-        //delegateInicio.asyncComplete(true);
+       // mCallbacks.onButtonClicked();
+
+        mAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
+        // Assign adapter to ListView
+        mListView.setAdapter(mAdapter);
 
     }
 
@@ -135,37 +131,39 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
             //return super.getView(position, convertView, parent);
 
             LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View row=inflater.inflate(R.layout.fragment_inicio, parent, false);
-            TextView label=(TextView)row.findViewById(R.id.textView);
-            label.setText(some_array[position].nome);
+            View row = null;
 
-
-            TextView label2=(TextView)row.findViewById(R.id.textView2);
-            label2.setText(some_array[position].cosinhas);
-
-            TextView label3=(TextView)row.findViewById(R.id.textView3);
-            label3.setText(some_array[position].precoMedio);
-
-
-
-            ImageView icon=(ImageView)row.findViewById(R.id.capa);
-
-            RatingBar rating = (RatingBar)row.findViewById(R.id.ratingBar);
-
-            rating.setOnTouchListener(new View.OnTouchListener() {
-                public boolean onTouch(View v, MotionEvent event) {
-                    return true;
-                }
-            });
-            rating.setFocusable(false);
-
-            rating.setRating( Float.parseFloat(some_array[position].mediarating));
-
-
-            TextView label4 = (TextView) row.findViewById(R.id.distancia);
-            label4.setText("ND");
 
             if (some_array[position].tipo.equalsIgnoreCase("restaurante")) {
+
+                row=inflater.inflate(R.layout.fragment_inicio, parent, false);
+                TextView label2=(TextView)row.findViewById(R.id.textView2);
+                label2.setText(some_array[position].cosinhas);
+
+                TextView label3=(TextView)row.findViewById(R.id.textView3);
+                label3.setText(some_array[position].precoMedio);
+
+                TextView label=(TextView)row.findViewById(R.id.textView);
+                label.setText(some_array[position].nome);
+
+                ImageView icon=(ImageView)row.findViewById(R.id.capa);
+
+                RatingBar rating = (RatingBar)row.findViewById(R.id.ratingBar);
+
+                rating.setOnTouchListener(new View.OnTouchListener() {
+                    public boolean onTouch(View v, MotionEvent event) {
+                        return true;
+                    }
+                });
+                rating.setFocusable(false);
+
+                rating.setRating( Float.parseFloat(some_array[position].mediarating));
+
+
+                TextView label4 = (TextView) row.findViewById(R.id.distancia);
+                label4.setText("ND");
+
+
                 Location locationRest = new Location("");
                 locationRest.setLatitude(Double.parseDouble(some_array[position].latitude));
                 locationRest.setLongitude(Double.parseDouble(some_array[position].longitude));
@@ -175,11 +173,17 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                 locationPhone.setLongitude(Double.parseDouble(Globals.getInstance().getLongitude()));
 
                 label4.setText(Utils.getDistance(locationPhone,locationRest));
+
+
+                imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImagem(), icon);
+
+            }else
+            {
+                row=inflater.inflate(R.layout.fragment_row_colecao, parent, false);
+                ImageView icon=(ImageView)row.findViewById(R.id.imagemColecao);
+                imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImagem(), icon);
+
             }
-
-
-            imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImagem(), icon);
-
             return row;
         }
 
