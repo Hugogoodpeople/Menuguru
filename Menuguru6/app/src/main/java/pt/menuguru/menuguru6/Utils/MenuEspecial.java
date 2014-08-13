@@ -13,6 +13,8 @@ public class MenuEspecial {
     public String tipo;
     public String precoAntigo;
     public String precoNovo;
+    public String desconto;
+    public String especialFita;
 
     public String getNome() {
         return nome;
@@ -68,7 +70,23 @@ public class MenuEspecial {
         return restaurante;
     }
 
+    public String getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(String desconto) {
+        this.desconto = desconto;
+    }
+
     public void setRestaurante(Restaurante restaurante) {
         this.restaurante = restaurante;
+    }
+
+    public String getEspecialFita() {
+        return especialFita;
+    }
+
+    public void setEspecialFita(String especialFita) {
+        this.especialFita = especialFita;
     }
 }

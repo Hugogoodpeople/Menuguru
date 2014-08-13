@@ -1,6 +1,8 @@
 package pt.menuguru.menuguru6;
 
 import android.content.Context;
+import android.graphics.Paint;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -77,22 +79,66 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
             LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View row=inflater.inflate(R.layout.fragment_especiais, parent, false);
             TextView label=(TextView)row.findViewById(R.id.nomeRestaurante);
-            label.setText(some_array[position].nome);
+            label.setText(some_array[position].restaurante.getNome());
 
 
             TextView label2 = (TextView)row.findViewById(R.id.nomeMenu);
+            label2.setText(some_array[position].getNome());
 
 
 
-            label2.setText(some_array[position].restaurante.getNome());
-
-            ImageView icon=(ImageView)row.findViewById(R.id.capa);
+            ImageView imagem=(ImageView)row.findViewById(R.id.capa);
+            ImageView icon = (ImageView)row.findViewById(R.id.imagemTipo);
 
             //Customize your icon here
             //icon.setImageResource(R.drawable.sem_foto);
 
+            if(some_array[position].tipo.equalsIgnoreCase("especial_doisprecos"))
+            {
+                icon.setImageResource(R.drawable.antes_depois);
+                TextView label3=(TextView)row.findViewById(R.id.precoAntigo);
+                label3.setPaintFlags(label3.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                label3.setText(some_array[position].precoAntigo+"€");
+                TextView label4=(TextView)row.findViewById(R.id.precoActual);
+                label4.setText(some_array[position].precoNovo+"€");
+                TextView label5=(TextView)row.findViewById(R.id.desconto);
 
-            imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImage(), icon);
+                Float  preco1 = Float.parseFloat( some_array[position].precoAntigo);
+                Float  preco2 =  Float.parseFloat( some_array[position].precoNovo);
+
+                Float percentagem = (((preco2 / preco1) * 100) - 100) * -1;
+
+
+                label5.setText("Desconto "+ String.format("%.0f", percentagem) + "%");
+
+            }
+            else if(some_array[position].tipo.equalsIgnoreCase("especial_desconto"))
+            {
+                icon.setImageResource(R.drawable.desc_fatura);
+
+                TextView label3=(TextView)row.findViewById(R.id.precoAntigo);
+                label3.setPaintFlags(label3.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                label3.setText("");
+                TextView label4=(TextView)row.findViewById(R.id.precoActual);
+                label4.setText(some_array[position].desconto+"%");
+
+                TextView label5=(TextView)row.findViewById(R.id.desconto);
+                label5.setText("Desconto em factura ");
+            }
+            else
+            {
+                icon.setImageResource(R.drawable.menu_esp);
+                TextView label5=(TextView)row.findViewById(R.id.desconto);
+                label5.setText(some_array[position].especialFita);
+                TextView label3=(TextView)row.findViewById(R.id.precoAntigo);
+                label3.setPaintFlags(label3.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                label3.setText("");
+                TextView label4=(TextView)row.findViewById(R.id.precoActual);
+                label4.setText(some_array[position].precoNovo+"€");
+            }
+
+
+            imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImage(), imagem);
 
 
 
@@ -196,7 +242,6 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
                     JSONObject c = dataJsonArr.getJSONObject(i);
 
 
-
                     // Storing each json item in variable
                     String firstname = c.getString("nome");
 
@@ -209,6 +254,13 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
                     menu.setNome(firstname);
 
 
+                    menu.setPrecoAntigo(c.getString("precoespant").replace(',','.'));
+                    menu.setPrecoNovo(c.getString("precoesp").replace(',','.'));
+                    menu.setTipo(c.getString("tipoespecial"));
+                    menu.setDb_id(c.getString("id"));
+                    menu.setDesconto(c.getString("desconto"));
+                    menu.setEspecialFita(c.getString("especial_um_fita"));
+
                     menu.urlImage = c.getString("imagem");
 
 
@@ -217,26 +269,9 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
 
                     menu.setRestaurante(rest);
 
-
-
                     some_array[i] = menu;
-
-
-
                 }
 
-                //some_array = getResources().getStringArray(R.array.defenicoes_array);
-
-                /*
-                // TODO: Change Adapter to display your content
-                mAdapter = new MyListAdapterEspeciais(getActivity(), R.layout.row_defenicoes, some_array);
-
-
-
-                // Set OnItemClickListener so we can be notified on item clicks
-                mListView.setOnItemClickListener(delegate);
-
-                */
 
 
                 //Log.v("sdffgddvsdsv","objecto = "+ json);
