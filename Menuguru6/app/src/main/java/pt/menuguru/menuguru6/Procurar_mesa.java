@@ -1,14 +1,22 @@
 package pt.menuguru.menuguru6;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,10 +33,23 @@ public class Procurar_mesa extends Fragment {
     private ProgressDialog progressDialog;
 
     public ImageLoader imageLoader;
-
+    String imagem = "";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
+        Button bt_data = (Button) getActivity().findViewById(R.id.bt_cal);
+        Button bt_hora = (Button) getActivity().findViewById(R.id.bt_hora);
+        Button bt_agora = (Button) getActivity().findViewById(R.id.bt_agora);
+        Button bt_mais = (Button) getActivity().findViewById(R.id.bt_mais);
+        Button bt_menos = (Button) getActivity().findViewById(R.id.bt_menos);
+        Button bt_sem_data = (Button) getActivity().findViewById(R.id.bt_sem_data);
+        Button bt_procurar = (Button) getActivity().findViewById(R.id.bt_procurar);
+
+
+
+
 
     }
 
@@ -38,6 +59,7 @@ public class Procurar_mesa extends Fragment {
 
         new AsyncTaskParseJson(this).execute();
         // Inflate the layout for this fragment
+        imageLoader=new ImageLoader(getActivity().getApplicationContext());
         return inflater.inflate(R.layout.fragment_procurar_mesa, container, false);
     }
 
@@ -57,7 +79,7 @@ public class Procurar_mesa extends Fragment {
         String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_pubfiltros.php";
 
         // contacts JSONArray
-        JSONArray dataJsonArr = null;
+        JSONObject dataJsonArr = null;
 
         public AsyncTaskParseJson (Procurar_mesa delegate){
             this.delegate = delegate;
@@ -66,13 +88,6 @@ public class Procurar_mesa extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setCancelable(true);
-            progressDialog.setMessage("Loading...");
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setProgress(0);
-            progressDialog.show();
 
         }
 
@@ -104,22 +119,21 @@ public class Procurar_mesa extends Fragment {
                 }
                 // get the array of users
 
-                dataJsonArr = jsonObj.getJSONArray("res");
+                dataJsonArr = jsonObj.getJSONObject("res");
 
-                JSONObject c = dataJsonArr.getJSONObject(0);
-                String imagem = c.getString("imagem");
 
-                // loop through all users
-                ImageView icon=(ImageView) getActivity().findViewById(R.id.imageView);
+                imagem = dataJsonArr.getString("imagem");
+
+
 
                 //Customize your icon here
                 //icon.setImageResource(R.drawable.sem_foto);
 
-
-                imageLoader.DisplayImage("http://menuguru.pt/"+imagem, icon);
-
-
                 Log.v("IMAGEM","objecto especial = "+ imagem);
+
+
+
+               // Log.v("IMAGEM","objecto especial = "+ imagem);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -131,12 +145,35 @@ public class Procurar_mesa extends Fragment {
         @Override
         protected void onPostExecute(String strFromDoInBg)
         {
-            progressDialog.dismiss();delegate.asyncComplete(true);
+           delegate.asyncComplete(true);
         }
     }
     public void asyncComplete(boolean success){
+        // loop through all users
+        ImageView icon=(ImageView) getActivity().findViewById(R.id.imageView);
+        imageLoader.DisplayImage("http://menuguru.pt"+imagem, icon);
 
+    }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_localizacao, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_localizacao:
+                Intent myIntent = new Intent(getActivity(), Localizacao.class);
+                getActivity().startActivity(myIntent);
+                this.getActivity().finish();
+                return false;
+
+            default:
+                break;
+        }
+
+        return false;
     }
 }
