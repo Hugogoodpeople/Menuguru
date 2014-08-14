@@ -324,10 +324,8 @@ public class Resultado_inspiracao extends Activity implements AdapterView.OnItem
 
                 rating.setRating( Float.parseFloat(some_array[position].mediarating));
 
-
                 TextView label4 = (TextView) row.findViewById(R.id.distancia);
                 label4.setText("ND");
-
 
                 Location locationRest = new Location("");
                 locationRest.setLatitude(Double.parseDouble(some_array[position].latitude));
@@ -338,7 +336,6 @@ public class Resultado_inspiracao extends Activity implements AdapterView.OnItem
                 locationPhone.setLongitude(Double.parseDouble(Globals.getInstance().getLongitude()));
 
                 label4.setText(Utils.getDistance(locationPhone, locationRest));
-
 
                 imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImagem(), icon);
 
