@@ -1,25 +1,17 @@
-package pt.menuguru.menuguru6;
+package pt.menuguru.menuguru6.Inspiracoes;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,12 +22,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
-import pt.menuguru.menuguru6.Utils.ExpandableListAdapter;
-import pt.menuguru.menuguru6.Utils.Globals;
-import pt.menuguru.menuguru6.Utils.ImageLoader;
+import pt.menuguru.menuguru6.R;
 import pt.menuguru.menuguru6.Utils.Inspiracao;
 import pt.menuguru.menuguru6.Utils.InspiracaoItem;
 
@@ -90,6 +79,11 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
 
         InspiracaoItem childText = (InspiracaoItem) listAdapter.getChild(groupPosition, childPosition);
         Log.v("child selected",  childText.getNome());
+
+        Intent intent = new Intent(this, Resultado_inspiracao.class);
+        intent.putExtra("id_item",childText.getDb_id());
+        startActivity(intent);
+
         return false;
     }
 

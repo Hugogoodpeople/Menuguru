@@ -1,5 +1,7 @@
 package pt.menuguru.menuguru6.Utils;
 
+import pt.menuguru.menuguru6.Utils.InspiracaoItem;
+
 /**
  * Created by hugocosta on 14/08/14.
  */

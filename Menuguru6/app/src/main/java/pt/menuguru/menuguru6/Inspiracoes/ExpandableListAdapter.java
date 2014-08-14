@@ -1,4 +1,4 @@
-package pt.menuguru.menuguru6.Utils;
+package pt.menuguru.menuguru6.Inspiracoes;
 
 /**
  * Created by hugocosta on 14/08/14.
@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import pt.menuguru.menuguru6.R;
+import pt.menuguru.menuguru6.Utils.ImageLoader;
+import pt.menuguru.menuguru6.Utils.Inspiracao;
+import pt.menuguru.menuguru6.Utils.InspiracaoItem;
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 

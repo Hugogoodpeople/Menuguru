@@ -33,12 +33,16 @@
             android:label="@string/title_activity_pesquisa_avancada" android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".Activity_Inspiracao"
+            android:name=".Inspiracoes.Activity_Inspiracao"
             android:label="@string/title_activity_inspiracao"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ReadFileAssetsActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="pt.menuguru.menuguru6.Inspiracoes.Resultado_inspiracao"
             android:screenOrientation="portrait">
         </activity>
 
