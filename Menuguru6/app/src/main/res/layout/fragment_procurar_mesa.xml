@@ -30,7 +30,7 @@
     <Button
         android:layout_width="125dp"
         android:layout_height="100dp"
-        android:id="@+id/button"
+        android:id="@+id/button_dias"
         android:background="@drawable/border_button"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/nomeRestaurante"
@@ -42,8 +42,8 @@
         android:layout_height="100dp"
         android:id="@+id/button2"
         android:background="@drawable/border_button"
-        android:layout_toEndOf="@+id/button"
-        android:layout_alignTop="@+id/button"
+        android:layout_toEndOf="@+id/button_dias"
+        android:layout_alignTop="@+id/button_dias"
         android:layout_alignRight="@+id/nomeRestaurante"
         android:layout_alignEnd="@+id/nomeRestaurante" />
 
@@ -52,9 +52,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/button3"
         android:background="@drawable/border_button"
-        android:layout_below="@+id/button"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button"
+        android:layout_below="@+id/button_dias"
+        android:layout_alignLeft="@+id/button_dias"
+        android:layout_alignStart="@+id/button_dias"
         android:layout_alignRight="@+id/nomeRestaurante"
         android:layout_alignEnd="@+id/nomeRestaurante"
         android:text="Agora" />

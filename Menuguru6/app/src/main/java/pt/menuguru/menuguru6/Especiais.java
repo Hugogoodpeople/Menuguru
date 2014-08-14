@@ -108,7 +108,6 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
 
                 Float percentagem = (((preco2 / preco1) * 100) - 100) * -1;
 
-
                 label5.setText("Desconto "+ String.format("%.0f", percentagem) + "%");
 
             }
@@ -137,10 +136,7 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
                 label4.setText(some_array[position].precoNovo+"€");
             }
 
-
             imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImage(), imagem);
-
-
 
             return row;
         }

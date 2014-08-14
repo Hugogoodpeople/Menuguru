@@ -429,7 +429,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                                         startActivity(myIntent);
                                         break;
                                     case 1:
-                                        Intent myIntent2 = new Intent(getActivity(), Inspiracao.class);
+                                        Intent myIntent2 = new Intent(getActivity(), Activity_Inspiracao.class);
                                         startActivity(myIntent2);
                                         break;
                                     case 2:

@@ -33,7 +33,7 @@
             android:label="@string/title_activity_pesquisa_avancada" android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".Inspiracao"
+            android:name=".Activity_Inspiracao"
             android:label="@string/title_activity_inspiracao"
             android:screenOrientation="portrait">
         </activity>
