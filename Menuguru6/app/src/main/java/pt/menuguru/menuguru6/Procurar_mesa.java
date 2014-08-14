@@ -25,7 +25,7 @@ public class Procurar_mesa extends Fragment {
     private ProgressDialog progressDialog;
 
     public ImageLoader imageLoader;
-
+    String imagem = "";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +38,7 @@ public class Procurar_mesa extends Fragment {
 
         new AsyncTaskParseJson(this).execute();
         // Inflate the layout for this fragment
+        imageLoader=new ImageLoader(getActivity().getApplicationContext());
         return inflater.inflate(R.layout.fragment_procurar_mesa, container, false);
     }
 
@@ -57,7 +58,7 @@ public class Procurar_mesa extends Fragment {
         String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_pubfiltros.php";
 
         // contacts JSONArray
-        JSONArray dataJsonArr = null;
+        JSONObject dataJsonArr = null;
 
         public AsyncTaskParseJson (Procurar_mesa delegate){
             this.delegate = delegate;
@@ -66,13 +67,6 @@ public class Procurar_mesa extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setCancelable(true);
-            progressDialog.setMessage("Loading...");
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setProgress(0);
-            progressDialog.show();
 
         }
 
@@ -104,22 +98,21 @@ public class Procurar_mesa extends Fragment {
                 }
                 // get the array of users
 
-                dataJsonArr = jsonObj.getJSONArray("res");
+                dataJsonArr = jsonObj.getJSONObject("res");
 
-                JSONObject c = dataJsonArr.getJSONObject(0);
-                String imagem = c.getString("imagem");
 
-                // loop through all users
-                ImageView icon=(ImageView) getActivity().findViewById(R.id.imageView);
+                imagem = dataJsonArr.getString("imagem");
+
+
 
                 //Customize your icon here
                 //icon.setImageResource(R.drawable.sem_foto);
 
-
-                imageLoader.DisplayImage("http://menuguru.pt/"+imagem, icon);
-
-
                 Log.v("IMAGEM","objecto especial = "+ imagem);
+
+
+
+               // Log.v("IMAGEM","objecto especial = "+ imagem);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -131,12 +124,13 @@ public class Procurar_mesa extends Fragment {
         @Override
         protected void onPostExecute(String strFromDoInBg)
         {
-            progressDialog.dismiss();delegate.asyncComplete(true);
+           delegate.asyncComplete(true);
         }
     }
     public void asyncComplete(boolean success){
-
-
+        // loop through all users
+        ImageView icon=(ImageView) getActivity().findViewById(R.id.imageView);
+        imageLoader.DisplayImage("http://menuguru.pt"+imagem, icon);
 
     }
 }

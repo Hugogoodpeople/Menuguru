@@ -15,7 +15,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:layout_width="250dp"
@@ -25,7 +26,9 @@
         android:id="@+id/nomeRestaurante"
         android:layout_marginTop="20dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+        android:textAlignment="center" />
 
     <Button
         android:layout_width="125dp"
@@ -57,7 +60,9 @@
         android:layout_alignStart="@+id/button"
         android:layout_alignRight="@+id/nomeRestaurante"
         android:layout_alignEnd="@+id/nomeRestaurante"
-        android:text="Agora" />
+        android:text="Agora"
+        android:textColor="@color/white"
+        android:textAlignment="center" />
 
     <RelativeLayout
         android:orientation="vertical"
@@ -121,7 +126,8 @@
             android:layout_marginTop="20dp"
             android:layout_below="@+id/button5"
             android:layout_centerHorizontal="true"
-            android:background="@android:color/transparent"/>
+            android:background="@android:color/transparent"
+            android:textColor="@color/white" />
 
         <Button
             android:layout_width="wrap_content"
