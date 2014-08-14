@@ -4,22 +4,16 @@ import android.app.ActionBar;
 import android.app.Activity;
 
 
-
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -197,7 +191,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
             }
             case 2:
             {
-                fragmentTransaction.replace(R.id.container,new DefenicoesTesteFragment());
+                fragmentTransaction.replace(R.id.container,new Defenicoes());
                 break;
             }
             case 3: {

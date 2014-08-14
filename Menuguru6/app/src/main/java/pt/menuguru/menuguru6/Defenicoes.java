@@ -22,7 +22,7 @@ import java.io.InputStream;
 import java.net.URL;
 
 
-public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class Defenicoes extends Fragment implements AbsListView.OnItemClickListener {
 
     public class MyListAdapter extends ArrayAdapter<String> {
 
@@ -94,8 +94,8 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
     private ListAdapter mAdapter;
 
     // TODO: Rename and change types of parameters
-    public static DefenicoesTesteFragment newInstance(String param1, String param2) {
-        DefenicoesTesteFragment fragment = new DefenicoesTesteFragment();
+    public static Defenicoes newInstance(String param1, String param2) {
+        Defenicoes fragment = new Defenicoes();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -107,7 +107,7 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public DefenicoesTesteFragment() {
+    public Defenicoes() {
     }
 
     @Override
