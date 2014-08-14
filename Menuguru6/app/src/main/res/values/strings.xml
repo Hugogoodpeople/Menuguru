@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Menuguru6</string>
+    <string name="app_name">Menuguru</string>
     <string name="inicio">Inicio</string>
     <string name="reservas">Reservas</string>
     <string name="definicao">Definicoes</string>
