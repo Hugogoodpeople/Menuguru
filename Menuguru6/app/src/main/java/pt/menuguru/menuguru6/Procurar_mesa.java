@@ -39,6 +39,7 @@ public class Procurar_mesa extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
+        /*
         Button bt_data = (Button) getActivity().findViewById(R.id.bt_cal);
         Button bt_hora = (Button) getActivity().findViewById(R.id.bt_hora);
         Button bt_agora = (Button) getActivity().findViewById(R.id.bt_agora);
@@ -46,7 +47,7 @@ public class Procurar_mesa extends Fragment {
         Button bt_menos = (Button) getActivity().findViewById(R.id.bt_menos);
         Button bt_sem_data = (Button) getActivity().findViewById(R.id.bt_sem_data);
         Button bt_procurar = (Button) getActivity().findViewById(R.id.bt_procurar);
-
+        */
 
 
 

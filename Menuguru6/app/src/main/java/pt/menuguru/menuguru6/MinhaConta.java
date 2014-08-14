@@ -29,7 +29,7 @@ public class MinhaConta extends Activity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-
+                this.overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
                 return false;
             default:
                 break;

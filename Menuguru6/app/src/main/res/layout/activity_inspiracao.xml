@@ -23,6 +23,6 @@
         android:layout_alignRight="@+id/nomeRestaurante"
         android:layout_alignEnd="@+id/nomeRestaurante"
         android:layout_below="@+id/nomeRestaurante"
-        android:src="@drawable/logo_300x60" />
+        />
 
 </RelativeLayout>

@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -23,18 +25,29 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
+import pt.menuguru.menuguru6.Utils.ExpandableListAdapter;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Inspiracao;
+import pt.menuguru.menuguru6.Utils.InspiracaoItem;
 
-public class Activity_Inspiracao extends Activity implements AdapterView.OnItemClickListener {
+public class Activity_Inspiracao extends Activity implements ExpandableListView.OnChildClickListener {
 
-    Inspiracao[] some_array = null;
+    ExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    List<Inspiracao> listDataHeader;
+    HashMap<Inspiracao, List<InspiracaoItem>> listDataChild;
 
-    private static MyListAdapterInspiracoes mAdapter;
 
-    private AbsListView mListView;
+    public Inspiracao[] some_array;
 
 
     @Override
@@ -46,27 +59,51 @@ public class Activity_Inspiracao extends Activity implements AdapterView.OnItemC
         getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 
 
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE"/*, Locale.FRANCE */);
+        Date d = new Date();
+        String dayOfTheWeek = sdf.format(d);
+
+        Button p1_button = (Button)findViewById(R.id.button_dias);
+        p1_button.setText(dayOfTheWeek);
 
 
-        // Set the adapter
-        mListView = (AbsListView) findViewById(R.id.lista_inspiracoes);
-        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+// get the listview
+        expListView = (ExpandableListView) findViewById(R.id.lista_inspiracoes);
 
-        // Set OnItemClickListener so we can be notified on item clicks
-        mListView.setOnItemClickListener(this);
+
+
+        expListView.setOnChildClickListener( this);
+        // preparing list data
+        //prepareListData();
+
+
 
 
         new AsyncTaskParseJson(this).execute();
     }
 
+
+
+
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+
+        InspiracaoItem childText = (InspiracaoItem) listAdapter.getChild(groupPosition, childPosition);
+        Log.v("child selected",  childText.getNome());
+        return false;
+    }
+
+
+    /*
+     * Preparing the list data
+     */
+
+
     public void asyncComplete(boolean success){
+        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
 
-
-        // mCallbacks.onButtonClicked();
-
-        mAdapter = new MyListAdapterInspiracoes(this, R.layout.row_defenicoes, some_array);
-        // Assign adapter to ListView
-        mListView.setAdapter(mAdapter);
+        // setting list adapter
+        expListView.setAdapter(listAdapter);
 
     }
 
@@ -96,43 +133,6 @@ public class Activity_Inspiracao extends Activity implements AdapterView.OnItemC
         return false;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-    }
-
-
-    public class MyListAdapterInspiracoes extends ArrayAdapter<Inspiracao> {
-
-
-        Context myContext;
-        public ImageLoader imageLoader;
-
-        public MyListAdapterInspiracoes(Context context, int textViewResourceId,
-                                      Inspiracao[] objects) {
-            super(context, textViewResourceId, objects);
-            imageLoader=new ImageLoader(getApplicationContext());
-            myContext = context;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            //return super.getView(position, convertView, parent);
-
-            LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View row=inflater.inflate(R.layout.row_inspiracao, parent, false);
-
-            TextView label4=(TextView)row.findViewById(R.id.nomeInspiracao);
-            label4.setText(some_array[position].getNome());
-
-
-            ImageView imagem=(ImageView)row.findViewById(R.id.imagem_inspiracao);
-
-            imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImagem(), imagem);
-
-            return row;
-        }
-    }
 
 
     // you can make this class as another java file so it will be separated from your main activity.
@@ -192,8 +192,9 @@ public class Activity_Inspiracao extends Activity implements AdapterView.OnItemC
                 // loop through all users
 
 
+                listDataHeader = new ArrayList<Inspiracao>();
+                listDataChild = new HashMap<Inspiracao, List<InspiracaoItem>>();
 
-                some_array = new Inspiracao[dataJsonArr.length()];
                 for (int i = 0; i < dataJsonArr.length(); i++) {
 
                     JSONObject c = dataJsonArr.getJSONObject(i);
@@ -211,7 +212,33 @@ public class Activity_Inspiracao extends Activity implements AdapterView.OnItemC
                     inspira.setNome(firstname);
                     inspira.setUrlImagem(c.getString("imagem"));
 
-                    some_array[i] = inspira;
+                    // Adding child data
+                    listDataHeader.add(inspira);
+
+
+                    // Adding child data
+                    List<InspiracaoItem> top250 = new ArrayList<InspiracaoItem>();
+
+
+
+                    // tenho de fazer um ciclo
+
+                    JSONArray items = c.getJSONArray("subtitulos");
+
+                    for (int z = 0; z < items.length(); z++)
+                    {
+                        JSONObject item = items.getJSONObject(z);
+
+                        InspiracaoItem ii = new InspiracaoItem();
+                        ii.setNome(item.getString("subtitulo"));
+                        ii.setDb_id(item.getString("subtituloid"));
+
+
+                        top250.add(ii);
+
+                    }
+
+                    listDataChild.put(listDataHeader.get(i), top250); // Header, Child data
                 }
 
 
