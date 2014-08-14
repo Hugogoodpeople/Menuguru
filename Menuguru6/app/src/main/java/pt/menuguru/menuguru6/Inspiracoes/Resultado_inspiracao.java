@@ -349,10 +349,7 @@ public class Resultado_inspiracao extends Activity implements AdapterView.OnItem
                 imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImagem(), icon);
 
             }
-
-            convertView = row;
-
-            return convertView;
+            return row;
         }
 
     }
