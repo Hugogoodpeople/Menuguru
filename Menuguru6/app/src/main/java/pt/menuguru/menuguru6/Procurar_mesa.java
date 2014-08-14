@@ -95,10 +95,9 @@ public class Procurar_mesa extends Fragment {
 
 
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
-
+                Log.v("Ver Json ", "Ele retorna isto" + jsonString);
                 // try parse the string to a JSON object
                 try {
-                    Log.v("Ver Json ", "Ele retorna isto" + jsonString);
                     jsonObj = new JSONObject(jsonString);
                 } catch (JSONException e) {
                     Log.e(TAG, "Error parsing data " + e.toString());
