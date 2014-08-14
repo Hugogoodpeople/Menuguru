@@ -120,7 +120,7 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
                 label3.setPaintFlags(label3.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 label3.setText("");
                 TextView label4=(TextView)row.findViewById(R.id.precoActual);
-                label4.setText(some_array[position].desconto+"%");
+                label4.setText(some_array[position].desconto+"% off");
 
                 TextView label5=(TextView)row.findViewById(R.id.desconto);
                 label5.setText("Desconto em factura ");

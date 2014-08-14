@@ -3,6 +3,7 @@ package pt.menuguru.menuguru6;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -187,8 +188,6 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
         {
             Intent intent = new Intent(this.getActivity(), ReadFileAssetsActivity.class);
 
-
-
             String mensagem = null;
 
             switch (position)
@@ -224,16 +223,14 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
 
-/*
-            Uri phototUri = Uri.parse("http://menuguru.pt/layers/logo.png");
 
-            Intent shareIntent = new Intent();
-            shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_STREAM, phototUri);
-            shareIntent.setType("image/*");
-            //startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
-            startActivity(shareIntent);
-*/
+        }else if(position == 7)
+        {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            Uri data = Uri.parse("mailto:ios@menuguru.net?subject=" + "" + "&body=" + "");
+            intent.setData(data);
+            startActivity(intent);
+
         }
 
 
