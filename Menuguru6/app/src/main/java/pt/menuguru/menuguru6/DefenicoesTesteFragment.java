@@ -240,7 +240,7 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + getActivity().getBaseContext().getPackageName())));
             }
         }
-
+        
     }
 
 
