@@ -33,7 +33,7 @@
     <Button
         android:layout_width="125dp"
         android:layout_height="100dp"
-        android:id="@+id/button"
+        android:id="@+id/bt_cal"
         android:background="@drawable/border_button"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/nomeRestaurante"
@@ -43,21 +43,21 @@
     <Button
         android:layout_width="125dp"
         android:layout_height="100dp"
-        android:id="@+id/button2"
+        android:id="@+id/bt_hora"
         android:background="@drawable/border_button"
-        android:layout_toEndOf="@+id/button"
-        android:layout_alignTop="@+id/button"
+        android:layout_toEndOf="@+id/bt_cal"
+        android:layout_alignTop="@+id/bt_cal"
         android:layout_alignRight="@+id/nomeRestaurante"
         android:layout_alignEnd="@+id/nomeRestaurante" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button3"
+        android:id="@+id/bt_agora"
         android:background="@drawable/border_button"
-        android:layout_below="@+id/button"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button"
+        android:layout_below="@+id/bt_cal"
+        android:layout_alignLeft="@+id/bt_cal"
+        android:layout_alignStart="@+id/bt_cal"
         android:layout_alignRight="@+id/nomeRestaurante"
         android:layout_alignEnd="@+id/nomeRestaurante"
         android:text="Agora"
@@ -68,11 +68,11 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/button3"
-        android:layout_alignLeft="@+id/button3"
-        android:layout_alignStart="@+id/button3"
-        android:layout_alignRight="@+id/button3"
-        android:layout_alignEnd="@+id/button3"
+        android:layout_below="@+id/bt_agora"
+        android:layout_alignLeft="@+id/bt_agora"
+        android:layout_alignStart="@+id/bt_agora"
+        android:layout_alignRight="@+id/bt_agora"
+        android:layout_alignEnd="@+id/bt_agora"
         android:weightSum="1">
 
         <Space
@@ -99,8 +99,8 @@
         <Button
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/button6"
-            android:background="@drawable/button_mais"
+            android:id="@+id/bt_mais"
+            android:background="@drawable/border_button"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.29"
             android:layout_toEndOf="@+id/button5"
@@ -110,19 +110,20 @@
         <Button
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/button4"
-            android:background="@drawable/ic_more_b"
+            android:id="@+id/bt_menos"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.29"
             android:layout_toStartOf="@+id/button5"
             android:layout_alignTop="@+id/button5"
-            android:layout_toLeftOf="@+id/button5" />
+            android:layout_toLeftOf="@+id/button5"
+            android:textColor="@color/white"
+            android:background="@drawable/border_button"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sem data especifica"
-            android:id="@+id/button7"
+            android:id="@+id/bt_sem_data"
             android:layout_marginTop="20dp"
             android:layout_below="@+id/button5"
             android:layout_centerHorizontal="true"
@@ -133,7 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Encontrar mesa"
-            android:id="@+id/button8"
+            android:id="@+id/bt_procurar"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="20dp"
             android:background="@drawable/encontar_mesa"
@@ -146,13 +147,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imagemTipo"
-            android:layout_alignBottom="@+id/button4"
-            android:layout_toLeftOf="@+id/button4"
-            android:layout_toStartOf="@+id/button4"
-            android:layout_alignTop="@+id/button4"
+            android:layout_alignBottom="@+id/bt_menos"
+            android:layout_toLeftOf="@+id/bt_menos"
+            android:layout_toStartOf="@+id/bt_menos"
+            android:layout_alignTop="@+id/bt_menos"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:src="@drawable/ic_close_b" />
+            android:src="@drawable/ic_conta"
+            android:scaleType="centerInside" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -160,11 +162,41 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="pax."
             android:id="@+id/nomeMenu"
-            android:layout_toEndOf="@+id/button6"
-            android:layout_alignTop="@+id/button6"
-            android:layout_toRightOf="@+id/button6"
+            android:layout_toEndOf="@+id/bt_mais"
+            android:layout_alignTop="@+id/bt_mais"
+            android:layout_toRightOf="@+id/bt_mais"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp" />
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:layout_toEndOf="@+id/button5"
+            android:layout_toStartOf="@+id/nomeMenu"
+            android:src="@drawable/ic_more_w"
+            android:scaleType="centerInside"
+            android:layout_alignTop="@+id/button5"
+            android:layout_toRightOf="@+id/button5"
+            android:layout_above="@+id/bt_sem_data"
+            android:layout_alignRight="@+id/bt_mais"
+            android:layout_alignEnd="@+id/bt_mais" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView3"
+            android:layout_toEndOf="@+id/button5"
+            android:layout_toStartOf="@+id/nomeMenu"
+            android:src="@drawable/ic_less_w"
+            android:scaleType="centerInside"
+            android:layout_above="@+id/bt_sem_data"
+            android:layout_alignRight="@+id/bt_menos"
+            android:layout_alignEnd="@+id/bt_menos"
+            android:layout_alignTop="@+id/bt_menos"
+            android:layout_alignLeft="@+id/bt_menos"
+            android:layout_alignStart="@+id/bt_menos" />
 
     </RelativeLayout>
 
