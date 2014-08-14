@@ -369,19 +369,9 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        getActivity().getActionBar().setCustomView(R.layout.tab_header);
-        getActivity().getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
-        getActivity().getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-        getActivity().getActionBar().setHomeButtonEnabled(true);
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActivity().getActionBar().setTitle(Globals.getInstance().cidedade_id);
 
-        TextView t =(TextView) getActivity().findViewById(R.id.mytext);
-        //ImageView imag = (ImageView) getActivity().findViewById(R.id.capa);
-        //imag.setImageResource(R.drawable.bck_refugio);
-        Intent intent = getActivity().getIntent();
-        value = intent.getStringExtra("local");
-        if(value == null || value.trim().equals("")){value="Perto de mim";}
-        t.setText(value);
+
 
         /*
         some_array = getResources().getStringArray(R.array.defenicoes_array);
