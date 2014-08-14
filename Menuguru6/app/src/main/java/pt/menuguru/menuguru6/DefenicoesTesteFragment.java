@@ -1,5 +1,6 @@
 package pt.menuguru.menuguru6;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -219,25 +220,32 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
 
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+            sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.email_espalhe_palavra));
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
-
-
         }else if(position == 7)
         {
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            Uri data = Uri.parse("mailto:ios@menuguru.net?subject=" + "" + "&body=" + "");
+            Uri data = Uri.parse("mailto:android@menuguru.net?subject=" + "" + "&body=" + "");
             intent.setData(data);
             startActivity(intent);
 
+        }else if(position == 8)
+        {
+            Uri uri = Uri.parse("market://details?id=" + getActivity().getBaseContext().getPackageName());
+            Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+            try {
+                startActivity(goToMarket);
+            } catch (ActivityNotFoundException e) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + getActivity().getBaseContext().getPackageName())));
+            }
         }
-
 
     }
 
 
-    public static Drawable LoadImageFromWebOperations(String url) {
+    public static Drawable LoadImageFromWebOperations(String url)
+    {
         try {
             InputStream is = (InputStream) new URL(url).getContent();
             Drawable d = Drawable.createFromStream(is, "src name");
@@ -246,8 +254,6 @@ public class DefenicoesTesteFragment extends Fragment implements AbsListView.OnI
             return null;
         }
     }
-
-
 
 
     /**
