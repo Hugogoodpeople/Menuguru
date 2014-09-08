@@ -59,14 +59,9 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
 // get the listview
         expListView = (ExpandableListView) findViewById(R.id.lista_inspiracoes);
 
-
-
         expListView.setOnChildClickListener( this);
         // preparing list data
         //prepareListData();
-
-
-
 
         new AsyncTaskParseJson(this).execute();
     }

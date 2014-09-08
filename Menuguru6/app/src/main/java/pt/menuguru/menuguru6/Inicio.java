@@ -35,6 +35,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import pt.menuguru.menuguru6.Inspiracoes.Activity_Inspiracao;
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.Globals;
@@ -61,6 +64,9 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
     private static final String TAG_EMAIL = "email";
     JSONArray user = null;
 
+    private Boolean loading = false;
+    private int actual = 0;
+    private int anterior = 0;
 
     /**
      * The fragment's ListView/GridView.
@@ -86,11 +92,55 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
        // mCallbacks.onButtonClicked();
 
+
+        //if (actual == 9)
+        {
+            mAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
+            mListView.setAdapter(mAdapter);
+            mListView.setSelection(anterior-1);
+        }
+        /*
+        else
+        {
+            mAdapter.notifyDataSetChanged();
+        }
+        */
+        /*
         mAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
         // Assign adapter to ListView
-        mListView.setAdapter(mAdapter);
+        */
+
+
+
+
+        mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                // threshold being indicator if bottom of list is hit
+                if (firstVisibleItem  == actual -2  && loading == false && anterior != actual) {
+
+                    Log.v("lermais","carregar mais items para aparecer");
+                    loading = true;
+                    pullMoreData();
+
+                }
+
+            }
+        });
+
 
     }
+
+    private void pullMoreData() {
+        new AsyncTaskParseJson(this).execute();
+    }
+
 
     private Callbacks mCallbacks;
 
@@ -111,7 +161,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
 
 
-    public class MyListAdapter extends ArrayAdapter<Restaurante> {
+    public class MyListAdapter extends ArrayAdapter<Restaurante>  {
 
         Context myContext;
         public ImageLoader imageLoader;
@@ -156,10 +206,11 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
                 rating.setRating( Float.parseFloat(some_array[position].mediarating));
 
-
                 TextView label4 = (TextView) row.findViewById(R.id.distancia);
                 label4.setText("ND");
 
+                TextView label5 = (TextView) row.findViewById(R.id.votosnumber);
+                label5.setText("(" + some_array[position].getVotacoes() + ")");
 
                 Location locationRest = new Location("");
                 locationRest.setLatitude(Double.parseDouble(some_array[position].latitude));
@@ -188,8 +239,8 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.fragment_defenicoesteste, container, false);
 
         // Set the adapter
@@ -210,160 +261,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
 
 
-    // you can make this class as another java file so it will be separated from your main activity.
-    public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
 
-        final String TAG = "AsyncTaskParseJson.java";
-
-        private Inicio delegate;
-
-        // set your json string url here
-        //String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_especiais_todos.php";
-        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_pertomin_relevancia_noticiavideo.php";
-
-        // contacts JSONArray
-        JSONArray dataJsonArr = null;
-
-        public AsyncTaskParseJson (Inicio delegate){
-            this.delegate = delegate;
-        }
-
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setCancelable(true);
-            progressDialog.setMessage("Loading...");
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setProgress(0);
-            progressDialog.show();
-
-        }
-
-        @Override
-        protected String doInBackground(String... arg0) {
-
-            try {
-
-                // instantiate our json parser
-                JSONParser jParser = new JSONParser();
-
-                // get json string from url
-                // tenho de criar um jsonobject e adicionar la as cenas
-                JSONObject dict = new JSONObject();
-                JSONObject jsonObj = new JSONObject();
-
-
-                dict.put("inicio","0");
-                dict.put("not","pt");
-                dict.put("lang","pt");
-                dict.put("cidade_id", Globals.getInstance().cidedade_id);
-                dict.put("lon", Globals.getInstance().getLongitude());
-                //dict.put("ordem","relevancia");
-                dict.put("ordem","distancia");
-                dict.put("user_id","0");
-                dict.put("lat",Globals.getInstance().getLatitude());
-                dict.put("face_id","0");
-
-
-
-                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
-
-                // try parse the string to a JSON object
-                try {
-                    Log.v("Ver Json ","Ele retorna isto"+jsonString);
-                    jsonObj = new JSONObject(jsonString);
-                } catch (JSONException e) {
-                    Log.e(TAG, "Error parsing data " + e.toString());
-                }
-                // get the array of users
-
-                dataJsonArr = jsonObj.getJSONArray("res");
-
-                // loop through all users
-
-
-
-
-                some_array = new Restaurante[dataJsonArr.length()];
-                for (int i = 0; i < dataJsonArr.length(); i++) {
-
-                    JSONObject c = dataJsonArr.getJSONObject(i);
-
-
-
-                    // Storing each json item in variable
-                    String firstname = c.getString("nome");
-
-                    // show the values in our logcat
-                    Log.v(TAG, "firstname: " + firstname
-                            );
-
-
-                    Restaurante rest = new Restaurante();
-                    rest.setNome(firstname);
-
-                    rest.morada = c.getString("morada");
-                    //rest.mediarating = c.getString("mediarating");
-                    //rest.cidade = c.getString("cidade");
-                    rest.urlImagem = c.getString("imagem");
-                    //rest.votacoes = c.getString("votacoes");
-                    //rest.morada = c.getString("morada");
-                    //rest.precoMedio = c.getString("precomedio");
-
-                    rest.tipo = c.getString("tipo");
-
-                    if (rest.tipo.equalsIgnoreCase("restaurante")) {
-                        rest.latitude = c.getString("lat");
-                        rest.longitude = c.getString("lon");
-                        rest.mediarating = c.getString("mediarating");
-                        rest.precoMedio = c.getString("precomedio");
-
-                        JSONArray cozinhas = c.getJSONArray("cozinhas");
-
-                        for (int z = 0; z < cozinhas.length(); z++) {
-                            JSONObject cozinha = cozinhas.getJSONObject(z);
-                            if (cozinhas.length() - 1 > z)
-                                rest.cosinhas = rest.cosinhas + cozinha.getString("cozinhas_nome") + ", ";
-                            else
-                                rest.cosinhas = rest.cosinhas + "" + cozinha.getString("cozinhas_nome");
-                        }
-                        //rest.cosinhas = rest.cosinhas.substring(0, rest.cosinhas.length() - 1);
-                    }
-
-                    some_array[i] = rest;
-
-                }
-
-                //some_array = getResources().getStringArray(R.array.defenicoes_array);
-
-                // TODO: Change Adapter to display your content
-                mAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
-
-
-
-                // Set OnItemClickListener so we can be notified on item clicks
-                mListView.setOnItemClickListener(delegate);
-
-
-
-
-                Log.v("sdffgddvsdsv","objecto especial = "+ jsonObj);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String strFromDoInBg)
-        {
-            progressDialog.dismiss();delegate.asyncComplete(true);
-        }
-    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -455,4 +353,212 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
         return false;
     }
+
+
+    // para o scrool
+
+
+
+
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+        private Inicio delegate;
+
+        // set your json string url here
+        //String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_especiais_todos.php";
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_pertomin_relevancia_noticiavideo.php";
+
+        // contacts JSONArray
+        JSONArray dataJsonArr = null;
+
+        public AsyncTaskParseJson (Inicio delegate){
+            this.delegate = delegate;
+        }
+
+
+        @Override
+        protected void onPreExecute() {
+
+            super.onPreExecute();
+
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setCancelable(true);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+
+        }
+
+
+
+        private Object[] appendValue(Object[] obj, Object newObj) {
+
+            ArrayList<Object> temp = new ArrayList<Object>(Arrays.asList(obj));
+            temp.add(newObj);
+            return temp.toArray();
+
+        }
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+
+
+            try {
+
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+
+                dict.put("inicio",actual);
+                dict.put("not","pt");
+                dict.put("lang","pt");
+                dict.put("cidade_id", Globals.getInstance().cidedade_id);
+                dict.put("lon", Globals.getInstance().getLongitude());
+                //dict.put("ordem","relevancia");
+                dict.put("ordem","distancia");
+                dict.put("user_id","0");
+                dict.put("lat",Globals.getInstance().getLatitude());
+                dict.put("face_id","0");
+
+
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                // try parse the string to a JSON object
+                try {
+                    Log.v("Ver Json ","Ele retorna isto"+jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                // get the array of users
+
+                dataJsonArr = jsonObj.getJSONArray("res");
+
+                // loop through all users
+
+
+               // tenho de gravar os valores antrriores aqui
+                if(some_array == null)
+                {
+                    some_array = new Restaurante[dataJsonArr.length()];
+                }
+                else {
+
+                    Restaurante[] tempArray = some_array;
+
+                    some_array = new Restaurante[dataJsonArr.length() + some_array.length ];
+
+                    for (int z = 0; z<tempArray.length ; z++)
+                    {
+                        some_array[z] = tempArray[z];
+
+                    }
+
+                }
+
+
+                anterior = actual;
+
+                for (int i = 0; i < dataJsonArr.length() ; i++) {
+
+                    JSONObject c = dataJsonArr.getJSONObject(i);
+
+
+
+                    // Storing each json item in variable
+                    String firstname = c.getString("nome");
+
+                    // show the values in our logcat
+                    Log.v(TAG, "firstname: " + firstname + " votos = " + c.getString("votacoes"));
+
+
+                    Restaurante rest = new Restaurante();
+                    rest.setNome(firstname);
+
+                    rest.morada = c.getString("morada");
+                    //rest.mediarating = c.getString("mediarating");
+                    //rest.cidade = c.getString("cidade");
+                    rest.urlImagem = c.getString("imagem");
+                    rest.votacoes = c.getString("votacoes");
+                    //rest.morada = c.getString("morada");
+                    //rest.precoMedio = c.getString("precomedio");
+
+                    rest.tipo = c.getString("tipo");
+
+                    if (rest.tipo.equalsIgnoreCase("restaurante")) {
+                        rest.latitude = c.getString("lat");
+                        rest.longitude = c.getString("lon");
+                        rest.mediarating = c.getString("mediarating");
+                        rest.precoMedio = c.getString("precomedio");
+
+                        JSONArray cozinhas = c.getJSONArray("cozinhas");
+
+                        for (int z = 0; z < cozinhas.length(); z++) {
+                            JSONObject cozinha = cozinhas.getJSONObject(z);
+                            if (cozinhas.length() - 1 > z)
+                                rest.cosinhas = rest.cosinhas + cozinha.getString("cozinhas_nome") + ", ";
+                            else
+                                rest.cosinhas = rest.cosinhas + "" + cozinha.getString("cozinhas_nome");
+                        }
+                        //rest.cosinhas = rest.cosinhas.substring(0, rest.cosinhas.length() - 1);
+                    }
+
+                    some_array[i+ actual] = rest;
+                   // some_array =  appendValue(some_array, rest);
+                    //some_array = newObj;
+
+
+                }
+
+                //some_array = getResources().getStringArray(R.array.defenicoes_array);
+
+                // TODO: Change Adapter to display your content
+               // if (actual == 0)
+               //     mAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
+                //else
+                //    mAdapter.notifyDataSetChanged();
+
+
+                // Set OnItemClickListener so we can be notified on item clicks
+                mListView.setOnItemClickListener(delegate);
+
+
+                actual =actual + dataJsonArr.length();
+
+
+                Log.v("sdffgddvsdsv","objecto especial = "+ jsonObj);
+
+
+
+                loading = false;
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg)
+        {
+            progressDialog.dismiss();delegate.asyncComplete(true);
+        }
+    }
+
+
+
+
 }

@@ -22,11 +22,11 @@
         android:rating="5"
         android:stepSize="1"
         android:numStars="5"
-        android:layout_above="@+id/nomeRestaurante"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="10dp"
-        style="@style/CustomRatingBar"/>
+        style="@style/CustomRatingBar"
+        android:layout_alignBottom="@+id/capa" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,7 +51,10 @@
         android:layout_below="@+id/nomeRestaurante"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_toStartOf="@+id/imagemTipo"
+        android:layout_alignRight="@+id/desconto"
+        android:layout_alignEnd="@+id/desconto" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,7 +66,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="10dp"
-        android:layout_marginBottom="15dp" />
+        android:layout_marginBottom="15dp"
+        android:layout_alignRight="@+id/imagemTipo"
+        android:layout_alignEnd="@+id/imagemTipo" />
 
     <ImageView
         android:layout_width="50dp"
@@ -92,9 +97,27 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:background="#000"
+        android:background="#75000000"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"></LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/votosnumber"
+        android:layout_toEndOf="@+id/ratingBar"
+        android:textColor="@color/white"
+        android:layout_alignTop="@+id/ratingBar"
+        android:layout_toRightOf="@+id/ratingBar"
+        android:layout_alignBottom="@+id/capa"
+        android:layout_marginTop="-2dp"
+        android:layout_marginLeft="4dp"
+        android:shadowColor="@color/gray"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="2"
+        android:layout_marginRight="4dp" />
 
 </RelativeLayout>

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -52,6 +53,7 @@ public class Procurar_mesa extends Fragment {
 
 
 
+
     }
 
     @Override
@@ -61,7 +63,27 @@ public class Procurar_mesa extends Fragment {
         new AsyncTaskParseJson(this).execute();
         // Inflate the layout for this fragment
         imageLoader=new ImageLoader(getActivity().getApplicationContext());
-        return inflater.inflate(R.layout.fragment_procurar_mesa, container, false);
+
+
+        RelativeLayout mLinearLayout = (RelativeLayout) inflater.inflate(R.layout.fragment_procurar_mesa,
+                container, false);
+
+        // note that we're looking for a button with id="@+id/myButton" in your inflated layout
+        // Naturally, this can be any View; it doesn't have to be a button
+        Button mButton = (Button) mLinearLayout.findViewById(R.id.button8);
+        mButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                // here you set what you want to do when user clicks your button,
+                // e.g. launch a new activity
+                Log.v("clickclick","clicou pesquisa");
+            }
+        });
+
+
+        return mLinearLayout;
     }
 
 
@@ -124,8 +146,6 @@ public class Procurar_mesa extends Fragment {
 
 
                 imagem = dataJsonArr.getString("imagem");
-
-
 
                 //Customize your icon here
                 //icon.setImageResource(R.drawable.sem_foto);
