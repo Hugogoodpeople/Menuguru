@@ -267,35 +267,9 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        getActivity().getActionBar().setCustomView(R.layout.tab_header);
-        getActivity().getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
-        getActivity().getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-        getActivity().getActionBar().setHomeButtonEnabled(true);
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-
-        TextView t =(TextView) getActivity().findViewById(R.id.mytext);
-        //ImageView imag = (ImageView) getActivity().findViewById(R.id.capa);
-        //imag.setImageResource(R.drawable.bck_refugio);
-        Intent intent = getActivity().getIntent();
-        value = intent.getStringExtra("local");
-        if(value == null || value.trim().equals("")){value="Perto de mim";}
-        t.setText(value);
-
-        /*
-        some_array = getResources().getStringArray(R.array.defenicoes_array);
-
-        // TODO: Change Adapter to display your content
-
-        MyListAdapter myListAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
-
-        MyListAdapter myListAdapter =
-                new MyListAdapter(getActivity(), R.layout.activity_my, some_array);
-
-
-        mAdapter =myListAdapter;
-
-    */
-
+        ActionBar ab = getActivity().getActionBar();
+        ab.setTitle(Globals.getInstance().getCidadeÇ_nome());
+       // ab.setSubtitle("sub-title");
 
     }
 
@@ -356,8 +330,6 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
 
     // para o scrool
-
-
 
 
     // you can make this class as another java file so it will be separated from your main activity.
@@ -431,7 +403,6 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                 dict.put("face_id","0");
 
 
-
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
 
                 // try parse the string to a JSON object
@@ -462,9 +433,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                     for (int z = 0; z<tempArray.length ; z++)
                     {
                         some_array[z] = tempArray[z];
-
                     }
-
                 }
 
 
@@ -515,7 +484,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                     }
 
                     some_array[i+ actual] = rest;
-                   // some_array =  appendValue(some_array, rest);
+                    // some_array =  appendValue(some_array, rest);
                     //some_array = newObj;
 
 
@@ -539,8 +508,6 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
                 Log.v("sdffgddvsdsv","objecto especial = "+ jsonObj);
 
-
-
                 loading = false;
 
 
@@ -558,35 +525,6 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         }
     }
 
-<<<<<<< HEAD
-=======
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-
-        getActivity().getActionBar().setTitle(Globals.getInstance().cidedade_id);
-
-
-
-        /*
-        some_array = getResources().getStringArray(R.array.defenicoes_array);
-
-        // TODO: Change Adapter to display your content
-
-        MyListAdapter myListAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
-
-        MyListAdapter myListAdapter =
-                new MyListAdapter(getActivity(), R.layout.activity_my, some_array);
-
-
-        mAdapter =myListAdapter;
-
-    */
-
-
-    }
-
->>>>>>> FETCH_HEAD
 
 
 

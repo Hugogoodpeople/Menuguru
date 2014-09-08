@@ -27,12 +27,12 @@
         android:layout_marginTop="20dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-<<<<<<< HEAD
+
         android:textColor="@color/white"
         android:gravity="center"/>
-=======
+
         android:textColor="@color/white" />
->>>>>>> FETCH_HEAD
+
 
     <Button
         android:layout_width="125dp"
@@ -171,8 +171,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:textColor="@color/white" />
-<<<<<<< HEAD
-=======
+
 
         <ImageView
             android:layout_width="wrap_content"
@@ -200,7 +199,6 @@
             android:layout_toLeftOf="@+id/button5"
             android:layout_alignTop="@+id/button4"
             android:scaleType="centerInside" />
->>>>>>> FETCH_HEAD
 
     </RelativeLayout>
 

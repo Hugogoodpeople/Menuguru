@@ -10,6 +10,24 @@ public class Globals
     public String longitude = "0";
     public String cidedade_id = "0";
 
+    public String getCidadeÇ_nome() {
+        return cidadeÇ_nome;
+    }
+
+    public void setCidadeÇ_nome(String cidadeÇ_nome) {
+        this.cidadeÇ_nome = cidadeÇ_nome;
+    }
+
+    public static Globals get_instance() {
+        return _instance;
+    }
+
+    public static void set_instance(Globals _instance) {
+        Globals._instance = _instance;
+    }
+
+    public String cidadeÇ_nome = "Perto de min";
+
     public String getLatitude() {
         return latitude;
     }
