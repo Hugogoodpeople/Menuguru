@@ -37,32 +37,33 @@
     <Button
         android:layout_width="125dp"
         android:layout_height="100dp"
-        android:id="@+id/button_dias"
+        android:id="@+id/button_data"
         android:background="@drawable/border_button"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/nomeRestaurante"
         android:layout_alignLeft="@+id/nomeRestaurante"
         android:layout_alignStart="@+id/nomeRestaurante"
-        />
+        android:textColor="@color/white" />
 
     <Button
         android:layout_width="125dp"
         android:layout_height="100dp"
-        android:id="@+id/button2"
+        android:id="@+id/button_hora"
         android:background="@drawable/border_button"
-        android:layout_toEndOf="@+id/button_dias"
-        android:layout_alignTop="@+id/button_dias"
+        android:layout_toEndOf="@+id/button_data"
+        android:layout_alignTop="@+id/button_data"
         android:layout_alignRight="@+id/nomeRestaurante"
-        android:layout_alignEnd="@+id/nomeRestaurante" />
+        android:layout_alignEnd="@+id/nomeRestaurante"
+        android:textColor="@color/white" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button3"
         android:background="@drawable/border_button"
-        android:layout_below="@+id/button_dias"
-        android:layout_alignLeft="@+id/button_dias"
-        android:layout_alignStart="@+id/button_dias"
+        android:layout_below="@+id/button_data"
+        android:layout_alignLeft="@+id/button_data"
+        android:layout_alignStart="@+id/button_data"
         android:layout_alignRight="@+id/nomeRestaurante"
         android:layout_alignEnd="@+id/nomeRestaurante"
         android:text="Agora"
@@ -92,13 +93,17 @@
         <TextView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/button5"
+            android:id="@+id/numero_pessoas"
             android:background="@drawable/border_button"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.29"
             android:layout_below="@+id/space6"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
 
         <Button
             android:layout_width="50dp"
@@ -106,9 +111,9 @@
             android:id="@+id/button6"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.29"
-            android:layout_toEndOf="@+id/button5"
-            android:layout_alignTop="@+id/button5"
-            android:layout_toRightOf="@+id/button5"
+            android:layout_toEndOf="@+id/numero_pessoas"
+            android:layout_alignTop="@+id/numero_pessoas"
+            android:layout_toRightOf="@+id/numero_pessoas"
             android:background="@drawable/border_button" />
 
         <Button
@@ -118,9 +123,9 @@
             android:background="@drawable/border_button"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.29"
-            android:layout_toStartOf="@+id/button5"
-            android:layout_alignTop="@+id/button5"
-            android:layout_toLeftOf="@+id/button5" />
+            android:layout_toStartOf="@+id/numero_pessoas"
+            android:layout_alignTop="@+id/numero_pessoas"
+            android:layout_toLeftOf="@+id/numero_pessoas" />
 
         <Button
             android:layout_width="wrap_content"
@@ -128,7 +133,7 @@
             android:text="Sem data especifica"
             android:id="@+id/button7"
             android:layout_marginTop="20dp"
-            android:layout_below="@+id/button5"
+            android:layout_below="@+id/numero_pessoas"
             android:layout_centerHorizontal="true"
             android:background="@android:color/transparent"
             android:textColor="@color/white" />
@@ -177,10 +182,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView3"
-            android:layout_toEndOf="@+id/button5"
+            android:layout_toEndOf="@+id/numero_pessoas"
             android:layout_alignTop="@+id/button6"
-            android:layout_toRightOf="@+id/button5"
-            android:layout_alignBottom="@+id/button5"
+            android:layout_toRightOf="@+id/numero_pessoas"
+            android:layout_alignBottom="@+id/numero_pessoas"
             android:layout_alignRight="@+id/button6"
             android:layout_alignEnd="@+id/button6"
             android:src="@drawable/ic_more_w"
@@ -190,15 +195,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/imageView4"
-            android:layout_toEndOf="@+id/button5"
+            android:layout_toEndOf="@+id/numero_pessoas"
             android:src="@drawable/ic_less_w"
-            android:layout_toStartOf="@+id/button5"
+            android:layout_toStartOf="@+id/numero_pessoas"
             android:layout_alignLeft="@+id/button4"
             android:layout_alignStart="@+id/button4"
             android:layout_above="@+id/button7"
-            android:layout_toLeftOf="@+id/button5"
+            android:layout_toLeftOf="@+id/numero_pessoas"
             android:layout_alignTop="@+id/button4"
             android:scaleType="centerInside" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mais_pessoas"
+            android:layout_alignBottom="@+id/numero_pessoas"
+            android:layout_alignRight="@+id/button7"
+            android:layout_alignEnd="@+id/button7"
+            android:layout_toRightOf="@+id/numero_pessoas"
+            android:layout_toEndOf="@+id/numero_pessoas"
+            android:layout_alignTop="@+id/button6"
+            android:alpha="0" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pessoas_menos"
+            android:layout_toEndOf="@+id/imagemTipo"
+            android:layout_toStartOf="@+id/numero_pessoas"
+            android:layout_above="@+id/button7"
+            android:layout_alignTop="@+id/numero_pessoas"
+            android:layout_toLeftOf="@+id/numero_pessoas"
+            android:layout_toRightOf="@+id/imagemTipo"
+            android:alpha="0" />
 
     </RelativeLayout>
 

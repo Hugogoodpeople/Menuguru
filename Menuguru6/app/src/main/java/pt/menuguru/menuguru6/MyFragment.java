@@ -46,6 +46,7 @@ public class MyFragment extends Fragment
 
 
 
+
         mViewPager = (ViewPager) v.findViewById(R.id.pager);
         mTabsAdapter = new TabsAdapterHugo(getActivity(), getChildFragmentManager() , mTabHost, mViewPager);
 

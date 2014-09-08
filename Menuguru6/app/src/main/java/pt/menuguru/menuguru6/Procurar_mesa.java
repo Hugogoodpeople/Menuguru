@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +23,10 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.Globals;
@@ -32,6 +37,9 @@ import pt.menuguru.menuguru6.Utils.Restaurante;
 public class Procurar_mesa extends Fragment {
 
     private ProgressDialog progressDialog;
+    private int atual = 1;
+    private TextView pessoasQueVao;
+
 
     public ImageLoader imageLoader;
     String imagem = "";
@@ -40,19 +48,18 @@ public class Procurar_mesa extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        /*
-        Button bt_data = (Button) getActivity().findViewById(R.id.bt_cal);
-        Button bt_hora = (Button) getActivity().findViewById(R.id.bt_hora);
-        Button bt_agora = (Button) getActivity().findViewById(R.id.bt_agora);
-        Button bt_mais = (Button) getActivity().findViewById(R.id.bt_mais);
-        Button bt_menos = (Button) getActivity().findViewById(R.id.bt_menos);
-        Button bt_sem_data = (Button) getActivity().findViewById(R.id.bt_sem_data);
-        Button bt_procurar = (Button) getActivity().findViewById(R.id.bt_procurar);
-        */
 
 
 
+    }
 
+    public void actualiza(int valor)
+    {
+
+        if (valor>0) {
+            atual = valor;
+            pessoasQueVao.setText(Integer.toString(valor));
+        }
 
     }
 
@@ -82,6 +89,72 @@ public class Procurar_mesa extends Fragment {
             }
         });
 
+
+        pessoasQueVao = (TextView) mLinearLayout.findViewById(R.id.numero_pessoas);
+
+        Button bt_data = (Button) mLinearLayout.findViewById(R.id.button_data);
+        Button bt_hora = (Button) mLinearLayout.findViewById(R.id.button_hora);
+
+        //Button bt_agora = (Button) getActivity().findViewById(R.id.bt_agora);
+        Button bt_mais = (Button) mLinearLayout.findViewById(R.id.mais_pessoas);
+        bt_mais.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // tenho de adicionar cenas
+                actualiza(atual + 1);
+            }
+        });
+
+        Button bt_menos = (Button) mLinearLayout.findViewById(R.id.pessoas_menos);
+        bt_menos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // tenho de adicionar cenas
+                actualiza(atual - 1);
+            }
+        });
+
+
+        /*
+        Button bt_sem_data = (Button) getActivity().findViewById(R.id.bt_sem_data);
+        Button bt_procurar = (Button) getActivity().findViewById(R.id.bt_procurar);
+        */
+
+
+
+        Calendar c = Calendar.getInstance();
+        System.out.println("Current time => " + c.getTime());
+
+        SimpleDateFormat df = new SimpleDateFormat("dd MMM");
+        String formattedDate = df.format(c.getTime());
+
+
+        Time dtNow = new Time();
+        dtNow.setToNow();
+        int hours = dtNow.hour;
+        int minut = dtNow.minute;
+
+
+        String horaActual;
+        // tenho de fazer aqui a verificação para ser de 30 em 30 min de cada vez
+        if (minut >= 30)
+        {
+            hours = hours -1;
+            minut = 00;
+            horaActual = hours + ":00";
+        }
+        else
+        {
+            minut = 30;
+            horaActual = hours + ":"+ minut;
+        }
+
+        String lsNow = dtNow.format("%H:%M");
+        String lsYMD = dtNow.toString();    // YYYYMMDDTHHMMSS
+
+
+        bt_data.setText(formattedDate);
+        bt_hora.setText(horaActual);
 
         return mLinearLayout;
     }

@@ -52,7 +52,7 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
         Date d = new Date();
         String dayOfTheWeek = sdf.format(d);
 
-        Button p1_button = (Button)findViewById(R.id.button_dias);
+        Button p1_button = (Button)findViewById(R.id.button_data);
         p1_button.setText(dayOfTheWeek);
 
 

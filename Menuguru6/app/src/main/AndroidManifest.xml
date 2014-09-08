@@ -32,6 +32,8 @@
             android:name=".Pesquisa_avancada"
             android:label="@string/title_activity_pesquisa_avancada" android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent">
+
+
         </activity>
         <activity
             android:name=".Inspiracoes.Activity_Inspiracao"
@@ -50,10 +52,7 @@
             android:name=".ActivityLogin"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name="com.facebook.LoginActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="355132794636774" />
+
 
     </application>
 
