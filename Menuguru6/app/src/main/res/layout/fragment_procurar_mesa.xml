@@ -27,8 +27,12 @@
         android:layout_marginTop="20dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+<<<<<<< HEAD
         android:textColor="@color/white"
         android:gravity="center"/>
+=======
+        android:textColor="@color/white" />
+>>>>>>> FETCH_HEAD
 
     <Button
         android:layout_width="125dp"
@@ -100,18 +104,18 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:id="@+id/button6"
-            android:background="@drawable/button_mais"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.29"
             android:layout_toEndOf="@+id/button5"
             android:layout_alignTop="@+id/button5"
-            android:layout_toRightOf="@+id/button5" />
+            android:layout_toRightOf="@+id/button5"
+            android:background="@drawable/border_button" />
 
         <Button
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:id="@+id/button4"
-            android:background="@drawable/ic_more_b"
+            android:background="@drawable/border_button"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.29"
             android:layout_toStartOf="@+id/button5"
@@ -153,7 +157,7 @@
             android:layout_alignTop="@+id/button4"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:src="@drawable/ic_close_b" />
+            android:src="@drawable/ic_user_w" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -167,6 +171,36 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:textColor="@color/white" />
+<<<<<<< HEAD
+=======
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView3"
+            android:layout_toEndOf="@+id/button5"
+            android:layout_alignTop="@+id/button6"
+            android:layout_toRightOf="@+id/button5"
+            android:layout_alignBottom="@+id/button5"
+            android:layout_alignRight="@+id/button6"
+            android:layout_alignEnd="@+id/button6"
+            android:src="@drawable/ic_more_w"
+            android:scaleType="centerInside" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView4"
+            android:layout_toEndOf="@+id/button5"
+            android:src="@drawable/ic_less_w"
+            android:layout_toStartOf="@+id/button5"
+            android:layout_alignLeft="@+id/button4"
+            android:layout_alignStart="@+id/button4"
+            android:layout_above="@+id/button7"
+            android:layout_toLeftOf="@+id/button5"
+            android:layout_alignTop="@+id/button4"
+            android:scaleType="centerInside" />
+>>>>>>> FETCH_HEAD
 
     </RelativeLayout>
 

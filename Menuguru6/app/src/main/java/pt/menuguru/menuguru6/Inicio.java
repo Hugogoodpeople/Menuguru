@@ -558,6 +558,35 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         }
     }
 
+<<<<<<< HEAD
+=======
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
+        getActivity().getActionBar().setTitle(Globals.getInstance().cidedade_id);
+
+
+
+        /*
+        some_array = getResources().getStringArray(R.array.defenicoes_array);
+
+        // TODO: Change Adapter to display your content
+
+        MyListAdapter myListAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
+
+        MyListAdapter myListAdapter =
+                new MyListAdapter(getActivity(), R.layout.activity_my, some_array);
+
+
+        mAdapter =myListAdapter;
+
+    */
+
+
+    }
+
+>>>>>>> FETCH_HEAD
 
 
 

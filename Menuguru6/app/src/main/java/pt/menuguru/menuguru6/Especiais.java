@@ -1,6 +1,7 @@
 package pt.menuguru.menuguru6;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.media.Image;
 import android.os.AsyncTask;
@@ -8,6 +9,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -286,6 +290,26 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
         }
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_localizacao, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_localizacao:
+                Intent myIntent = new Intent(getActivity(), Localizacao.class);
+                getActivity().startActivity(myIntent);
+                this.getActivity().finish();
+                return false;
+
+            default:
+                break;
+        }
+
+        return false;
+    }
 
 }
