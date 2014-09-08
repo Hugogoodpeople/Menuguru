@@ -1,7 +1,9 @@
 package pt.menuguru.menuguru6;
 
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -9,6 +11,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -21,8 +26,45 @@ import android.widget.TextView;
 import java.io.InputStream;
 import java.net.URL;
 
+import pt.menuguru.menuguru6.Inspiracoes.Activity_Inspiracao;
+
 
 public class Defenicoes extends Fragment implements AbsListView.OnItemClickListener {
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.loginmenu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_login:
+                // tenho de chamar aqui o login
+                Intent myIntent = new Intent(getActivity(), ActivityLogin.class);
+                getActivity().startActivity(myIntent);
+                //this.getActivity().finish();
+
+
+                Log.v("clickmenu","clicou no menu");
+                return false;
+
+
+
+
+
+
+            default:
+                break;
+        }
+
+        return false;
+    }
+
 
     public class MyListAdapter extends ArrayAdapter<String> {
 
@@ -33,6 +75,8 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
             super(context, textViewResourceId, objects);
             myContext = context;
         }
+
+
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -142,6 +186,7 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
+        setHasOptionsMenu(true);
 
         return view;
     }

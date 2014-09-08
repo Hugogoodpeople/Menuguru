@@ -5,6 +5,11 @@ dependencies {
     compile files('./libs/bolts.jar')
 }
 
+dependencies {
+    compile project(':facebook')
+    compile 'com.android.support:appcompat-v7:+'
+}
+
 android {
     compileSdkVersion 16
     buildToolsVersion "19.1"
