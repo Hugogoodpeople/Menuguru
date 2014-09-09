@@ -1,4 +1,4 @@
-package pt.menuguru.menuguru6.Inspiracoes;
+package pt.menuguru.menuguru6.ResultadosProcurarMesa;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -11,17 +11,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -29,35 +26,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
-import pt.menuguru.menuguru6.MainActivity;
 import pt.menuguru.menuguru6.R;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
-import pt.menuguru.menuguru6.Utils.Locais;
 import pt.menuguru.menuguru6.Utils.Restaurante;
 import pt.menuguru.menuguru6.Utils.Utils;
 
 /**
- * Created by hugocosta on 14/08/14.
+ * Created by hugocosta on 09/09/14.
  */
-public class Resultado_inspiracao extends Activity implements AdapterView.OnItemClickListener {
-    String value;
+public class Resultados extends Activity
+{
+    String data;
+    String hora;
+    String pessoas;
 
     Restaurante[] some_array = null;
-
-
-    //private OnFragmentInteractionListener mListener;
-
-    private String item_id;
-    private static String url = "http://10.0.2.2/JSON/";
-    //JSON Node Names
-    private static final String TAG_USER = "user";
-    private static final String TAG_ID = "id";
-    private static final String TAG_NAME = "name";
-    private static final String TAG_EMAIL = "email";
-    JSONArray user = null;
-
-
     /**
      * The fragment's ListView/GridView.
      */
@@ -71,15 +55,16 @@ public class Resultado_inspiracao extends Activity implements AdapterView.OnItem
 
     private ProgressDialog progressDialog;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultado_inspiracao);
         Intent intent = getIntent();
-        value = intent.getStringExtra("local");
+        data = intent.getStringExtra("data");
+        hora = intent.getStringExtra("hora");
+        pessoas = intent.getStringExtra("pessoas");
+
+
         //setTitle(value);
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -89,17 +74,13 @@ public class Resultado_inspiracao extends Activity implements AdapterView.OnItem
         getActionBar().setHomeButtonEnabled(true);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         TextView t =(TextView) findViewById(R.id.mytext);
-        t.setText(value);
+        t.setText(Globals.get_instance().getCidadeÇ_nome());
 
         Intent id_item = getIntent();
 
-        item_id = id_item.getStringExtra("id_item");
-
 
         new AsyncTaskParseJson(this).execute();
-
     }
-
 
     public void asyncComplete(boolean success){
 
@@ -116,37 +97,27 @@ public class Resultado_inspiracao extends Activity implements AdapterView.OnItem
 
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-    }
-
     // you can make this class as another java file so it will be separated from your main activity.
     public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
 
         final String TAG = "AsyncTaskParseJson.java";
 
 
-        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_restaurante_inspiracao.php";
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_restlistagem_listanomefav.php";
 
         // contacts JSONArray
         JSONArray dataJsonArr = null;
 
-        private Resultado_inspiracao delegate;
+        private Resultados delegate;
 
-        public AsyncTaskParseJson (Resultado_inspiracao delegate){
+        public AsyncTaskParseJson (Resultados delegate){
             this.delegate = delegate;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = new ProgressDialog(Resultado_inspiracao.this);
-            progressDialog.setCancelable(true);
-            progressDialog.setMessage("Loading...");
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setProgress(0);
-            progressDialog.show();
+
         }
 
         @Override
@@ -163,81 +134,17 @@ public class Resultado_inspiracao extends Activity implements AdapterView.OnItem
                 JSONObject jsonObj = new JSONObject();
 
                 dict.put("lang","pt");
-                dict.put("id_subinspiracao",item_id);
-                dict.put("lon", Globals.getInstance().getLongitude());
-                dict.put("lat",Globals.getInstance().getLatitude());
+                dict.put("lat", Globals.getInstance().getLatitude());
+                dict.put("long", Globals.getInstance().getLongitude());
+                dict.put("hora", hora);
+                dict.put("data", data);
+                dict.put("cidade", Globals.getInstance().getCidedade_id());
+                dict.put("numpessoas", pessoas);
 
 
+                // tenho de enviar lat, long, data, hora, cidade, lang
 
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
-
-                // try parse the string to a JSON object
-                try {
-                    Log.v("Ver Json ","Ele retorna isto"+jsonString);
-                    jsonObj = new JSONObject(jsonString);
-                } catch (JSONException e) {
-                    Log.e(TAG, "Error parsing data " + e.toString());
-                }
-                // get the array of users
-
-                dataJsonArr = jsonObj.getJSONArray("res");
-
-                // loop through all users
-
-
-
-
-                some_array = new Restaurante[dataJsonArr.length()];
-                for (int i = 0; i < dataJsonArr.length(); i++) {
-
-                    JSONObject c = dataJsonArr.getJSONObject(i);
-
-
-
-                    // Storing each json item in variable
-                    String firstname = c.getString("nome");
-
-                    // show the values in our logcat
-                    Log.v(TAG, "firstname: " + firstname
-                    );
-
-
-                    Restaurante rest = new Restaurante();
-                    rest.setNome(firstname);
-
-                    rest.morada = c.getString("morada");
-                    //rest.mediarating = c.getString("mediarating");
-                    //rest.cidade = c.getString("cidade");
-                    rest.urlImagem = c.getString("imagem");
-                    //rest.votacoes = c.getString("votacoes");
-                    //rest.morada = c.getString("morada");
-                    //rest.precoMedio = c.getString("precomedio");
-
-                    rest.tipo = c.getString("tipo");
-
-                    if (rest.tipo.equalsIgnoreCase("restaurante")) {
-                        rest.latitude = c.getString("lat");
-                        rest.longitude = c.getString("lon");
-                        rest.mediarating = c.getString("mediarating");
-                        rest.precoMedio = c.getString("precomedio");
-
-                        JSONArray cozinhas = c.getJSONArray("cozinhas");
-
-                        for (int z = 0; z < cozinhas.length(); z++) {
-                            JSONObject cozinha = cozinhas.getJSONObject(z);
-                            if (cozinhas.length() - 1 > z)
-                                rest.cosinhas = rest.cosinhas + cozinha.getString("cozinhas_nome") + ", ";
-                            else
-                                rest.cosinhas = rest.cosinhas + "" + cozinha.getString("cozinhas_nome");
-                        }
-                        //rest.cosinhas = rest.cosinhas.substring(0, rest.cosinhas.length() - 1);
-                    }
-
-                    some_array[i] = rest;
-
-                }
-
-                //some_array = getResources().getStringArray(R.array.defenicoes_array);
 
                 Log.v("sdffgddvsdsv","objecto especial = "+ jsonObj);
 
@@ -252,24 +159,6 @@ public class Resultado_inspiracao extends Activity implements AdapterView.OnItem
         protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncComplete(true);  }
 
     }
-
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-
-                this.finish();
-
-                return false;
-            default:
-                break;
-        }
-
-        return false;
-    }
-
 
     public class MyListAdapter extends ArrayAdapter<Restaurante> {
 
@@ -342,6 +231,7 @@ public class Resultado_inspiracao extends Activity implements AdapterView.OnItem
         }
 
     }
+
 
 
 }

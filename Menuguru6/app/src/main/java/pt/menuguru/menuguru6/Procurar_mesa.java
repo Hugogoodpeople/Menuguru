@@ -3,6 +3,7 @@ package pt.menuguru.menuguru6;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -21,6 +22,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +33,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
+import pt.menuguru.menuguru6.ResultadosProcurarMesa.Resultados;
+import pt.menuguru.menuguru6.Utils.CustomTimePickerDialog;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Restaurante;
@@ -44,6 +48,7 @@ public class Procurar_mesa extends Fragment {
     private Button bt_data;
     private Button bt_hora;
     private Calendar cal;
+    private CustomTimePickerDialog mTimePicker;
 
     public ImageLoader imageLoader;
     String imagem = "";
@@ -86,6 +91,16 @@ public class Procurar_mesa extends Fragment {
                 // here you set what you want to do when user clicks your button,
                 // e.g. launch a new activity
                 Log.v("clickclick","clicou pesquisa");
+                // tenho de lançar uma nova actividade aqui
+                Intent intent = new Intent(getActivity(), Resultados.class);
+
+                intent.putExtra("pessoas",pessoasQueVao.getText());
+                //intent.putExtra("");
+
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+
+
             }
         });
 
@@ -111,6 +126,35 @@ public class Procurar_mesa extends Fragment {
             }
         });
         bt_hora = (Button) mLinearLayout.findViewById(R.id.button_hora);
+        bt_hora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // tenho de adicionar cenas
+                Log.v("cenas","clicou timer");
+
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+
+                mTimePicker = new CustomTimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        // ainda falta qui codigo para fazer o resto das cenas
+                        // tenho de ter a validação se é 0 ou 30
+
+                        if (selectedMinute == 0)
+                            bt_hora.setText(Integer.toString(selectedHour) + ":00");
+                        else
+                            bt_hora.setText(Integer.toString(selectedHour) + ":30");
+
+
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
+        });
 
         Button bt_agora = (Button) mLinearLayout.findViewById(R.id.button3);
         bt_agora.setOnClickListener(new View.OnClickListener() {
@@ -151,9 +195,6 @@ public class Procurar_mesa extends Fragment {
         });
 
         data_agora();
-
-
-
 
         return mLinearLayout;
     }
