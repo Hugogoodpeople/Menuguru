@@ -43,10 +43,6 @@ public class MyFragment extends Fragment
         mTabHost.setup();
 
 
-
-
-
-
         mViewPager = (ViewPager) v.findViewById(R.id.pager);
         mTabsAdapter = new TabsAdapterHugo(getActivity(), getChildFragmentManager() , mTabHost, mViewPager);
 
@@ -55,12 +51,6 @@ public class MyFragment extends Fragment
         mTabsAdapter.addTab(mTabHost.newTabSpec("Verde").setIndicator("Especias"), Especiais.class, null);
         mTabsAdapter.addTab(mTabHost.newTabSpec("Vermelha").setIndicator("Reservas"), Procurar_mesa.class, null);
         //mTabsAdapter.addTab(mTabHost.newTabSpec("Branca").setIndicator("Branca"), Branca.class, null);
-
-       // tenho de alguma maneira por o cenas a actualizar
-
-
-
-
 
         return v;
     }

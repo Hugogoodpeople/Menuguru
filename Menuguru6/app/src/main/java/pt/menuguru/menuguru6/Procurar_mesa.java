@@ -1,6 +1,7 @@
 package pt.menuguru.menuguru6;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -39,7 +41,9 @@ public class Procurar_mesa extends Fragment {
     private ProgressDialog progressDialog;
     private int atual = 1;
     private TextView pessoasQueVao;
-
+    private Button bt_data;
+    private Button bt_hora;
+    private Calendar cal;
 
     public ImageLoader imageLoader;
     String imagem = "";
@@ -47,10 +51,6 @@ public class Procurar_mesa extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-
-
-
     }
 
     public void actualiza(int valor)
@@ -92,10 +92,35 @@ public class Procurar_mesa extends Fragment {
 
         pessoasQueVao = (TextView) mLinearLayout.findViewById(R.id.numero_pessoas);
 
-        Button bt_data = (Button) mLinearLayout.findViewById(R.id.button_data);
-        Button bt_hora = (Button) mLinearLayout.findViewById(R.id.button_hora);
+        bt_data = (Button) mLinearLayout.findViewById(R.id.button_data);
+        bt_data.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // tenho de adicionar cenas
+                Log.v("coiso", "Procurar");
 
-        //Button bt_agora = (Button) getActivity().findViewById(R.id.bt_agora);
+                Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                System.out.println("the selected " + mDay);
+                DatePickerDialog dialog = new DatePickerDialog(getActivity(),
+                        new mDateSetListener(), mYear, mMonth, mDay);
+                dialog.show();
+
+            }
+        });
+        bt_hora = (Button) mLinearLayout.findViewById(R.id.button_hora);
+
+        Button bt_agora = (Button) mLinearLayout.findViewById(R.id.button3);
+        bt_agora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // tenho de adicionar cenas
+                data_agora();
+            }
+        });
+
         Button bt_mais = (Button) mLinearLayout.findViewById(R.id.mais_pessoas);
         bt_mais.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,19 +139,35 @@ public class Procurar_mesa extends Fragment {
             }
         });
 
+        //Button bt_sem_data = (Button) getActivity().findViewById(R.id.bt_sem_data);
+        Button bt_procurar = (Button) mLinearLayout.findViewById(R.id.button8);
+        bt_procurar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // tenho de adicionar cenas
+                Log.v("coiso", "Procurar");
 
-        /*
-        Button bt_sem_data = (Button) getActivity().findViewById(R.id.bt_sem_data);
-        Button bt_procurar = (Button) getActivity().findViewById(R.id.bt_procurar);
-        */
+            }
+        });
+
+        data_agora();
 
 
 
+
+        return mLinearLayout;
+    }
+
+
+    public void data_agora()
+    {
         Calendar c = Calendar.getInstance();
         System.out.println("Current time => " + c.getTime());
 
         SimpleDateFormat df = new SimpleDateFormat("dd MMM");
         String formattedDate = df.format(c.getTime());
+
+        bt_data.setText(formattedDate);
 
 
         Time dtNow = new Time();
@@ -139,7 +180,7 @@ public class Procurar_mesa extends Fragment {
         // tenho de fazer aqui a verificação para ser de 30 em 30 min de cada vez
         if (minut >= 30)
         {
-            hours = hours -1;
+            hours = hours +1;
             minut = 00;
             horaActual = hours + ":00";
         }
@@ -153,13 +194,40 @@ public class Procurar_mesa extends Fragment {
         String lsYMD = dtNow.toString();    // YYYYMMDDTHHMMSS
 
 
-        bt_data.setText(formattedDate);
         bt_hora.setText(horaActual);
 
-        return mLinearLayout;
     }
 
+    class mDateSetListener implements DatePickerDialog.OnDateSetListener {
 
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            // TODO Auto-generated method stub
+            // getCalender();
+            int mYear = year;
+            int mMonth = monthOfYear;
+            int mDay = dayOfMonth;
+
+            String dataSelecionada= "Ano " + Integer.toString(mYear) +
+                                    " Mes " + Integer.toString(mMonth+1) +
+                                    " Dia " + Integer.toString(mDay);
+
+            Log.v("selecionado",dataSelecionada);
+
+            cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, mYear);
+            cal.set(Calendar.MONTH, mMonth);
+            cal.set(Calendar.DAY_OF_MONTH, mDay);
+
+            SimpleDateFormat df = new SimpleDateFormat("dd MMM");
+            String formattedDate = df.format(cal.getTime());
+
+            bt_data.setText(formattedDate);
+
+
+        }
+    }
 
 
 
