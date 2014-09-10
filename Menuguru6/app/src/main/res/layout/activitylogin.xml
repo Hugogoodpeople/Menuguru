@@ -8,7 +8,7 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:text="New Button"
-        android:id="@+id/mais_pessoas"
+        android:id="@+id/mais_pessoas_antigp"
         android:layout_gravity="center_horizontal"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
@@ -19,7 +19,7 @@
         android:text="New Button"
         android:id="@+id/button2"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/mais_pessoas"
+        android:layout_below="@+id/mais_pessoas_antigp"
         android:layout_centerHorizontal="true" />
 
     <Button

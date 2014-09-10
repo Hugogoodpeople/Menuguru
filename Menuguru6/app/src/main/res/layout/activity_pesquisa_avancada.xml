@@ -17,8 +17,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/mais_pessoas"
-        android:layout_toEndOf="@+id/mais_pessoas" />
+        android:layout_toRightOf="@+id/mais_pessoas_antigp"
+        android:layout_toEndOf="@+id/mais_pessoas_antigp" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Button"
-        android:id="@+id/mais_pessoas"
+        android:id="@+id/mais_pessoas_antigp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -46,8 +46,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
-        android:layout_toEndOf="@+id/mais_pessoas"
-        android:layout_above="@+id/mais_pessoas"
+        android:layout_toEndOf="@+id/mais_pessoas_antigp"
+        android:layout_above="@+id/mais_pessoas_antigp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/imageView"

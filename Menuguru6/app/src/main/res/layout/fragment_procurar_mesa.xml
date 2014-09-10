@@ -3,232 +3,228 @@
     android:layout_height="fill_parent"
     android:id="@+id/layout_procurar"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/gray">
+    android:background="@color/gray"><![CDATA[
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:scaleType="fitXY" />
-
-    <TextView
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Para quando gostaria de reservar mesa?"
-        android:id="@+id/nomeRestaurante"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-
-        android:textColor="@color/white"
-        android:gravity="center"/>
-
-        android:textColor="@color/white" />
 
 
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="100dp"
-        android:id="@+id/button_data"
-        android:background="@drawable/border_button"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/nomeRestaurante"
-        android:layout_alignLeft="@+id/nomeRestaurante"
-        android:layout_alignStart="@+id/nomeRestaurante"
-        android:textColor="@color/white" />
+    android:textColor="@color/white" />
 
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="100dp"
-        android:id="@+id/button_hora"
-        android:background="@drawable/border_button"
-        android:layout_toEndOf="@+id/button_data"
-        android:layout_alignTop="@+id/button_data"
-        android:layout_alignRight="@+id/nomeRestaurante"
-        android:layout_alignEnd="@+id/nomeRestaurante"
-        android:textColor="@color/white" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button3"
-        android:background="@drawable/border_button"
-        android:layout_below="@+id/button_data"
-        android:layout_alignLeft="@+id/button_data"
-        android:layout_alignStart="@+id/button_data"
-        android:layout_alignRight="@+id/nomeRestaurante"
-        android:layout_alignEnd="@+id/nomeRestaurante"
-        android:text="Agora"
-        android:textColor="@color/white" />
+
+
+
+
+
+
+
+
+
+
+    ]]>
 
     <RelativeLayout
-        android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/button3"
-        android:layout_alignLeft="@+id/button3"
-        android:layout_alignStart="@+id/button3"
-        android:layout_alignRight="@+id/button3"
-        android:layout_alignEnd="@+id/button3"
-        android:weightSum="1">
+        android:layout_height="fill_parent">
 
-        <Space
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.29"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="0dp"
+            android:id="@+id/imageView"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:id="@+id/space6" />
-
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/numero_pessoas"
-            android:background="@drawable/border_button"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.29"
-            android:layout_below="@+id/space6"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="1"
-            android:textColor="@color/white"
-            android:textSize="20dp" />
-
-        <Button
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/button6"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.29"
-            android:layout_toEndOf="@+id/numero_pessoas"
-            android:layout_alignTop="@+id/numero_pessoas"
-            android:layout_toRightOf="@+id/numero_pessoas"
-            android:background="@drawable/border_button" />
-
-        <Button
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/button4"
-            android:background="@drawable/border_button"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.29"
-            android:layout_toStartOf="@+id/numero_pessoas"
-            android:layout_alignTop="@+id/numero_pessoas"
-            android:layout_toLeftOf="@+id/numero_pessoas" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sem data especifica"
-            android:id="@+id/button7"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/numero_pessoas"
-            android:layout_centerHorizontal="true"
-            android:background="@android:color/transparent"
-            android:textColor="@color/white" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Encontrar mesa"
-            android:id="@+id/button8"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/encontar_mesa"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="@color/black" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imagemTipo"
-            android:layout_alignBottom="@+id/button4"
-            android:layout_toLeftOf="@+id/button4"
-            android:layout_toStartOf="@+id/button4"
-            android:layout_alignTop="@+id/button4"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/ic_user_w" />
+            android:scaleType="fitXY" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="pax."
-            android:id="@+id/nomeMenu"
-            android:layout_toEndOf="@+id/button6"
-            android:layout_alignTop="@+id/button6"
-            android:layout_toRightOf="@+id/button6"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
+            android:text="Para quando gostaria de reservar mesa?"
+            android:id="@+id/nomeRestaurante"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+
+            android:textColor="@color/white"
+            android:gravity="center"/>
+
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="100dp"
+            android:id="@+id/button_data"
+            android:background="@drawable/border_button"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/nomeRestaurante"
+            android:layout_alignLeft="@+id/nomeRestaurante"
+            android:layout_alignStart="@+id/nomeRestaurante"
             android:textColor="@color/white" />
 
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView3"
-            android:layout_toEndOf="@+id/numero_pessoas"
-            android:layout_alignTop="@+id/button6"
-            android:layout_toRightOf="@+id/numero_pessoas"
-            android:layout_alignBottom="@+id/numero_pessoas"
-            android:layout_alignRight="@+id/button6"
-            android:layout_alignEnd="@+id/button6"
-            android:src="@drawable/ic_more_w"
-            android:scaleType="centerInside" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView4"
-            android:layout_toEndOf="@+id/numero_pessoas"
-            android:src="@drawable/ic_less_w"
-            android:layout_toStartOf="@+id/numero_pessoas"
-            android:layout_alignLeft="@+id/button4"
-            android:layout_alignStart="@+id/button4"
-            android:layout_above="@+id/button7"
-            android:layout_toLeftOf="@+id/numero_pessoas"
-            android:layout_alignTop="@+id/button4"
-            android:scaleType="centerInside" />
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="100dp"
+            android:id="@+id/button_hora"
+            android:background="@drawable/border_button"
+            android:layout_toEndOf="@+id/button_data"
+            android:layout_alignTop="@+id/button_data"
+            android:layout_alignRight="@+id/nomeRestaurante"
+            android:layout_alignEnd="@+id/nomeRestaurante"
+            android:textColor="@color/white" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/mais_pessoas"
-            android:layout_alignBottom="@+id/numero_pessoas"
-            android:layout_alignRight="@+id/button7"
-            android:layout_alignEnd="@+id/button7"
-            android:layout_toRightOf="@+id/numero_pessoas"
-            android:layout_toEndOf="@+id/numero_pessoas"
-            android:layout_alignTop="@+id/button6"
-            android:alpha="0" />
+            android:id="@+id/button3"
+            android:background="@drawable/border_button"
+            android:layout_below="@+id/button_data"
+            android:layout_alignLeft="@+id/button_data"
+            android:layout_alignStart="@+id/button_data"
+            android:layout_alignRight="@+id/nomeRestaurante"
+            android:layout_alignEnd="@+id/nomeRestaurante"
+            android:text="Agora"
+            android:textColor="@color/white" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/pessoas_menos"
-            android:layout_toEndOf="@+id/imagemTipo"
-            android:layout_toStartOf="@+id/numero_pessoas"
-            android:layout_above="@+id/button7"
-            android:layout_alignTop="@+id/numero_pessoas"
-            android:layout_toLeftOf="@+id/numero_pessoas"
-            android:layout_toRightOf="@+id/imagemTipo"
-            android:alpha="0" />
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/button3"
+            android:layout_alignLeft="@+id/button3"
+            android:layout_alignStart="@+id/button3"
+            android:layout_alignRight="@+id/button3"
+            android:layout_alignEnd="@+id/button3"
+            android:weightSum="1">
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.29"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="0dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:id="@+id/space6" />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/numero_pessoas"
+                android:background="@drawable/border_button"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.29"
+                android:layout_below="@+id/space6"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/mais_pessoas"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.29"
+                android:layout_toEndOf="@+id/numero_pessoas"
+                android:layout_alignTop="@+id/numero_pessoas"
+                android:layout_toRightOf="@+id/numero_pessoas"
+                android:background="@drawable/border_button" />
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/pessoas_menos"
+                android:background="@drawable/border_button"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.29"
+                android:layout_toStartOf="@+id/numero_pessoas"
+                android:layout_alignTop="@+id/numero_pessoas"
+                android:layout_toLeftOf="@+id/numero_pessoas" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sem data especifica"
+                android:id="@+id/button7"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/numero_pessoas"
+                android:layout_centerHorizontal="true"
+                android:background="@android:color/transparent"
+                android:textColor="@color/white"
+                android:alpha="0.5" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Encontrar mesa"
+                android:id="@+id/button8"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/encontar_mesa"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imagemTipo"
+                android:layout_alignBottom="@+id/pessoas_menos"
+                android:layout_toLeftOf="@+id/pessoas_menos"
+                android:layout_toStartOf="@+id/pessoas_menos"
+                android:layout_alignTop="@+id/pessoas_menos"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/ic_user_w" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="pax."
+                android:id="@+id/nomeMenu"
+                android:layout_toEndOf="@+id/mais_pessoas"
+                android:layout_alignTop="@+id/mais_pessoas"
+                android:layout_toRightOf="@+id/mais_pessoas"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/white" />
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView3"
+                android:layout_toEndOf="@+id/numero_pessoas"
+                android:layout_alignTop="@+id/mais_pessoas"
+                android:layout_toRightOf="@+id/numero_pessoas"
+                android:layout_alignBottom="@+id/numero_pessoas"
+                android:layout_alignRight="@+id/mais_pessoas"
+                android:layout_alignEnd="@+id/mais_pessoas"
+                android:src="@drawable/ic_more_w"
+                android:scaleType="centerInside" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView4"
+                android:layout_toEndOf="@+id/numero_pessoas"
+                android:src="@drawable/ic_less_w"
+                android:layout_toStartOf="@+id/numero_pessoas"
+                android:layout_alignLeft="@+id/pessoas_menos"
+                android:layout_alignStart="@+id/pessoas_menos"
+                android:layout_above="@+id/button7"
+                android:layout_toLeftOf="@+id/numero_pessoas"
+                android:layout_alignTop="@+id/pessoas_menos"
+                android:scaleType="centerInside" />
+
+        </RelativeLayout>
     </RelativeLayout>
 
 

@@ -5,12 +5,14 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +82,23 @@ public class Resultados extends Activity
 
 
         new AsyncTaskParseJson(this).execute();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+
+                this.finish();
+                this.overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
+            }
+
+                return false;
+            default:
+                break;
+        }
+
+        return false;
     }
 
     public void asyncComplete(boolean success){
@@ -253,16 +272,17 @@ public class Resultados extends Activity
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             //return super.getView(position, convertView, parent);
 
             LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View row = null;
+            View row = convertView;
 
 
             if (some_array[position].tipo.equalsIgnoreCase("restaurante")) {
 
-                row=inflater.inflate(R.layout.fragment_inicio, parent, false);
+                if (row == null)
+                    row=inflater.inflate(R.layout.fragment_inicio, parent, false);
                 TextView label2=(TextView)row.findViewById(R.id.nomeMenu);
                 label2.setText(some_array[position].cosinhas);
 
@@ -271,6 +291,7 @@ public class Resultados extends Activity
 
                 TextView label=(TextView)row.findViewById(R.id.nomeRestaurante);
                 label.setText(some_array[position].nome);
+
 
                 ImageView icon=(ImageView)row.findViewById(R.id.capa);
 
@@ -302,7 +323,12 @@ public class Resultados extends Activity
                 label4.setText(Utils.getDistance(locationPhone,locationRest));
 
 
+
+
                 imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImagem(), icon);
+
+
+
 
             }else
             {

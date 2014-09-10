@@ -1,10 +1,8 @@
 package pt.menuguru.menuguru6;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,7 +22,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
@@ -35,9 +32,7 @@ import java.util.Calendar;
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.ResultadosProcurarMesa.Resultados;
 import pt.menuguru.menuguru6.Utils.CustomTimePickerDialog;
-import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
-import pt.menuguru.menuguru6.Utils.Restaurante;
 
 
 public class Procurar_mesa extends Fragment {
@@ -47,6 +42,15 @@ public class Procurar_mesa extends Fragment {
     private TextView pessoasQueVao;
     private Button bt_data;
     private Button bt_hora;
+    private Button bt_agora;
+    private Button bt_semdata;
+    private ImageView img_tipo;
+    private ImageView mais;
+    private ImageView menos;
+    private Button bt_menos;
+    private Button bt_mais;
+    private TextView pessoas_menu;
+    private TextView nome_menu;
     private Calendar cal;
     private CustomTimePickerDialog mTimePicker;
 
@@ -97,6 +101,18 @@ public class Procurar_mesa extends Fragment {
             }
         });
 
+        nome_menu = (TextView) mLinearLayout.findViewById(R.id.nomeMenu);
+        img_tipo = (ImageView) mLinearLayout.findViewById(R.id.imagemTipo);
+        mais = (ImageView) mLinearLayout.findViewById(R.id.imageView3);
+        menos = (ImageView) mLinearLayout.findViewById(R.id.imageView4);
+
+        bt_semdata = (Button) mLinearLayout.findViewById(R.id.button7);
+        bt_semdata.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                semData();
+                Log.v("cecece","teste alpha");
+            }});
 
         pessoasQueVao = (TextView) mLinearLayout.findViewById(R.id.numero_pessoas);
 
@@ -149,7 +165,7 @@ public class Procurar_mesa extends Fragment {
             }
         });
 
-        Button bt_agora = (Button) mLinearLayout.findViewById(R.id.button3);
+        bt_agora = (Button) mLinearLayout.findViewById(R.id.button3);
         bt_agora.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,7 +174,7 @@ public class Procurar_mesa extends Fragment {
             }
         });
 
-        Button bt_mais = (Button) mLinearLayout.findViewById(R.id.mais_pessoas);
+        bt_mais = (Button) mLinearLayout.findViewById(R.id.mais_pessoas);
         bt_mais.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,7 +183,7 @@ public class Procurar_mesa extends Fragment {
             }
         });
 
-        Button bt_menos = (Button) mLinearLayout.findViewById(R.id.pessoas_menos);
+        bt_menos = (Button) mLinearLayout.findViewById(R.id.pessoas_menos);
         bt_menos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -193,8 +209,12 @@ public class Procurar_mesa extends Fragment {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 String formattedDate = df.format(cal.getTime());
 
+                if (bt_semdata.getAlpha()==1)
+                    intent.putExtra("data","0");
+                else
+                    intent.putExtra("data",formattedDate);
 
-                intent.putExtra("data",formattedDate);
+
                 intent.putExtra("hora",bt_hora.getText());
                 //intent.putExtra("");
 
@@ -207,6 +227,61 @@ public class Procurar_mesa extends Fragment {
         data_agora();
 
         return mLinearLayout;
+    }
+
+    public void semData()
+    {
+        float alpha;
+
+
+        bt_semdata.setAlpha(bt_hora.getAlpha());
+
+        if (bt_hora.getAlpha() == 1)
+        {
+            alpha = 0.5f;
+
+            bt_hora.setEnabled(false);
+            bt_data.setEnabled(false);
+            bt_agora.setEnabled(false);
+            img_tipo.setEnabled(false);
+            mais.setEnabled(false);
+            menos.setEnabled(false);
+            pessoasQueVao.setEnabled(false);
+            nome_menu.setEnabled(false);
+            // estes botoes sao sempre postos com alpha a 0... nao devo mexer neles
+            bt_menos.setEnabled(false);
+            bt_mais.setEnabled(false);
+
+        }else
+        {
+            alpha = 1;
+
+            bt_hora.setEnabled(true);
+            bt_data.setEnabled(true);
+            bt_agora.setEnabled(true);
+            img_tipo.setEnabled(true);
+            mais.setEnabled(true);
+            menos.setEnabled(true);
+            pessoasQueVao.setEnabled(true);
+            nome_menu.setEnabled(true);
+            // estes botoes sao sempre postos com alpha a 0... nao devo mexer neles
+            bt_menos.setEnabled(true);
+            bt_mais.setEnabled(true);
+        }
+
+
+        bt_hora.setAlpha(alpha);
+        bt_data.setAlpha(alpha);
+        bt_agora.setAlpha(alpha);
+        img_tipo.setAlpha(alpha);
+        mais.setAlpha(alpha);
+        menos.setAlpha(alpha);
+        pessoasQueVao.setAlpha(alpha);
+        nome_menu.setAlpha(alpha);
+        // estes botoes sao sempre postos com alpha a 0... nao devo mexer neles
+         bt_menos.setAlpha(alpha);
+         bt_mais.setAlpha(alpha);
+
     }
 
 
