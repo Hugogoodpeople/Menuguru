@@ -52,6 +52,10 @@
             android:name=".ActivityLogin"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name="pt.menuguru.menuguru6.ResultadosProcurarMesa.Resultados"
+            android:screenOrientation="portrait">
+        </activity>
 
 
     </application>

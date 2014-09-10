@@ -91,14 +91,7 @@ public class Procurar_mesa extends Fragment {
                 // here you set what you want to do when user clicks your button,
                 // e.g. launch a new activity
                 Log.v("clickclick","clicou pesquisa");
-                // tenho de lançar uma nova actividade aqui
-                Intent intent = new Intent(getActivity(), Resultados.class);
 
-                intent.putExtra("pessoas",pessoasQueVao.getText());
-                //intent.putExtra("");
-
-                startActivity(intent);
-                getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
 
 
             }
@@ -191,6 +184,23 @@ public class Procurar_mesa extends Fragment {
                 // tenho de adicionar cenas
                 Log.v("coiso", "Procurar");
 
+                // tenho de lançar uma nova actividade aqui
+                Intent intent = new Intent(getActivity(), Resultados.class);
+
+                intent.putExtra("pessoas",pessoasQueVao.getText());
+
+
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                String formattedDate = df.format(cal.getTime());
+
+
+                intent.putExtra("data",formattedDate);
+                intent.putExtra("hora",bt_hora.getText());
+                //intent.putExtra("");
+
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+
             }
         });
 
@@ -202,11 +212,11 @@ public class Procurar_mesa extends Fragment {
 
     public void data_agora()
     {
-        Calendar c = Calendar.getInstance();
-        System.out.println("Current time => " + c.getTime());
+        cal = Calendar.getInstance();
+        System.out.println("Current time => " + cal.getTime());
 
         SimpleDateFormat df = new SimpleDateFormat("dd MMM");
-        String formattedDate = df.format(c.getTime());
+        String formattedDate = df.format(cal.getTime());
 
         bt_data.setText(formattedDate);
 

@@ -84,8 +84,8 @@ public class Resultados extends Activity
 
     public void asyncComplete(boolean success){
 
-
         // mCallbacks.onButtonClicked();
+
 
         mListView = (ListView) findViewById(R.id.listViewResultadoInspiras);
         //adapter = new ArrayAdapter<Locais>(this,android.R.layout.simple_list_item_1, android.R.id.text1, local);
@@ -95,6 +95,7 @@ public class Resultados extends Activity
         // Assign adapter to ListView
         mListView.setAdapter(mAdapter);
 
+
     }
 
     // you can make this class as another java file so it will be separated from your main activity.
@@ -103,7 +104,7 @@ public class Resultados extends Activity
         final String TAG = "AsyncTaskParseJson.java";
 
 
-        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_restlistagem_listanomefav.php";
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_pesquisareservamesa.php";
 
         // contacts JSONArray
         JSONArray dataJsonArr = null;
@@ -117,7 +118,12 @@ public class Resultados extends Activity
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
+            progressDialog = new ProgressDialog(Resultados.this);
+            progressDialog.setCancelable(true);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
         }
 
         @Override
@@ -146,7 +152,80 @@ public class Resultados extends Activity
 
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
 
-                Log.v("sdffgddvsdsv","objecto especial = "+ jsonObj);
+                Log.v("jfgrhng","resultado da procura = "+ jsonString);
+
+
+                // try parse the string to a JSON object
+                try {
+                    Log.v("Ver Json ","Ele retorna isto"+jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                // get the array of users
+
+                dataJsonArr = jsonObj.getJSONArray("res");
+
+                // loop through all users
+
+
+
+
+                some_array = new Restaurante[dataJsonArr.length()];
+                for (int i = 0; i < dataJsonArr.length(); i++) {
+
+                    JSONObject c = dataJsonArr.getJSONObject(i);
+
+
+
+                    // Storing each json item in variable
+                    String firstname = c.getString("nome");
+
+                    // show the values in our logcat
+                    Log.v(TAG, "firstname: " + firstname
+                    );
+
+
+                    Restaurante rest = new Restaurante();
+                    rest.setNome(firstname);
+
+                    rest.morada = c.getString("morada");
+                    //rest.mediarating = c.getString("mediarating");
+                    //rest.cidade = c.getString("cidade");
+                    rest.urlImagem = c.getString("imagem");
+                    rest.votacoes = c.getString("votacoes");
+                    //rest.morada = c.getString("morada");
+                    //rest.precoMedio = c.getString("precomedio");
+
+                    rest.tipo = c.getString("tipo");
+
+
+                    rest.latitude = c.getString("lat");
+                    rest.longitude = c.getString("lon");
+                    rest.mediarating = c.getString("mediarating");
+                    rest.precoMedio = c.getString("precomedio");
+
+                    JSONArray cozinhas = c.getJSONArray("cozinhas");
+
+                    for (int z = 0; z < cozinhas.length(); z++) {
+                       JSONObject cozinha = cozinhas.getJSONObject(z);
+                       if (cozinhas.length() - 1 > z)
+                       {
+                           rest.cosinhas = rest.cosinhas + cozinha.getString("cozinhas_nome") + ", ";
+                       }
+                       else
+                       {
+                           rest.cosinhas = rest.cosinhas + "" + cozinha.getString("cozinhas_nome");
+                       }
+                    }
+                        //rest.cosinhas = rest.cosinhas.substring(0, rest.cosinhas.length() - 1);
+
+
+                    some_array[i] = rest;
+
+                }
+
+
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -156,7 +235,8 @@ public class Resultados extends Activity
         }
 
         @Override
-        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncComplete(true);  }
+        protected void onPostExecute(String strFromDoInBg){
+            progressDialog.dismiss();delegate.asyncComplete(true);  }
 
     }
 
@@ -165,8 +245,8 @@ public class Resultados extends Activity
         Context myContext;
         public ImageLoader imageLoader;
 
-        public MyListAdapter(Context context, int textViewResourceId,
-                             Restaurante[] objects) {
+
+        public MyListAdapter(Context context, int textViewResourceId, Restaurante[] objects) {
             super(context, textViewResourceId, objects);
             imageLoader=new ImageLoader(context);
             myContext = context;
@@ -208,6 +288,9 @@ public class Resultados extends Activity
                 TextView label4 = (TextView) row.findViewById(R.id.distancia);
                 label4.setText("ND");
 
+                TextView label5 = (TextView) row.findViewById(R.id.votosnumber);
+                label5.setText("(" + some_array[position].getVotacoes() + ")");
+
                 Location locationRest = new Location("");
                 locationRest.setLatitude(Double.parseDouble(some_array[position].latitude));
                 locationRest.setLongitude(Double.parseDouble(some_array[position].longitude));
@@ -216,7 +299,8 @@ public class Resultados extends Activity
                 locationPhone.setLatitude(Double.parseDouble(Globals.getInstance().getLatitude()));
                 locationPhone.setLongitude(Double.parseDouble(Globals.getInstance().getLongitude()));
 
-                label4.setText(Utils.getDistance(locationPhone, locationRest));
+                label4.setText(Utils.getDistance(locationPhone,locationRest));
+
 
                 imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImagem(), icon);
 

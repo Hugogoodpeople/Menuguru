@@ -319,6 +319,9 @@ public class Resultado_inspiracao extends Activity implements AdapterView.OnItem
                 TextView label4 = (TextView) row.findViewById(R.id.distancia);
                 label4.setText("ND");
 
+                TextView label5 = (TextView) row.findViewById(R.id.votosnumber);
+                label5.setText("(" + some_array[position].getVotacoes() + ")");
+
                 Location locationRest = new Location("");
                 locationRest.setLatitude(Double.parseDouble(some_array[position].latitude));
                 locationRest.setLongitude(Double.parseDouble(some_array[position].longitude));
@@ -327,7 +330,8 @@ public class Resultado_inspiracao extends Activity implements AdapterView.OnItem
                 locationPhone.setLatitude(Double.parseDouble(Globals.getInstance().getLatitude()));
                 locationPhone.setLongitude(Double.parseDouble(Globals.getInstance().getLongitude()));
 
-                label4.setText(Utils.getDistance(locationPhone, locationRest));
+                label4.setText(Utils.getDistance(locationPhone,locationRest));
+
 
                 imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImagem(), icon);
 
@@ -336,7 +340,6 @@ public class Resultado_inspiracao extends Activity implements AdapterView.OnItem
                 row=inflater.inflate(R.layout.fragment_row_colecao, parent, false);
                 ImageView icon=(ImageView)row.findViewById(R.id.imagemColecao);
                 imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImagem(), icon);
-
             }
             return row;
         }
