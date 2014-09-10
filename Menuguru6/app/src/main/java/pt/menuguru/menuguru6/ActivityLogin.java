@@ -73,6 +73,7 @@ public class ActivityLogin extends Activity
     }
 
 
+
     // you can make this class as another java file so it will be separated from your main activity.
     public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
 
@@ -205,9 +206,8 @@ public class ActivityLogin extends Activity
             alertDialog.show();
 
         }else{
-            Intent myIntent = new Intent(this, MainActivity.class);
-            startActivity(myIntent);
-            this.finish();
+
+            finish();
         }
 
 

@@ -43,6 +43,13 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
 
     }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        this.getActivity().invalidateOptionsMenu();
+    }
+
 
 
     @Override
@@ -53,7 +60,7 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
 
                 Intent myIntent = new Intent(getActivity(), ActivityLogin.class);
                 getActivity().startActivity(myIntent);
-                this.getActivity().finish();
+                //this.getActivity().finish();
 
 
                 Log.v("clickmenu","clicou no menu");
@@ -220,6 +227,8 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
 
         return view;
     }
+
+
 
     /*
     @Override

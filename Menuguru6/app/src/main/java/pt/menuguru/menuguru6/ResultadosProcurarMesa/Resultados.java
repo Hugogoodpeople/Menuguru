@@ -62,6 +62,7 @@ public class Resultados extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultado_inspiracao);
         Intent intent = getIntent();
+
         data = intent.getStringExtra("data");
         hora = intent.getStringExtra("hora");
         pessoas = intent.getStringExtra("pessoas");
