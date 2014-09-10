@@ -27,13 +27,18 @@ import java.io.InputStream;
 import java.net.URL;
 
 import pt.menuguru.menuguru6.Inspiracoes.Activity_Inspiracao;
+import pt.menuguru.menuguru6.Utils.Globals;
 
 
 public class Defenicoes extends Fragment implements AbsListView.OnItemClickListener {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.loginmenu, menu);
+        if(Globals.get_instance().getUser() != null){
+            inflater.inflate(R.menu.logoutmenu, menu);
+        }else{
+            inflater.inflate(R.menu.loginmenu, menu);
+        }
         super.onCreateOptionsMenu(menu, inflater);
 
     }
@@ -45,14 +50,39 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
         switch (item.getItemId()) {
             case R.id.action_login:
                 // tenho de chamar aqui o login
+
                 Intent myIntent = new Intent(getActivity(), ActivityLogin.class);
                 getActivity().startActivity(myIntent);
-                //this.getActivity().finish();
+                this.getActivity().finish();
 
 
                 Log.v("clickmenu","clicou no menu");
                 return false;
 
+            case R.id.action_logout:
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getActivity());
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage(R.string.terminar_sessao)
+                        .setCancelable(false)
+                        .setNegativeButton("Nao",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .setPositiveButton("Sim",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();
+
+
+                Log.v("clickmenu","clicou no menu");
+                return false;
 
 
 

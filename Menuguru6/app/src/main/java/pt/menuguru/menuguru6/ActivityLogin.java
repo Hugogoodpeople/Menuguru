@@ -3,7 +3,9 @@ package pt.menuguru.menuguru6;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,6 +30,7 @@ import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.Inspiracao;
 import pt.menuguru.menuguru6.Utils.InspiracaoItem;
 import pt.menuguru.menuguru6.Utils.Locais;
+import pt.menuguru.menuguru6.Utils.User;
 
 /**
  * Created by hugocosta on 08/09/14.
@@ -39,6 +42,10 @@ public class ActivityLogin extends Activity
     Button LoginBface;
     EditText edit_email;
     EditText edit_pass;
+
+    User[] user = null;
+
+    String aux_user = "0";
 
     private ProgressDialog progressDialog;
 
@@ -59,7 +66,6 @@ public class ActivityLogin extends Activity
                 {
                     public void onClick(View view)
                     {
-
                         new AsyncTaskParseJson(ActivityLogin.this).execute();
                     }
                 });
@@ -113,26 +119,60 @@ public class ActivityLogin extends Activity
 
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
 
-                // get the array of users
 
                 try {
-                    jsonObj = new JSONObject(jsonString.substring(jsonString.indexOf("{"), jsonString.lastIndexOf("}") + 1));
+                    Log.v("Ver Json ", "Ele retorna isto" + jsonString);
+                    jsonObj = new JSONObject(jsonString);
                 } catch (JSONException e) {
-                    Log.e("JSON Parser", "Error parsing data [" + e.getMessage()+"] "+jsonString);
+                    Log.e(TAG, "Error parsing data " + e.toString());
                 }
+                // get the array of users
 
-                dataJsonArr = jsonObj.getJSONArray("resp");
 
-                Log.v("JsonObject","objecto = "+ jsonObj);
-                // loop through all users
-                Log.v("JsonObject","objecto = "+ jsonObj);
+                    User users = new User();
 
-                for (int i = 0; i < dataJsonArr.length(); i++) {
+                    String resp = jsonObj.getString("resp");
+                    if(resp.equals("email invalido") || resp.equals("ERRO") || resp.equals("Activar conta")){
+                        aux_user = "0";
+                        Log.v("resp","objecto = "+ jsonObj.getString("resp"));
+                        Log.v("msg","objecto = "+ jsonObj.getString("msg"));
+                        Log.v("titulo","objecto = "+ jsonObj.getString("titulo"));
+                    }else {
+                        aux_user = "1";
+                        users.userid = jsonObj.getString("userid");
+                        users.email = jsonObj.getString("email");
+                        users.pnome = jsonObj.getString("pnome");
+                        users.snome = jsonObj.getString("snome");
+                        users.cidade = jsonObj.getString("cidade");
+                        users.telefone_user = jsonObj.getString("telefone_user");
+                        users.data_nasc = jsonObj.getString("data_nasc");
+                        users.pass = jsonObj.getString("pass");
+                        users.tipoconta = jsonObj.getString("tipoconta");
+                        String news = jsonObj.getString("news");
+                        if (news.equals("1")) {
+                            users.news = true;
+                        } else {
+                            users.news = false;
+                        }
+                        Globals.get_instance().setUser(users);
 
-                    JSONObject c = dataJsonArr.getJSONObject(i);
+                        Log.v("Nome", "objecto = " + jsonObj.getString("pnome"));
+                        Log.v("userid","objecto = "+ jsonObj.getString("userid"));
+                        Log.v("email","objecto = "+ jsonObj.getString("email"));
+                        Log.v("snome","objecto = "+ jsonObj.getString("snome"));
+                        Log.v("cidade","objecto = "+ jsonObj.getString("cidade"));
+                        Log.v("telefone_user","objecto = "+ jsonObj.getString("telefone_user"));
+                        Log.v("data_nasc","objecto = "+ jsonObj.getString("data_nasc"));
+                        Log.v("pass","objecto = "+ jsonObj.getString("pass"));
+                    }
 
-                    Log.v("Nome","objecto = "+ c.getString("nome"));
-                }
+
+
+
+                   // user[0] = users;
+
+
+
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -148,7 +188,27 @@ public class ActivityLogin extends Activity
 
 
     public void asyncComplete(boolean success){
+        if(aux_user.equals("0")){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage(R.string.incorrecto)
+                    .setCancelable(false)
+                    .setNegativeButton("OK",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            dialog.cancel();
+                        }
+                    });
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            // show it
+            alertDialog.show();
 
+        }else{
+            Intent myIntent = new Intent(this, MainActivity.class);
+            startActivity(myIntent);
+            this.finish();
+        }
 
 
     }

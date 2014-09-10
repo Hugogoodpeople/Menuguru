@@ -9,6 +9,16 @@ public class Globals
     public String latitude = "0";
     public String longitude = "0";
     public String cidedade_id = "0";
+    public String cidadeÇ_nome = "Perto de min";
+    public User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getCidadeÇ_nome() {
         return cidadeÇ_nome;
@@ -25,8 +35,6 @@ public class Globals
     public static void set_instance(Globals _instance) {
         Globals._instance = _instance;
     }
-
-    public String cidadeÇ_nome = "Perto de min";
 
     public String getLatitude() {
         return latitude;

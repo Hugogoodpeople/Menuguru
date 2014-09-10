@@ -125,5 +125,6 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="bt_face">Entrar com Facebook</string>
     <string name="esq_pass">Esqueceu-se da password?</string>
     <string name="registo">Registar-se na Menu Guru</string>
-
+    <string name="incorrecto">Email ou password incorrecto.</string>
+    <string name="terminar_sessao">Tem a certeza que quer terminar sessão?</string>
 </resources>
