@@ -170,13 +170,6 @@ public class ActivityLogin extends Activity
                     }
 
 
-
-
-                   // user[0] = users;
-
-
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }

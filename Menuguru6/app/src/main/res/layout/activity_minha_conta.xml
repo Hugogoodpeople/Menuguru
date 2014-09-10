@@ -30,7 +30,6 @@
 
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:text=""
                     android:id="@+id/edit_pnome"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
@@ -43,7 +42,6 @@
                     android:background="@drawable/textfields"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:text=""
                     android:id="@+id/edit_snome"
                     android:layout_gravity="center_horizontal"
                     android:layout_alignParentRight="true"
@@ -68,7 +66,6 @@
                     android:background="@drawable/textfields"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:text=""
                     android:id="@+id/edit_data_nascimento"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
@@ -80,7 +77,6 @@
                     android:background="@drawable/textfields"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:text=""
                     android:id="@+id/edit_cidade"
                     android:layout_gravity="center_horizontal"
                     android:layout_alignParentRight="true"
@@ -96,7 +92,6 @@
                 android:background="@drawable/textfields"
                 android:layout_width="fill_parent"
                 android:layout_height="35dp"
-                android:text=""
                 android:id="@+id/edit_telefone"
                 android:layout_gravity="center_horizontal"
                 android:layout_alignParentRight="true"
@@ -111,7 +106,6 @@
                 android:background="@drawable/textfields"
                 android:layout_width="fill_parent"
                 android:layout_height="35dp"
-                android:text=""
                 android:id="@+id/edit_email"
                 android:layout_gravity="center_horizontal"
                 android:layout_alignParentRight="true"
@@ -126,7 +120,6 @@
                 android:background="@drawable/textfields"
                 android:layout_width="fill_parent"
                 android:layout_height="35dp"
-                android:text=""
                 android:id="@+id/edit_pass"
                 android:layout_gravity="center_horizontal"
                 android:layout_alignParentRight="true"
@@ -188,7 +181,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:textSize="14dp"
-                    />
+                    android:checked="false"
+                    android:id="@+id/news" />
             </LinearLayout>
 
             <Button
