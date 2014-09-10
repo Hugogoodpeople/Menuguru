@@ -47,6 +47,8 @@ public class ActivityLogin extends Activity
 
     String aux_user = "0";
 
+    public Defenicoes delegate;
+
     private ProgressDialog progressDialog;
 
     @Override
@@ -205,8 +207,6 @@ public class ActivityLogin extends Activity
             alertDialog.show();
 
         }else{
-            Intent myIntent = new Intent(this, MainActivity.class);
-            startActivity(myIntent);
             this.finish();
         }
 

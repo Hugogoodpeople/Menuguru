@@ -43,6 +43,13 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
 
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+
+
+    }
+
 
 
     @Override
@@ -52,8 +59,8 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
                 // tenho de chamar aqui o login
 
                 Intent myIntent = new Intent(getActivity(), ActivityLogin.class);
+                //myIntent.putExtra("delegate", String.valueOf(getActivity()));
                 getActivity().startActivity(myIntent);
-                this.getActivity().finish();
 
 
                 Log.v("clickmenu","clicou no menu");
@@ -361,5 +368,6 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
         public void onFragmentInteraction(String id);
     }
     */
+
 
 }
