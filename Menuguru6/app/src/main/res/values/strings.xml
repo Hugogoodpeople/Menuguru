@@ -118,4 +118,12 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
 
     </string>
 
+    <string name="ola">Olá</string>
+    <string name="preencher">Preencha os dados para aceder à sua conta.</string>
+    <string name="bt_iniciar">Iniciar sessão</string>
+    <string name="ou">ou</string>
+    <string name="bt_face">Entrar com Facebook</string>
+    <string name="esq_pass">Esqueceu-se da password?</string>
+    <string name="registo">Registar-se na Menu Guru</string>
+
 </resources>
