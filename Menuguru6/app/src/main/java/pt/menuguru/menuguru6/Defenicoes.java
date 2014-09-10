@@ -44,17 +44,15 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
     }
 
     @Override
-<<<<<<< HEAD
+
     public void onResume()
     {
         super.onResume();
         this.getActivity().invalidateOptionsMenu();
-=======
-    public void onResume(){
-        super.onResume();
 
 
->>>>>>> FETCH_HEAD
+
+
     }
 
 
@@ -68,10 +66,9 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
                 Intent myIntent = new Intent(getActivity(), ActivityLogin.class);
                 //myIntent.putExtra("delegate", String.valueOf(getActivity()));
                 getActivity().startActivity(myIntent);
-<<<<<<< HEAD
+
                 //this.getActivity().finish();
-=======
->>>>>>> FETCH_HEAD
+
 
 
                 Log.v("clickmenu","clicou no menu");

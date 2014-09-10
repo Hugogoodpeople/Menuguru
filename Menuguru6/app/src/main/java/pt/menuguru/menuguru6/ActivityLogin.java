@@ -208,12 +208,10 @@ public class ActivityLogin extends Activity
             alertDialog.show();
 
         }else{
-<<<<<<< HEAD
+
 
             finish();
-=======
-            this.finish();
->>>>>>> FETCH_HEAD
+
         }
 
 
