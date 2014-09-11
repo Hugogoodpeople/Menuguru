@@ -181,7 +181,6 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:textSize="14dp"
-                    android:checked="false"
                     android:id="@+id/news" />
             </LinearLayout>
 

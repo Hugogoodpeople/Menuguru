@@ -21,9 +21,9 @@ public class CriarUser extends Activity {
 
     EditText edit_pnome;
     EditText edit_snome;
-    EditText edit_sexo;
+    Button edit_sexo;
     EditText edit_cidade;
-    EditText edit_data_nasc;
+    Button edit_data_nasc;
     EditText edit_email;
     EditText edit_pass;
 
@@ -37,9 +37,9 @@ public class CriarUser extends Activity {
 
         edit_pnome  = (EditText)findViewById(R.id.edit_pnome);
         edit_snome  = (EditText)findViewById(R.id.edit_snome);
-        edit_sexo  = (EditText)findViewById(R.id.edit_sexo);
+        edit_sexo  = (Button)findViewById(R.id.edit_sexo);
         edit_cidade  = (EditText)findViewById(R.id.edit_cidade);
-        edit_data_nasc  = (EditText)findViewById(R.id.edit_data_nasc);
+        edit_data_nasc  = (Button)findViewById(R.id.edit_data_nasc);
         edit_email  = (EditText)findViewById(R.id.edit_email);
         edit_pass  = (EditText)findViewById(R.id.edit_pass);
 
@@ -64,14 +64,23 @@ public class CriarUser extends Activity {
             @Override
             public void onClick(View v) {
                 Log.v("coiso", "Sexo");
-                AlertDialog.Builder builder = new AlertDialog.Builder(CriarUser.this);
-                builder.setTitle("Sexo")
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CriarUser.this);
+                // set dialog message
+                alertDialogBuilder
+                        .setTitle("Sexo")
                         .setItems(R.array.sexo, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-
+                                if(which==0) {
+                                    edit_sexo.setText("Homem");
+                                }else if(which==1){
+                                    edit_sexo.setText("Mulher");
+                                }
                             }
                         });
-             builder.create();
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();
             }
         });
     }

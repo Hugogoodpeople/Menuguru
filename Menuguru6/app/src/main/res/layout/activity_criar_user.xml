@@ -12,7 +12,7 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:inputType="textPersonName"
         android:id="@+id/edit_pnome"
         android:layout_alignParentTop="true"
@@ -27,7 +27,7 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:inputType="textPersonName"
         android:id="@+id/edit_snome"
         android:layout_below="@+id/edit_pnome"
@@ -41,9 +41,9 @@
         android:hint="Sobrenome"
         android:textSize="14dp"/>
 
-    <EditText
+    <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:id="@+id/edit_sexo"
         android:layout_below="@+id/edit_snome"
         android:layout_alignParentLeft="true"
@@ -52,13 +52,15 @@
         android:layout_alignEnd="@+id/edit_snome"
         android:layout_marginTop="10dp"
         android:background="@drawable/textfields"
+        android:gravity="left|center_vertical"
         android:layout_weight="1.5"
         android:hint="Sexo"
-        android:textSize="14dp"/>
+        android:textSize="14dp"
+        android:editable="true"/>
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:id="@+id/edit_cidade"
         android:layout_below="@+id/edit_sexo"
         android:layout_alignParentLeft="true"
@@ -71,16 +73,16 @@
         android:hint="Cidade"
         android:textSize="14dp"/>
 
-    <EditText
+    <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
+        android:layout_height="35dp"
         android:ems="10"
         android:id="@+id/edit_data_nasc"
         android:background="@drawable/textfields"
         android:layout_weight="1.5"
         android:hint="Data Nascimento"
         android:textSize="14dp"
+        android:gravity="left|center_vertical"
         android:layout_below="@+id/edit_cidade"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -90,8 +92,8 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
+        android:layout_height="35dp"
+        android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/edit_email"
         android:background="@drawable/textfields"
@@ -107,7 +109,7 @@
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/edit_pass"
