@@ -5,8 +5,10 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -221,7 +223,29 @@ public class ActivityLogin extends Activity
             // show it
             alertDialog.show();
 
+
+
+
         }else{
+
+            // para ir guardar as preferencias de utilizador
+            SharedPreferences preferences = this.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+
+            User utilizador = Globals.getInstance().getUser();
+
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("user_name", utilizador.getPnome());
+            editor.putString("user_last_name", utilizador.getSnome());
+            editor.putString("user_id", utilizador.getUserid());
+            editor.putString("user_data", utilizador.getData_nasc());
+            editor.putString("user_tel", utilizador.getTelefone_user());
+            editor.putString("user_mail", utilizador.getEmail());
+            editor.putString("user_tipo", utilizador.getTipoconta());
+            editor.putString("user_pass", utilizador.getPass());
+            editor.putString("user_cidade", utilizador.getCidade());
+
+            editor.commit();
+
             finish();
         }
 

@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import pt.menuguru.menuguru6.Utils.Globals;
+import pt.menuguru.menuguru6.Utils.User;
 
 
 public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, LocationListener {
@@ -61,6 +62,37 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+// para ir buscar as preferencias de utilizador
+        preferences = this.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        String lingua = preferences.getString("lingua", "");
+        String user_name = preferences.getString("user_name","");
+        String user_lastName = preferences.getString("user_last_name", "");
+        String user_id = preferences.getString("user_id","");
+        String user_aniversario = preferences.getString("user_data","");
+        String user_telf = preferences.getString("user_tel","");
+        String user_mail = preferences.getString("user_mail","");
+        String user_tipo_conta = preferences.getString("user_tipo","");
+        String user_password = preferences.getString("user_pass","");
+        String user_cidade = preferences.getString("user_cidade","");
+
+        if (!user_id.equalsIgnoreCase(""))
+        {
+            User u = new User();
+            u.setUserid(user_id);
+            u.setData_nasc(user_aniversario);
+            u.setPnome(user_name);
+            u.setSnome(user_lastName);
+            u.setEmail(user_mail);
+            u.setTipoconta(user_tipo_conta);
+            u.setTelefone_user(user_telf);
+            u.setPass(user_password);
+            u.setCidade(user_cidade);
+
+            Globals.getInstance().setLingua(lingua);
+
+            Globals.getInstance().setUser(u);
+
+        }
 
 
 
