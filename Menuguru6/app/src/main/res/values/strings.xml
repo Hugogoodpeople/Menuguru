@@ -28,7 +28,6 @@
         <item>Francês</item>
         <item>Inglês</item>
     </string-array>
-
     <string-array name="defenicoes_array">
         <item>A minha Conta</item>
         <item>Favoritos</item>
@@ -51,12 +50,8 @@
         <item>Feedback</item>
     </string-array>
 
-
     <string name="title_activity_pesquisa_avancada" translatable="false">Pesquisa_avancada</string>
     <string name="title_activity_inspiracao" translatable="false">Inspiracao</string>
-
-
-
     <string name="sobre_menuguru" translatable="false">"O QUE É A MENU GURU?
 
 É uma plataforma online que lhe permite encontrar uma diversidade de restaurantes, consultar as ementas, ter acesso a campanhas especiais únicas e reservar mesas online.
@@ -85,9 +80,7 @@ COMO PODE ENTRAR EM CONTACTO CONNOSCO?
 
 É simples. Escreva-nos através do email:
 hello@menuguru.net"</string>
-
     <string name="termos_condicoes" translatable="false">Ao usar os serviços da plataforma Menu Guru, concorda com o seguinte:\n\nO conteúdo desta plataforma é apenas para fins informativos.\n\nA plataforma Menu Guru está isenta de qualquer responsabilidade por qualquer informação que se tenha tornado desactualizada desde a última vez que as informações foram actualizadas.\n\nA plataforma Menu Guru reserva-se o direito de fazer alterações e correcções, em qualquer parte do conteúdo desta plataforma e a qualquer momento, sem aviso prévio.\n\nA plataforma Menu Guru não garante os preços indicados nem a disponibilidade de todos os itens dos menus em nenhum restaurante.\n\nTodos os nomes dos restaurantes, itens dos menus foram cedidas por pessoas afectas ao restaurante.\n\nSalvo indicação em contrário, todas as imagens e informações contidas nesta plataforma foram autorizadas por pessoas afectas ao restaurante e são acreditadas para serem de domínio público, como material promocional, fotos de publicidade e/ou de meios de comunicação.\n\nSolicitamos o envio de um e-mail se for o proprietário dos direitos de autor de qualquer conteúdo neste plataforma e se, no seu entender, o uso do material violar, sob qualquer forma, a lei de direitos de autor. Neste caso, por favor indique a localização exacta do conteúdo em questão.\n</string>
-
     <string name="politica_privacidade" translatable="false">A plataforma Menu Guru reconhece e valoriza o seu direito à privacidade e, por isso, está comprometida com a protecção da sua privacidade online.\n\n\nA nossa política de privacidade está claramente explicada nas linhas abaixo.\n
 \n
 Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com atenção este documento.\n\nAo usar a plataforma Menu Guru, concorda com a nossa utilização das suas informações pessoais, desde que essa utilização esteja em conformidade com esta política.\n
@@ -123,10 +116,7 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
 \nLINKS\n
 \nOs links para outros sites são fornecidos pela plataforma Menu Guru de boa fé e apenas para informação.\n
 \nA plataforma Menu Guru isenta-se de qualquer responsabilidade por materiais contidos em qualquer site vinculado a esta plataforma.\n
-\n
-
-    </string>
-
+\n</string>
     <string name="ola">Olá</string>
     <string name="preencher">Preencha os dados para aceder à sua conta.</string>
     <string name="bt_iniciar">Iniciar sessão</string>
@@ -137,4 +127,11 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="incorrecto">Email ou password incorrecto.</string>
     <string name="terminar_sessao">Tem a certeza que quer terminar sessão?</string>
     <string name="guardar_perfil">Perfil guardado com sucesso.</string>
+    <string name="title_activity_criar_user">Criar Registo</string>
+    <string name="desc_criar_registo">Ao registar a sua conta está a concordar com os nossos Termos &amp; Condições e com a nossa Política de Privacidade.</string>
+
+    <string-array name="sexo">
+        <item>Homem</item>
+        <item>Mulher</item>
+    </string-array>
 </resources>

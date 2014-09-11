@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 
@@ -21,7 +20,6 @@ import org.json.JSONObject;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.Globals;
-import pt.menuguru.menuguru6.Utils.User;
 
 /**
  * Created by hugocosta on 06/08/14.
@@ -84,7 +82,7 @@ public class MinhaConta extends Activity {
         edit_cidade   = (EditText)findViewById(R.id.edit_cidade);
         edit_telefone   = (EditText)findViewById(R.id.edit_telefone);
         edit_email   = (EditText)findViewById(R.id.edit_email);
-        edit_pass   = (EditText)findViewById(R.id.edit_pass);
+        edit_pass   = (EditText)findViewById(R.id.edit_data_nasc);
         edit_news   = (Switch)findViewById(R.id.news);
 
         edit_pnome.setText(pnome);
@@ -143,7 +141,7 @@ public class MinhaConta extends Activity {
         final String TAG = "AsyncTaskParseJson.java";
 
 
-        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_login_update_guru.php";
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_editar_conta_android.php";
 
         // contacts JSONArray
         JSONArray dataJsonArr = null;
@@ -185,6 +183,7 @@ public class MinhaConta extends Activity {
                 dict.put("primeironome",g_pnome);
                 dict.put("segundonome",g_snome);
                 dict.put("telefone",g_telefone);
+                dict.put("news",g_news);
 
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
 

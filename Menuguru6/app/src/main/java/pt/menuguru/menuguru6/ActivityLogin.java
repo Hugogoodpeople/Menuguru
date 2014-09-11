@@ -12,25 +12,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.Globals;
-import pt.menuguru.menuguru6.Utils.Inspiracao;
-import pt.menuguru.menuguru6.Utils.InspiracaoItem;
-import pt.menuguru.menuguru6.Utils.Locais;
 import pt.menuguru.menuguru6.Utils.User;
 
 /**
@@ -41,6 +31,8 @@ public class ActivityLogin extends Activity
 {
     Button LoginB;
     Button LoginBface;
+    Button Registo;
+
     EditText edit_email;
     EditText edit_pass;
 
@@ -64,8 +56,10 @@ public class ActivityLogin extends Activity
 
         LoginB = (Button)findViewById(R.id.bt_login);
         LoginBface = (Button)findViewById(R.id.bt_face);
+        Registo = (Button)findViewById(R.id.registo);
+
         edit_email   = (EditText)findViewById(R.id.edit_email);
-        edit_pass   = (EditText)findViewById(R.id.edit_pass);
+        edit_pass   = (EditText)findViewById(R.id.edit_data_nasc);
 
         LoginB.setOnClickListener(
                 new View.OnClickListener()
@@ -75,6 +69,17 @@ public class ActivityLogin extends Activity
                         new AsyncTaskParseJson(ActivityLogin.this).execute();
                     }
                 });
+        Registo.setOnClickListener(
+                new View.OnClickListener()
+                {
+                    public void onClick(View view)
+                    {
+                        Intent intent = new Intent(ActivityLogin.this, CriarUser.class);
+                        startActivity(intent);
+
+                    }
+                });
+
 
     }
 

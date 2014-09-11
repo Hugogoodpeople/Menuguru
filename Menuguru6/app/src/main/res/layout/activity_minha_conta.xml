@@ -120,7 +120,7 @@
                 android:background="@drawable/textfields"
                 android:layout_width="fill_parent"
                 android:layout_height="35dp"
-                android:id="@+id/edit_pass"
+                android:id="@+id/edit_data_nasc"
                 android:layout_gravity="center_horizontal"
                 android:layout_alignParentRight="true"
                 android:hint="Password"
@@ -134,7 +134,7 @@
                 android:layout_height="55dp"
                 android:layout_width="fill_parent"
                 android:gravity = "center_horizontal"
-                android:layout_below="@id/edit_pass"
+                android:layout_below="@id/edit_data_nasc"
                 android:weightSum="1.0">
                 <TextView
                     android:padding="5dp"

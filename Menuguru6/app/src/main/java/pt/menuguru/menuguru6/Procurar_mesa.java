@@ -24,7 +24,6 @@ import android.widget.TimePicker;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -165,7 +164,7 @@ public class Procurar_mesa extends Fragment {
             }
         });
 
-        bt_agora = (Button) mLinearLayout.findViewById(R.id.button3);
+        bt_agora = (Button) mLinearLayout.findViewById(R.id.registo);
         bt_agora.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

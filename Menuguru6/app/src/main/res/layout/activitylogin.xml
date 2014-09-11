@@ -9,7 +9,7 @@
         android:text="@string/bt_iniciar"
         android:id="@+id/bt_login"
         android:layout_gravity="center_horizontal"
-    android:layout_below="@+id/edit_pass"
+    android:layout_below="@+id/edit_data_nasc"
     android:layout_centerHorizontal="true"
     android:layout_marginTop="20dp" />
 
@@ -27,7 +27,7 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:text="@string/registo"
-        android:id="@+id/button3"
+        android:id="@+id/registo"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentBottom="true"
     android:layout_alignParentLeft="true"
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/edit_pass"
+        android:id="@+id/edit_data_nasc"
         android:layout_below="@+id/edit_email"
         android:layout_alignLeft="@+id/edit_email"
         android:layout_alignStart="@+id/edit_email"
@@ -100,7 +100,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/esq_pass"
         android:id="@+id/textView4"
-        android:layout_above="@+id/button3"
+        android:layout_above="@+id/registo"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp" />
 
