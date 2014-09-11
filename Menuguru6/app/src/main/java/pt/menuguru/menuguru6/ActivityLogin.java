@@ -217,10 +217,7 @@ public class ActivityLogin extends Activity
             alertDialog.show();
 
         }else{
-
-
             finish();
-
         }
 
 

@@ -20,6 +20,15 @@
     <string name="email_espalhe_palavra" translatable="false">Estou a usar a Menu Guru para reservar mesas e descobrir menus especiais. Visita o site e faz as tuas descobertas.
         www.menuguru.net</string>
 
+    <string-array name="linguas">
+        <item>Português</item>
+        <item>Italiano</item>
+        <item>Alemão</item>
+        <item>Espanhol</item>
+        <item>Francês</item>
+        <item>Inglês</item>
+    </string-array>
+
     <string-array name="defenicoes_array">
         <item>A minha Conta</item>
         <item>Favoritos</item>

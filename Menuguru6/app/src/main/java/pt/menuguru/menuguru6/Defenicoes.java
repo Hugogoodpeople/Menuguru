@@ -283,7 +283,13 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
                 startActivity(intent);
             }
             getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
-        }else if (position == 3 || position == 4 || position == 5)
+        }else if(position == 2)
+        {
+            Intent intent = new Intent(this.getActivity(), LanguageMenu.class);
+            startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+        }
+        else if (position == 3 || position == 4 || position == 5)
         {
             Intent intent = new Intent(this.getActivity(), ReadFileAssetsActivity.class);
 
