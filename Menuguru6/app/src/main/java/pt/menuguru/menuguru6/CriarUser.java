@@ -1,5 +1,6 @@
 package pt.menuguru.menuguru6;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -21,6 +22,8 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.Globals;
@@ -45,6 +48,9 @@ public class CriarUser extends Activity {
     String g_email;
     String g_pass;
 
+    String resp;
+    String msg;
+
     private ProgressDialog progressDialog;
 
     private Calendar cal;
@@ -54,6 +60,9 @@ public class CriarUser extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_criar_user);
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         edit_pnome  = (EditText)findViewById(R.id.edit_pnome);
         edit_snome  = (EditText)findViewById(R.id.edit_snome);
@@ -62,6 +71,7 @@ public class CriarUser extends Activity {
         bt_data_nasc  = (Button)findViewById(R.id.edit_data_nasc);
         edit_email  = (EditText)findViewById(R.id.edit_email);
         edit_pass  = (EditText)findViewById(R.id.edit_pass);
+        bt_registar  = (Button)findViewById(R.id.bt_c_registo);
 
         bt_data_nasc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,9 +123,72 @@ public class CriarUser extends Activity {
                 g_cidade = edit_cidade.getText().toString().trim();
                 g_email = edit_email.getText().toString().trim();
                 g_pass = edit_pass.getText().toString().trim();
-                new AsyncTaskParseJson(CriarUser.this).execute();
+                if(g_pnome.isEmpty()||g_snome.isEmpty()||g_sexo.isEmpty()||g_data_nasc.isEmpty()||g_cidade.isEmpty()||g_email.isEmpty()||g_pass.isEmpty()||g_cidade.isEmpty()){
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CriarUser.this);
+                    // set dialog message
+                    alertDialogBuilder
+                            .setMessage(R.string.prencher_campos)
+                            .setCancelable(false)
+                            .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    // show it
+                    alertDialog.show();
+
+                }else if(!isEmailValid(g_email)){
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CriarUser.this);
+                    // set dialog message
+                    alertDialogBuilder
+                            .setMessage(R.string.erro_email)
+                            .setCancelable(false)
+                            .setNegativeButton("OK",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    // show it
+                    alertDialog.show();
+                }else if(g_pass.length()<6){
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CriarUser.this);
+                    // set dialog message
+                    alertDialogBuilder
+                            .setMessage(R.string.min_pass)
+                            .setCancelable(false)
+                            .setNegativeButton("OK",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    // show it
+                    alertDialog.show();
+                }else {
+                    new AsyncTaskParseJson(CriarUser.this).execute();
+                }
             }
         });
+    }
+
+
+    public static boolean isEmailValid(String email) {
+        boolean isValid = false;
+
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = true;
+        }
+        return isValid;
     }
 
     class mDateSetListener implements DatePickerDialog.OnDateSetListener {
@@ -151,23 +224,19 @@ public class CriarUser extends Activity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.criar_user, menu);
-        return true;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                this.overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
+                return false;
+            default:
+                break;
+        }
+
+        return false;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     // you can make this class as another java file so it will be separated from your main activity.
     public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
@@ -175,7 +244,7 @@ public class CriarUser extends Activity {
         final String TAG = "AsyncTaskParseJson.java";
 
 
-        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_editar_conta_android.php";
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/json_login.php";
 
         // contacts JSONArray
         JSONArray dataJsonArr = null;
@@ -209,7 +278,14 @@ public class CriarUser extends Activity {
                 JSONObject dict = new JSONObject();
                 JSONObject jsonObj = new JSONObject();
 
-                dict.put("id", Globals.get_instance().getUser().getUserid());
+                dict.put("genero", g_sexo);
+                dict.put("email", g_email);
+                dict.put("cidade", g_cidade);
+                dict.put("data_nasc", g_data_nasc);
+                dict.put("password", g_pass);
+                dict.put("primnome", g_pnome);
+                dict.put("segnome", g_snome);
+
 
 
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
@@ -223,8 +299,8 @@ public class CriarUser extends Activity {
                 }
                 // get the array of users
 
-                String resp = jsonObj.getString("resp");
-
+                resp = jsonObj.getString("resp");
+                msg = jsonObj.getString("msg");
                 Log.v("resp","objecto = "+ jsonObj.getString("resp"));
                 Log.v("msg","objecto = "+ jsonObj.getString("msg"));
                 Log.v("titulo","objecto = "+ jsonObj.getString("titulo"));
@@ -246,19 +322,38 @@ public class CriarUser extends Activity {
 
 
     public void asyncComplete(boolean success){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        // set dialog message
-        alertDialogBuilder
-                .setMessage(R.string.guardar_perfil)
-                .setCancelable(false)
-                .setNegativeButton("OK",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        dialog.cancel();
-                    }
-                });
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        // show it
-        alertDialog.show();
+        if(resp.equals("INSUCESSO")) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            // set dialog message
+            alertDialogBuilder
+                    .setTitle(R.string.tit_email)
+                    .setMessage(R.string.desc_erro_mail)
+                    .setCancelable(false)
+                    .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            // show it
+            alertDialog.show();
+        }else{
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage(R.string.conf_email)
+                    .setCancelable(false)
+                    .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            // show it
+            alertDialog.show();
+            finish();
+        }
     }
 }

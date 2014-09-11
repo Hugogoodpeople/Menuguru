@@ -18,7 +18,7 @@
     <string name="title_activity_localizacao" translatable="false">Localizacao</string>
     <string name="hello_world" translatable="false">Hello world!</string>
     <string name="email_espalhe_palavra" translatable="false">Estou a usar a Menu Guru para reservar mesas e descobrir menus especiais. Visita o site e faz as tuas descobertas.
-        www.menuguru.net</string>
+        www.menuguru.pt</string>
 
     <string-array name="linguas">
         <item>Português</item>
@@ -134,4 +134,12 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
         <item>Homem</item>
         <item>Mulher</item>
     </string-array>
+
+    <string name="prencher_campos">Deve preencher todos os campos.</string>
+    <string name="min_pass">A password deve ter no mínimo 6 caracteres.</string>
+    <string name="erro_email">Email inválido.</string>
+    <string name="tit_email">Email já registado.</string>
+    <string name="desc_erro_mail">Por favor verifique a sua caixa de email e valide-o ou recupere a password.</string>
+    <string name="conf_email">Por favor confirme o seu registo através do email que lhe enviamos.</string>
+
 </resources>
