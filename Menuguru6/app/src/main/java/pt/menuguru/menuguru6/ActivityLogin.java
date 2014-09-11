@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -57,6 +58,9 @@ public class ActivityLogin extends Activity
         setContentView(R.layout.activitylogin);
         ActionBar ab = getActionBar();
         ab.setTitle("Login");
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         LoginB = (Button)findViewById(R.id.bt_login);
         LoginBface = (Button)findViewById(R.id.bt_face);
@@ -74,7 +78,19 @@ public class ActivityLogin extends Activity
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                this.overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
+                return false;
+            default:
+                break;
+        }
 
+        return false;
+    }
 
     // you can make this class as another java file so it will be separated from your main activity.
     public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
