@@ -243,6 +243,7 @@ public class ActivityLogin extends Activity
             editor.putString("user_tipo", utilizador.getTipoconta());
             editor.putString("user_pass", utilizador.getPass());
             editor.putString("user_cidade", utilizador.getCidade());
+            editor.putBoolean("user_news", utilizador.getNews());
 
             editor.commit();
 

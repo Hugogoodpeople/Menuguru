@@ -74,6 +74,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
         String user_tipo_conta = preferences.getString("user_tipo","");
         String user_password = preferences.getString("user_pass","");
         String user_cidade = preferences.getString("user_cidade","");
+        Boolean user_news = preferences.getBoolean("user_news", false);
 
         if (!user_id.equalsIgnoreCase(""))
         {
@@ -87,6 +88,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
             u.setTelefone_user(user_telf);
             u.setPass(user_password);
             u.setCidade(user_cidade);
+            u.setNews(user_news);
 
             Globals.getInstance().setLingua(lingua);
 
