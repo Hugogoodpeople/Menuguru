@@ -3,8 +3,10 @@ package pt.menuguru.menuguru6;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -32,7 +35,7 @@ public class LanguageMenu extends ActivityLogin
     //language_list
     ListView listView;
 
-
+    SharedPreferences preferences;
 
     public String value;
 
@@ -61,9 +64,44 @@ public class LanguageMenu extends ActivityLogin
             //return super.getView(position, convertView, parent);
 
             LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View row=inflater.inflate(R.layout.row_defenicoes, parent, false);
+            View row;
+            if (convertView == null)
+                row=inflater.inflate(R.layout.row_defenicoes, parent, false);
+            else
+                row= convertView;
+
             TextView label=(TextView)row.findViewById(R.id.month);
             label.setText(some_array[position]);
+
+
+
+                ImageView icon1 = (ImageView) row.findViewById(R.id.icon);
+                //parent.getChildAt(a).setBackgroundColor(getResources().getColor(R.color.silver) );
+                icon1.setImageResource(0);
+
+
+                String lingua = preferences.getString("lingua", "");
+
+                if (lingua.equalsIgnoreCase("pt") && position == 0)
+                {
+                    icon1.setImageResource(R.drawable.ic_check_b);
+                }else if (lingua.equalsIgnoreCase("it") && position == 1)
+                {
+                    icon1.setImageResource(R.drawable.ic_check_b);
+                }else if (lingua.equalsIgnoreCase("de") && position == 2)
+                {
+                    icon1.setImageResource(R.drawable.ic_check_b);
+                }else if (lingua.equalsIgnoreCase("es") && position == 3)
+                {
+                    icon1.setImageResource(R.drawable.ic_check_b);
+                }else if (lingua.equalsIgnoreCase("fr") && position == 4)
+                {
+                    icon1.setImageResource(R.drawable.ic_check_b);
+                }else if (lingua.equalsIgnoreCase("en") && position == 5)
+                {
+                    icon1.setImageResource(R.drawable.ic_check_b);
+                }
+
 
             return row;
         }
@@ -88,7 +126,7 @@ public class LanguageMenu extends ActivityLogin
         t.setText(value);
 
 
-
+        preferences = this.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
 
         //mAdapter.notifyDataSetChanged();
         //mAdapter = new MyListAdapter(getApplicationContext(), R.layout.row_defenicoes, some_array);
@@ -102,12 +140,39 @@ public class LanguageMenu extends ActivityLogin
         //listView.setAdapter(adapter);
         mAdapter = new MyListAdapter(this, R.layout.row_defenicoes, some_array);
         listView.setAdapter(mAdapter);
+
+
+
+
+
+
+
+
         // ListView Item Click Listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+
+
+
+
+                for(int a = 0; a < parent.getChildCount(); a++)
+                {
+                    ImageView icon1 = (ImageView) parent.getChildAt(a).findViewById(R.id.icon);
+                    //parent.getChildAt(a).setBackgroundColor(getResources().getColor(R.color.silver) );
+                    icon1.setImageResource(0);
+                }
+
+                //view.setBackgroundColor(Color.RED);
+
+
+                ImageView icon2 = (ImageView) view.findViewById(R.id.icon);
+                //Customize your icon here
+                icon2.setImageResource(R.drawable.ic_check_b);
 
                 // ListView Clicked item index
                 int itemPosition = position;
@@ -149,13 +214,17 @@ public class LanguageMenu extends ActivityLogin
 
 
                 }
-
-
-                fechar();
-
+              //  fechar();
             }
 
         });
+
+
+        //--READ data
+
+
+
+
 
 
     }
@@ -182,6 +251,14 @@ public class LanguageMenu extends ActivityLogin
         Intent refresh = new Intent(this, LanguageMenu.class);
         startActivity(refresh);
         */
+
+        Globals.getInstance().setLingua(lang);
+
+
+        preferences = this.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("lingua", lang);
+        editor.commit();
     }
 
 

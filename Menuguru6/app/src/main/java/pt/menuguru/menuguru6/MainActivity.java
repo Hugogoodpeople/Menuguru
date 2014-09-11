@@ -5,6 +5,7 @@ import android.app.Activity;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -35,6 +36,8 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
     public String latitude;
     public String longitude;
 
+
+    SharedPreferences preferences;
 
     public void ReloadoTabs() {
            // android.support.v4.app.Fragment currentFragment = getSupportFragmentManager().findFragmentByTag("pagina_principal");

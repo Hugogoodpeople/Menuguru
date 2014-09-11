@@ -11,6 +11,15 @@ public class Globals
     public String cidedade_id = "0";
     public String cidadeÇ_nome = "Perto de min";
     public User user;
+    public String lingua = "en";
+
+    public String getLingua() {
+        return lingua;
+    }
+
+    public void setLingua(String lingua) {
+        this.lingua = lingua;
+    }
 
     public User getUser() {
         return user;
