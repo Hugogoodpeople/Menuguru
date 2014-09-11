@@ -87,7 +87,9 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
                         })
                         .setPositiveButton("Sim",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
-                                dialog.cancel();
+                                Globals.get_instance().setUser(null);
+                                getActivity().invalidateOptionsMenu();
+
                             }
                         });
                 // create alert dialog
