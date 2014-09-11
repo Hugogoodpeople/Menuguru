@@ -3,7 +3,9 @@ package pt.menuguru.menuguru6;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -13,19 +15,37 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import pt.menuguru.menuguru6.Json_parser.JSONParser;
+import pt.menuguru.menuguru6.Utils.Globals;
 
 
 public class CriarUser extends Activity {
 
     EditText edit_pnome;
     EditText edit_snome;
-    Button edit_sexo;
+    Button bt_sexo;
     EditText edit_cidade;
-    Button edit_data_nasc;
+    Button bt_data_nasc;
+    Button bt_registar;
     EditText edit_email;
     EditText edit_pass;
+
+    String g_pnome;
+    String g_snome;
+    String g_sexo;
+    String g_cidade;
+    String g_data_nasc;
+    String g_email;
+    String g_pass;
+
+    private ProgressDialog progressDialog;
 
     private Calendar cal;
 
@@ -37,13 +57,13 @@ public class CriarUser extends Activity {
 
         edit_pnome  = (EditText)findViewById(R.id.edit_pnome);
         edit_snome  = (EditText)findViewById(R.id.edit_snome);
-        edit_sexo  = (Button)findViewById(R.id.edit_sexo);
+        bt_sexo  = (Button)findViewById(R.id.edit_sexo);
         edit_cidade  = (EditText)findViewById(R.id.edit_cidade);
-        edit_data_nasc  = (Button)findViewById(R.id.edit_data_nasc);
+        bt_data_nasc  = (Button)findViewById(R.id.edit_data_nasc);
         edit_email  = (EditText)findViewById(R.id.edit_email);
         edit_pass  = (EditText)findViewById(R.id.edit_pass);
 
-        edit_data_nasc.setOnClickListener(new View.OnClickListener() {
+        bt_data_nasc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // tenho de adicionar cenas
@@ -60,7 +80,7 @@ public class CriarUser extends Activity {
 
             }
         });
-        edit_sexo.setOnClickListener(new View.OnClickListener() {
+        bt_sexo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.v("coiso", "Sexo");
@@ -71,9 +91,9 @@ public class CriarUser extends Activity {
                         .setItems(R.array.sexo, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 if(which==0) {
-                                    edit_sexo.setText("Homem");
+                                    bt_sexo.setText("Homem");
                                 }else if(which==1){
-                                    edit_sexo.setText("Mulher");
+                                    bt_sexo.setText("Mulher");
                                 }
                             }
                         });
@@ -81,6 +101,19 @@ public class CriarUser extends Activity {
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 // show it
                 alertDialog.show();
+            }
+        });
+        bt_registar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                g_pnome = edit_pnome.getText().toString().trim();
+                g_snome = edit_snome.getText().toString().trim();
+                g_sexo =  bt_sexo.getText().toString().trim();
+                g_data_nasc = bt_data_nasc.getText().toString().trim();
+                g_cidade = edit_cidade.getText().toString().trim();
+                g_email = edit_email.getText().toString().trim();
+                g_pass = edit_pass.getText().toString().trim();
+                new AsyncTaskParseJson(CriarUser.this).execute();
             }
         });
     }
@@ -110,7 +143,7 @@ public class CriarUser extends Activity {
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             String formattedDate = df.format(cal.getTime());
 
-            edit_data_nasc.setText(formattedDate);
+            bt_data_nasc.setText(formattedDate);
 
 
         }
@@ -134,5 +167,98 @@ public class CriarUser extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_editar_conta_android.php";
+
+        // contacts JSONArray
+        JSONArray dataJsonArr = null;
+
+        private CriarUser delegate;
+
+        public AsyncTaskParseJson (CriarUser delegate){
+            this.delegate = delegate;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(CriarUser.this);
+            progressDialog.setCancelable(true);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+                dict.put("id", Globals.get_instance().getUser().getUserid());
+
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+
+                try {
+                    Log.v("Ver Json ", "Ele retorna isto" + jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                // get the array of users
+
+                String resp = jsonObj.getString("resp");
+
+                Log.v("resp","objecto = "+ jsonObj.getString("resp"));
+                Log.v("msg","objecto = "+ jsonObj.getString("msg"));
+                Log.v("titulo","objecto = "+ jsonObj.getString("titulo"));
+
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncComplete(true);  }
+
+    }
+
+
+    public void asyncComplete(boolean success){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.guardar_perfil)
+                .setCancelable(false)
+                .setNegativeButton("OK",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.cancel();
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
     }
 }

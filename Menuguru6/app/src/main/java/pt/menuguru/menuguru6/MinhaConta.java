@@ -4,7 +4,9 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +22,7 @@ import org.json.JSONObject;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.Globals;
+import pt.menuguru.menuguru6.Utils.User;
 
 /**
  * Created by hugocosta on 06/08/14.
@@ -74,7 +77,7 @@ public class MinhaConta extends Activity {
         email = Globals.get_instance().getUser().getEmail();
         pass = Globals.get_instance().getUser().getPass();
         news = Globals.get_instance().getUser().getNews();
-
+        Log.v("NEWS",news.toString());
 
         edit_pnome   = (EditText)findViewById(R.id.edit_pnome);
         edit_snome   = (EditText)findViewById(R.id.edit_snome);
@@ -227,6 +230,25 @@ public class MinhaConta extends Activity {
         Globals.get_instance().getUser().setEmail(g_email);
         Globals.get_instance().getUser().setPass(g_pass);
         Globals.get_instance().getUser().setNews(g_news);
+
+        // para ir guardar as preferencias de utilizador
+        SharedPreferences preferences = this.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+
+        User utilizador = Globals.getInstance().getUser();
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("user_name", utilizador.getPnome());
+        editor.putString("user_last_name", utilizador.getSnome());
+        editor.putString("user_id", utilizador.getUserid());
+        editor.putString("user_data", utilizador.getData_nasc());
+        editor.putString("user_tel", utilizador.getTelefone_user());
+        editor.putString("user_mail", utilizador.getEmail());
+        editor.putString("user_tipo", utilizador.getTipoconta());
+        editor.putString("user_pass", utilizador.getPass());
+        editor.putString("user_cidade", utilizador.getCidade());
+        editor.putBoolean("user_news", utilizador.getNews());
+        editor.commit();
+
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         // set dialog message
         alertDialogBuilder
