@@ -123,7 +123,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
                 // threshold being indicator if bottom of list is hit
-                if (firstVisibleItem  == actual -2  && loading == false && anterior != actual) {
+                if (firstVisibleItem  == actual - 2  && loading == false && anterior != actual) {
 
                     Log.v("lermais","carregar mais items para aparecer");
                     loading = true;
@@ -297,14 +297,24 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                         .setItems(R.array.pesquisa, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which) {
-                                    case 0:
-                                        Intent myIntent = new Intent(getActivity(), Pesquisa_avancada.class);
+                                    case 0: {
+
+                                        Intent myIntent = new Intent(getActivity(), Filtros_mega_avancados.class);
                                         startActivity(myIntent);
+
+
+                                        /*
+                                        Intent myIntent2 = new Intent(getActivity(), Activity_Inspiracao.class);
+                                        startActivity(myIntent2);
+                                        */
+
                                         break;
-                                    case 1:
+                                    }
+                                    case 1: {
                                         Intent myIntent2 = new Intent(getActivity(), Activity_Inspiracao.class);
                                         startActivity(myIntent2);
                                         break;
+                                    }
                                     case 2:
 
                                     default:

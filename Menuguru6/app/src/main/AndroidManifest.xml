@@ -31,12 +31,6 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Pesquisa_avancada"
-            android:label="@string/title_activity_pesquisa_avancada"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Transparent" >
-        </activity>
-        <activity
             android:name=".Inspiracoes.Activity_Inspiracao"
             android:label="@string/title_activity_inspiracao"
             android:screenOrientation="portrait" >
@@ -63,6 +57,10 @@
         </activity>
         <activity
             android:name=".CriarUser"
+            android:label="@string/title_activity_criar_user" >
+        </activity>
+        <activity
+            android:name=".Filtros_mega_avancados"
             android:label="@string/title_activity_criar_user" >
         </activity>
     </application>
