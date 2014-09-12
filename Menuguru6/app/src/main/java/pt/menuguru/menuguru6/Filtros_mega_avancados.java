@@ -5,24 +5,20 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -31,11 +27,8 @@ import org.json.JSONObject;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.AvancadosObject;
-import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
-import pt.menuguru.menuguru6.Utils.Restaurante;
 import pt.menuguru.menuguru6.Utils.TopTitulosFiltros;
-import pt.menuguru.menuguru6.Utils.Utils;
 
 
 /**
@@ -48,7 +41,8 @@ public class Filtros_mega_avancados extends Activity
     private static MyListAdapter mAdapter;
     private ProgressDialog progressDialog;
 
-    AvancadosObject[] some_array = null;
+    AvancadosObject[] array_cozinha = null;
+    AvancadosObject[] array_ordenar = null;
 
     private ImageButton button1;
     private ImageButton button2;
@@ -208,7 +202,6 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
 
     final String TAG = "AsyncTaskParseJson.java";
 
-
     String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_listar_filtros_avancados.php";
 
     // contacts JSONArray
@@ -259,10 +252,11 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
 
 
             JSONObject resultado = jsonObj.getJSONObject("topcoes");
-            JSONArray ideal = resultado.getJSONArray("sug");
-            JSONObject idealObject = ideal.getJSONObject(0);
 
 
+
+            JSONArray ordenar = resultado.getJSONArray("sug");
+            JSONObject idealObject = ordenar.getJSONObject(0);
 
             JSONArray array_conteudo = idealObject.getJSONArray("conteudo");
             AvancadosObject[] arrayAmbiente = new AvancadosObject[array_conteudo.length()];
@@ -278,18 +272,47 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
 
             }
 
+            TopTitulosFiltros coiso1 = new TopTitulosFiltros();
+            coiso1.setId_titulo(idealObject.getString("id_titulo"));
+            coiso1.setTitulo(idealObject.getString("titulo"));
+            coiso1.setMultiSelection(idealObject.getString("multi"));
+            coiso1.setArrayObjectos(arrayAmbiente);
 
-            TopTitulosFiltros ambiente = new TopTitulosFiltros();
-            ambiente.setId_titulo(idealObject.getString("id_titulo"));
-            ambiente.setTitulo(idealObject.getString("titulo"));
-            ambiente.setMultiSelection(idealObject.getString("multi"));
-            ambiente.setArrayObjectos(arrayAmbiente);
+
+            array_ordenar = arrayAmbiente;
+            //////////////////////////////////////////////////
+            //////////////////////////////////////////////////
 
 
+            ordenar = resultado.getJSONArray("amb");
+            idealObject = ordenar.getJSONObject(0);
+
+            array_conteudo = idealObject.getJSONArray("conteudo");
+            arrayAmbiente = new AvancadosObject[array_conteudo.length()];
+
+            for (int i = 0; i < array_conteudo.length(); i++)
+            {
+
+                JSONObject jsonAmbiente = array_conteudo.getJSONObject(i);
+                AvancadosObject objects = new AvancadosObject();
+                objects.setSub_titulo(jsonAmbiente.getString("sub_titulo"));
+                objects.setId_sub_titulo(jsonAmbiente.getString("id_sub_titulo"));
+                arrayAmbiente[i] = objects;
+
+            }
+
+
+            TopTitulosFiltros coiso2 = new TopTitulosFiltros();
+            coiso2.setId_titulo(idealObject.getString("id_titulo"));
+            coiso2.setTitulo(idealObject.getString("titulo"));
+            coiso2.setMultiSelection(idealObject.getString("multi"));
+            coiso2.setArrayObjectos(arrayAmbiente);
+
+            array_cozinha = arrayAmbiente;
 
             Log.v("sdffgddvsdsv","conteudo do array de pagamentos = "+ idealObject.getString("id_titulo"));
 
-            some_array = arrayAmbiente;
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -306,13 +329,41 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
 
     public void asyncComplete(boolean success)
     {
+        preencherTabelas(1);
+
+    }
+
+    public void preencherTabelas(int selecionado)
+    {
+
         // mCallbacks.onButtonClicked();
 
         mListView = (ListView) findViewById(R.id.lista_avancada);
         //adapter = new ArrayAdapter<Locais>(this,android.R.layout.simple_list_item_1, android.R.id.text1, local);
 
 
-        mAdapter = new MyListAdapter(this, R.layout.row_defenicoes, some_array);
+        switch (selecionado)
+        {
+            case 1:
+            {
+                mAdapter = new MyListAdapter(this, R.layout.row_defenicoes, array_ordenar);
+                break;
+            }
+            case 2:
+            {
+                mAdapter = new MyListAdapter(this, R.layout.row_defenicoes, array_cozinha);
+                break;
+            }
+
+
+        }
+
+
+
+
+
+
+
         // Assign adapter to ListView
         mListView.setAdapter(mAdapter);
 
@@ -367,7 +418,7 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
                 LayoutInflater inflater = (LayoutInflater) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 row = inflater.inflate(R.layout.row_header, parent, false);
                 TextView label = (TextView) row.findViewById(R.id.month);
-                label.setText(some_array[position].getSub_titulo());
+                label.setText(array_ordenar[position].getSub_titulo());
 
 
                 ImageView icon = (ImageView) row.findViewById(R.id.icon);
@@ -379,7 +430,7 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
                 LayoutInflater inflater = (LayoutInflater) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 row = inflater.inflate(R.layout.row_defenicoes, parent, false);
                 TextView label = (TextView) row.findViewById(R.id.month);
-                label.setText(some_array[position].getSub_titulo());
+                label.setText(array_ordenar[position].getSub_titulo());
                 ImageView icon = (ImageView) row.findViewById(R.id.icon);
 
                 //Customize your icon here
