@@ -414,7 +414,7 @@ public class ActivityLogin extends Activity
                 }else {
                     aux_user = "1";
                     users.userid = jsonObj.getString("userid");
-                    /*users.email = jsonObj.getString("email");
+                    users.email = jsonObj.getString("email");
                     users.pnome = jsonObj.getString("pnome");
                     users.snome = jsonObj.getString("snome");
                     users.cidade = jsonObj.getString("cidade");
@@ -427,7 +427,7 @@ public class ActivityLogin extends Activity
                         users.news = true;
                     } else {
                         users.news = false;
-                    }*/
+                    }
                     Globals.get_instance().setUser(users);
 
                     Log.v("Nome", "objecto = " + jsonObj.getString("pnome"));
@@ -475,7 +475,7 @@ public class ActivityLogin extends Activity
 
 
         }else{
-/*
+
             // para ir guardar as preferencias de utilizador
             SharedPreferences preferences = this.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
 
@@ -494,7 +494,7 @@ public class ActivityLogin extends Activity
             editor.putBoolean("user_news", utilizador.getNews());
 
             editor.commit();
-*/
+
             finish();
         }
 

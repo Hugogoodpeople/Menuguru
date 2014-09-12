@@ -24,6 +24,9 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.facebook.Session;
+import com.facebook.model.GraphUser;
+
 import java.io.InputStream;
 import java.net.URL;
 
@@ -33,7 +36,7 @@ import pt.menuguru.menuguru6.Utils.User;
 
 
 public class Defenicoes extends Fragment implements AbsListView.OnItemClickListener {
-
+    Context myContext;
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if(Globals.get_instance().getUser() != null){
@@ -103,6 +106,7 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
                                 editor.putString("user_cidade","");
                                 editor.putBoolean("user_news",false);
                                 editor.commit();
+                                callFacebookLogout(myContext);
                                 getActivity().invalidateOptionsMenu();
 
                             }
@@ -126,11 +130,29 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
 
         return false;
     }
+    public static void callFacebookLogout(Context context) {
+        Session session = Session.getActiveSession();
+        if (session != null) {
 
+            if (!session.isClosed()) {
+                session.closeAndClearTokenInformation();
+                //clear your preferences if saved
+            }
+        } else {
+
+            session = new Session(context);
+            Session.setActiveSession(session);
+
+            session.closeAndClearTokenInformation();
+            //clear your preferences if saved
+
+        }
+
+    }
 
     public class MyListAdapter extends ArrayAdapter<String> {
 
-        Context myContext;
+
 
         public MyListAdapter(Context context, int textViewResourceId,
                              String[] objects) {
