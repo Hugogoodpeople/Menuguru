@@ -5,15 +5,15 @@ package pt.menuguru.menuguru6.Utils;
  */
 public class User {
 
-    public String userid = "0";
-    public String email = "0";
-    public String pnome = "0";
-    public String snome = "0";
-    public String cidade = "0";
-    public String telefone_user = "0";
-    public String data_nasc = "0";
-    public String pass = "0";
-    public String tipoconta = "0";
+    public String userid = "";
+    public String email = "";
+    public String pnome = "";
+    public String snome = "";
+    public String cidade = "";
+    public String telefone_user = "";
+    public String data_nasc = "";
+    public String pass = "";
+    public String tipoconta = "";
     public Boolean news = true;
 
     public String getUserid() {

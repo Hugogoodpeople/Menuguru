@@ -12,7 +12,7 @@
     <string name="action_example" translatable="false">Example action</string>
     <string name="action_settings" translatable="false">Settings</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="app_id" translatable="false">355132794636774</string>
+    <string name="app_id" translatable="false">619399271450515</string>
     <string name="pesquisa" translatable="false">Pesquisa</string>
     <string name="localizacao" translatable="false">Localização</string>
     <string name="title_activity_localizacao" translatable="false">Localizacao</string>
@@ -148,13 +148,12 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="o_que_pretende_pesquisar">O que pretende pesquisar?</string>
     <string name="restaurante">Restaurante</string>
     <string name="prato">Prato</string>
-
-
     <string name="prencher_campos">Deve preencher todos os campos.</string>
     <string name="min_pass">A password deve ter no mínimo 6 caracteres.</string>
     <string name="erro_email">Email inválido.</string>
     <string name="tit_email">Email já registado.</string>
     <string name="desc_erro_mail">Por favor verifique a sua caixa de email e valide-o ou recupere a password.</string>
     <string name="conf_email">Por favor confirme o seu registo através do email que lhe enviamos.</string>
+    <string name="title_activity_teste_facebook">TesteFacebook</string>
 
 </resources>

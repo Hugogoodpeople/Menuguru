@@ -9,19 +9,19 @@
         android:text="@string/bt_iniciar"
         android:id="@+id/bt_login"
         android:layout_gravity="center_horizontal"
-    android:layout_below="@+id/edit_data_nasc"
+    android:layout_below="@+id/edit_pass"
     android:layout_centerHorizontal="true"
     android:layout_marginTop="20dp" />
 
-    <Button
-        android:layout_width="350dp"
+    <com.facebook.widget.LoginButton
+        android:id="@+id/fb_login_button"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
 
-        android:text="@string/bt_face"
-        android:id="@+id/bt_face"
-        android:layout_gravity="center_horizontal"
         android:layout_below="@+id/textView3"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp" />
 
     <Button
         android:layout_width="350dp"
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/edit_data_nasc"
+        android:id="@+id/edit_pass"
         android:layout_below="@+id/edit_email"
         android:layout_alignLeft="@+id/edit_email"
         android:layout_alignStart="@+id/edit_email"
@@ -102,7 +102,9 @@
         android:id="@+id/textView4"
         android:layout_above="@+id/registo"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp" />
+        android:layout_marginBottom="40dp"
+        android:onClick="onClick"
+        android:clickable="true"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -124,7 +126,8 @@
         android:layout_toEndOf="@+id/textView"
         android:layout_above="@+id/textView3"
         android:layout_marginTop="10dp"
-        android:background="@color/black"></LinearLayout>
+        android:background="@color/black"
+        android:id="@+id/linearLayout"></LinearLayout>
 
 
 </RelativeLayout>
