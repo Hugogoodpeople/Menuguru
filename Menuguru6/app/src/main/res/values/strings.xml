@@ -134,7 +134,7 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
         <item>Homem</item>
         <item>Mulher</item>
     </string-array>
-<<<<<<< HEAD
+
     <string name="ordenar">Ordenar</string>
     <string name="cozinha">Cozinha</string>
     <string name="preco">Preço</string>
@@ -148,7 +148,7 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="o_que_pretende_pesquisar">O que pretende pesquisar?</string>
     <string name="restaurante">Restaurante</string>
     <string name="prato">Prato</string>
-=======
+
 
     <string name="prencher_campos">Deve preencher todos os campos.</string>
     <string name="min_pass">A password deve ter no mínimo 6 caracteres.</string>
@@ -157,5 +157,4 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="desc_erro_mail">Por favor verifique a sua caixa de email e valide-o ou recupere a password.</string>
     <string name="conf_email">Por favor confirme o seu registo através do email que lhe enviamos.</string>
 
->>>>>>> FETCH_HEAD
 </resources>
