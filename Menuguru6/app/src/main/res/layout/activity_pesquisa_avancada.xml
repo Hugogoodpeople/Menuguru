@@ -172,12 +172,12 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listView3"
+        android:id="@+id/lista_avancada"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/scrollView"
         android:layout_toEndOf="@+id/scrollView"
         android:layout_above="@+id/relativeLayout"
-        android:background="@color/yellow" />
+        android:background="@color/white" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -185,9 +185,9 @@
         android:id="@+id/relativeLayout"
         android:background="@color/teal"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/listView3"
+        android:layout_alignRight="@+id/lista_avancada"
         android:weightSum="100"
-        android:layout_alignEnd="@+id/listView3">
+        android:layout_alignEnd="@+id/lista_avancada">
 
         <Button
             android:layout_width="fill_parent"

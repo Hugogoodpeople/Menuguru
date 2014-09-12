@@ -12,6 +12,15 @@ public class Globals
     public String cidadeÇ_nome = "Perto de min";
     public User user;
     public String lingua = "en";
+    public TopTitulosFiltros[] filtros;
+
+    public TopTitulosFiltros[] getFiltros() {
+        return filtros;
+    }
+
+    public void setFiltros(TopTitulosFiltros[] filtros) {
+        this.filtros = filtros;
+    }
 
     public String getLingua() {
         return lingua;

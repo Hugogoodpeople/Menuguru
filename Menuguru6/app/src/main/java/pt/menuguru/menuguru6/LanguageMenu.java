@@ -141,13 +141,6 @@ public class LanguageMenu extends ActivityLogin
         mAdapter = new MyListAdapter(this, R.layout.row_defenicoes, some_array);
         listView.setAdapter(mAdapter);
 
-
-
-
-
-
-
-
         // ListView Item Click Listener
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -221,11 +214,6 @@ public class LanguageMenu extends ActivityLogin
 
 
         //--READ data
-
-
-
-
-
 
     }
 

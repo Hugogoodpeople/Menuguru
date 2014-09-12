@@ -2,14 +2,40 @@ package pt.menuguru.menuguru6;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RatingBar;
+import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import pt.menuguru.menuguru6.Json_parser.JSONParser;
+import pt.menuguru.menuguru6.Utils.AvancadosObject;
+import pt.menuguru.menuguru6.Utils.Globals;
+import pt.menuguru.menuguru6.Utils.ImageLoader;
+import pt.menuguru.menuguru6.Utils.Restaurante;
+import pt.menuguru.menuguru6.Utils.TopTitulosFiltros;
+import pt.menuguru.menuguru6.Utils.Utils;
 
 
 /**
@@ -17,6 +43,12 @@ import android.widget.ImageButton;
  */
 public class Filtros_mega_avancados extends Activity
 {
+
+    private AbsListView mListView;
+    private static MyListAdapter mAdapter;
+    private ProgressDialog progressDialog;
+
+    AvancadosObject[] some_array = null;
 
     private ImageButton button1;
     private ImageButton button2;
@@ -90,6 +122,9 @@ public class Filtros_mega_avancados extends Activity
         });
 
         highlightButton(1);
+
+
+        new AsyncTaskParseJson(this).execute();
 
     }
 
@@ -167,7 +202,193 @@ public class Filtros_mega_avancados extends Activity
 
 
 
+// para ir buscar a net os filtros super mega avançados
+// you can make this class as another java file so it will be separated from your main activity.
+public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
+
+    final String TAG = "AsyncTaskParseJson.java";
 
 
+    String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_listar_filtros_avancados.php";
+
+    // contacts JSONArray
+    JSONArray dataJsonArr = null;
+
+    private Filtros_mega_avancados delegate;
+
+    public AsyncTaskParseJson (Filtros_mega_avancados delegate){
+        this.delegate = delegate;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        progressDialog = new ProgressDialog(Filtros_mega_avancados.this);
+        progressDialog.setCancelable(true);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setProgress(0);
+        progressDialog.show();
+    }
+
+    @Override
+    protected String doInBackground(String... arg0) {
+
+        try {
+
+            // instantiate our json parser
+            JSONParser jParser = new JSONParser();
+
+            // get json string from url
+            // tenho de criar um jsonobject e adicionar la as cenas
+            JSONObject dict = new JSONObject();
+            JSONObject jsonObj = new JSONObject();
+
+            dict.put("lang","pt");
+
+            String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+            // try parse the string to a JSON object
+            try {
+                Log.v("Ver Json ","Ele retorna isto"+jsonString);
+                jsonObj = new JSONObject(jsonString);
+            } catch (JSONException e) {
+                Log.e(TAG, "Error parsing data " + e.toString());
+            }
+            // get the array of users
+
+
+            JSONObject resultado = jsonObj.getJSONObject("topcoes");
+            JSONArray ideal = resultado.getJSONArray("sug");
+            JSONObject idealObject = ideal.getJSONObject(0);
+
+
+
+            JSONArray array_conteudo = idealObject.getJSONArray("conteudo");
+            AvancadosObject[] arrayAmbiente = new AvancadosObject[array_conteudo.length()];
+
+            for (int i = 0; i < array_conteudo.length(); i++)
+            {
+
+                JSONObject jsonAmbiente = array_conteudo.getJSONObject(i);
+                AvancadosObject objects = new AvancadosObject();
+                objects.setSub_titulo(jsonAmbiente.getString("sub_titulo"));
+                objects.setId_sub_titulo(jsonAmbiente.getString("id_sub_titulo"));
+                arrayAmbiente[i] = objects;
+
+            }
+
+
+            TopTitulosFiltros ambiente = new TopTitulosFiltros();
+            ambiente.setId_titulo(idealObject.getString("id_titulo"));
+            ambiente.setTitulo(idealObject.getString("titulo"));
+            ambiente.setMultiSelection(idealObject.getString("multi"));
+            ambiente.setArrayObjectos(arrayAmbiente);
+
+
+
+            Log.v("sdffgddvsdsv","conteudo do array de pagamentos = "+ idealObject.getString("id_titulo"));
+
+            some_array = arrayAmbiente;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncComplete(true);  }
+
+}
+
+
+    public void asyncComplete(boolean success)
+    {
+        // mCallbacks.onButtonClicked();
+
+        mListView = (ListView) findViewById(R.id.lista_avancada);
+        //adapter = new ArrayAdapter<Locais>(this,android.R.layout.simple_list_item_1, android.R.id.text1, local);
+
+
+        mAdapter = new MyListAdapter(this, R.layout.row_defenicoes, some_array);
+        // Assign adapter to ListView
+        mListView.setAdapter(mAdapter);
+
+        // ListView Item Click Listener
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+
+
+                for (int a = 0; a < parent.getChildCount(); a++) {
+                    ImageView icon1 = (ImageView) parent.getChildAt(a).findViewById(R.id.icon);
+                    //parent.getChildAt(a).setBackgroundColor(getResources().getColor(R.color.silver) );
+                    icon1.setImageResource(R.drawable.ic_action_frame_b);
+                }
+
+                //view.setBackgroundColor(Color.RED);
+
+
+                ImageView icon2 = (ImageView) view.findViewById(R.id.icon);
+                //Customize your icon here
+                icon2.setImageResource(R.drawable.ic_action_framecheck_b);
+
+            }
+
+        });
+
+    }
+
+
+    public class MyListAdapter extends ArrayAdapter<AvancadosObject> {
+
+        Context myContext;
+        public ImageLoader imageLoader;
+
+        public MyListAdapter(Context context, int textViewResourceId,
+                             AvancadosObject[] objects) {
+            super(context, textViewResourceId, objects);
+            imageLoader=new ImageLoader(context);
+            myContext = context;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            View row;
+
+            if (position == 0 || position == 1 ) {
+                LayoutInflater inflater = (LayoutInflater) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                row = inflater.inflate(R.layout.row_header, parent, false);
+                TextView label = (TextView) row.findViewById(R.id.month);
+                label.setText(some_array[position].getSub_titulo());
+
+
+                ImageView icon = (ImageView) row.findViewById(R.id.icon);
+
+                //Customize your icon here
+                icon.setImageResource(R.drawable.ic_action_frame_b);
+            }else
+            {
+                LayoutInflater inflater = (LayoutInflater) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                row = inflater.inflate(R.layout.row_defenicoes, parent, false);
+                TextView label = (TextView) row.findViewById(R.id.month);
+                label.setText(some_array[position].getSub_titulo());
+                ImageView icon = (ImageView) row.findViewById(R.id.icon);
+
+                //Customize your icon here
+                icon.setImageResource(R.drawable.ic_action_frame_b);
+            }
+
+            return row;
+        }
+
+    }
 
 }
