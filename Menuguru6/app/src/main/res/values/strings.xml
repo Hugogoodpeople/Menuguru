@@ -134,4 +134,17 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
         <item>Homem</item>
         <item>Mulher</item>
     </string-array>
+    <string name="ordenar">Ordenar</string>
+    <string name="cozinha">Cozinha</string>
+    <string name="preco">Preço</string>
+    <string name="opcoes">Opções</string>
+    <string name="idealpara">Ideal para</string>
+    <string name="ambiente">Ambiente</string>
+    <string name="limpar">Limpar</string>
+    <string name="gravar">Gravar</string>
+    <string name="filtrosavancados">Filtros Avançados</string>
+    <string name="procurar">Procurar</string>
+    <string name="o_que_pretende_pesquisar">O que pretende pesquisar?</string>
+    <string name="restaurante">Restaurante</string>
+    <string name="prato">Prato</string>
 </resources>

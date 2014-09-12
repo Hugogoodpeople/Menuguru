@@ -188,7 +188,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Transferir favoritos"
-                android:id="@+id/button2"
+                android:id="@+id/buttonfiltros2"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/shape"
                 android:textColor="#ffff"
