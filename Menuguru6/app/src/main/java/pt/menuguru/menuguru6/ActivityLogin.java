@@ -78,7 +78,7 @@ public class ActivityLogin extends Activity
                     {
                         Intent intent = new Intent(ActivityLogin.this, CriarUser.class);
                         startActivity(intent);
-
+                        ActivityLogin.this.overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
                     }
                 });
 

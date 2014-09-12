@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import java.net.URL;
 
 import pt.menuguru.menuguru6.Inspiracoes.Activity_Inspiracao;
 import pt.menuguru.menuguru6.Utils.Globals;
+import pt.menuguru.menuguru6.Utils.User;
 
 
 public class Defenicoes extends Fragment implements AbsListView.OnItemClickListener {
@@ -64,13 +66,11 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
                 // tenho de chamar aqui o login
 
                 Intent myIntent = new Intent(getActivity(), ActivityLogin.class);
-                //myIntent.putExtra("delegate", String.valueOf(getActivity()));
                 getActivity().startActivity(myIntent);
 
-                //this.getActivity().finish();
 
 
-
+                getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
                 Log.v("clickmenu","clicou no menu");
                 return false;
 
@@ -88,6 +88,21 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
                         .setPositiveButton("Sim",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 Globals.get_instance().setUser(null);
+                                // para ir guardar as preferencias de utilizador
+                                SharedPreferences preferences = getActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putString("user_name", "");
+                                editor.putString("user_last_name", "");
+                                editor.putString("user_id", "");
+                                editor.putString("user_data", "");
+                                editor.putString("user_tel", "");
+                                editor.putString("user_mail", "");
+                                editor.putString("user_tipo", "");
+                                editor.putString("user_pass", "");
+                                editor.putString("user_cidade","");
+                                editor.putBoolean("user_news",false);
+                                editor.commit();
                                 getActivity().invalidateOptionsMenu();
 
                             }
