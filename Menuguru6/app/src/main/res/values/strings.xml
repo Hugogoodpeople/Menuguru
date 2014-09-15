@@ -136,6 +136,10 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     </string-array>
 
     <string name="ordenar">Ordenar</string>
+    <string name="todostipo">Todos Tipo de</string>
+    <string name="todos">Todos</string>
+    <string name="precos">preços</string>
+
     <string name="cozinha">Cozinha</string>
     <string name="preco">Preço</string>
     <string name="opcoes">Opções</string>

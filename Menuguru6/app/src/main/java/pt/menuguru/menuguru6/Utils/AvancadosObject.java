@@ -14,7 +14,7 @@ public class AvancadosObject {
 
     private String id_sub_titulo;
     private String sub_titulo;
-    private Boolean selecionado;
+    private Boolean selecionado = false;
 
     public String getId_sub_titulo() {
         return id_sub_titulo;
