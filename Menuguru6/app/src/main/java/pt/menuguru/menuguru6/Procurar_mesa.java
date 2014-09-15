@@ -105,7 +105,7 @@ public class Procurar_mesa extends Fragment {
         mais = (ImageView) mLinearLayout.findViewById(R.id.imageView3);
         menos = (ImageView) mLinearLayout.findViewById(R.id.imageView4);
 
-        bt_semdata = (Button) mLinearLayout.findViewById(R.id.button7);
+        bt_semdata = (Button) mLinearLayout.findViewById(R.id.edit_criar_sexo);
         bt_semdata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

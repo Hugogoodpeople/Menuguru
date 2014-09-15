@@ -528,6 +528,7 @@ public class ActivityLogin extends Activity
                     users.pass = jsonObj.getString("pass");
                     users.tipoconta = jsonObj.getString("tipoconta");
                     String news = jsonObj.getString("news");
+                    users.id_face = jsonObj.getString("id_face");
                     if (news.equals("1")) {
                         users.news = true;
                     } else {
@@ -543,6 +544,7 @@ public class ActivityLogin extends Activity
                     Log.v("telefone_user","objecto = "+ jsonObj.getString("telefone_user"));
                     Log.v("data_nasc","objecto = "+ jsonObj.getString("data_nasc"));
                     Log.v("pass","objecto = "+ jsonObj.getString("pass"));
+                    Log.v("Face","objecto = "+ jsonObj.getString("id_face"));
                 }
 
 
@@ -594,6 +596,7 @@ public class ActivityLogin extends Activity
             editor.putString("user_pass", utilizador.getPass());
             editor.putString("user_cidade", utilizador.getCidade());
             editor.putBoolean("user_news", utilizador.getNews());
+            editor.putString("id_face", utilizador.getId_face());
 
             editor.commit();
 

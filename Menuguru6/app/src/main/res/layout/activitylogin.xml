@@ -11,7 +11,9 @@
         android:layout_gravity="center_horizontal"
     android:layout_below="@+id/edit_pass"
     android:layout_centerHorizontal="true"
-    android:layout_marginTop="20dp" />
+    android:layout_marginTop="20dp"
+        android:background="@drawable/botton_login"
+        android:textColor="@color/white" />
 
     <com.facebook.widget.LoginButton
         android:id="@+id/fb_login_button"
@@ -19,9 +21,11 @@
         android:layout_height="wrap_content"
 
         android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="5dp"
+        android:layout_alignRight="@+id/bt_login"
+        android:layout_alignEnd="@+id/bt_login"
+        android:layout_alignLeft="@+id/bt_login"
+        android:layout_alignStart="@+id/bt_login" />
 
     <Button
         android:layout_width="350dp"
@@ -33,19 +37,22 @@
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="@color/dourado"
+        android:textColor="@color/white" />
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-    android:textAppearance="?android:attr/textAppearanceLarge"
+    android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
     android:text="@string/ola"
     android:id="@+id/textView"
     android:layout_alignParentTop="true"
     android:layout_centerHorizontal="true"
-    android:layout_marginTop="20dp" />
+    android:layout_marginTop="20dp"
+        android:textSize="40dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -55,25 +62,31 @@
         android:id="@+id/textView2"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="10dp"
+        android:textColor="@color/gray"
+        android:textSize="12dp" />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:inputType="textEmailAddress"
         android:ems="10"
         android:id="@+id/edit_email"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_alignRight="@+id/bt_login"
         android:layout_alignEnd="@+id/bt_login"
         android:layout_alignLeft="@+id/bt_login"
         android:layout_alignStart="@+id/bt_login"
-        android:hint="Email"/>
+        android:hint="Email"
+        android:background="@drawable/layout_text"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textSize="18dp" />
 
     <EditText
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/edit_pass"
@@ -82,8 +95,12 @@
         android:layout_alignStart="@+id/edit_email"
         android:layout_alignRight="@+id/edit_email"
         android:layout_alignEnd="@+id/edit_email"
-        android:layout_marginTop="20dp"
-        android:hint="Password"/>
+        android:layout_marginTop="10dp"
+        android:hint="Password"
+        android:background="@drawable/layout_text"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textSize="18dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -92,7 +109,9 @@
         android:text="@string/ou"
         android:id="@+id/textView3"
         android:layout_below="@+id/bt_login"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/gray" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -102,32 +121,37 @@
         android:id="@+id/textView4"
         android:layout_above="@+id/registo"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="50dp"
         android:onClick="onClick"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:textColor="@color/gray" />
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/bt_login"
-        android:layout_toLeftOf="@+id/textView3"
-        android:layout_toStartOf="@+id/textView3"
-        android:layout_above="@+id/textView3"
-        android:layout_marginTop="10dp"
-        android:background="@color/black"></LinearLayout>
+        android:layout_width="50dp"
+        android:layout_height="1dp"
+        android:layout_toStartOf="@+id/textView"
+        android:background="@color/gray"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/linearLayout2"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_toLeftOf="@+id/textView"
+        android:layout_marginTop="12dp"></LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/bt_login"
+        android:layout_width="50dp"
+        android:layout_height="1dp"
+        android:layout_toStartOf="@+id/textView"
+        android:background="@color/gray"
+        android:id="@+id/linearLayout"
+        android:layout_alignRight="@+id/fb_login_button"
+        android:layout_alignEnd="@+id/fb_login_button"
+        android:layout_alignTop="@+id/linearLayout2"
         android:layout_toRightOf="@+id/textView"
-        android:layout_toEndOf="@+id/textView"
-        android:layout_above="@+id/textView3"
-        android:layout_marginTop="10dp"
-        android:background="@color/black"
-        android:id="@+id/linearLayout"></LinearLayout>
+        android:layout_toEndOf="@+id/textView" />
 
 
 </RelativeLayout>

@@ -64,13 +64,13 @@ public class CriarUser extends Activity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        edit_pnome  = (EditText)findViewById(R.id.edit_pnome);
-        edit_snome  = (EditText)findViewById(R.id.edit_snome);
-        bt_sexo  = (Button)findViewById(R.id.edit_sexo);
-        edit_cidade  = (EditText)findViewById(R.id.edit_cidade);
-        bt_data_nasc  = (Button)findViewById(R.id.edit_data_nasc);
-        edit_email  = (EditText)findViewById(R.id.edit_email);
-        edit_pass  = (EditText)findViewById(R.id.edit_pass);
+        edit_pnome  = (EditText)findViewById(R.id.edit_criar_pnome);
+        edit_snome  = (EditText)findViewById(R.id.edit_criar_snome);
+        bt_sexo  = (Button)findViewById(R.id.edit_criar_sexo);
+        edit_cidade  = (EditText)findViewById(R.id.edit_criar_cidade);
+        bt_data_nasc  = (Button)findViewById(R.id.edit_criar_data_nasc);
+        edit_email  = (EditText)findViewById(R.id.edit_criar_email);
+        edit_pass  = (EditText)findViewById(R.id.edit_criar_pass);
         bt_registar  = (Button)findViewById(R.id.bt_c_registo);
 
         bt_data_nasc.setOnClickListener(new View.OnClickListener() {

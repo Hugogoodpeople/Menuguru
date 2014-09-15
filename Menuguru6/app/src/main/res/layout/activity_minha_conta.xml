@@ -21,7 +21,7 @@
             <LinearLayout
                 android:layout_marginTop="0dp"
                 android:id="@+id/nomes"
-                android:layout_height="35dp"
+                android:layout_height="45dp"
                 android:layout_width="fill_parent"
                 android:gravity = "center_horizontal"
                 android:weightSum="1.0">
@@ -36,7 +36,8 @@
                     android:hint="Primeiro nome"
                     android:textSize="14dp"
                     android:background="@drawable/textfields"
-                     />
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp" />
                 <EditText
                     android:padding="5dp"
                     android:background="@drawable/textfields"
@@ -49,29 +50,33 @@
                     android:hint="Sobrenome"
                     android:textSize="14dp"
 
-                     />
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp" />
             </LinearLayout>
 
             <LinearLayout
 
                 android:layout_marginTop="5dp"
                 android:id="@+id/cidade_data"
-                android:layout_height="35dp"
+                android:layout_height="45dp"
                 android:layout_width="fill_parent"
                 android:gravity = "center_horizontal"
                 android:layout_below="@id/nomes"
                 android:weightSum="1.0">
-                <EditText
+                <Button
                     android:padding="5dp"
                     android:background="@drawable/textfields"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:id="@+id/edit_data_nascimento"
+                    android:gravity="left|center_vertical"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="0.5"
                     android:hint="Data"
                     android:textSize="14dp"
-                    android:inputType="date" />
+                    android:inputType="date"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp" />
                 <EditText
                     android:padding="5dp"
                     android:background="@drawable/textfields"
@@ -83,7 +88,8 @@
                     android:layout_weight="0.5"
                     android:hint="Cidade"
                     android:textSize="14dp"
-                    />
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp" />
             </LinearLayout>
 
             <EditText
@@ -91,42 +97,48 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/textfields"
                 android:layout_width="fill_parent"
-                android:layout_height="35dp"
+                android:layout_height="45dp"
                 android:id="@+id/edit_telefone"
                 android:layout_gravity="center_horizontal"
                 android:layout_alignParentRight="true"
                 android:hint="Telefone"
                 android:layout_below="@id/cidade_data"
                 android:textSize="14dp"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
 
             <EditText
                 android:padding="5dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/textfields"
                 android:layout_width="fill_parent"
-                android:layout_height="35dp"
+                android:layout_height="45dp"
                 android:id="@+id/edit_email"
                 android:layout_gravity="center_horizontal"
                 android:layout_alignParentRight="true"
                 android:hint="Email"
                 android:layout_below="@id/edit_telefone"
                 android:textSize="14dp"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
 
             <EditText
                 android:padding="5dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/textfields"
                 android:layout_width="fill_parent"
-                android:layout_height="35dp"
+                android:layout_height="45dp"
                 android:id="@+id/edit_data_nasc"
                 android:layout_gravity="center_horizontal"
                 android:layout_alignParentRight="true"
                 android:hint="Password"
                 android:layout_below="@id/edit_email"
                 android:textSize="14dp"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
 
             <LinearLayout
                 android:paddingTop="20px"
@@ -138,22 +150,23 @@
                 android:weightSum="1.0">
                 <TextView
                     android:padding="5dp"
-                    android:layout_width="fill_parent"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
                     android:text="Receber notificações"
                     android:id="@+id/notificacoes_texto"
                     android:layout_gravity="center_horizontal"
                     android:layout_alignParentRight="true"
                     android:textSize="14dp"
-                    />
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1.07" />
                 <Switch
-                    android:layout_width="fill_parent"
-                    android:layout_weight="0.6"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:textSize="14dp"
-                    />
+                    android:layout_marginRight="10dp"
+                    android:checked="false"
+                    android:id="@+id/not" />
                 </LinearLayout>
 
             <LinearLayout
@@ -166,22 +179,22 @@
                 android:weightSum="1.0">
                 <TextView
                     android:padding="5dp"
-                    android:layout_width="fill_parent"
+                    android:layout_width="149dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
                     android:text="Receber newsletter"
                     android:id="@+id/newsletter_textp"
                     android:layout_gravity="center_horizontal"
                     android:layout_alignParentRight="true"
                     android:textSize="14dp"
-                    />
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1.07" />
                 <Switch
-                    android:layout_width="fill_parent"
-                    android:layout_weight="0.6"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:textSize="14dp"
-                    android:id="@+id/news" />
+                    android:id="@+id/news"
+                    android:layout_marginRight="12dp" />
             </LinearLayout>
 
             <Button
