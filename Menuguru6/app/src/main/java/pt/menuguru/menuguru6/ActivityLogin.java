@@ -1,9 +1,11 @@
 package pt.menuguru.menuguru6;
 
 
+import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,9 +17,11 @@ import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +45,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.Globals;
@@ -58,10 +64,17 @@ public class ActivityLogin extends Activity
     EditText edit_email;
     EditText edit_pass;
 
+    EditText recuperar_edit_pass;
+
+    TextView recuperar_pass;
+
     User[] user = null;
 
     String aux_user = "0";
     String id_face = "0";
+    String email_recup = "";
+
+    String aux_recup_email;
 
     private ProgressDialog progressDialog;
 
@@ -89,10 +102,68 @@ public class ActivityLogin extends Activity
 
         LoginB = (Button)findViewById(R.id.bt_login);
         Registo = (Button)findViewById(R.id.registo);
+
         loginBtn = (LoginButton) findViewById(R.id.fb_login_button);
 
         edit_email   = (EditText)findViewById(R.id.edit_email);
         edit_pass   = (EditText)findViewById(R.id.edit_pass);
+
+        recuperar_pass = (TextView)findViewById(R.id.textView4);
+
+        recuperar_pass.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(ActivityLogin.this);
+                dialog.setTitle(R.string.T_recuperar_pass);
+                dialog.setContentView(R.layout.dialog_recuperar_pass);
+                dialog.show();
+
+                Button bt_cancelar = (Button) dialog.findViewById(R.id.bt_cancelar);
+                Button bt_ok = (Button) dialog.findViewById(R.id.bt_ok);
+
+                bt_cancelar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Close dialog
+                        dialog.dismiss();
+                    }
+                });
+
+                bt_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        recuperar_edit_pass = (EditText) dialog.findViewById(R.id.rec_email);
+                        String text = recuperar_edit_pass.getText().toString();
+                        email_recup = text;
+                        // Close dialog
+                        Log.v("Email Recuperacao", email_recup);
+                        if(!isEmailValid(email_recup)){
+                            dialog.dismiss();
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ActivityLogin.this);
+                            // set dialog message
+                            alertDialogBuilder
+                                    .setMessage(R.string.erro_email)
+                                    .setCancelable(false)
+                                    .setNegativeButton("OK",new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+                            // create alert dialog
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            // show it
+                            alertDialog.show();
+
+                        }else {
+                            dialog.dismiss();
+                            new AsyncTaskParseJsonRecuperar(ActivityLogin.this).execute();
+                        }
+                    }
+                });
+            }
+        });
+
 
         LoginB.setOnClickListener(
                 new View.OnClickListener()
@@ -140,6 +211,20 @@ public class ActivityLogin extends Activity
 
         }
 
+    }
+
+    public static boolean isEmailValid(String email) {
+        boolean isValid = false;
+
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = true;
+        }
+        return isValid;
     }
 
     private Session.StatusCallback statusCallback = new Session.StatusCallback() {
@@ -469,7 +554,7 @@ public class ActivityLogin extends Activity
         }
 
         @Override
-        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncComplete(true);  }
+        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncCompleteFace(true);  }
 
     }
 
@@ -490,9 +575,6 @@ public class ActivityLogin extends Activity
             AlertDialog alertDialog = alertDialogBuilder.create();
             // show it
             alertDialog.show();
-
-
-
 
         }else{
 
@@ -515,6 +597,111 @@ public class ActivityLogin extends Activity
 
             editor.commit();
 
+            finish();
+        }
+
+    }
+
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonRecuperar extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/json_recuperar_pass2.php";
+
+        // contacts JSONArray
+        JSONArray dataJsonArr = null;
+
+        private ActivityLogin delegate;
+
+        public AsyncTaskParseJsonRecuperar (ActivityLogin delegate){
+            this.delegate = delegate;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(ActivityLogin.this);
+            progressDialog.setCancelable(true);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+                dict.put("email",email_recup);
+                dict.put("lang", Globals.get_instance().getLingua());
+
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+
+                try {
+                    Log.v("Ver Json ", "Ele retorna isto" + jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                // get the array of users
+                String resp = jsonObj.getString("resp");
+                if(resp.equals("Receba um email")){
+                    aux_recup_email = "0";
+                }else{
+                    aux_recup_email = "1";
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncCompleteRecuperar(true);  }
+
+    }
+
+
+    public void asyncCompleteRecuperar(boolean success){
+        if(aux_recup_email.equals("1")){
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            // set dialog message
+            alertDialogBuilder
+                    .setTitle(R.string.t_exite_email)
+                    .setMessage(R.string.n_exite_email)
+                    .setCancelable(false)
+                    .setPositiveButton(R.string.sim,new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            Intent intent = new Intent(ActivityLogin.this, CriarUser.class);
+                            startActivity(intent);
+                            ActivityLogin.this.overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+                        }
+                    })
+                    .setNegativeButton(R.string.nao,new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            dialog.cancel();
+                        }
+                    });
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            // show it
+            alertDialog.show();
+
+        }else{
             finish();
         }
 

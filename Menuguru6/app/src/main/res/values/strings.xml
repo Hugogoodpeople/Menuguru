@@ -155,5 +155,14 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="desc_erro_mail">Por favor verifique a sua caixa de email e valide-o ou recupere a password.</string>
     <string name="conf_email">Por favor confirme o seu registo através do email que lhe enviamos.</string>
     <string name="title_activity_teste_facebook">TesteFacebook</string>
+    <string name="title_activity_recuperar_pass">Recuperar_pass</string>
+    <string name="T_recuperar_pass">Recuperar password</string>
+    <string name="texto_recuperar">Por favor introduza o seu email.</string>
+    <string name="t_exite_email">Email sem registo</string>
+    <string name="n_exite_email">Pretende registá-lo agora?</string>
 
+    <string name="cancelar">Cancelar</string>
+    <string name="ok">Ok</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
 </resources>

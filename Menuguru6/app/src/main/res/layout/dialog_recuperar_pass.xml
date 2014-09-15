@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="10dp">
+    <EditText
+        android:id="@+id/rec_email"
+        android:inputType="textEmailAddress"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:hint="Email"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/textfields"
+        android:layout_marginBottom="10dp" />
+
+    <Button
+        android:layout_width="147dp"
+        android:layout_height="wrap_content"
+        android:text="@string/cancelar"
+        android:id="@+id/bt_cancelar"
+        android:layout_below="@+id/rec_email"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/texto_recuperar"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp" />
+
+    <Button
+        android:layout_width="147dp"
+        android:layout_height="wrap_content"
+        android:text="@string/ok"
+        android:id="@+id/bt_ok"
+        android:layout_below="@+id/rec_email"
+        android:layout_toEndOf="@+id/bt_cancelar"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/bt_cancelar" />
+</RelativeLayout>
