@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -59,6 +61,7 @@ public class Filtros_mega_avancados extends Activity
     private ImageButton button4;
     private ImageButton button5;
     private ImageButton button6;
+    private Button buttonGravar;
 
 
     @Override
@@ -130,11 +133,31 @@ public class Filtros_mega_avancados extends Activity
             }
         });
 
+        buttonGravar = (Button) this.findViewById(R.id.buttonGravar);
+        buttonGravar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("filtros","click Button Gravar");
+
+                Globals.getInstance().setFiltros(arrayTopTitulos);
+                // depois tenho de lançar a pesquisa :)
+                AbrirPesquisa();
+
+
+            }
+        });
+
         highlightButton(1);
 
 
         new AsyncTaskParseJson(this).execute();
 
+    }
+
+    private void AbrirPesquisa()
+    {
+        Intent pesquisa = new Intent(this, Resultados_filtros_avancados.class);
+        startActivity(pesquisa);
     }
 
     private void highlightButton(int selectedButton)
@@ -949,6 +972,15 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
     public void descelecionarDefault(int index)
     {
         arrayTopTitulos[index].getArrayObjectos()[0].setSelecionado(false);
+    }
+
+
+    public void limparTudo()
+    {
+        for(int i = 0; i< arrayTopTitulos.length ; i++)
+        {
+            descelecionar(i);
+        }
     }
 
 }
