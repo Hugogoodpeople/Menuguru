@@ -72,6 +72,10 @@
             android:name="com.facebook.LoginActivity"
             android:label="Login facebook" >
         </activity>
+        <activity
+            android:name=".ComoFunciona"
+            android:label="Login facebook" >
+        </activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

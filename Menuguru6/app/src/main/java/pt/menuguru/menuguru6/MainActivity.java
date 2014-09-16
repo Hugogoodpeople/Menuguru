@@ -236,7 +236,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
                 break;
             }
             case 4: {
-                fragmentTransaction.replace(R.id.container, new ComoFunciona());
+                fragmentTransaction.replace(R.id.container, new BlankFragment());
                 break;
             }
         }
