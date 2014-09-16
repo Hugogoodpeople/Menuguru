@@ -365,6 +365,12 @@ public class Resultados_filtros_avancados extends Activity
 
                 //some_array = getResources().getStringArray(R.array.defenicoes_array);
 
+                if (some_array.length == 0)
+                {
+
+                   // mListView.setEmptyView(new view):
+                }
+
                 Log.v("sdffgddvsdsv","objecto especial = "+ jsonObj);
 
             } catch (JSONException e) {

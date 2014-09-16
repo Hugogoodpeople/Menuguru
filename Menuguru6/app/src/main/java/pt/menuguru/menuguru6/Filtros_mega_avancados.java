@@ -257,8 +257,9 @@ public class Filtros_mega_avancados extends Activity
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-              Log.v("algo", "Prato " + query);
+                Log.v("algo", "Prato " + query);
                 prato = query;
+                AbrirPesquisa();
                 return false;
             }
 
