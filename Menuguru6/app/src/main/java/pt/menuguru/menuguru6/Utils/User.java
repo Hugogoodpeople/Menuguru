@@ -15,6 +15,11 @@ public class User {
     public String pass = "";
     public String tipoconta = "";
     public Boolean news = true;
+    public String id_face = "";
+
+    public String getId_face() { return id_face;  }
+
+    public void setId_face(String id_face) { this.id_face = id_face; }
 
     public String getUserid() {
         return userid;

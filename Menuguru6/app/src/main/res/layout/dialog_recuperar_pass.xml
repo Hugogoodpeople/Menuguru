@@ -14,7 +14,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@drawable/textfields"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
 
     <Button
         android:layout_width="147dp"
@@ -23,7 +25,8 @@
         android:id="@+id/bt_cancelar"
         android:layout_below="@+id/rec_email"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="@color/silver" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -50,5 +53,6 @@
         android:layout_toEndOf="@+id/bt_cancelar"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/bt_cancelar" />
+        android:layout_toRightOf="@+id/bt_cancelar"
+        android:background="@color/silver" />
 </RelativeLayout>

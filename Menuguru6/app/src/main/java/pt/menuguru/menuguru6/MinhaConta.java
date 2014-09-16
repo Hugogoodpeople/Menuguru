@@ -3,6 +3,7 @@ package pt.menuguru.menuguru6;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,12 +14,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.Globals;
@@ -31,12 +38,13 @@ public class MinhaConta extends Activity {
 
     EditText edit_pnome;
     EditText edit_snome;
-    EditText edit_data_nascimento;
+    Button edit_data_nascimento;
     EditText edit_cidade;
     EditText edit_telefone;
     EditText edit_email;
     EditText edit_pass;
     Switch edit_news;
+    Switch edit_not;
 
     String pnome;
     String snome;
@@ -45,6 +53,7 @@ public class MinhaConta extends Activity {
     String telefone;
     String email;
     String pass;
+    String tipo;
     Boolean news;
 
     String g_pnome;
@@ -56,8 +65,14 @@ public class MinhaConta extends Activity {
     String g_pass;
     Boolean g_news;
 
+    String id_face;
+
+    String yourJsonStringUrl;
+
     String aux_news;
     private ProgressDialog progressDialog;
+
+    private Calendar cal;
 
 
     @Override
@@ -77,17 +92,26 @@ public class MinhaConta extends Activity {
         email = Globals.get_instance().getUser().getEmail();
         pass = Globals.get_instance().getUser().getPass();
         news = Globals.get_instance().getUser().getNews();
+        news = Globals.get_instance().getUser().getNews();
+        tipo = Globals.get_instance().getUser().getTipoconta();
         Log.v("NEWS",news.toString());
+
 
         edit_pnome   = (EditText)findViewById(R.id.edit_pnome);
         edit_snome   = (EditText)findViewById(R.id.edit_snome);
-        edit_data_nascimento   = (EditText)findViewById(R.id.edit_data_nascimento);
+        edit_data_nascimento   = (Button)findViewById(R.id.edit_data_nascimento);
         edit_cidade   = (EditText)findViewById(R.id.edit_cidade);
         edit_telefone   = (EditText)findViewById(R.id.edit_telefone);
         edit_email   = (EditText)findViewById(R.id.edit_email);
         edit_pass   = (EditText)findViewById(R.id.edit_data_nasc);
         edit_news   = (Switch)findViewById(R.id.news);
-
+        edit_not   = (Switch)findViewById(R.id.not);
+        if(tipo.equals("facebook")){
+            yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_login_update_face.php";
+            edit_pass.setVisibility(View.INVISIBLE);
+        }else{
+            yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_editar_conta_android.php";
+        }
         edit_pnome.setText(pnome);
         edit_snome.setText(snome);
         edit_data_nascimento.setText(data_nascimento);
@@ -96,8 +120,58 @@ public class MinhaConta extends Activity {
         edit_email.setText(email);
         edit_pass.setText(pass);
         edit_news.setChecked(news);
+        User utilizador = Globals.getInstance().getUser();
+        id_face = utilizador.getId_face();
+        Log.v("IDFACe",id_face);
+        edit_data_nascimento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // tenho de adicionar cenas
+                Log.v("coiso", "Procurar");
+
+                Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                System.out.println("the selected " + mDay);
+                DatePickerDialog dialog = new DatePickerDialog(MinhaConta.this,
+                        new mDateSetListener(), mYear, mMonth, mDay);
+                dialog.show();
+
+            }
+        });
+
+    }
+
+    class mDateSetListener implements DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            // TODO Auto-generated method stub
+            // getCalender();
+            int mYear = year;
+            int mMonth = monthOfYear;
+            int mDay = dayOfMonth;
+
+            String dataSelecionada= "Ano " + Integer.toString(mYear) +
+                    " Mes " + Integer.toString(mMonth+1) +
+                    " Dia " + Integer.toString(mDay);
+
+            Log.v("selecionado",dataSelecionada);
+
+            cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, mYear);
+            cal.set(Calendar.MONTH, mMonth);
+            cal.set(Calendar.DAY_OF_MONTH, mDay);
+
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = df.format(cal.getTime());
+
+            edit_data_nascimento.setText(formattedDate);
 
 
+        }
     }
 
 
@@ -144,7 +218,7 @@ public class MinhaConta extends Activity {
         final String TAG = "AsyncTaskParseJson.java";
 
 
-        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_editar_conta_android.php";
+
 
         // contacts JSONArray
         JSONArray dataJsonArr = null;
@@ -178,15 +252,26 @@ public class MinhaConta extends Activity {
                 JSONObject dict = new JSONObject();
                 JSONObject jsonObj = new JSONObject();
 
-                dict.put("id",Globals.get_instance().getUser().getUserid());
-                dict.put("pass",g_pass);
+
+                if(tipo.equals("facebook")) {
+                    dict.put("id",Globals.get_instance().getUser().getId_face());
+                    dict.put("pass", "" );
+                }else{
+                    dict.put("id",Globals.get_instance().getUser().getUserid());
+                    dict.put("pass", g_pass);
+                }
                 dict.put("email",g_email);
                 dict.put("cidade",g_cidade);
                 dict.put("data_nasc",g_data_nascimento);
                 dict.put("primeironome",g_pnome);
                 dict.put("segundonome",g_snome);
                 dict.put("telefone",g_telefone);
-                dict.put("news",g_news);
+                if(g_news){
+                    dict.put("news","1");
+                }else{
+                    dict.put("news","0");
+                }
+
 
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
 
