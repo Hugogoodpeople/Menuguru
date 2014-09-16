@@ -1,10 +1,7 @@
 package pt.menuguru.menuguru6;
 
 
-
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
@@ -16,6 +13,8 @@ import android.support.v4.view.ViewPager;
 
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,10 +22,7 @@ import org.json.JSONObject;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.ComoFunc;
-import pt.menuguru.menuguru6.Utils.ComoFunciona2;
 import pt.menuguru.menuguru6.Utils.Globals;
-import pt.menuguru.menuguru6.Utils.Restaurante;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +41,10 @@ public class ComoFunciona extends FragmentActivity {
      */
     private ViewPager mPager;
 
+    ComoFunc[] some_array = null;
+
+
+    Button bt_close;
     /**
      * The pager adapter, which provides the pages to the view pager widget.
      */
@@ -53,8 +53,9 @@ public class ComoFunciona extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //new AsyncTaskParseJson(this).execute();
         setContentView(R.layout.fragment_como_funciona);
-        //new AsyncTaskParseJson(ComoFunciona.this).execute();
+
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
@@ -67,6 +68,17 @@ public class ComoFunciona extends FragmentActivity {
                 // fragment expose actions itself (rather than the activity exposing actions),
                 // but for simplicity, the activity provides the actions in this sample.
                 invalidateOptionsMenu();
+            }
+        });
+
+        bt_close = (Button)findViewById(R.id.bt_close);
+        bt_close.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                finish();
+                overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
             }
         });
     }
@@ -93,7 +105,7 @@ public class ComoFunciona extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            Log.v("POSICAO",""+position);
+
 
             return ComoFunciona2.create(position);
         }
@@ -161,6 +173,8 @@ public class ComoFunciona extends FragmentActivity {
                 }
                 // get the array of users
 
+                some_array = new ComoFunc[dataJsonArr.length()];
+
                 dataJsonArr = jsonObj.getJSONArray("res");
                 for (int i = 0; i < dataJsonArr.length() ; i++) {
 
@@ -170,8 +184,8 @@ public class ComoFunciona extends FragmentActivity {
                     ComoFunc cfunc = new ComoFunc();
 
                     cfunc.setId(c.getString("id"));
-                    cfunc.setId(c.getString("img1"));
-                    cfunc.setId(c.getString("img2"));
+                    cfunc.setImg1(c.getString("img1"));
+                    cfunc.setImg2(c.getString("img2"));
                     Globals.get_instance().setCfunc(cfunc);
 
 
@@ -180,7 +194,7 @@ public class ComoFunciona extends FragmentActivity {
                     Log.v("IMG1","objecto = "+ c.getString("img1"));
                     Log.v("IMG2","objecto = "+ c.getString("img2"));
 
-
+                    some_array[i] = cfunc;
                 }
 
 

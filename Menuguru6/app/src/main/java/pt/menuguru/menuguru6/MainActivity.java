@@ -5,6 +5,7 @@ import android.app.Activity;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
@@ -236,7 +237,10 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
                 break;
             }
             case 4: {
-                fragmentTransaction.replace(R.id.container, new BlankFragment());
+                Intent intent = new Intent(this, ComoFunciona.class);
+                startActivity(intent);
+                //this.overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+                //fragmentTransaction.replace(R.id.container, new BlankFragment());
                 break;
             }
         }
