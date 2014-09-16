@@ -3,6 +3,7 @@ package pt.menuguru.menuguru6;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -55,6 +58,7 @@ public class Filtros_mega_avancados extends Activity
 
     int selected = 1;
 
+
     private ImageButton button1;
     private ImageButton button2;
     private ImageButton button3;
@@ -62,6 +66,9 @@ public class Filtros_mega_avancados extends Activity
     private ImageButton button5;
     private ImageButton button6;
     private Button buttonGravar;
+    private Button buttonLimpar;
+    private SearchView procura;
+    private String prato = "";
 
 
     @Override
@@ -69,8 +76,16 @@ public class Filtros_mega_avancados extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pesquisa_avancada);
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
+
+        actionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+
+
+        getActionBar().setIcon(R.drawable.ic_close_b);
+
+
+
 
 
         button1 = (ImageButton) this.findViewById(R.id.buttonfiltros1);
@@ -147,6 +162,17 @@ public class Filtros_mega_avancados extends Activity
             }
         });
 
+        buttonLimpar = (Button) this.findViewById(R.id.buttonLimpar);
+        buttonLimpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("filtros","click Button limpar");
+                limparTudo();
+
+
+            }
+        });
+
         highlightButton(1);
 
 
@@ -157,7 +183,10 @@ public class Filtros_mega_avancados extends Activity
     private void AbrirPesquisa()
     {
         Intent pesquisa = new Intent(this, Resultados_filtros_avancados.class);
+        pesquisa.putExtra("prato",prato);
+
         startActivity(pesquisa);
+        overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
     }
 
     private void highlightButton(int selectedButton)
@@ -210,14 +239,61 @@ public class Filtros_mega_avancados extends Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.inspiracao, menu);
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.searchable, menu);
+        MenuItem menuItem = menu.findItem(R.id.pesquisa_prato);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Type something...");
+
+         // este codigo fica em standby ate encontrar algo melhor
+        menu.add(Menu.NONE, 0, Menu.NONE, "Restaurante").setIcon(R.drawable.ic_delet_b);
+        menu.add(Menu.NONE, 1, Menu.NONE, "Prato").setIcon(R.drawable.ic_delet_b);
+
+
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+              Log.v("algo", "Prato " + query);
+                prato = query;
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                prato = newText;
+                return false;
+            }
+
+        });
+
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                Log.v("fazcoisas","clicou no botao de pesquisa");
+            } });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+
+            @Override
+            public boolean onClose() {
+                Log.v("cenasfechar","clicou para fechar");
+                return false;
+            }
+        });
+
+
         return true;
+
     }
 
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        Log.v("id selecionado","id do icon selecionado "+ item.getItemId());
         switch (item.getItemId()) {
             case android.R.id.home:
                 //Intent myIntent = new Intent(Inspiracao.this, MainActivity.class);
@@ -225,6 +301,7 @@ public class Filtros_mega_avancados extends Activity
                 finish();
 
                 return false;
+
             default:
                 break;
         }
@@ -697,10 +774,12 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
                     if (selected == 1 || selected == 3) {
                         int valorCorrecto = valorDoIndiceCorrecto(selected);
 
-
+                        // este codigo? tipo? porquê?
                         if (arrayTopTitulos[valorCorrecto].getArrayObjectos().length > position) {
                             descelecionar(selected - 1);
+                            descelecionar(selected);
                         } else {
+                            descelecionar(selected -1 );
                             descelecionar(selected);
                         }
 
@@ -815,7 +894,7 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
                 if(position != arrayTopTitulos[2].getArrayObjectos().length && position != 0)
                 {
                     label2 = (TextView) row.findViewById(R.id.headerText);
-                    label2.setText(arrayTopTitulos[valorNoArray ].getTitulo());
+                    label2.setText(arrayTopTitulos[valorNoArray +1].getTitulo());
                 }else if (position != 0)
                 {
                     label2 = (TextView) row.findViewById(R.id.headerText);
@@ -981,6 +1060,17 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
         {
             descelecionar(i);
         }
+        // agora tenho de selecionar apenas os que estao no indice 0
+
+        arrayTopTitulos[0].getArrayObjectos()[0].setSelecionado(true);
+        arrayTopTitulos[1].getArrayObjectos()[0].setSelecionado(true);
+        arrayTopTitulos[2].getArrayObjectos()[0].setSelecionado(true);
+        arrayTopTitulos[4].getArrayObjectos()[0].setSelecionado(true);
+        arrayTopTitulos[6].getArrayObjectos()[0].setSelecionado(true);
+        arrayTopTitulos[7].getArrayObjectos()[0].setSelecionado(true);
+
+        mAdapter.notifyDataSetChanged();
+
     }
 
 }
