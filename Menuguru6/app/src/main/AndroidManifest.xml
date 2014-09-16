@@ -61,7 +61,7 @@
         </activity>
         <activity
             android:name="pt.menuguru.menuguru6.Filtros_mega_avancados"
-            android:label="@string/title_activity_criar_user" >
+            android:label="@string/filtrosavancados" >
         </activity>
 
         <activity

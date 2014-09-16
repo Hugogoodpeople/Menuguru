@@ -26,10 +26,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Restaurante;
+import pt.menuguru.menuguru6.Utils.TopTitulosFiltros;
 import pt.menuguru.menuguru6.Utils.Utils;
 
 /**
@@ -50,6 +53,7 @@ public class Resultados_filtros_avancados extends Activity
      */
     private static MyListAdapter mAdapter;
 
+    private String prato= "";
     private ProgressDialog progressDialog;
 
 
@@ -58,6 +62,7 @@ public class Resultados_filtros_avancados extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultado_inspiracao);
         Intent intent = getIntent();
+        prato = intent.getStringExtra("prato");
 
         //setTitle(value);
         ActionBar actionBar = getActionBar();
@@ -70,7 +75,9 @@ public class Resultados_filtros_avancados extends Activity
         TextView t =(TextView) findViewById(R.id.mytext);
         t.setText(getString(R.string.filtrosavancados));
 
-        //new AsyncTaskParseJson(this).execute();
+
+
+        new AsyncTaskParseJson(this).execute();
     }
 
     @Override
@@ -79,6 +86,7 @@ public class Resultados_filtros_avancados extends Activity
             case android.R.id.home:
 
                 this.finish();
+                overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
 
                 return false;
             default:
@@ -141,6 +149,145 @@ public class Resultados_filtros_avancados extends Activity
                 dict.put("aberto","0");
                 dict.put("take","0");
                 dict.put("pagina","0");
+                dict.put("prato",prato);
+                dict.put("tipo_pesquisa","1");
+
+
+                // primeira informaçao vinda de array
+                TopTitulosFiltros[] filtros = Globals.getInstance().getFiltros();
+                // na primeira posição posição é onde temos a informação relativa a ordem pretendida
+
+                int indexSelecionado = 0;
+                for(int i = 0 ; i<filtros[0].getArrayObjectos().length ; i++)
+                {
+                    if (filtros[0].getArrayObjectos()[i].getSelecionado())
+                    {
+                        indexSelecionado = i;
+                    }
+
+                }
+
+                String ordem = "relevancia";
+
+                // $body['ordem'];//"relevancia";//"popularidade";//"distancia";//"ofertas";
+                switch (indexSelecionado) {
+                    case 0:{
+                        ordem ="relevancia";
+                        break;
+                    }
+                    case 1:{
+                        ordem ="popularidade";
+                        break;
+                    }
+                    case 2:{
+                        ordem ="distancia";
+                        break;
+                    }
+                    case 3:{
+                        ordem ="ofertas";
+                        break;
+                    }
+                    default:
+                        break;
+                }
+
+
+                dict.put("ordem",ordem);
+
+                // para as cozinhas selecinadas agora
+                // agr os arrays, vou tentar usar arraylists para ser mais facil fazer o que quero
+                ArrayList<String> list = new ArrayList<String>();
+                for (int i = 1 ; i < filtros[1].getArrayObjectos().length ; i++)
+                {
+                    if (filtros[1].getArrayObjectos()[i].getSelecionado() != null && filtros[1].getArrayObjectos()[i].getSelecionado())
+                    list.add(filtros[1].getArrayObjectos()[i].getId_sub_titulo());
+
+                }
+
+
+                dict.put("cozinha", new JSONArray(list.toString()));
+
+
+                // para o preço almoço recebe uma string simples
+
+                String preco_alm = "";
+                for(int i = 1 ; i < filtros[2].getArrayObjectos().length ; i++)
+                {
+                    if (filtros[2].getArrayObjectos()[i].getSelecionado())
+                    {
+                        preco_alm = filtros[2].getArrayObjectos()[i].getId_sub_titulo();
+                    }
+                }
+
+                dict.put("preco_alm", preco_alm);
+
+
+                // para o preço jantar recebe uma string simples
+
+                String preco_jantar = "";
+                for(int i = 0 ; i < filtros[3].getArrayObjectos().length ; i++)
+                {
+                    if (filtros[3].getArrayObjectos()[i].getSelecionado())
+                    {
+                        preco_alm = filtros[3].getArrayObjectos()[i].getId_sub_titulo();
+                    }
+                }
+
+                dict.put("preco_jant", preco_alm);
+
+                // para as opçoes adicionais
+                ArrayList<String> listAdd = new ArrayList<String>();
+                for (int i = 1 ; i < filtros[4].getArrayObjectos().length ; i++)
+                {
+                    if (filtros[4].getArrayObjectos()[i].getSelecionado() != null && filtros[4].getArrayObjectos()[i].getSelecionado())
+                        listAdd.add(filtros[4].getArrayObjectos()[i].getId_sub_titulo());
+
+                }
+
+
+                dict.put("opc_add", new JSONArray(listAdd.toString()));
+
+                // para as opçoes adicionais
+                // agr os arrays, vou tentar usar arraylists para ser mais facil fazer o que quero
+                ArrayList<String> listOpc = new ArrayList<String>();
+                for (int i = 0 ; i < filtros[5].getArrayObjectos().length ; i++)
+                {
+                    if (filtros[5].getArrayObjectos()[i].getSelecionado() != null && filtros[5].getArrayObjectos()[i].getSelecionado())
+                        listOpc.add(filtros[5].getArrayObjectos()[i].getId_sub_titulo());
+
+                }
+
+                dict.put("opc_pag", new JSONArray(listOpc.toString()));
+
+
+                // para ambiente
+                // agr os arrays, vou tentar usar arraylists para ser mais facil fazer o que quero
+                ArrayList<String> listIdeal = new ArrayList<String>();
+                for (int i = 1 ; i < filtros[6].getArrayObjectos().length ; i++)
+                {
+                    if (filtros[6].getArrayObjectos()[i].getSelecionado() != null && filtros[6].getArrayObjectos()[i].getSelecionado())
+                        listIdeal.add(filtros[6].getArrayObjectos()[i].getId_sub_titulo());
+
+                }
+
+                dict.put("ideal", new JSONArray(listIdeal.toString()));
+
+
+
+                // para ambiente
+                // agr os arrays, vou tentar usar arraylists para ser mais facil fazer o que quero
+                ArrayList<String> listAmbiente = new ArrayList<String>();
+                for (int i = 1 ; i < filtros[7].getArrayObjectos().length ; i++)
+                {
+                    if (filtros[7].getArrayObjectos()[i].getSelecionado() != null && filtros[7].getArrayObjectos()[i].getSelecionado())
+                        listAmbiente.add(filtros[7].getArrayObjectos()[i].getId_sub_titulo());
+
+                }
+
+
+                dict.put("ambiente", new JSONArray(listAmbiente.toString()));
+
+
 
 
 
@@ -183,10 +330,10 @@ public class Resultados_filtros_avancados extends Activity
                     rest.setNome(firstname);
 
                     rest.morada = c.getString("morada");
-                    //rest.mediarating = c.getString("mediarating");
+                    rest.mediarating = c.getString("mediarating");
                     //rest.cidade = c.getString("cidade");
                     rest.urlImagem = c.getString("imagem");
-                    //rest.votacoes = c.getString("votacoes");
+                    rest.votacoes = c.getString("votacoes");
                     //rest.morada = c.getString("morada");
                     //rest.precoMedio = c.getString("precomedio");
 
