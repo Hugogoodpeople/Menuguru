@@ -69,6 +69,7 @@ public class Filtros_mega_avancados extends Activity
     private Button buttonLimpar;
     private SearchView procura;
     private String prato = "";
+    private String tipo = "1";
 
 
     @Override
@@ -184,6 +185,7 @@ public class Filtros_mega_avancados extends Activity
     {
         Intent pesquisa = new Intent(this, Resultados_filtros_avancados.class);
         pesquisa.putExtra("prato",prato);
+        pesquisa.putExtra("tipo",tipo);
 
         startActivity(pesquisa);
         overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
@@ -301,6 +303,17 @@ public class Filtros_mega_avancados extends Activity
                 finish();
 
                 return false;
+
+            case 0:
+            {
+                tipo = "1";
+                break;
+            }
+            case 1:
+            {
+                tipo = "0";
+                break;
+            }
 
             default:
                 break;

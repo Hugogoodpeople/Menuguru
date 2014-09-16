@@ -54,6 +54,7 @@ public class Resultados_filtros_avancados extends Activity
     private static MyListAdapter mAdapter;
 
     private String prato= "";
+    private String tipo = "1";
     private ProgressDialog progressDialog;
 
 
@@ -63,6 +64,7 @@ public class Resultados_filtros_avancados extends Activity
         setContentView(R.layout.activity_resultado_inspiracao);
         Intent intent = getIntent();
         prato = intent.getStringExtra("prato");
+        tipo = intent.getStringExtra("tipo");
 
         //setTitle(value);
         ActionBar actionBar = getActionBar();
@@ -150,7 +152,7 @@ public class Resultados_filtros_avancados extends Activity
                 dict.put("take","0");
                 dict.put("pagina","0");
                 dict.put("prato",prato);
-                dict.put("tipo_pesquisa","1");
+                dict.put("tipo_pesquisa", tipo);
 
 
                 // primeira informaçao vinda de array
