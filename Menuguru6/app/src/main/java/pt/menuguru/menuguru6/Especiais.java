@@ -60,6 +60,8 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
         // Assign adapter to ListView
         mListView.setAdapter(mAdapter);
 
+        mAdapter.notifyDataSetChanged();
+
     }
 
 
@@ -214,11 +216,8 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
                 JSONObject jsonObj = new JSONObject();
 
 
-
                 dict.put("lang","pt");
                 dict.put("cidade_id", Globals.getInstance().getCidedade_id());
-
-
 
 
 
