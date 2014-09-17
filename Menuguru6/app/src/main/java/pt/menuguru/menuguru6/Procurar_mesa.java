@@ -437,7 +437,7 @@ public class Procurar_mesa extends Fragment {
     }
     public void asyncComplete(boolean success){
         // loop through all users
-        ImageView icon=(ImageView) getActivity().findViewById(R.id.imageView);
+        ImageView icon=(ImageView) getActivity().findViewById(R.id.imagem_procurar_mesa);
         imageLoader.DisplayImage("http://menuguru.pt"+imagem, icon);
 
     }

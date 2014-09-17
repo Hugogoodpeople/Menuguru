@@ -217,7 +217,7 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
 
 
                 dict.put("lang","pt");
-                dict.put("cidade_id", Globals.getInstance().getCidedade_id());
+                dict.put("city_id", Globals.getInstance().getCidedade_id());
 
 
 
