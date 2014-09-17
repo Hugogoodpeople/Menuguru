@@ -100,6 +100,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         {
             mAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
             mListView.setAdapter(mAdapter);
+
             mListView.setSelection(anterior-1);
         }
         /*
@@ -249,6 +250,9 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         // Set the adapter
         mListView = (AbsListView) view.findViewById(android.R.id.list);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+
+        // para colocar quando esta vazia
+        mListView.setEmptyView(view.findViewById(R.id.emty_view));
 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
