@@ -171,4 +171,25 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="ok">Ok</string>
     <string name="sim">Sim</string>
     <string name="nao">Não</string>
+
+    <string name="segunda">Segunda</string>
+    <string name="terca">Terça</string>
+    <string name="quarta">Quarta</string>
+    <string name="quinta">Quinta</string>
+    <string name="sexta">Sexta</string>
+    <string name="sabado">Sábado</string>
+    <string name="domingo">Domingo</string>
+
+    <string name="janeiro">Janeiro</string>
+    <string name="fevereiro">Fevereiro</string>
+    <string name="marco">Março</string>
+    <string name="abril">Abril</string>
+    <string name="maio">Maio</string>
+    <string name="junho">Junho</string>
+    <string name="julho">Julho</string>
+    <string name="agosto">Agosto</string>
+    <string name="setembro">Setembro</string>
+    <string name="outubro">Outubro</string>
+    <string name="novembro">Novembro</string>
+    <string name="dezembro">Dezembro</string>
 </resources>

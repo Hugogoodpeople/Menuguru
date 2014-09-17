@@ -18,10 +18,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.ComoFunc;
@@ -35,9 +40,10 @@ public class Reservas extends Fragment implements AbsListView.OnItemClickListene
     View view;
     View row;
     ImageView imagem;
-
+    String dia;
+    String mes;
     Reserva[] some_array = null;
-
+    Calendar cal = Calendar.getInstance();
     private AbsListView mListView;
 
     /**
@@ -84,12 +90,98 @@ public class Reservas extends Fragment implements AbsListView.OnItemClickListene
             }
 
             TextView label3 = (TextView)row.findViewById(R.id.desconto);
-            String texto = some_array[position].getData_rm() +" "+ some_array[position].getHora_rm() +" "+some_array[position].getN_pesssoas_rm() +" pax";
+
+            try {
+                String data = some_array[position].getData_rm();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+                cal.setTime(sdf.parse(data));
+                Log.v("DIA",""+cal.get(Calendar.DAY_OF_WEEK));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            switch (cal.get(Calendar.DAY_OF_WEEK)){
+                case 1:
+                    dia = getString(R.string.domingo);
+                    break;
+                case 2:
+                    dia = getString(R.string.segunda);
+                    break;
+                case 3:
+                    dia = getString(R.string.terca);
+                    break;
+                case 4:
+                    dia = getString(R.string.quarta);
+                    break;
+                case 5:
+                    dia = getString(R.string.quinta);
+                    break;
+                case 6:
+                    dia = getString(R.string.sexta);
+                    break;
+                case 7:
+                    dia = getString(R.string.sabado);
+                    break;
+            }
+
+            switch (cal.get(Calendar.MONTH)){
+                case 1:
+                    mes = getString(R.string.janeiro);
+                    break;
+                case 2:
+                    mes = getString(R.string.fevereiro);
+                    break;
+                case 3:
+                    mes = getString(R.string.marco);
+                    break;
+                case 4:
+                    mes = getString(R.string.abril);
+                    break;
+                case 5:
+                    mes = getString(R.string.maio);
+                    break;
+                case 6:
+                    mes = getString(R.string.junho);
+                    break;
+                case 7:
+                    mes = getString(R.string.julho);
+                    break;
+                case 8:
+                    mes = getString(R.string.agosto);
+                    break;
+                case 9:
+                    mes = getString(R.string.setembro);
+                    break;
+                case 10:
+                    mes = getString(R.string.outubro);
+                    break;
+                case 11:
+                    mes = getString(R.string.novembro);
+                    break;
+                case 12:
+                    mes = getString(R.string.dezembro);
+                    break;
+            }
+            Log.v("DIA DA SEMANA",dia);
+
+
+            String texto = dia +" "+ cal.get(Calendar.DAY_OF_MONTH) +" "+ mes +" "+cal.get(Calendar.YEAR)+" "+ some_array[position].getHora_rm() +", "+some_array[position].getN_pesssoas_rm() +" pax";
             label3.setText(texto);
 
             ImageView imagem=(ImageView)row.findViewById(R.id.capa);
+            ImageView icon = (ImageView)row.findViewById(R.id.imagemTipo);
 
             imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getImagem_rest(), imagem);
+
+            icon.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Log.v("Click","CaRREGOU na imagem");
+                }
+            });
+
 
             return row;
         }
