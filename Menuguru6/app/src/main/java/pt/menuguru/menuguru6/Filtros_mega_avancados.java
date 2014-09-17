@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
+import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -84,8 +85,6 @@ public class Filtros_mega_avancados extends Activity
 
 
         getActionBar().setIcon(R.drawable.ic_close_b);
-
-
 
 
 
@@ -246,17 +245,18 @@ public class Filtros_mega_avancados extends Activity
         inflater.inflate(R.menu.searchable, menu);
         MenuItem menuItem = menu.findItem(R.id.pesquisa_prato);
         SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint(getString(R.string.procurar));
 
          // este codigo fica em standby ate encontrar algo melhor
-        menu.add(Menu.NONE, 0, Menu.NONE, "Restaurante").setIcon(R.drawable.ic_delet_b);
-        menu.add(Menu.NONE, 1, Menu.NONE, "Prato").setIcon(R.drawable.ic_delet_b);
+        menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.restaurante)).setIcon(R.drawable.ic_delet_b);
+        menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.prato)).setIcon(R.drawable.ic_delet_b);
 
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.v("algo", "Prato " + query);
+                Log.v("algo", "Escreveu " + query);
                 prato = query;
                 AbrirPesquisa();
                 return false;
@@ -269,6 +269,7 @@ public class Filtros_mega_avancados extends Activity
             }
 
         });
+
 
 
         searchView.setOnSearchClickListener(new View.OnClickListener() {
