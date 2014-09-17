@@ -18,16 +18,16 @@ import android.widget.TextView;
 public class Destaques extends Fragment {
 
 
-    public Destaques() {
-        // Required empty public constructor
-    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        TextView t =(TextView) getActivity().findViewById(R.id.mytext);
-        t.setText("Destaque");
+        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_destaques, container, false);
     }
 
