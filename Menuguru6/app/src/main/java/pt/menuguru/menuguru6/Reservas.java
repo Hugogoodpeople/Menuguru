@@ -31,7 +31,7 @@ import pt.menuguru.menuguru6.Utils.MenuEspecial;
 import pt.menuguru.menuguru6.Utils.Reserva;
 
 
-public class Reservas extends Fragment {
+public class Reservas extends Fragment implements AbsListView.OnItemClickListener{
     View view;
     View row;
     ImageView imagem;
@@ -44,15 +44,20 @@ public class Reservas extends Fragment {
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private static MyListAdapterReservas mAdapter;
+    private static MyListAdapterReserva mAdapter;
     private ProgressDialog progressDialog;
 
-    public class MyListAdapterReservas extends ArrayAdapter<Reserva> {
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    public class MyListAdapterReserva extends ArrayAdapter<Reserva> {
 
         Context myContext;
         public ImageLoader imageLoader;
 
-        public MyListAdapterReservas(Context context, int textViewResourceId,
+        public MyListAdapterReserva(Context context, int textViewResourceId,
                                       Reserva[] objects) {
             super(context, textViewResourceId, objects);
             imageLoader=new ImageLoader(getActivity().getApplicationContext());
@@ -64,74 +69,28 @@ public class Reservas extends Fragment {
             //return super.getView(position, convertView, parent);
 
             LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View row=inflater.inflate(R.layout.fragment_reservas, parent, false);
 
 
-            if(some_array.length<=0){
-                row = inflater.inflate(R.layout.fragment_sem_reservas, parent, false);
-            }else{
-                row = inflater.inflate(R.layout.fragment_reservas, parent, false);
-            }
-            /*
             TextView label=(TextView)row.findViewById(R.id.nomeRestaurante);
-            label.setText(some_array[position].restaurante.getNome());
+            label.setText(some_array[position].getNome_ret());
 
 
             TextView label2 = (TextView)row.findViewById(R.id.nomeMenu);
-            label2.setText(some_array[position].getNome());
+            if(some_array[position].getTipo().equals("normal")){
+                label2.setText("Reserva de mesa");
+            }else {
+                label2.setText(some_array[position].getNome_menu());
+            }
 
-
+            TextView label3 = (TextView)row.findViewById(R.id.desconto);
+            String texto = some_array[position].getData_rm() +" "+ some_array[position].getHora_rm() +" "+some_array[position].getN_pesssoas_rm() +" pax";
+            label3.setText(texto);
 
             ImageView imagem=(ImageView)row.findViewById(R.id.capa);
-            ImageView icon = (ImageView)row.findViewById(R.id.imagemTipo);
 
-            //Customize your icon here
-            //icon.setImageResource(R.drawable.sem_foto);
+            imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getImagem_rest(), imagem);
 
-            if(some_array[position].tipo.equalsIgnoreCase("especial_doisprecos"))
-            {
-                icon.setImageResource(R.drawable.antes_depois);
-                TextView label3=(TextView)row.findViewById(R.id.precoAntigo);
-                label3.setPaintFlags(label3.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                label3.setText(some_array[position].precoAntigo+"€");
-                TextView label4=(TextView)row.findViewById(R.id.precoActual);
-                label4.setText(some_array[position].precoNovo+"€");
-                TextView label5=(TextView)row.findViewById(R.id.desconto);
-
-                Float  preco1 = Float.parseFloat( some_array[position].precoAntigo);
-                Float  preco2 =  Float.parseFloat( some_array[position].precoNovo);
-
-                Float percentagem = (((preco2 / preco1) * 100) - 100) * -1;
-
-                label5.setText("Desconto "+ String.format("%.0f", percentagem) + "%");
-
-            }
-            else if(some_array[position].tipo.equalsIgnoreCase("especial_desconto"))
-            {
-                icon.setImageResource(R.drawable.desc_fatura);
-
-                TextView label3=(TextView)row.findViewById(R.id.precoAntigo);
-                label3.setPaintFlags(label3.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                label3.setText("");
-                TextView label4=(TextView)row.findViewById(R.id.precoActual);
-                label4.setText(some_array[position].desconto+"% off");
-
-                TextView label5=(TextView)row.findViewById(R.id.desconto);
-                label5.setText("Desconto em factura ");
-            }
-            else
-            {
-                icon.setImageResource(R.drawable.menu_esp);
-                TextView label5=(TextView)row.findViewById(R.id.desconto);
-                label5.setText(some_array[position].especialFita);
-                TextView label3=(TextView)row.findViewById(R.id.precoAntigo);
-                label3.setPaintFlags(label3.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                label3.setText("");
-                TextView label4=(TextView)row.findViewById(R.id.precoActual);
-                label4.setText(some_array[position].precoNovo+"€");
-            }
-
-            imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImage(), imagem);
-            */
             return row;
         }
 
@@ -139,8 +98,33 @@ public class Reservas extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        new AsyncTaskParseJson(this).execute();
 
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_defenicoesteste, container, false);
+
+        // Set the adapter
+        mListView = (AbsListView) view.findViewById(android.R.id.list);
+        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+
+        // para colocar quando esta vazia
+        mListView.setEmptyView(view.findViewById(R.id.emty_view));
+
+        // Set OnItemClickListener so we can be notified on item clicks
+        mListView.setOnItemClickListener(this);
+
+        //
+        // new AsyncTaskParseJson(this).execute();
+
+        return view;
+        /*
         if(Globals.getInstance().getUser()!=null) {
             Log.v("ID",Globals.get_instance().getUser().getUserid());
             Log.v("ID_FACE",Globals.get_instance().getUser().getId_face());
@@ -168,6 +152,7 @@ public class Reservas extends Fragment {
 
 
         return view;
+        */
     }
 
     @Override
@@ -285,7 +270,11 @@ public class Reservas extends Fragment {
 
 
     public void asyncComplete(boolean success){
+        mAdapter = new MyListAdapterReserva(getActivity(), R.layout.row_defenicoes, some_array);
+        // Assign adapter to ListView
+        mListView.setAdapter(mAdapter);
 
+        mAdapter.notifyDataSetChanged();
     }
 
 
