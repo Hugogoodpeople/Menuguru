@@ -376,6 +376,7 @@ public class ActivityLogin extends Activity
                         users.pass = jsonObj.getString("pass");
                         users.tipoconta = jsonObj.getString("tipoconta");
                         String news = jsonObj.getString("news");
+                        users.id_face = "0";
                         if (news.equals("1")) {
                             users.news = true;
                         } else {

@@ -20,6 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.ComoFunc;
 import pt.menuguru.menuguru6.Utils.Globals;
@@ -33,8 +35,8 @@ public class ComoFunciona extends FragmentActivity {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    private static final int NUM_PAGES = 5;
-    private ProgressDialog progressDialog;
+    private static final int NUM_PAGES = Globals.get_instance().getCfunc().length;
+
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
@@ -42,6 +44,7 @@ public class ComoFunciona extends FragmentActivity {
     private ViewPager mPager;
 
     ComoFunc[] some_array = null;
+    ArrayList<ComoFunc> como;
 
 
     Button bt_close;
@@ -116,105 +119,6 @@ public class ComoFunciona extends FragmentActivity {
         }
     }
 
-    // you can make this class as another java file so it will be separated from your main activity.
-    public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
 
-        final String TAG = "AsyncTaskParseJson.java";
-
-
-        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_comofunciona.php";
-
-        // contacts JSONArray
-        JSONArray dataJsonArr = null;
-
-        private ComoFunciona delegate;
-
-        public AsyncTaskParseJson (ComoFunciona delegate){
-            this.delegate = delegate;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressDialog = new ProgressDialog(ComoFunciona.this);
-            progressDialog.setCancelable(true);
-            progressDialog.setMessage("Loading...");
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setProgress(0);
-            progressDialog.show();
-        }
-
-        @Override
-        protected String doInBackground(String... arg0) {
-
-            try {
-                // instantiate our json parser
-                JSONParser jParser = new JSONParser();
-
-                // get json string from url
-                // tenho de criar um jsonobject e adicionar la as cenas
-                JSONObject dict = new JSONObject();
-                JSONObject jsonObj = new JSONObject();
-
-                dict.put("lang", Globals.get_instance().getLingua());
-                dict.put("tamanho", "640x1136");
-                dict.put("versao", "");
-
-
-
-                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
-
-
-                try {
-                    Log.v("Ver Json ", "Ele retorna isto" + jsonString);
-                    jsonObj = new JSONObject(jsonString);
-                } catch (JSONException e) {
-                    Log.e(TAG, "Error parsing data " + e.toString());
-                }
-                // get the array of users
-
-                some_array = new ComoFunc[dataJsonArr.length()];
-
-                dataJsonArr = jsonObj.getJSONArray("res");
-                for (int i = 0; i < dataJsonArr.length() ; i++) {
-
-                    JSONObject c = dataJsonArr.getJSONObject(i);
-
-
-                    ComoFunc cfunc = new ComoFunc();
-
-                    cfunc.setId(c.getString("id"));
-                    cfunc.setImg1(c.getString("img1"));
-                    cfunc.setImg2(c.getString("img2"));
-                    Globals.get_instance().setCfunc(cfunc);
-
-
-                    // Storing each json item in variable
-                    Log.v("ID","objecto = "+ c.getString("id"));
-                    Log.v("IMG1","objecto = "+ c.getString("img1"));
-                    Log.v("IMG2","objecto = "+ c.getString("img2"));
-
-                    some_array[i] = cfunc;
-                }
-
-
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncComplete(true);  }
-
-    }
-
-
-    public void asyncComplete(boolean success){
-
-    }
 
 }

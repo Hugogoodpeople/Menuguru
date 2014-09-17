@@ -224,6 +224,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
                 break;
             }
             case 1: {
+
                 fragmentTransaction.replace(R.id.container, new Reservas());
                 break;
             }

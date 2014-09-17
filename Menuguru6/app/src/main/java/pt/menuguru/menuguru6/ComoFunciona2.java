@@ -14,10 +14,15 @@ import android.widget.ImageView;
 
 import java.io.InputStream;
 
+import pt.menuguru.menuguru6.Utils.ComoFunc;
+import pt.menuguru.menuguru6.Utils.Globals;
+
 
 public class ComoFunciona2 extends Fragment {
     public static final String ARG_PAGE = "page";
     public static final String ARG_IMAGEM1 = "page";
+
+    private ComoFunc[] como;
 
     Button bt_close;
 
@@ -55,9 +60,9 @@ public class ComoFunciona2 extends Fragment {
                 .inflate(R.layout.fragment_como_funciona2, container, false);
 
 
-
-        new DownloadImageTask((ImageView) rootView.findViewById(R.id.imageView2)).execute("http://menuguru.pt/imagens_menuguru/comofunciona/"+ (mPageNumber +1) +".jpg");
-        new DownloadImageTask((ImageView) rootView.findViewById(R.id.imageView3)).execute("http://menuguru.pt/imagens_menuguru/comofunciona/texto00"+ (mPageNumber +1) +".png");
+        como = Globals.getInstance().getCfunc();
+        new DownloadImageTask((ImageView) rootView.findViewById(R.id.imageView2)).execute("http://menuguru.pt/" + como[mPageNumber].getImg1());
+        new DownloadImageTask((ImageView) rootView.findViewById(R.id.imageView3)).execute("http://menuguru.pt/"+ como[mPageNumber].getImg2());
 
 
 

@@ -13,7 +13,7 @@ public class Globals
     public User user;
     public String lingua = "pt";
     public TopTitulosFiltros[] filtros;
-    public ComoFunc cfunc;
+    public ComoFunc[] cfunc;
 
     public TopTitulosFiltros[] getFiltros() {
         return filtros;
@@ -79,12 +79,11 @@ public class Globals
         this.cidedade_id = cidedade_id;
     }
 
-
-    public ComoFunc getCfunc() {
+    public ComoFunc[] getCfunc() {
         return cfunc;
     }
 
-    public void setCfunc(ComoFunc cfunc) {
+    public void setCfunc(ComoFunc[] cfunc) {
         this.cfunc = cfunc;
     }
 
