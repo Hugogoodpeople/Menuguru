@@ -86,6 +86,8 @@ public class NavigationDrawerFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -97,10 +99,18 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
+
+        //code to add header and footer to listview
+
+        ViewGroup header = (ViewGroup) inflater.inflate(R.layout.header_menu_refugio, mDrawerListView,
+                false);
+        mDrawerListView.addHeaderView(header, null, false);
+
+
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
+                R.layout.row_menu_refugio,
+                R.id.textView_row_refugio,
                 new String[]{
                         getString(R.string.inicio),
                         getString(R.string.reservas),
@@ -109,6 +119,8 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.como),
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+
+
         return mDrawerListView;
     }
 
