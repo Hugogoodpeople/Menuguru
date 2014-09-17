@@ -2,6 +2,8 @@ package pt.menuguru.menuguru6;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,7 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,6 +24,8 @@ import org.json.JSONObject;
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.ComoFunc;
 import pt.menuguru.menuguru6.Utils.Globals;
+import pt.menuguru.menuguru6.Utils.ImageLoader;
+import pt.menuguru.menuguru6.Utils.MenuEspecial;
 
 
 public class Reservas extends Fragment {
@@ -26,7 +33,100 @@ public class Reservas extends Fragment {
 
     ImageView imagem;
 
+    MenuEspecial[] some_array = null;
+
+    private AbsListView mListView;
+
+    /**
+     * The Adapter which will be used to populate the ListView/GridView with
+     * Views.
+     */
+    private static MyListAdapterReservas mAdapter;
     private ProgressDialog progressDialog;
+
+    public class MyListAdapterReservas extends ArrayAdapter<MenuEspecial> {
+
+        Context myContext;
+        public ImageLoader imageLoader;
+
+        public MyListAdapterReservas(Context context, int textViewResourceId,
+                                      MenuEspecial[] objects) {
+            super(context, textViewResourceId, objects);
+            imageLoader=new ImageLoader(getActivity().getApplicationContext());
+            myContext = context;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            //return super.getView(position, convertView, parent);
+
+            LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View row=inflater.inflate(R.layout.fragment_especiais, parent, false);
+            TextView label=(TextView)row.findViewById(R.id.nomeRestaurante);
+            label.setText(some_array[position].restaurante.getNome());
+
+
+            TextView label2 = (TextView)row.findViewById(R.id.nomeMenu);
+            label2.setText(some_array[position].getNome());
+
+
+
+            ImageView imagem=(ImageView)row.findViewById(R.id.capa);
+            ImageView icon = (ImageView)row.findViewById(R.id.imagemTipo);
+
+            //Customize your icon here
+            //icon.setImageResource(R.drawable.sem_foto);
+
+            if(some_array[position].tipo.equalsIgnoreCase("especial_doisprecos"))
+            {
+                icon.setImageResource(R.drawable.antes_depois);
+                TextView label3=(TextView)row.findViewById(R.id.precoAntigo);
+                label3.setPaintFlags(label3.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                label3.setText(some_array[position].precoAntigo+"€");
+                TextView label4=(TextView)row.findViewById(R.id.precoActual);
+                label4.setText(some_array[position].precoNovo+"€");
+                TextView label5=(TextView)row.findViewById(R.id.desconto);
+
+                Float  preco1 = Float.parseFloat( some_array[position].precoAntigo);
+                Float  preco2 =  Float.parseFloat( some_array[position].precoNovo);
+
+                Float percentagem = (((preco2 / preco1) * 100) - 100) * -1;
+
+                label5.setText("Desconto "+ String.format("%.0f", percentagem) + "%");
+
+            }
+            else if(some_array[position].tipo.equalsIgnoreCase("especial_desconto"))
+            {
+                icon.setImageResource(R.drawable.desc_fatura);
+
+                TextView label3=(TextView)row.findViewById(R.id.precoAntigo);
+                label3.setPaintFlags(label3.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                label3.setText("");
+                TextView label4=(TextView)row.findViewById(R.id.precoActual);
+                label4.setText(some_array[position].desconto+"% off");
+
+                TextView label5=(TextView)row.findViewById(R.id.desconto);
+                label5.setText("Desconto em factura ");
+            }
+            else
+            {
+                icon.setImageResource(R.drawable.menu_esp);
+                TextView label5=(TextView)row.findViewById(R.id.desconto);
+                label5.setText(some_array[position].especialFita);
+                TextView label3=(TextView)row.findViewById(R.id.precoAntigo);
+                label3.setPaintFlags(label3.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                label3.setText("");
+                TextView label4=(TextView)row.findViewById(R.id.precoActual);
+                label4.setText(some_array[position].precoNovo+"€");
+            }
+
+            imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImage(), imagem);
+
+            return row;
+        }
+
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

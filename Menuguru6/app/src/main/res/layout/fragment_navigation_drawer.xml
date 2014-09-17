@@ -8,4 +8,4 @@
     android:background="@drawable/bck_refugio"
     android:textColor="#ffffffff"
     tools:context=".NavigationDrawerFragment"
-    style="@style/Theme.MenuDrawer"/>
+    style="@style/Theme.MenuDrawer" />
