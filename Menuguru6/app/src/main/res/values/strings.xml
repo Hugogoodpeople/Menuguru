@@ -140,6 +140,8 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="todos">Todos</string>
     <string name="precos">preços</string>
 
+    <string name="oops">Oops!</string>
+    <string name="nao_encontrado">Não encontrámos nenhum resultado para esta pesquisa.</string>
     <string name="cozinha">Cozinha</string>
     <string name="preco">Preço</string>
     <string name="opcoes">Opções</string>

@@ -110,6 +110,8 @@ public class Resultados extends Activity
         mListView = (ListView) findViewById(R.id.listViewResultadoInspiras);
         //adapter = new ArrayAdapter<Locais>(this,android.R.layout.simple_list_item_1, android.R.id.text1, local);
 
+        // para colocar quando esta vazia
+        mListView.setEmptyView(findViewById(R.id.emty_view));
 
         mAdapter = new MyListAdapter(this, R.layout.row_defenicoes, some_array);
         // Assign adapter to ListView

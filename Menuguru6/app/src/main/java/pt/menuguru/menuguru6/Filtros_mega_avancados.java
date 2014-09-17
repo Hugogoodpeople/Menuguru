@@ -246,7 +246,6 @@ public class Filtros_mega_avancados extends Activity
         inflater.inflate(R.menu.searchable, menu);
         MenuItem menuItem = menu.findItem(R.id.pesquisa_prato);
         SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setQueryHint("Type something...");
 
          // este codigo fica em standby ate encontrar algo melhor
         menu.add(Menu.NONE, 0, Menu.NONE, "Restaurante").setIcon(R.drawable.ic_delet_b);

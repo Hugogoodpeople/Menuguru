@@ -75,8 +75,11 @@ public class Resultados_filtros_avancados extends Activity
         getActionBar().setHomeButtonEnabled(true);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         TextView t =(TextView) findViewById(R.id.mytext);
-        t.setText(getString(R.string.filtrosavancados));
 
+        if (prato.length()>0)
+            t.setText(prato);
+        else
+            t.setText(getString(R.string.filtrosavancados));
 
 
         new AsyncTaskParseJson(this).execute();
@@ -291,10 +294,6 @@ public class Resultados_filtros_avancados extends Activity
 
 
 
-
-
-
-
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
 
                 // try parse the string to a JSON object
@@ -309,8 +308,6 @@ public class Resultados_filtros_avancados extends Activity
                 dataJsonArr = jsonObj.getJSONArray("res");
 
                 // loop through all users
-
-
 
 
                 some_array = new Restaurante[dataJsonArr.length()];
@@ -365,11 +362,7 @@ public class Resultados_filtros_avancados extends Activity
 
                 //some_array = getResources().getStringArray(R.array.defenicoes_array);
 
-                if (some_array.length == 0)
-                {
 
-                   // mListView.setEmptyView(new view):
-                }
 
                 Log.v("sdffgddvsdsv","objecto especial = "+ jsonObj);
 
@@ -393,6 +386,8 @@ public class Resultados_filtros_avancados extends Activity
         mListView = (ListView) findViewById(R.id.listViewResultadoInspiras);
         //adapter = new ArrayAdapter<Locais>(this,android.R.layout.simple_list_item_1, android.R.id.text1, local);
 
+
+        mListView.setEmptyView(findViewById(R.id.emty_view));
 
         mAdapter = new MyListAdapter(this, R.layout.row_defenicoes, some_array);
         // Assign adapter to ListView
