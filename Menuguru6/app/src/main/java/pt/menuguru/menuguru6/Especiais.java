@@ -166,6 +166,9 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
         mListView = (AbsListView) view.findViewById(android.R.id.list);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
+        // para colocar quando esta vazia
+        mListView.setEmptyView(view.findViewById(R.id.emty_view));
+
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
 
