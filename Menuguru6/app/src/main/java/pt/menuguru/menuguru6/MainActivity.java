@@ -63,7 +63,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-// para ir buscar as preferencias de utilizador
+        // para ir buscar as preferencias de utilizador
         preferences = this.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         String lingua = preferences.getString("lingua", "");
         String user_name = preferences.getString("user_name","");
@@ -96,9 +96,6 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
             Globals.getInstance().setUser(u);
 
         }
-
-
-
 
         setContentView(R.layout.activity_main);
 
@@ -153,8 +150,8 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
     }
 
 
-    @Override
-    public void onLocationChanged(Location location) {
+   @Override
+   public void onLocationChanged(Location location) {
         double lat = (location.getLatitude());
         double lng = (location.getLongitude());
         longitude = String.valueOf(lng);
@@ -166,7 +163,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
         Globals.getInstance().setLongitude(longitude);
 
        // onButtonClicked();
-    }
+   }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
