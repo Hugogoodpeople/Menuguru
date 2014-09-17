@@ -446,7 +446,7 @@ public class ActivityLogin extends Activity
             editor.putString("user_pass", utilizador.getPass());
             editor.putString("user_cidade", utilizador.getCidade());
             editor.putBoolean("user_news", utilizador.getNews());
-
+            editor.putString("face_id", "0");
             editor.commit();
 
             finish();

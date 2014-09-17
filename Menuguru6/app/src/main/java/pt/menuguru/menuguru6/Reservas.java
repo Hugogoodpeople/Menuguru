@@ -13,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -26,14 +28,15 @@ import pt.menuguru.menuguru6.Utils.ComoFunc;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.MenuEspecial;
+import pt.menuguru.menuguru6.Utils.Reserva;
 
 
 public class Reservas extends Fragment {
     View view;
-
+    View row;
     ImageView imagem;
 
-    MenuEspecial[] some_array = null;
+    Reserva[] some_array = null;
 
     private AbsListView mListView;
 
@@ -44,13 +47,13 @@ public class Reservas extends Fragment {
     private static MyListAdapterReservas mAdapter;
     private ProgressDialog progressDialog;
 
-    public class MyListAdapterReservas extends ArrayAdapter<MenuEspecial> {
+    public class MyListAdapterReservas extends ArrayAdapter<Reserva> {
 
         Context myContext;
         public ImageLoader imageLoader;
 
         public MyListAdapterReservas(Context context, int textViewResourceId,
-                                      MenuEspecial[] objects) {
+                                      Reserva[] objects) {
             super(context, textViewResourceId, objects);
             imageLoader=new ImageLoader(getActivity().getApplicationContext());
             myContext = context;
@@ -61,7 +64,14 @@ public class Reservas extends Fragment {
             //return super.getView(position, convertView, parent);
 
             LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View row=inflater.inflate(R.layout.fragment_especiais, parent, false);
+
+
+            if(some_array.length<=0){
+                row = inflater.inflate(R.layout.fragment_sem_reservas, parent, false);
+            }else{
+                row = inflater.inflate(R.layout.fragment_reservas, parent, false);
+            }
+            /*
             TextView label=(TextView)row.findViewById(R.id.nomeRestaurante);
             label.setText(some_array[position].restaurante.getNome());
 
@@ -121,7 +131,7 @@ public class Reservas extends Fragment {
             }
 
             imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImage(), imagem);
-
+            */
             return row;
         }
 
@@ -130,6 +140,7 @@ public class Reservas extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         if(Globals.getInstance().getUser()!=null) {
             Log.v("ID",Globals.get_instance().getUser().getUserid());
             Log.v("ID_FACE",Globals.get_instance().getUser().getId_face());
@@ -154,7 +165,8 @@ public class Reservas extends Fragment {
             }
         }
         getActivity().getActionBar().setTitle(R.string.reservas);
-        // Inflate the layout for this fragment
+
+
         return view;
     }
 
@@ -169,7 +181,7 @@ public class Reservas extends Fragment {
         final String TAG = "AsyncTaskParseJson.java";
 
 
-        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_listar_reservas.php";
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_reservanormal_especial.php";
 
         // contacts JSONArray
         JSONArray dataJsonArr = null;
@@ -198,18 +210,24 @@ public class Reservas extends Fragment {
                 JSONObject dict = new JSONObject();
                 JSONObject jsonObj = new JSONObject();
 
-                if(Globals.getInstance().getUser().getId_face()!="0"){
+                String tipo_conta = Globals.getInstance().getUser().getTipoconta();
+                if(tipo_conta.equals("facebook")){
                     dict.put("face_id", Globals.get_instance().getUser().getId_face());
+                    Log.v("FACE",Globals.get_instance().getUser().getId_face());
                     dict.put("user_id", "0");
+                    Log.v("USER","0");
+                    dict.put("lang",Globals.get_instance().getLingua());
                     Log.v("Entrou"," FACE");
                 }else{
                     dict.put("face_id", "0");
+                    Log.v("FACE","0");
                     dict.put("user_id", Globals.get_instance().getUser().getUserid());
+                    Log.v("USER", Globals.get_instance().getUser().getUserid());
+                    dict.put("lang",Globals.get_instance().getLingua());
                     Log.v("Entrou"," NORMAL");
                 }
 
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
-
 
                 try {
                     Log.v("Ver Json ", "Ele retorna isto" + jsonString);
@@ -218,8 +236,8 @@ public class Reservas extends Fragment {
                     Log.e(TAG, "Error parsing data " + e.toString());
                 }
                 // get the array of users
-                //dataJsonArr = jsonObj.getJSONArray("res");
-               /* como_array = new ComoFunc[dataJsonArr.length()];
+                dataJsonArr = jsonObj.getJSONArray("res");
+                some_array = new Reserva[dataJsonArr.length()];
 
 
                 for (int i = 0; i < dataJsonArr.length() ; i++) {
@@ -227,24 +245,32 @@ public class Reservas extends Fragment {
                     JSONObject c = dataJsonArr.getJSONObject(i);
 
 
-                    ComoFunc cfunc = new ComoFunc();
+                    Reserva reserva = new Reserva();
 
-                    cfunc.setId(c.getString("id"));
-                    cfunc.setImg1(c.getString("img1"));
-                    cfunc.setImg2(c.getString("img2"));
+                    reserva.setData_rm(c.getString("data_rm"));
+                    reserva.setTipo(c.getString("tipo"));
+                    reserva.setId_rest(c.getString("id_rest"));
+                    reserva.setId_mesa(c.getString("id_mesa"));
+                    reserva.setId_hmesa(c.getString("id_hmesa"));
+                    reserva.setHora_rm(c.getString("hora_rm"));
+                    reserva.setTelefone_rm(c.getString("telefone_rm"));
+                    reserva.setN_pesssoas_rm(c.getString("n_pessoas_rm"));
+                    reserva.setNome_menu(c.getString("nome_menu"));
+                    reserva.setNum_pes_disponivel(c.getString("num_pes_disponiveis"));
+                    reserva.setNome_ret(c.getString("nome_rest"));
+                    reserva.setLat(c.getString("lat"));
+                    reserva.setLon(c.getString("lon"));
+                    reserva.setImagem_rest(c.getString("imagem_rest"));
 
 
                     // Storing each json item in variable
-                    Log.v("ID","objecto = "+ c.getString("id"));
-                    Log.v("IMG1","objecto = "+ c.getString("img1"));
-                    Log.v("IMG2","objecto = "+ c.getString("img2"));
+                    Log.v("ID","objecto = "+ c.getString("data_rm"));
+                    Log.v("IMG1","objecto = "+ c.getString("tipo"));
+                    Log.v("IMG2","objecto = "+ c.getString("id_rest"));
 
-                    como_array[i] = cfunc;
+                    some_array[i] = reserva;
                 }
 
-                Globals.getInstance().setCfunc(como_array);
-
-*/
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -20,7 +20,6 @@ import pt.menuguru.menuguru6.Utils.Globals;
 
 public class ComoFunciona2 extends Fragment {
     public static final String ARG_PAGE = "page";
-    public static final String ARG_IMAGEM1 = "page";
 
     private ComoFunc[] como;
 
@@ -30,7 +29,6 @@ public class ComoFunciona2 extends Fragment {
      * The fragment's page number, which is set to the argument value for {@link #ARG_PAGE}.
      */
     public int mPageNumber;
-    public String mImagem1;
     /**
      * Factory method for this fragment class. Constructs a new fragment for the given page number.
      */

@@ -104,6 +104,7 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
                                 editor.putString("user_tipo", "");
                                 editor.putString("user_pass", "");
                                 editor.putString("user_cidade","");
+                                editor.putString("face_id","");
                                 editor.putBoolean("user_news",false);
                                 editor.commit();
                                 callFacebookLogout(myContext);
