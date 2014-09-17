@@ -135,7 +135,8 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 // check if enabled and if not send user to the GSP settings
 // Better solution would be to display a dialog and suggesting to
 // go to the settings
-        if (!enabled) {
+        if (!enabled)
+        {
            // Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
            // startActivity(intent);
             Context context = getApplicationContext();
@@ -145,8 +146,6 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
             Toast toast = Toast.makeText(this, "Active a geolocalização", duration);
             toast.show();
         }
-
-
     }
 
 
@@ -211,6 +210,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
 
         switch (position) {
+            // por algum motivo depois de adicionar o header quando clico em algum elemento ele passa +1 a frente
             case 0: {
                 //transaction.replace(R.id.container, new Inicio());
                 if (framgmentoPrincipal == null) {
@@ -221,20 +221,28 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
                 break;
             }
             case 1: {
-
+                //transaction.replace(R.id.container, new Inicio());
+                if (framgmentoPrincipal == null) {
+                    Fragment tabbed = new MyFragment();
+                    framgmentoPrincipal = tabbed;
+                }
+                fragmentTransaction.replace(R.id.container, framgmentoPrincipal);
+                break;
+            }
+            case 2: {
                 fragmentTransaction.replace(R.id.container, new Reservas());
                 break;
             }
-            case 2:
+            case 3:
             {
                 fragmentTransaction.replace(R.id.container,new Defenicoes());
                 break;
             }
-            case 3: {
+            case 4: {
                 fragmentTransaction.replace(R.id.container, new Destaques());
                 break;
             }
-            case 4: {
+            case 5: {
                 Intent intent = new Intent(this, ComoFunciona.class);
                 startActivity(intent);;
                 break;
