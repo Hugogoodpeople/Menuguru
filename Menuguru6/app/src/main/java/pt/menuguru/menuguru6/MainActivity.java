@@ -239,9 +239,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
             }
             case 4: {
                 Intent intent = new Intent(this, ComoFunciona.class);
-                startActivity(intent);
-                //this.overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
-                //fragmentTransaction.replace(R.id.container, new BlankFragment());
+                startActivity(intent);;
                 break;
             }
         }
