@@ -1,9 +1,10 @@
 package pt.menuguru.menuguru6;
 
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Paint;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,22 +19,25 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
+import pt.menuguru.menuguru6.Inspiracoes.Activity_Inspiracao;
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
-import pt.menuguru.menuguru6.Utils.ComoFunc;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.MenuEspecial;
 import pt.menuguru.menuguru6.Utils.Reserva;
+import pt.menuguru.menuguru6.Utils.Restaurante;
 
 
 public class Reservas extends Fragment implements AbsListView.OnItemClickListener{
@@ -46,12 +50,20 @@ public class Reservas extends Fragment implements AbsListView.OnItemClickListene
     Calendar cal = Calendar.getInstance();
     private AbsListView mListView;
 
+    Date date;
+    Date data_act;
+
+    public CharSequence[] items;
+
     /**
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
     private static MyListAdapterReserva mAdapter;
     private ProgressDialog progressDialog;
+
+    public Reservas() {
+    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -71,7 +83,7 @@ public class Reservas extends Fragment implements AbsListView.OnItemClickListene
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             //return super.getView(position, convertView, parent);
 
             LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -174,14 +186,67 @@ public class Reservas extends Fragment implements AbsListView.OnItemClickListene
 
             imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getImagem_rest(), imagem);
 
-            icon.setOnClickListener(new View.OnClickListener() {
 
+            String data = some_array[position].getData_rm() + " " +some_array[position].getHora_rm();
+
+            try {
+                date = (Date) new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH).parse(data);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            Calendar c = Calendar.getInstance();
+            System.out.println("Current time => " + c.getTime());
+
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+            String formattedDate = df.format(c.getTime());
+            try {
+                data_act = (Date) new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH).parse(formattedDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if(date.after(data_act)){
+                items = new CharSequence[]{getString(R.string.apa_reserva), getString(R.string.obter_direc), getString(R.string.cancelar)};
+            }else{
+                items = new CharSequence[]{getString(R.string.canc_reserva), getString(R.string.obter_direc), getString(R.string.cancelar)};
+            }
+
+
+            icon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.v("Click","CaRREGOU na imagem");
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+
+                    alertDialogBuilder
+
+                            .setItems(items, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    switch (which) {
+                                        case 0: {
+                                            Intent myIntent = new Intent(getActivity(), Filtros_mega_avancados.class);
+                                            startActivity(myIntent);
+                                            break;
+                                        }
+                                        case 1: {
+                                            Intent nav= new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?daddr="+some_array[position].getLat()+" , "+some_array[position].getLon()+""));
+                                            startActivity(nav);
+                                            break;
+                                        }
+                                        case 2:
+
+                                        default:
+                                            break;
+                                    }
+                                }
+                            });
+
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+
+                    // show it
+                    alertDialog.show();
                 }
             });
-
 
             return row;
         }
@@ -370,4 +435,88 @@ public class Reservas extends Fragment implements AbsListView.OnItemClickListene
     }
 
 
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonCancelarReserva extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+        private Reservas delegate;
+
+        // set your json string url here
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/teste_mesa_reserva_apagar.php";
+
+        // contacts JSONArray
+        JSONArray dataJsonArr = null;
+
+        public AsyncTaskParseJsonCancelarReserva (Reservas delegate){
+            this.delegate = delegate;
+        }
+
+
+        @Override
+        protected void onPreExecute() {}
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+
+                String tipo_conta = Globals.getInstance().getUser().getTipoconta();
+                if(tipo_conta.equals("facebook")){
+                    dict.put("face_id", Globals.get_instance().getUser().getId_face());
+                    dict.put("user_id", "0");
+                    dict.put("lang",Globals.get_instance().getLingua());
+                }else{
+                    dict.put("face_id", "0");
+                    dict.put("user_id", Globals.get_instance().getUser().getUserid());
+                    dict.put("lang", Globals.get_instance().getLingua());
+                }
+
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                // try parse the string to a JSON object
+                try {
+                    Log.v("Ver Json ","Ele retorna isto"+jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                // get the array of users
+
+                dataJsonArr = jsonObj.getJSONArray("res");
+
+
+
+
+
+
+
+                //Log.v("sdffgddvsdsv","objecto = "+ json);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg)
+        {
+            delegate.asyncCompleteCancelar(true);
+        }
+    }
+
+    public void asyncCompleteCancelar(boolean success){
+
+    }
 }

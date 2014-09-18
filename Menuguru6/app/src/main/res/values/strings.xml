@@ -197,4 +197,8 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="outubro">Outubro</string>
     <string name="novembro">Novembro</string>
     <string name="dezembro">Dezembro</string>
+
+    <string name="apa_reserva">Apagar Reserva</string>
+    <string name="canc_reserva">Cancelar Reserva</string>
+    <string name="obter_direc">Obter direcções</string>
 </resources>
