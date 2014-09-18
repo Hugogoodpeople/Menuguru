@@ -167,6 +167,11 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="t_exite_email">Email sem registo</string>
     <string name="n_exite_email">Pretende registá-lo agora?</string>
 
+    <string name="listas">Listas</string>
+    <string name="avaliar">Avaliar</string>
+    <string name="partilhar">Partilhar</string>
+    <string name="info">Info</string>
+
     <string name="cancelar">Cancelar</string>
     <string name="ok">Ok</string>
     <string name="sim">Sim</string>

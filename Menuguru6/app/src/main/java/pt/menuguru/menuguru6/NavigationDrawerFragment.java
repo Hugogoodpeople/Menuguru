@@ -4,6 +4,7 @@ package pt.menuguru.menuguru6;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Context;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,8 +20,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import pt.menuguru.menuguru6.Utils.ImageLoader;
+import pt.menuguru.menuguru6.Utils.Refugio_item;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -52,11 +60,14 @@ public class NavigationDrawerFragment extends Fragment {
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
+    private static MyListAdapter mAdapter;
     private View mFragmentContainerView;
 
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
+
+    private ArrayList<Refugio_item> some_list;
 
     public NavigationDrawerFragment() {
     }
@@ -64,6 +75,9 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        preencherListaRefugio();
 
         // Read in the flag indicating whether or not the user has demonstrated awareness of the
         // drawer. See PREF_USER_LEARNED_DRAWER for details.
@@ -86,6 +100,37 @@ public class NavigationDrawerFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
+    private void preencherListaRefugio()
+    {
+        Refugio_item item1 = new Refugio_item();
+        item1.setTexto(getString(R.string.inicio));
+        item1.setImg(R.drawable.ico_home);
+
+        Refugio_item item2 = new Refugio_item();
+        item2.setTexto(getString(R.string.reservas));
+        item2.setImg(R.drawable.ico_calendar);
+
+        Refugio_item item3 = new Refugio_item();
+        item3.setTexto(getString(R.string.definicao));
+        item3.setImg(R.drawable.ico_defenicoes);
+
+        Refugio_item item4 = new Refugio_item();
+        item4.setTexto(getString(R.string.destaque));
+        item4.setImg(R.drawable.ico_destaque);
+
+        Refugio_item item5 = new Refugio_item();
+        item5.setTexto(getString(R.string.como));
+        //item5.setImg(R.drawable.ico_home);
+
+        some_list = new ArrayList<Refugio_item>();
+        some_list.add(item1);
+        some_list.add(item2);
+        some_list.add(item3);
+        some_list.add(item4);
+        some_list.add(item5);
+
+    }
+
 
 
     @Override
@@ -106,7 +151,9 @@ public class NavigationDrawerFragment extends Fragment {
                 false);
         mDrawerListView.addHeaderView(header, null, false);
 
+        mAdapter = new MyListAdapter(this.getActivity(), R.layout.row_defenicoes, some_list);
 
+        /*
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 R.layout.row_menu_refugio,
@@ -118,6 +165,8 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.destaque),
                         getString(R.string.como),
                 }));
+                */
+        mDrawerListView.setAdapter(mAdapter);
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
 
@@ -287,4 +336,44 @@ public class NavigationDrawerFragment extends Fragment {
          */
         void onNavigationDrawerItemSelected(int position);
     }
+
+
+
+    public class MyListAdapter extends ArrayAdapter<Refugio_item> {
+
+        Context myContext;
+
+
+        public MyListAdapter(Context context, int textViewResourceId, ArrayList<Refugio_item> objects) {
+            super(context, textViewResourceId, objects);
+            myContext = context;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            //return super.getView(position, convertView, parent);
+
+            LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View row = convertView;
+
+
+
+                if (row == null)
+                    row=inflater.inflate(R.layout.row_menu_refugio, parent, false);
+                TextView label2=(TextView)row.findViewById(R.id.textView_row_refugio);
+                label2.setText(some_list.get(position).getTexto());
+
+
+
+                ImageView icon=(ImageView)row.findViewById(R.id.imageView_menu_refugio);
+
+                icon.setImageResource(some_list.get(position).getImg());
+
+
+
+            return row;
+        }
+
+    }
+
 }

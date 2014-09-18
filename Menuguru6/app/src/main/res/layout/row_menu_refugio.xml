@@ -5,12 +5,13 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="30dp"
-        android:layout_height="60dp"
-        android:id="@+id/imageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/imageView_menu_refugio"
         android:layout_marginLeft="20dp"
-        android:src="@drawable/b_notif"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="10dp"
+        android:scaleType="fitXY"
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:layout_width="match_parent"
