@@ -73,6 +73,10 @@
             android:label="Login facebook" >
         </activity>
         <activity
+            android:name=".Restaurante_header"
+            android:label="Restaurante" >
+        </activity>
+        <activity
             android:name=".ComoFunciona"
             android:label="Como Funciona" >
         </activity>

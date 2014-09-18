@@ -255,7 +255,36 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         mListView.setEmptyView(view.findViewById(R.id.emty_view));
 
         // Set OnItemClickListener so we can be notified on item clicks
-        mListView.setOnItemClickListener(this);
+        //mListView.setOnItemClickListener(this);
+
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id)
+            {
+                Log.v("clicou no resutaurante","abrir " + some_array[position].getNome());
+                Intent myIntent = new Intent(getActivity(), Restaurante_header.class);
+                //myIntent.putExtra("local", value); //Optional parameters
+                getActivity().startActivity(myIntent);
+
+                getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+
+            }
+
+        });
+
+
+        //--READ data
+
+
+
+
+
+
 
 
 // we will using AsyncTask during parsing
@@ -265,6 +294,8 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
         return view;
     }
+
+
 
 
 
@@ -517,7 +548,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
 
                 // Set OnItemClickListener so we can be notified on item clicks
-                mListView.setOnItemClickListener(delegate);
+                //mListView.setOnItemClickListener(delegate);
 
 
                 actual =actual + dataJsonArr.length();
