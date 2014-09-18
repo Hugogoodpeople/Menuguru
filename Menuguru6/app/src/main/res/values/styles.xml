@@ -20,6 +20,8 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
+    CustomRatingBarBig
+
 
     <style name="foodRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/food_rating_bar_full</item>
@@ -27,6 +29,12 @@
         <item name="android:maxHeight">25dip</item>
     </style>
 
+
+    <style name="CustomRatingBarBig" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/custom_ratingbar</item>
+        <item name="android:minHeight">41dip</item>
+        <item name="android:maxHeight">41dip</item>
+    </style>
     <style name="CustomRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/custom_ratingbar</item>
         <item name="android:minHeight">40dip</item>

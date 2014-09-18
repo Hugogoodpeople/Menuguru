@@ -2,16 +2,47 @@ package pt.menuguru.menuguru6;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.LocalActivityManager;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TabHost;
+import android.widget.TextView;
+
+import pt.menuguru.menuguru6.Utils.Globals;
+import pt.menuguru.menuguru6.Utils.Restaurante;
 
 /**
  * Created by hugocosta on 18/09/14.
  */
-public class Restaurante_header extends Activity{
+public class Restaurante_header extends FragmentActivity{
+
+
+    /**
+     * The number of pages (wizard steps) to show in this demo.
+     */
+    private static final int NUM_PAGES = Globals.get_instance().getCfunc().length;
+
+    /**
+     * The pager widget, which handles animation and allows swiping horizontally to access previous
+     * and next wizard steps.
+     */
+    private ViewPager mPager;
+    private PagerAdapter mPagerAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,16 +51,67 @@ public class Restaurante_header extends Activity{
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+
         setContentView(R.layout.header_restaurante_main);
 
+
+        // Instantiate a ViewPager and a PagerAdapter.
+        mPager = (ViewPager) findViewById(R.id.pager_restaurante);
+        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+
+        mPager.setAdapter(mPagerAdapter);
+        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                // When changing pages, reset the action bar actions since they are dependent
+                // on which page is currently active. An alternative approach is to have each
+                // fragment expose actions itself (rather than the activity exposing actions),
+                // but for simplicity, the activity provides the actions in this sample.
+                invalidateOptionsMenu();
+            }
+        });
+
+
+
+    }
+
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        public ScreenSlidePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+
+            switch (position)
+            {
+                case 0:
+                {
+                    return tab_rating.create();
+
+                }
+                case 1:
+                {
+                    return tab_five_ratin.create();
+
+                }
+            }
+
+           return tab_rating.create();
+        }
+
+        @Override
+        public int getCount() {
+            return NUM_PAGES;
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -46,4 +128,12 @@ public class Restaurante_header extends Activity{
         return false;
     }
 
+
+
+
+
 }
+
+
+
+

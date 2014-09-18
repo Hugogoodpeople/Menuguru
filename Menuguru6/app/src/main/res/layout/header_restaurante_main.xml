@@ -170,83 +170,25 @@
         android:textSize="15dp"
         android:textColor="@color/gray" />
 
-    <HorizontalScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:id="@+id/horizontalScrollView"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/aqua"
-        android:scrollbars="none">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal">
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/ratingBar"
-                    android:layout_marginLeft="60dp"
-                    android:layout_marginRight="60dp" />
-
-                <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Bom 3.5"
-                    android:id="@+id/textView5"
-                    android:layout_below="@+id/ratingBar"
-                    android:layout_alignLeft="@+id/ratingBar"
-                    android:layout_alignStart="@+id/ratingBar"
-                    android:gravity="center"
-                    android:layout_alignRight="@+id/ratingBar"
-                    android:layout_alignEnd="@+id/ratingBar"
-                    android:layout_alignParentBottom="true" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageView4"
-                    android:background="@drawable/all_stars"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:contentDescription="estrelas"
-                    android:layout_marginLeft="20dp" />
-            </RelativeLayout>
-
-        </LinearLayout>
-    </HorizontalScrollView>
-
     <View
         android:layout_width="100dp"
         android:layout_height="1dp"
         android:background="@color/gray"
         android:id="@+id/tableLayout21"
-        android:layout_below="@+id/horizontalScrollView"
         android:layout_alignLeft="@+id/tableLayout2"
         android:layout_alignStart="@+id/tableLayout2"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="100dp"
+        android:layout_below="@+id/textView3" />
 
     <View
         android:layout_width="100dp"
         android:layout_height="1dp"
         android:background="@color/gray"
-        android:layout_below="@+id/horizontalScrollView"
         android:layout_alignLeft="@+id/textView4"
         android:layout_alignStart="@+id/textView4"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="100dp"
+        android:layout_below="@+id/textView3"
+        android:id="@+id/view2" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -256,9 +198,20 @@
         android:id="@+id/textView31"
         android:textSize="15dp"
         android:textColor="@color/gray"
-        android:layout_below="@+id/horizontalScrollView"
         android:layout_alignLeft="@+id/textView3"
-        android:layout_alignStart="@+id/textView3" />
+        android:layout_alignStart="@+id/textView3"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="90dp" />
+
+    <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pager_restaurante"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_below="@+id/textView3"
+        android:layout_alignBottom="@+id/tableLayout21"
+        android:fontFamily="@+id/ratingBar" />
 
 
 </RelativeLayout>

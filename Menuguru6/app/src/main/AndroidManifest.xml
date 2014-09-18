@@ -81,6 +81,16 @@
             android:label="Como Funciona" >
         </activity>
 
+        <activity
+            android:name=".tab_rating">
+        </activity>
+
+        <activity
+            android:name=".tab_five_ratin">
+        </activity>
+
+
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />
