@@ -14,6 +14,7 @@ public class Globals
     public String lingua = "pt";
     public TopTitulosFiltros[] filtros;
     public ComoFunc[] cfunc;
+    public Festival[] festival;
 
     public TopTitulosFiltros[] getFiltros() {
         return filtros;
@@ -79,13 +80,14 @@ public class Globals
         this.cidedade_id = cidedade_id;
     }
 
-    public ComoFunc[] getCfunc() {
-        return cfunc;
-    }
+    public ComoFunc[] getCfunc() { return cfunc; }
 
     public void setCfunc(ComoFunc[] cfunc) {
         this.cfunc = cfunc;
     }
+
+    public Festival[] getFestival() {return festival;}
+    public void setFestival(Festival[] festival) { this.festival = festival;}
 
     private Globals()
     {

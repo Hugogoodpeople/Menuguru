@@ -241,12 +241,13 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
                 break;
             }
             case 4: {
-                fragmentTransaction.replace(R.id.container, new Destaques());
+                Intent intent = new Intent(this, Destaques.class);
+                startActivity(intent);
                 break;
             }
             case 5: {
                 Intent intent = new Intent(this, ComoFunciona.class);
-                startActivity(intent);;
+                startActivity(intent);
                 break;
             }
         }

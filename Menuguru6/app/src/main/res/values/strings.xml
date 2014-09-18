@@ -201,4 +201,6 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="apa_reserva">Apagar Reserva</string>
     <string name="canc_reserva">Cancelar Reserva</string>
     <string name="obter_direc">Obter direcções</string>
+
+    <string name="idioma">Idioma</string>
 </resources>

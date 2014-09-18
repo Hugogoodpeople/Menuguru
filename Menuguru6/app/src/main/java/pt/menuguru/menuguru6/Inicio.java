@@ -41,6 +41,7 @@ import java.util.Arrays;
 import pt.menuguru.menuguru6.Inspiracoes.Activity_Inspiracao;
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.ComoFunc;
+import pt.menuguru.menuguru6.Utils.Festival;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Restaurante;
@@ -54,6 +55,8 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
     ComoFunc[] como_array = null;
 
     Restaurante[] some_array = null;
+
+    Festival[] fest_array = null;
 
     private MainActivity delegateInicio;
     //private OnFragmentInteractionListener mListener;
@@ -291,6 +294,8 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         new AsyncTaskParseJson(this).execute();
 
         new AsyncTaskParseJsonComo(this).execute();
+
+        new AsyncTaskParseJsonDestaque(this).execute();
 
         return view;
     }
@@ -669,6 +674,100 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
     }
 
 
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonDestaque extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_listagem_festivais.php";
+
+        // contacts JSONArray
+        JSONArray dataJsonArr = null;
+
+        private Inicio delegate;
+
+        public AsyncTaskParseJsonDestaque (Inicio delegate){
+            this.delegate = delegate;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+                dict.put("lang", Globals.get_instance().getLingua());
+                dict.put("tamanho", "640x1136");
+                dict.put("versao", "");
+
+
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+
+                try {
+                    Log.v("Ver Json ", "Ele retorna isto" + jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                // get the array of users
+                dataJsonArr = jsonObj.getJSONArray("res");
+                fest_array = new Festival[dataJsonArr.length()];
+
+
+                for (int i = 0; i < dataJsonArr.length() ; i++) {
+
+                    JSONObject c = dataJsonArr.getJSONObject(i);
+
+
+                    Festival fest = new Festival();
+
+                    fest.setId(c.getString("id"));
+                    fest.setButaodois(c.getString("butaodois"));
+                    fest.setButaoum(c.getString("butaoum"));
+                    fest.setImagem(c.getString("imagem"));
+                    fest.setFundo(c.getString("fundo"));
+                    // Storing each json item in variable
+                    Log.v("ID","objecto = "+ c.getString("id"));
+                    Log.v("botao2","objecto = "+ c.getString("butaodois"));
+                    Log.v("botao1","objecto = "+ c.getString("butaoum"));
+
+                    fest_array[i] = fest;
+                }
+
+                Globals.getInstance().setFestival(fest_array);
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncCompleteDestaque(true);  }
+
+    }
+
+
+    public void asyncCompleteDestaque(boolean success){
+
+    }
 
 
 }

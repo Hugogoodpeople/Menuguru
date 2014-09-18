@@ -117,14 +117,10 @@ public class LanguageMenu extends ActivityLogin
         //setTitle(value);
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-        getActionBar().setCustomView(R.layout.tab_header);
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
+
         getActionBar().setHomeButtonEnabled(true);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        TextView t =(TextView) findViewById(R.id.mytext);
-        t.setText(value);
-
+        getActionBar().setTitle(R.string.idioma);
 
         preferences = this.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
 

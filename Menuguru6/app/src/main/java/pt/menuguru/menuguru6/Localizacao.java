@@ -82,15 +82,9 @@ public class Localizacao extends Activity {
         //setTitle(value);
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-        getActionBar().setCustomView(R.layout.tab_header);
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
         getActionBar().setHomeButtonEnabled(true);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        TextView t =(TextView) findViewById(R.id.mytext);
-        t.setText(value);
-        inputSearch = (SearchView) findViewById(R.id.searchView);
-
+        getActionBar().setTitle(Globals.getInstance().getCidadeÇ_nome());
         new AsyncTaskParseJson(this).execute();
 
     }
