@@ -17,7 +17,7 @@
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/imageView"
+        android:id="@+id/image_festival"
         android:layout_marginTop="175dp"
         android:layout_marginRight="20dp"
         android:layout_alignParentTop="true"
@@ -31,9 +31,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="dist"
         android:id="@+id/distancia_restaurante_header"
-        android:layout_alignTop="@+id/imageView"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView"
+        android:layout_alignTop="@+id/image_festival"
+        android:layout_alignLeft="@+id/image_festival"
+        android:layout_alignStart="@+id/image_festival"
         android:layout_marginRight="20dp"
         android:gravity="center" />
 
@@ -42,18 +42,18 @@
         android:layout_height="55dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Exemplo exemplo Exemplo exemplo Exemplo exemplo Exemplo exemplo"
-        android:id="@+id/textView"
+        android:id="@+id/text_botaodois"
         android:layout_below="@+id/imageView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/imageView"
-        android:layout_toStartOf="@+id/imageView"
+        android:layout_toLeftOf="@+id/image_festival"
+        android:layout_toStartOf="@+id/image_festival"
         android:layout_marginLeft="15dp" />
 
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="85dp"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/text_botaodois"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/tableLayout">

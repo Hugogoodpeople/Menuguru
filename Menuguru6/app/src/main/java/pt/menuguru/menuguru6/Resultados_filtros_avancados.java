@@ -69,17 +69,12 @@ public class Resultados_filtros_avancados extends Activity
         //setTitle(value);
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-        getActionBar().setCustomView(R.layout.tab_header);
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
-        getActionBar().setHomeButtonEnabled(true);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        TextView t =(TextView) findViewById(R.id.mytext);
+
 
         if (prato.length()>0)
-            t.setText(prato);
+            getActionBar().setTitle(prato);
         else
-            t.setText(getString(R.string.filtrosavancados));
+            getActionBar().setTitle(getString(R.string.filtrosavancados));
 
 
         new AsyncTaskParseJson(this).execute();

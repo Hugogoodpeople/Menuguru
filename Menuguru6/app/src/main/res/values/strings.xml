@@ -139,7 +139,6 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="todostipo">Todos Tipo de</string>
     <string name="todos">Todos</string>
     <string name="precos">preços</string>
-
     <string name="oops">Oops!</string>
     <string name="nao_encontrado">Não encontrámos nenhum resultado para esta pesquisa.</string>
     <string name="cozinha">Cozinha</string>
@@ -166,17 +165,14 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="texto_recuperar">Por favor introduza o seu email.</string>
     <string name="t_exite_email">Email sem registo</string>
     <string name="n_exite_email">Pretende registá-lo agora?</string>
-
     <string name="listas">Listas</string>
     <string name="avaliar">Avaliar</string>
     <string name="partilhar">Partilhar</string>
     <string name="info">Info</string>
-
     <string name="cancelar">Cancelar</string>
     <string name="ok">Ok</string>
     <string name="sim">Sim</string>
     <string name="nao">Não</string>
-
     <string name="segunda">Segunda</string>
     <string name="terca">Terça</string>
     <string name="quarta">Quarta</string>
@@ -184,7 +180,6 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="sexta">Sexta</string>
     <string name="sabado">Sábado</string>
     <string name="domingo">Domingo</string>
-
     <string name="janeiro">Janeiro</string>
     <string name="fevereiro">Fevereiro</string>
     <string name="marco">Março</string>
@@ -197,10 +192,11 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="outubro">Outubro</string>
     <string name="novembro">Novembro</string>
     <string name="dezembro">Dezembro</string>
-
     <string name="apa_reserva">Apagar Reserva</string>
     <string name="canc_reserva">Cancelar Reserva</string>
     <string name="obter_direc">Obter direcções</string>
-
     <string name="idioma">Idioma</string>
+    <string name="nao_encontramos">Não encontramos nenhum destaque.</string>
+    <string name="title_activity_resultado_festivais">Resultado_festivais</string>
+
 </resources>

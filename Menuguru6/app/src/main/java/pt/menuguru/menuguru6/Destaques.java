@@ -11,10 +11,12 @@ import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import pt.menuguru.menuguru6.Utils.ComoFunc;
+import pt.menuguru.menuguru6.Utils.Festival;
 import pt.menuguru.menuguru6.Utils.Globals;
 
 /**
@@ -26,7 +28,7 @@ public class Destaques extends FragmentActivity {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    private static final int NUM_PAGES = Globals.get_instance().getCfunc().length;
+    private static final int NUM_PAGES = Globals.get_instance().getFestival().length;
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -34,8 +36,8 @@ public class Destaques extends FragmentActivity {
      */
     private ViewPager mPager;
 
-    ComoFunc[] some_array = null;
-    ArrayList<ComoFunc> como;
+    Festival[] some_array = null;
+    ArrayList<Festival> como;
 
 
     Button bt_close;
@@ -48,33 +50,51 @@ public class Destaques extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //new AsyncTaskParseJson(this).execute();
-        setContentView(R.layout.fragment_como_funciona);
-
-        // Instantiate a ViewPager and a PagerAdapter.
-        mPager = (ViewPager) findViewById(R.id.pager);
-        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-        mPager.setAdapter(mPagerAdapter);
-        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                // When changing pages, reset the action bar actions since they are dependent
-                // on which page is currently active. An alternative approach is to have each
-                // fragment expose actions itself (rather than the activity exposing actions),
-                // but for simplicity, the activity provides the actions in this sample.
-                invalidateOptionsMenu();
-            }
-        });
-
-        bt_close = (Button)findViewById(R.id.bt_close);
-        bt_close.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
+        if(Globals.get_instance().getFestival().length<=0){
+            setContentView(R.layout.fragment_destaques_vazia);
+            TextView text = (TextView)findViewById(R.id.textView_nao);
+            text.setText(R.string.nao_encontramos);
+            bt_close = (Button)findViewById(R.id.bt_close_fest);
+            bt_close.setOnClickListener(new View.OnClickListener()
             {
-                finish();
-                overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
-            }
-        });
+                @Override
+                public void onClick(View v)
+                {
+                    finish();
+                    overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
+                }
+            });
+        }else{
+            setContentView(R.layout.fragment_como_funciona);
+            mPager = (ViewPager) findViewById(R.id.pager);
+            mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+            mPager.setAdapter(mPagerAdapter);
+            mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+                @Override
+                public void onPageSelected(int position) {
+                    // When changing pages, reset the action bar actions since they are dependent
+                    // on which page is currently active. An alternative approach is to have each
+                    // fragment expose actions itself (rather than the activity exposing actions),
+                    // but for simplicity, the activity provides the actions in this sample.
+                    invalidateOptionsMenu();
+                }
+            });
+
+            bt_close = (Button)findViewById(R.id.bt_close);
+            bt_close.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    finish();
+                    overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
+                }
+            });
+        }
+
+        getActionBar().hide();
+        // Instantiate a ViewPager and a PagerAdapter.
+
     }
 
 
@@ -101,7 +121,7 @@ public class Destaques extends FragmentActivity {
         public Fragment getItem(int position) {
 
 
-            return ComoFunciona2.create(position);
+            return Destaques2.create(position);
         }
 
         @Override

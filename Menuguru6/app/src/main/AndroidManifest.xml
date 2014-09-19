@@ -61,42 +61,48 @@
         </activity>
         <activity
             android:name="pt.menuguru.menuguru6.Filtros_mega_avancados"
-            android:label="@string/filtrosavancados" >
+            android:label="@string/filtrosavancados"
+            android:screenOrientation="portrait" >
         </activity>
-
         <activity
-            android:name=".Resultados_filtros_avancados"
-            android:label="Login facebook" >
+            android:name="pt.menuguru.menuguru6.Resultados_filtros_avancados"
+            android:label="Login facebook"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.facebook.LoginActivity"
-            android:label="Login facebook" >
+            android:label="Login facebook"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Restaurante_header"
-            android:label="Restaurante" >
+            android:name="pt.menuguru.menuguru6.Restaurante_header"
+            android:label="Restaurante"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ComoFunciona"
-            android:label="Como Funciona" >
+            android:name="pt.menuguru.menuguru6.ComoFunciona"
+            android:label="Como Funciona"
+            android:screenOrientation="portrait" >
         </activity>
-
         <activity
-            android:name=".tab_rating">
+            android:name="pt.menuguru.menuguru6.Destaques"
+            android:label="Como Funciona"
+            android:screenOrientation="portrait" >
         </activity>
-
-        <activity
-            android:name=".tab_five_ratin">
+        <activity android:name="pt.menuguru.menuguru6.tab_rating" >
         </activity>
-
-
+        <activity android:name="pt.menuguru.menuguru6.tab_five_ratin" >
+        </activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />
 
-
-
+        <activity
+            android:name="pt.menuguru.menuguru6.Resultado_festivais"
+            android:label="@string/title_activity_resultado_festivais"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

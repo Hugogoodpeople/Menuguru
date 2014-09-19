@@ -5,88 +5,33 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:id="@+id/capa"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_festival"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="false"
-        android:src="@drawable/sem_foto"
-        android:scaleType="centerCrop" />
-
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/imagemTipo"
-        android:src="@drawable/reserva"
-        android:layout_gravity="right"
-        android:layout_alignBottom="@+id/nomeRestaurante"
+        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="20dp" />
+        android:layout_alignParentBottom="true"
+        android:scaleType="centerCrop" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="#000"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/text_botaodois"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Restaurante Bonsai"
-        android:id="@+id/nomeRestaurante"
-        android:layout_below="@+id/capa"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_toLeftOf="@+id/imagemTipo"
-        android:layout_toStartOf="@+id/imagemTipo" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Menu"
-        android:id="@+id/nomeMenu"
-        android:layout_below="@+id/nomeRestaurante"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp"
-        android:layout_alignRight="@+id/imagemTipo" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Desconto 21%"
-        android:id="@+id/desconto"
-        android:layout_below="@+id/nomeMenu"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_alignRight="@+id/nomeMenu"
-        android:layout_alignEnd="@+id/nomeMenu" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="4.52 €"
-        android:id="@+id/precoActual"
-        android:layout_alignTop="@+id/desconto"
-        android:layout_alignRight="@+id/imagemTipo"
-        android:layout_alignEnd="@+id/imagemTipo"
-        android:textColor="@color/dourado"
-        android:layout_toRightOf="@+id/nomeMenu"
-        android:layout_toEndOf="@+id/nomeMenu"
-        android:gravity="right" />
+        android:text="Medium Text"
+        android:id="@+id/text_botaoum"
+        android:layout_above="@+id/text_botaodois"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
 </RelativeLayout>
