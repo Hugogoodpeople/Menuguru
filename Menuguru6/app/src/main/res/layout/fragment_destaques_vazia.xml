@@ -7,33 +7,40 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-<<<<<<< HEAD
-        android:id="@+id/lista_menus_restaurante"
-=======
         android:id="@+id/image_festival"
->>>>>>> FETCH_HEAD
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:src="@drawable/bck_geral" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/descricao_vazio"
-        android:layout_below="@+id/titulo_vazio"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="53dp"
-        android:textSize="15dp" />
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/bt_close_fest"
+        android:background="@drawable/ic_menu_b"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/titulo_vazio"
-        android:layout_marginTop="131dp"
-        android:textSize="23dp"
-        android:layout_alignParentTop="true"
+        android:id="@+id/textView_nao"
+        android:textSize="15dp"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Oops!"
+        android:id="@+id/textView2"
+        android:textSize="23dp"
+        android:layout_marginTop="67dp"
+        android:layout_below="@+id/bt_close_fest"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

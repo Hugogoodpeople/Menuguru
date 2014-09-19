@@ -17,7 +17,11 @@
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
+<<<<<<< HEAD
         android:id="@+id/lista_menus_restaurante"
+=======
+        android:id="@+id/image_festival"
+>>>>>>> FETCH_HEAD
         android:layout_marginTop="175dp"
         android:layout_marginRight="20dp"
         android:layout_alignParentTop="true"
@@ -26,16 +30,40 @@
         android:src="@drawable/i_map" />
 
     <TextView
+<<<<<<< HEAD
+=======
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="dist"
+        android:id="@+id/distancia_restaurante_header"
+        android:layout_alignTop="@+id/image_festival"
+        android:layout_alignLeft="@+id/image_festival"
+        android:layout_alignStart="@+id/image_festival"
+        android:layout_marginRight="20dp"
+        android:gravity="center" />
+
+    <TextView
+>>>>>>> FETCH_HEAD
         android:layout_width="wrap_content"
         android:layout_height="55dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Exemplo exemplo Exemplo exemplo Exemplo exemplo Exemplo exemplo"
+<<<<<<< HEAD
         android:id="@+id/lista_menus_restaurante"
         android:layout_below="@+id/imageView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/lista_menus_restaurante"
         android:layout_toStartOf="@+id/lista_menus_restaurante"
+=======
+        android:id="@+id/text_botaodois"
+        android:layout_below="@+id/imageView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/image_festival"
+        android:layout_toStartOf="@+id/image_festival"
+>>>>>>> FETCH_HEAD
         android:layout_marginLeft="15dp" />
 
     <TextView
@@ -52,7 +80,11 @@
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="85dp"
+<<<<<<< HEAD
         android:layout_below="@+id/lista_menus_restaurante"
+=======
+        android:layout_below="@+id/text_botaodois"
+>>>>>>> FETCH_HEAD
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/tableLayout">
