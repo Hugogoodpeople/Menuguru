@@ -232,7 +232,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
                 break;
             }
             case 2: {
-                fragmentTransaction.replace(R.id.container, new Reservas());
+                fragmentTransaction.replace(R.id.container, new MinhasReservas());
                 break;
             }
             case 3:
