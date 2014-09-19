@@ -85,17 +85,9 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-<<<<<<< HEAD
             android:name="pt.menuguru.menuguru6.Destaques"
             android:label="Como Funciona"
             android:screenOrientation="portrait" >
-        </activity>
-        <activity android:name="pt.menuguru.menuguru6.tab_rating" >
-        </activity>
-        <activity android:name="pt.menuguru.menuguru6.tab_five_ratin" >
-=======
-            android:name=".Restaurante_main">
->>>>>>> FETCH_HEAD
         </activity>
 
         <meta-data
