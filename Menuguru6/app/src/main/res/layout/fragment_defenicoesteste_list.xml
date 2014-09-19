@@ -22,11 +22,9 @@
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-<<<<<<< HEAD
+
             android:id="@+id/lista_menus_restaurante"
-=======
-            android:id="@+id/image_festival"
->>>>>>> FETCH_HEAD
+
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"

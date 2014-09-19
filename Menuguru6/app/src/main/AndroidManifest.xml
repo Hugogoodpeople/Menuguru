@@ -80,6 +80,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".Restaurante_main"
+           
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <activity
             android:name="pt.menuguru.menuguru6.ComoFunciona"
             android:label="Como Funciona"
             android:screenOrientation="portrait" >
