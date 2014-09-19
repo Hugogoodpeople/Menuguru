@@ -82,11 +82,7 @@
         </activity>
 
         <activity
-            android:name=".tab_rating">
-        </activity>
-
-        <activity
-            android:name=".tab_five_ratin">
+            android:name=".Restaurante_main">
         </activity>
 
 

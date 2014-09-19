@@ -3,7 +3,7 @@ package pt.menuguru.menuguru6.Utils;
 /**
  * Created by hugocosta on 13/08/14.
  */
-public class MenuEspecial {
+public class Menu_do_restaurante {
 
 
     public Restaurante restaurante;

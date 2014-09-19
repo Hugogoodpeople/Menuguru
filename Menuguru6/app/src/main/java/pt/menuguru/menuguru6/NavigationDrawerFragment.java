@@ -153,19 +153,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         mAdapter = new MyListAdapter(this.getActivity(), R.layout.row_defenicoes, some_list);
 
-        /*
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
-                R.layout.row_menu_refugio,
-                R.id.textView_row_refugio,
-                new String[]{
-                        getString(R.string.inicio),
-                        getString(R.string.reservas),
-                        getString(R.string.definicao),
-                        getString(R.string.destaque),
-                        getString(R.string.como),
-                }));
-                */
+
         mDrawerListView.setAdapter(mAdapter);
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
