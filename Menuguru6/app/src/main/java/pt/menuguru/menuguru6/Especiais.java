@@ -3,7 +3,6 @@ package pt.menuguru.menuguru6;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,7 +27,7 @@ import org.json.JSONObject;
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
-import pt.menuguru.menuguru6.Utils.MenuEspecial;
+import pt.menuguru.menuguru6.Utils.Menu_do_restaurante;
 import pt.menuguru.menuguru6.Utils.Restaurante;
 
 
@@ -36,7 +35,7 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
 
     String value;
 
-    MenuEspecial[] some_array = null;
+    Menu_do_restaurante[] some_array = null;
 
     private AbsListView mListView;
 
@@ -66,13 +65,13 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
 
 
 
-    public class MyListAdapterEspeciais extends ArrayAdapter<MenuEspecial> {
+    public class MyListAdapterEspeciais extends ArrayAdapter<Menu_do_restaurante> {
 
         Context myContext;
         public ImageLoader imageLoader;
 
         public MyListAdapterEspeciais(Context context, int textViewResourceId,
-                                      MenuEspecial[] objects) {
+                                      Menu_do_restaurante[] objects) {
             super(context, textViewResourceId, objects);
             imageLoader=new ImageLoader(getActivity().getApplicationContext());
             myContext = context;
@@ -238,7 +237,7 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
 
 
 
-                some_array = new MenuEspecial[dataJsonArr.length()];
+                some_array = new Menu_do_restaurante[dataJsonArr.length()];
                 for (int i = 0; i < dataJsonArr.length(); i++) {
 
                     JSONObject c = dataJsonArr.getJSONObject(i);
@@ -252,7 +251,7 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
                     );
 
 
-                    MenuEspecial menu = new MenuEspecial();
+                    Menu_do_restaurante menu = new Menu_do_restaurante();
                     menu.setNome(firstname);
 
 

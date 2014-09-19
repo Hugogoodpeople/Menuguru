@@ -270,7 +270,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                                     int position, long id)
             {
                 Log.v("clicou no resutaurante","abrir " + some_array[position].getNome());
-                Intent myIntent = new Intent(getActivity(), Restaurante_header.class);
+                Intent myIntent = new Intent(getActivity(), Restaurante_main.class);
                 //myIntent.putExtra("local", value); //Optional parameters
                 getActivity().startActivity(myIntent);
 
@@ -283,13 +283,6 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
         //--READ data
 
-
-
-
-
-
-
-
 // we will using AsyncTask during parsing
         new AsyncTaskParseJson(this).execute();
 
@@ -299,11 +292,6 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
         return view;
     }
-
-
-
-
-
 
 
     public void onCreate(Bundle savedInstanceState) {
