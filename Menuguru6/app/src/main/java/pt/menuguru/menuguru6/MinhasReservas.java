@@ -451,7 +451,7 @@ public class MinhasReservas extends Fragment {
                     Log.e(TAG, "Error parsing data " + e.toString());
                 }
                 // get the array of users
-                dataJsonArr = jsonObj.getJSONArray("res");
+                dataJsonArr = jsonObj.getJSONArray("resp");
                 some_array = new Reserva[dataJsonArr.length()];
 
 
