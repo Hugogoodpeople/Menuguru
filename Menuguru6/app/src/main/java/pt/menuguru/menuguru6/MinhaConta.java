@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,16 +21,26 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
 
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphUser;
+import com.facebook.widget.LoginButton;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.User;
+
+import static com.facebook.Session.StatusCallback;
 
 /**
  * Created by hugocosta on 06/08/14.
@@ -70,9 +81,24 @@ public class MinhaConta extends Activity {
     String yourJsonStringUrl;
 
     String aux_news;
+
+    String resesc;
+    String titulo;
+    String msgbox;
+
+
+
     private ProgressDialog progressDialog;
 
     private Calendar cal;
+
+    private LoginButton loginBtn;
+
+    private UiLifecycleHelper uiHelper;
+
+    private static final List<String> PERMISSIONS = Arrays.asList("publish_actions", "email");
+
+    private static String message = "Sample status posted from android app";
 
 
     @Override
@@ -83,6 +109,12 @@ public class MinhaConta extends Activity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle("Minha conta");
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        uiHelper = new UiLifecycleHelper(this, statusCallback);
+        uiHelper.onCreate(savedInstanceState);
+
+
+        loginBtn = (LoginButton) findViewById(R.id.bt_transfFav);
 
         pnome = Globals.get_instance().getUser().getPnome();
         snome = Globals.get_instance().getUser().getSnome();
@@ -106,9 +138,11 @@ public class MinhaConta extends Activity {
         edit_pass   = (EditText)findViewById(R.id.edit_data_nasc);
         edit_news   = (Switch)findViewById(R.id.news);
         edit_not   = (Switch)findViewById(R.id.not);
+
         if(tipo.equals("facebook")){
             yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_login_update_face.php";
             edit_pass.setVisibility(View.INVISIBLE);
+            loginBtn.setVisibility(View.INVISIBLE);
         }else{
             yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_editar_conta_android.php";
         }
@@ -141,6 +175,82 @@ public class MinhaConta extends Activity {
             }
         });
 
+        loginBtn.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
+            @Override
+            public void onUserInfoFetched(GraphUser user) {
+                if (user != null) {
+                    id_face = user.getId();
+                    Log.v("tem login",id_face);
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MinhaConta.this);
+                    // set dialog message
+                    alertDialogBuilder
+                            .setMessage(R.string.tranf_favoritos)
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.sim,new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/json_juntar_contas.php";
+                                    new AsyncTaskParseJsonFavoritos(MinhaConta.this).execute();
+                                }
+                            })
+                            .setNegativeButton(R.string.nao,new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    // show it
+                    alertDialog.show();
+
+
+                } else {
+                    Log.v("NAO tem login","");
+                }
+            }
+        });
+
+    }
+    private Session.StatusCallback statusCallback = new Session.StatusCallback() {
+        @Override
+        public void call(Session session, SessionState state,
+                         Exception exception) {
+            if (state.isOpened()) {
+                Log.d("FacebookSampleActivity", "Facebook session opened");
+            } else if (state.isClosed()) {
+                Log.d("FacebookSampleActivity", "Facebook session closed");
+            }
+        }
+    };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        uiHelper.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        uiHelper.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        uiHelper.onDestroy();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        uiHelper.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedState) {
+        super.onSaveInstanceState(savedState);
+        uiHelper.onSaveInstanceState(savedState);
     }
 
     class mDateSetListener implements DatePickerDialog.OnDateSetListener {
@@ -348,5 +458,119 @@ public class MinhaConta extends Activity {
         AlertDialog alertDialog = alertDialogBuilder.create();
         // show it
         alertDialog.show();
+    }
+
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonFavoritos extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+
+
+        // contacts JSONArray
+        JSONArray dataJsonArr = null;
+
+        private MinhaConta delegate;
+
+        public AsyncTaskParseJsonFavoritos (MinhaConta delegate){
+            this.delegate = delegate;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(MinhaConta.this);
+            progressDialog.setCancelable(true);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+
+
+                dict.put("user_id",Globals.get_instance().getUser().getUserid());
+                dict.put("face_id", id_face);
+                dict.put("lang", Globals.get_instance().getLingua());
+
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+
+                try {
+                    Log.v("Ver Json ", "Ele retorna isto" + jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                // get the array of users
+
+
+                resesc = jsonObj.getString("resesc");;
+                titulo = jsonObj.getString("titulo");;
+                msgbox = jsonObj.getString("msgbox");;
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncCompleteFav(true);  }
+
+    }
+
+
+    public void asyncCompleteFav(boolean success){
+        callFacebookLogout(MinhaConta.this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        // set dialog message
+        alertDialogBuilder
+                .setTitle(titulo+" "+getString(R.string.fav_tranf))
+                .setCancelable(false)
+                .setNegativeButton("OK",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.cancel();
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
+
+    public static void callFacebookLogout(Context context) {
+        Session session = Session.getActiveSession();
+        if (session != null) {
+
+            if (!session.isClosed()) {
+                session.closeAndClearTokenInformation();
+                //clear your preferences if saved
+            }
+        } else {
+
+            session = new Session(context);
+            Session.setActiveSession(session);
+
+            session.closeAndClearTokenInformation();
+            //clear your preferences if saved
+        }
+
     }
 }

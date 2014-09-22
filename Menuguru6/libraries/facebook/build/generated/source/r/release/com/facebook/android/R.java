@@ -293,6 +293,7 @@ containing a value of this type.
         public static int com_facebook_usersettingsfragment_log_in_button=0x7f070017;
         public static int com_facebook_usersettingsfragment_logged_in=0x7f070018;
         public static int com_facebook_usersettingsfragment_not_logged_in=0x7f070019;
+        public static int teste=0x7f07001a;
     }
     public static final class style {
         public static int com_facebook_loginview_default_style=0x7f080000;

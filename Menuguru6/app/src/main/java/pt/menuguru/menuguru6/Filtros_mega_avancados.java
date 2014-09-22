@@ -3,8 +3,6 @@ package pt.menuguru.menuguru6;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.app.SearchManager;
-import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -25,7 +23,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -98,7 +95,7 @@ public class Filtros_mega_avancados extends Activity
             }
         });
 
-        button2 = (ImageButton) this.findViewById(R.id.buttonfiltros2);
+        button2 = (ImageButton) this.findViewById(R.id.bt_transfFav);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

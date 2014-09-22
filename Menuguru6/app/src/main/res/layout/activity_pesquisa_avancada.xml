@@ -37,7 +37,7 @@
             <ImageButton
                 android:layout_width="fill_parent"
                 android:layout_height="100dp"
-                android:id="@+id/buttonfiltros2"
+                android:id="@+id/bt_transfFav"
                 android:scaleType="fitStart"
                 android:src="@drawable/ico_cozinha"
                 android:layout_below="@+id/buttonfiltros1"
@@ -51,7 +51,7 @@
                 android:id="@+id/buttonfiltros3"
                 android:scaleType="fitStart"
                 android:src="@drawable/ico_preco"
-                android:layout_below="@+id/buttonfiltros2"
+                android:layout_below="@+id/bt_transfFav"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="0dp"
@@ -107,7 +107,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/ordenar"
                 android:id="@+id/textView3"
-                android:layout_above="@+id/buttonfiltros2"
+                android:layout_above="@+id/bt_transfFav"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/white"
                 android:layout_marginBottom="8dp" />
@@ -118,7 +118,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/cozinha"
                 android:id="@+id/textView4"
-                android:layout_alignBottom="@+id/buttonfiltros2"
+                android:layout_alignBottom="@+id/bt_transfFav"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/white"
                 android:layout_marginBottom="8dp" />

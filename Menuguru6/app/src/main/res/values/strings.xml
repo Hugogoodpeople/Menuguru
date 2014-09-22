@@ -190,4 +190,6 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
         <item>Cancelar</item>
     </string-array>
 
+    <string name="tranf_favoritos">Deseja transferir os favoritos de uma conta do Facebook para a sua conta Menu Guru?</string>
+    <string name="fav_tranf">Favoritos adicionados</string>
 </resources>

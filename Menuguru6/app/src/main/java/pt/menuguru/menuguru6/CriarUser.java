@@ -65,15 +65,15 @@ public class CriarUser extends Activity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         edit_pnome  = (EditText)findViewById(R.id.edit_criar_pnome);
-        edit_snome  = (EditText)findViewById(R.id.edit_criar_snome);
+        //edit_snome  = (EditText)findViewById(R.id.edit_criar_snome);
         bt_sexo  = (Button)findViewById(R.id.edit_criar_sexo);
-        edit_cidade  = (EditText)findViewById(R.id.edit_criar_cidade);
-        bt_data_nasc  = (Button)findViewById(R.id.edit_criar_data_nasc);
+        //edit_cidade  = (EditText)findViewById(R.id.edit_criar_cidade);
+        //bt_data_nasc  = (Button)findViewById(R.id.edit_criar_data_nasc);
         edit_email  = (EditText)findViewById(R.id.edit_criar_email);
         edit_pass  = (EditText)findViewById(R.id.edit_criar_pass);
         bt_registar  = (Button)findViewById(R.id.bt_c_registo);
 
-        bt_data_nasc.setOnClickListener(new View.OnClickListener() {
+        /*bt_data_nasc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // tenho de adicionar cenas
@@ -112,18 +112,18 @@ public class CriarUser extends Activity {
                 // show it
                 alertDialog.show();
             }
-        });
+        });*/
         bt_registar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 g_pnome = edit_pnome.getText().toString().trim();
-                g_snome = edit_snome.getText().toString().trim();
-                g_sexo =  bt_sexo.getText().toString().trim();
-                g_data_nasc = bt_data_nasc.getText().toString().trim();
-                g_cidade = edit_cidade.getText().toString().trim();
+                //g_snome = edit_snome.getText().toString().trim();
+                //g_sexo =  bt_sexo.getText().toString().trim();
+               // g_data_nasc = bt_data_nasc.getText().toString().trim();
+                //g_cidade = edit_cidade.getText().toString().trim();
                 g_email = edit_email.getText().toString().trim();
                 g_pass = edit_pass.getText().toString().trim();
-                if(g_pnome.isEmpty()||g_snome.isEmpty()||g_sexo.isEmpty()||g_data_nasc.isEmpty()||g_cidade.isEmpty()||g_email.isEmpty()||g_pass.isEmpty()||g_cidade.isEmpty()){
+                if(g_pnome.isEmpty()||g_email.isEmpty()||g_pass.isEmpty()){
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(CriarUser.this);
                     // set dialog message
                     alertDialogBuilder
@@ -278,13 +278,13 @@ public class CriarUser extends Activity {
                 JSONObject dict = new JSONObject();
                 JSONObject jsonObj = new JSONObject();
 
-                dict.put("genero", g_sexo);
+                //dict.put("genero", g_sexo);
                 dict.put("email", g_email);
-                dict.put("cidade", g_cidade);
-                dict.put("data_nasc", g_data_nasc);
+                //dict.put("cidade", g_cidade);
+                //dict.put("data_nasc", g_data_nasc);
                 dict.put("password", g_pass);
                 dict.put("primnome", g_pnome);
-                dict.put("segnome", g_snome);
+                //dict.put("segnome", g_snome);
 
 
 
@@ -347,13 +347,14 @@ public class CriarUser extends Activity {
                     .setNegativeButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
+                            finish();
                         }
                     });
             // create alert dialog
             AlertDialog alertDialog = alertDialogBuilder.create();
             // show it
             alertDialog.show();
-            finish();
+
         }
     }
 }
