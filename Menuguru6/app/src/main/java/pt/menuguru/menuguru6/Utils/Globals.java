@@ -10,7 +10,7 @@ public class Globals
     public String longitude = "0";
     public String cidedade_id = "0";
     public String cidadeÇ_nome = "Perto de min";
-    public User user;
+    public User user = new User();
     public String lingua = "pt";
     public TopTitulosFiltros[] filtros;
     public ComoFunc[] cfunc;

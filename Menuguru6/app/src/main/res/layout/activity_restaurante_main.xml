@@ -7,8 +7,10 @@
     android:weightSum="1">
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/lista_menus_restaurante"
-        tools:listitem="@layout/grid_menu" />
+        tools:listitem="@layout/grid_menu"
+        android:divider="@null"
+        android:dividerHeight="0dp"/>
 </LinearLayout>

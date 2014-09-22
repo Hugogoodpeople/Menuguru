@@ -4,10 +4,20 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -23,37 +34,125 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
+import pt.menuguru.menuguru6.Utils.Globals;
+import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Menu_do_restaurante;
 
 /**
  * Created by hugocosta on 19/09/14.
  */
-public class Restaurante_main extends Activity {
+public class Restaurante_main extends FragmentActivity {
 
+
+    /**
+     * The number of pages (wizard steps) to show in this demo.
+     */
+    private static final int NUM_PAGES = Globals.get_instance().getCfunc().length;
+
+    /**
+     * The pager widget, which handles animation and allows swiping horizontally to access previous
+     * and next wizard steps.
+     */
+    private ViewPager mPager;
+    private PagerAdapter mPagerAdapter;
 
     private static MyListAdapter mAdapter;
     private ArrayList<Menu_do_restaurante> some_list;
     private ListView gridView;
     private ProgressDialog progressDialog;
+    private String rest_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+
+        Intent intent = this.getIntent();
+        rest_id = intent.getStringExtra("restaurante");
+
         setContentView(R.layout.activity_restaurante_main);
+
+
 
 
 
         new AsyncTaskParseJson(this).execute();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_localizacao, menu);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mPager.getCurrentItem() == 0) {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
+            super.onBackPressed();
+        } else {
+            // Otherwise, select the previous step.
+            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
+        }
+    }
+
+
+    public void initialisePagin()
+    {
+        List<Fragment> fragments = new Vector<Fragment>();
+        fragments.add(Fragment.instantiate(this, tab_rating.class.getName()));
+        fragments.add(Fragment.instantiate(this, tab_five_ratin.class.getName()));
+    }
+
+
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        public ScreenSlidePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+
+            switch (position)
+            {
+                case 0:
+                {
+                    return new tab_rating();
+                }
+                case 1:
+                {
+                    return new tab_five_ratin();
+                }
+            }
+            return tab_rating.create();
+        }
 
 
 
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+    }
+
+    /*
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_especial, menu);
+        return true;
+    }
+*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -120,7 +219,7 @@ public class Restaurante_main extends Activity {
                 dict.put("user_id", "0");
 
                 dict.put("horario_lang","pt");
-                dict.put("rest_id","477");
+                dict.put("rest_id",rest_id);
 
                 // tenho de enviar lat, long, data, hora, cidade, lang
 
@@ -131,7 +230,7 @@ public class Restaurante_main extends Activity {
 
                 // try parse the string to a JSON object
                 try {
-                    Log.v("Ver Json ","Ele retorna isto"+jsonString);
+                    Log.v("Ver Json ","Ele retorna dentro do menu"+jsonString);
                     jsonObj = new JSONObject(jsonString);
                 } catch (JSONException e) {
                     Log.e(TAG, "Error parsing data " + e.toString());
@@ -149,6 +248,16 @@ public class Restaurante_main extends Activity {
 
                     Menu_do_restaurante menu = new Menu_do_restaurante();
                     menu.setNome(c.getString("nome"));
+                    menu.setUrlImage(c.getString("imagem"));
+                    menu.setTipo(c.getString("tipo"));
+
+                    if (menu.getTipo().equalsIgnoreCase("menu_especial"))
+                    {
+                        menu.setPrecoNovo(c.getString("precoesp"));
+                        menu.setPrecoAntigo(c.getString("precoespant"));
+                        menu.setEspecialFita(c.getString("especial_um_fita"));
+                        menu.setDesconto(c.getString("desconto"));
+                    }
 
                     some_list.add(menu);
                 }
@@ -164,7 +273,6 @@ public class Restaurante_main extends Activity {
         protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncComplete(true);  }
 
     }
-
 
 
     public void asyncComplete(boolean success){
@@ -187,8 +295,6 @@ public class Restaurante_main extends Activity {
         //listView.setAdapter(adapter);
         mAdapter = new MyListAdapter(this, R.layout.grid_menu, some_list);
         gridView.setAdapter(mAdapter);
-
-
 
         // ListView Item Click Listener
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -213,10 +319,28 @@ public class Restaurante_main extends Activity {
 
                 finish();
 */
-
             }
 
         });
+
+
+        // Instantiate a ViewPager and a PagerAdapter.
+        mPager = (ViewPager) findViewById(R.id.pager_restaurante);
+        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+
+        mPager.setAdapter(mPagerAdapter);
+
+        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                // When changing pages, reset the action bar actions since they are dependent
+                // on which page is currently active. An alternative approach is to have each
+                // fragment expose actions itself (rather than the activity exposing actions),
+                // but for simplicity, the activity provides the actions in this sample.
+                // invalidateOptionsMenu();
+            }
+        });
+
 
     }
 
@@ -226,10 +350,11 @@ public class Restaurante_main extends Activity {
     public class MyListAdapter extends ArrayAdapter<Menu_do_restaurante> {
 
         Context myContext;
-
+        public ImageLoader imageLoader;
 
         public MyListAdapter(Context context, int textViewResourceId, ArrayList<Menu_do_restaurante> objects) {
             super(context, textViewResourceId, objects);
+            imageLoader=new ImageLoader(getApplicationContext());
             myContext = context;
         }
 
@@ -241,19 +366,70 @@ public class Restaurante_main extends Activity {
             View row = convertView;
 
 
-
             if (row == null)
                 row=inflater.inflate(R.layout.grid_menu, parent, false);
-            TextView label2=(TextView)row.findViewById(R.id.lista_menus_restaurante);
-            label2.setText(some_list.get(position).getNome());
+            TextView label1=(TextView)row.findViewById(R.id.lista_menus_restaurante);
+            label1.setText(some_list.get(position*2).getNome());
 
-            ImageView icon=(ImageView)row.findViewById(R.id.imageView_menu_refugio);
 
-            //icon.setImageResource(some_list.get(position).getImg());
+
+            ImageView icon=(ImageView)row.findViewById(R.id.imagem_menu_1);
+            imageLoader.DisplayImage("http://menuguru.pt/"+some_list.get(position*2).getUrlImage(), icon);
+
+            ImageView icon2 = (ImageView) row.findViewById(R.id.imagem_menu_2);
+            TextView label2=(TextView)row.findViewById(R.id.lista_menus_restaurante_1);
+            RelativeLayout rel = (RelativeLayout)row.findViewById(R.id.odd_view);
+            ImageView icon3 = (ImageView) row.findViewById(R.id.imagem_tipo1);
+            ImageView icon4 = (ImageView) row.findViewById(R.id.imagem_tipo2);
+
+
+            setiamgeTipo(position*2, icon3);
+
+            if (some_list.size() > (position * 2) +1) {
+
+                imageLoader.DisplayImage("http://menuguru.pt/" + some_list.get((position * 2)+1).getUrlImage(), icon2);
+
+                label2.setText(some_list.get(position*2 + 1).getNome());
+
+
+                setiamgeTipo(position*2 + 1, icon4);
+                rel.setVisibility(View.VISIBLE);
+            }else
+            {
+                //icon2.setVisibility(View.GONE);
+                //label2.setVisibility(View.GONE);
+
+                rel.setVisibility(View.GONE);
+            }
 
             return row;
         }
 
-    }
+        public int getCount() {
 
+            int odd = some_list.size()% 2;
+            int div = some_list.size()/ 2;
+            return div + odd;
+        }
+
+        private void setiamgeTipo(int position, ImageView image)
+        {
+
+            Menu_do_restaurante menu = some_list.get(position);
+
+            if (menu.getTipo().equalsIgnoreCase("menu_especial"))
+                if (menu.getPrecoNovo().length()!= 0 && menu.getPrecoAntigo().length() != 0)
+                {
+                    image.setImageResource(R.drawable.antes_depois);
+                }else if(!menu.getDesconto().equalsIgnoreCase("0"))
+                {
+                    image.setImageResource(R.drawable.desc_fatura);
+                }else
+                {
+                    image.setImageResource(R.drawable.menu_esp);
+                }
+
+        }
+
+    }
 }
