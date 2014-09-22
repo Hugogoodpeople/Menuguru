@@ -625,6 +625,8 @@
                 </string>
                 <string name="com_facebook_loading" >Loading...
                 </string>
+                <string name="teste" >teste
+                </string>
                 <string name="com_facebook_placepicker_subtitle_format" >%1$s • %2$,d were here
                 </string>
                 <string name="com_facebook_loginview_cancel_action" >Cancel

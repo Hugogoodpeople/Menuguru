@@ -3,6 +3,7 @@ package pt.menuguru.menuguru6;
 
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;

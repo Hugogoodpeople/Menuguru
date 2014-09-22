@@ -2,14 +2,15 @@
 
     <!-- Base application theme. -->
     <style name="Theme.MyAppTheme" parent="android:style/Theme.Holo.Light">
-        <item name="android:actionBarStyle">@style/Theme.MyAppTheme.ActionBar</item>
-    </style>
-    <style name="Theme.MyAppTheme.ActionBar" parent="android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">#ffff</item>
-        <item name="android:titleTextStyle">@style/Theme.MyAppTheme.ActionBar.TitleTextStyle</item>
-    </style>
-    <style name="Theme.MyAppTheme.ActionBar.TitleTextStyle" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-        <item name="android:textColor">#000000</item>
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_menuguru</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Menuguru</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Menuguru</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Menuguru</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Menuguru</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Transparent.Menuguru</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_menuguru</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_menuguru</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Menuguru</item>
     </style>
 
 
@@ -53,4 +54,52 @@
     <style name="noAnimTheme" parent="android:Theme">
         <item name="android:windowAnimationStyle">@null</item>
     </style>
+
+
+
+    <style name="ActionBar.Solid.Menuguru" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
+        <item name="android:background">@drawable/ab_solid_menuguru</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_menuguru</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_menuguru</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Menuguru</item>
+    </style>
+
+    <style name="ActionBar.Transparent.Menuguru" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_menuguru</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Menuguru</item>
+    </style>
+
+    <style name="PopupMenu.Menuguru" parent="@android:style/Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_menuguru</item>
+    </style>
+
+    <style name="DropDownListView.Menuguru" parent="@android:style/Widget.Holo.Light.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_menuguru</item>
+    </style>
+
+    <style name="ActionBarTabStyle.Menuguru" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_menuguru</item>
+    </style>
+
+    <style name="DropDownNav.Menuguru" parent="@android:style/Widget.Holo.Light.Spinner">
+        <item name="android:background">@drawable/spinner_background_ab_menuguru</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_menuguru</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_menuguru</item>
+    </style>
+
+    <style name="ProgressBar.Menuguru" parent="@android:style/Widget.Holo.Light.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_menuguru</item>
+    </style>
+
+    <style name="ActionButton.CloseMode.Menuguru" parent="@android:style/Widget.Holo.Light.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_menuguru</item>
+    </style>
+
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Menuguru.Widget" parent="@android:style/Theme.Holo">
+        <item name="android:popupMenuStyle">@style/PopupMenu.Menuguru</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Menuguru</item>
+    </style>
+
+
 </resources>

@@ -2,19 +2,21 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingStart="10dp">
+    android:paddingStart="10dp"
+    android:clickable="false"
+    android:background="@color/silver">
     <EditText
         android:id="@+id/rec_email"
         android:inputType="textEmailAddress"
         android:layout_width="320dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:fontFamily="sans-serif"
         android:hint="Email"
         android:layout_below="@+id/descricao_vazio"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="@drawable/textfields"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp" />
 
@@ -39,7 +41,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
         android:paddingStart="10dp"
         android:paddingLeft="10dp" />
