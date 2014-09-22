@@ -1,5 +1,6 @@
 package pt.menuguru.menuguru6;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -247,7 +248,8 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
+        ActionBar ab = getActivity().getActionBar();
+        ab.setTitle(R.string.definicao);
         some_array = getResources().getStringArray(R.array.defenicoes_array);
         array_headers = getResources().getStringArray(R.array.headersdefenicoes);
 

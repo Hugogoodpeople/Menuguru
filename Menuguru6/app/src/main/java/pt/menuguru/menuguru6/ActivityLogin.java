@@ -1,7 +1,6 @@
 package pt.menuguru.menuguru6;
 
 
-import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -11,26 +10,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.facebook.Request;
-import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
@@ -41,8 +29,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -103,7 +89,7 @@ public class ActivityLogin extends Activity
         LoginB = (Button)findViewById(R.id.bt_login);
         Registo = (Button)findViewById(R.id.registo);
 
-        loginBtn = (LoginButton) findViewById(R.id.fb_login_button);
+        loginBtn = (LoginButton) findViewById(R.id.bt_transfFav);
 
         edit_email   = (EditText)findViewById(R.id.edit_email);
         edit_pass   = (EditText)findViewById(R.id.edit_pass);
@@ -195,6 +181,7 @@ public class ActivityLogin extends Activity
                 }
             }
         });
+        /*
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
                     "pt.menuguru.menuguru6",
@@ -209,7 +196,7 @@ public class ActivityLogin extends Activity
 
         } catch (NoSuchAlgorithmException e) {
 
-        }
+        }*/
 
     }
 
@@ -360,7 +347,7 @@ public class ActivityLogin extends Activity
 
                     String resp = jsonObj.getString("resp");
                     if(resp.equals("email invalido") || resp.equals("ERRO") || resp.equals("Activar conta")){
-                        aux_user = "0";
+                        if(resp.equals("Activar conta")){aux_user="3";}else{ aux_user = "0";}
                         Log.v("resp","objecto = "+ jsonObj.getString("resp"));
                         Log.v("msg","objecto = "+ jsonObj.getString("msg"));
                         Log.v("titulo","objecto = "+ jsonObj.getString("titulo"));
@@ -409,14 +396,14 @@ public class ActivityLogin extends Activity
 
 
     public void asyncComplete(boolean success){
-        if(aux_user.equals("0")){
+        if(aux_user.equals("0")) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
             // set dialog message
             alertDialogBuilder
                     .setMessage(R.string.incorrecto)
                     .setCancelable(false)
-                    .setNegativeButton("OK",new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,int id) {
+                    .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
                         }
                     });
@@ -424,12 +411,22 @@ public class ActivityLogin extends Activity
             AlertDialog alertDialog = alertDialogBuilder.create();
             // show it
             alertDialog.show();
-
-
-
-
+        }else if(aux_user.equals("3")) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage(R.string.conf_email)
+                        .setCancelable(false)
+                        .setNegativeButton("OK",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();
         }else{
-
             // para ir guardar as preferencias de utilizador
             SharedPreferences preferences = this.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
 
@@ -513,7 +510,9 @@ public class ActivityLogin extends Activity
 
                 String resp = jsonObj.getString("resp");
                 if(resp.equals("email invalido") || resp.equals("ERRO") || resp.equals("Activar conta")){
-                    aux_user = "0";
+
+                    if(resp.equals("Activar conta")){aux_user="3";}else{ aux_user = "0";}
+                    Log.v("AUX","objecto = "+ aux_user);
                     Log.v("resp","objecto = "+ jsonObj.getString("resp"));
                     Log.v("msg","objecto = "+ jsonObj.getString("msg"));
                     Log.v("titulo","objecto = "+ jsonObj.getString("titulo"));
@@ -578,7 +577,21 @@ public class ActivityLogin extends Activity
             AlertDialog alertDialog = alertDialogBuilder.create();
             // show it
             alertDialog.show();
-
+        }else if(aux_user.equals("3")) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage(R.string.conf_email)
+                    .setCancelable(false)
+                    .setNegativeButton("OK",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            dialog.cancel();
+                        }
+                    });
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            // show it
+            alertDialog.show();
         }else{
 
             // para ir guardar as preferencias de utilizador

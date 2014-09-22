@@ -148,23 +148,28 @@
                 android:gravity = "center_horizontal"
                 android:layout_below="@id/edit_data_nasc"
                 android:weightSum="1.0">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/imageView" />
+
                 <TextView
                     android:padding="5dp"
-                    android:layout_width="250dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:text="Receber notificações"
                     android:id="@+id/notificacoes_texto"
                     android:layout_gravity="center_horizontal"
                     android:layout_alignParentRight="true"
                     android:textSize="14dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1.07" />
+                    android:layout_marginLeft="10dp" />
                 <Switch
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:textSize="14dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="12dp"
                     android:checked="false"
                     android:id="@+id/not" />
                 </LinearLayout>
@@ -177,17 +182,22 @@
                 android:gravity = "center_horizontal"
                 android:layout_below="@id/notificacoes"
                 android:weightSum="1.0">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/imageView2" />
+
                 <TextView
                     android:padding="5dp"
-                    android:layout_width="149dp"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:text="Receber newsletter"
                     android:id="@+id/newsletter_textp"
                     android:layout_gravity="center_horizontal"
                     android:layout_alignParentRight="true"
                     android:textSize="14dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1.07" />
+                    android:layout_marginLeft="10dp" />
                 <Switch
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -197,24 +207,17 @@
                     android:layout_marginRight="12dp" />
             </LinearLayout>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Transferir favoritos"
-                android:id="@+id/buttonfiltros2"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/shape"
-                android:textColor="#ffff"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/newsletter"
-                />
-
         </RelativeLayout>
     </ScrollView>
+
+    <com.facebook.widget.LoginButton
+        android:id="@+id/bt_transfFav"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/scrollView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="sdfsdfdsf" />
 
 
 </RelativeLayout>
