@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -338,6 +339,7 @@ public class Resultados_filtros_avancados extends Activity
                         rest.longitude = c.getString("lon");
                         rest.mediarating = c.getString("mediarating");
                         rest.precoMedio = c.getString("precomedio");
+                        rest.db_id = c.getString("id");
 
                         JSONArray cozinhas = c.getJSONArray("cozinhas");
 
@@ -385,6 +387,24 @@ public class Resultados_filtros_avancados extends Activity
         mListView.setEmptyView(findViewById(R.id.emty_view));
 
         mAdapter = new MyListAdapter(this, R.layout.row_defenicoes, some_array);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id)
+            {
+                Log.v("clicou no resutaurante","abrir " + some_array[position].getNome());
+                Intent myIntent = new Intent(Resultados_filtros_avancados.this, Restaurante_main.class);
+                myIntent.putExtra("restaurante", some_array[position].getDb_id()); //Optional parameters
+                startActivity(myIntent);
+
+                overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+
+            }
+
+        });
+
         // Assign adapter to ListView
         mListView.setAdapter(mAdapter);
 

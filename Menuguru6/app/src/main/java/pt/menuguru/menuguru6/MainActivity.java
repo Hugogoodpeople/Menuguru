@@ -63,6 +63,8 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Globals.getInstance();
+
         // para ir buscar as preferencias de utilizador
         preferences = this.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
         String lingua = preferences.getString("lingua", "");

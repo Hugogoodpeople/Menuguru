@@ -21,26 +21,56 @@
             android:layout_margin="0dp"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:id="@+id/imageView2"
-                android:src="@drawable/sem_foto"
-                android:scaleType="centerCrop"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginLeft="10dp" />
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/abc_menu_dropdown_panel_holo_light">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text"
-                android:id="@+id/lista_menus_restaurante"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:id="@+id/imagem_menu_1"
+                    android:src="@drawable/sem_foto"
+                    android:scaleType="centerCrop" />
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_below="@+id/imagem_menu_1"
+                    android:layout_alignBottom="@+id/lista_menus_restaurante"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:background="@color/white"
+                    android:id="@+id/frameLayout"></FrameLayout>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Small Text"
+                    android:id="@+id/lista_menus_restaurante"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/imagem_menu_1"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp" />
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:id="@+id/imagem_tipo1"
+                    android:layout_above="@+id/frameLayout"
+                    android:layout_alignRight="@+id/imagem_menu_1"
+                    android:layout_alignEnd="@+id/imagem_menu_1"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp" />
+
+            </RelativeLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -48,28 +78,62 @@
             android:layout_height="wrap_content"
             android:layout_weight="50"
             android:layout_margin="0dp"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:id="@+id/imageView3"
-                android:src="@drawable/sem_foto"
-                android:scaleType="centerCrop"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="5dp" />
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/abc_menu_dropdown_panel_holo_light"
+                android:clickable="false"
+                android:id="@+id/odd_view">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text"
-                android:id="@+id/lista_menus_restaurante_1"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:id="@+id/imagem_menu_2"
+                    android:src="@drawable/sem_foto"
+                    android:scaleType="centerCrop"
+                    android:layout_marginLeft="0dp"
+                    android:layout_gravity="left|top"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp" />
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_below="@+id/imagem_menu_2"
+                    android:layout_alignBottom="@+id/lista_menus_restaurante_1"
+                    android:background="@color/white"
+                    android:id="@+id/frameLayout2"></FrameLayout>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Small Text"
+                    android:id="@+id/lista_menus_restaurante_1"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/imagem_menu_2"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp" />
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:id="@+id/imagem_tipo2"
+                    android:layout_above="@+id/frameLayout2"
+                    android:layout_alignRight="@+id/imagem_menu_2"
+                    android:layout_alignEnd="@+id/imagem_menu_2"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp" />
+
+            </RelativeLayout>
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

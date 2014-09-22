@@ -271,7 +271,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
             {
                 Log.v("clicou no resutaurante","abrir " + some_array[position].getNome());
                 Intent myIntent = new Intent(getActivity(), Restaurante_main.class);
-                //myIntent.putExtra("local", value); //Optional parameters
+                myIntent.putExtra("restaurante", some_array[position].getDb_id()); //Optional parameters
                 getActivity().startActivity(myIntent);
 
                 getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
@@ -294,7 +294,8 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
     }
 
 
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
@@ -448,7 +449,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
                 // try parse the string to a JSON object
                 try {
-                    Log.v("Ver Json ","Ele retorna isto"+jsonString);
+                    Log.v("Ver Json ","Retorno inicio"+jsonString);
                     jsonObj = new JSONObject(jsonString);
                 } catch (JSONException e) {
                     Log.e(TAG, "Error parsing data " + e.toString());
@@ -511,6 +512,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                         rest.longitude = c.getString("lon");
                         rest.mediarating = c.getString("mediarating");
                         rest.precoMedio = c.getString("precomedio");
+                        rest.db_id = c.getString("id");
 
                         JSONArray cozinhas = c.getJSONArray("cozinhas");
 

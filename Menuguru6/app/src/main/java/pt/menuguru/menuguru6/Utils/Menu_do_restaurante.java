@@ -32,7 +32,6 @@ public class Menu_do_restaurante {
         this.db_id = db_id;
     }
 
-
     public String getUrlImage() {
         return urlImage;
     }

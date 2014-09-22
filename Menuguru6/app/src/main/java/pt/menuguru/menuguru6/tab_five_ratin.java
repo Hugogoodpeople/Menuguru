@@ -1,10 +1,13 @@
 package pt.menuguru.menuguru6;
 
+import android.app.ActionBar;
 import android.app.Activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,7 +19,6 @@ public class tab_five_ratin extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().getActionBar().hide();
     }
 
     @Override
@@ -26,10 +28,6 @@ public class tab_five_ratin extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.tab_todas_estrelas, container, false);
 
-
-
-
-
         return rootView;
     }
 
@@ -37,7 +35,10 @@ public class tab_five_ratin extends Fragment {
         tab_five_ratin fragment = new tab_five_ratin();
         Bundle args = new Bundle();
         fragment.setArguments(args);
+
         return fragment;
     }
+
+
 
 }
