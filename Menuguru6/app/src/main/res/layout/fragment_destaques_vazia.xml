@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Oops!"
-        android:id="@+id/textView2"
+        android:id="@+id/text_preco_ant"
         android:textSize="23dp"
         android:layout_marginTop="67dp"
         android:layout_below="@+id/bt_close_fest"

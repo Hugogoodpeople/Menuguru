@@ -94,7 +94,7 @@ public class ActivityLogin extends Activity
         edit_email   = (EditText)findViewById(R.id.edit_email);
         edit_pass   = (EditText)findViewById(R.id.edit_pass);
 
-        recuperar_pass = (TextView)findViewById(R.id.textView4);
+        recuperar_pass = (TextView)findViewById(R.id.text_oferta);
 
         recuperar_pass.setOnClickListener(new View.OnClickListener() {
 

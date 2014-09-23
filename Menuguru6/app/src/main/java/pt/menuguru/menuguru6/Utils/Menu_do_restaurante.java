@@ -15,6 +15,11 @@ public class Menu_do_restaurante {
     public String precoNovo;
     public String desconto;
     public String especialFita;
+    public String id_rest;
+
+    public String getId_rest() {   return id_rest; }
+
+    public void setId_rest(String id_rest) {  this.id_rest = id_rest;  }
 
     public String getNome() {
         return nome;
