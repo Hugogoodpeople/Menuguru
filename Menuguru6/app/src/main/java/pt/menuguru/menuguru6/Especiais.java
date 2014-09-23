@@ -186,6 +186,15 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
                 //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
                 myIntent.putExtra("rest_cartao_id", ""+some_array[position].getDb_id());
                 myIntent.putExtra("rest_id", ""+some_array[position].getId_rest());
+                myIntent.putExtra("restaurante", ""+some_array[position].getId_rest());
+                myIntent.putExtra("urlfoto", ""+some_array[position].getImagem_rest());
+                myIntent.putExtra("nome_rest", ""+some_array[position].getNome_rest());
+                myIntent.putExtra("lat", ""+some_array[position].getLat());
+                myIntent.putExtra("lon", ""+some_array[position].getLng());
+                myIntent.putExtra("morada", ""+some_array[position].getMorada());
+                //myIntent.putExtra("rating", ""+some_array[position].getId_rest());
+                //myIntent.putExtra("votacoes", ""+some_array[position].getId_rest());
+
 
                 getActivity().startActivity(myIntent);
 
@@ -283,11 +292,14 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
                     menu.setEspecialFita(c.getString("especial_um_fita"));
                     menu.setId_rest(c.getString("id_rest"));
                     menu.urlImage = c.getString("imagem");
-
+                    menu.setLat(c.getString("lat"));
+                    menu.setLng(c.getString("lon"));
+                    menu.setNome_rest(c.getString("nome_rest"));
+                    menu.setImagem_rest(c.getString("imagem_rest"));
+                    menu.setMorada(c.getString("adress"));
 
                     Restaurante rest = new Restaurante();
                     rest.setNome(c.getString("nome_rest"));
-
                     menu.setRestaurante(rest);
 
                     some_array[i] = menu;
