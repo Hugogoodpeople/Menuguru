@@ -63,13 +63,13 @@ public class MenuEspecial extends Activity {
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.header_menuespecial);
+        setContentView(R.layout.activity_menu_especial);
         Intent intent = getIntent();
         rest_id = getIntent().getExtras().getString("rest_id");
         rest_cartao_id = getIntent().getExtras().getString("rest_cartao_id");
 
 
-        Button bt_reserva = (Button)findViewById(R.id.bt_reservar);
+        //Button bt_reserva = (Button)findViewById(R.id.bt_reservar);
 /*
         edit_dias = (EditText)findViewById(R.id.text_dias);
         edit_hrs = (EditText)findViewById(R.id.text_preco);
@@ -346,9 +346,11 @@ public class MenuEspecial extends Activity {
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        ViewGroup header2 = (ViewGroup) inflater.inflate(R.layout.footer_menuespcial, mListView, false);
+        ViewGroup footer = (ViewGroup) inflater.inflate(R.layout.footer_menuespcial, mListView, false);
+        ViewGroup header = (ViewGroup) inflater.inflate(R.layout.header_menuespecial, mListView, false);
 
-        mListView.addFooterView(header2, null, false);
+        mListView.addFooterView(footer, null, false);
+        mListView.addHeaderView(header, null, false);
         // Assign adapter to ListView
         mListView.setAdapter(mAdapter);
 

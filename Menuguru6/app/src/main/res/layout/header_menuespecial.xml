@@ -102,13 +102,6 @@
         android:layout_alignRight="@+id/text_preco_ant"
         android:layout_alignEnd="@+id/text_preco_ant" />
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/list_esp"
-        android:layout_below="@+id/imageView"
-        android:layout_above="@+id/bt_reservar" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -147,19 +140,5 @@
         android:layout_toLeftOf="@+id/textView2"
         android:layout_toStartOf="@+id/textView2"
         android:layout_marginRight="13dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reservar"
-        android:id="@+id/bt_reservar"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="@color/dourado"
-        android:textColor="@color/white"
-        android:alpha="0.80" />
 
 </RelativeLayout>

@@ -57,4 +57,9 @@
         android:background="@color/silver"
         android:id="@+id/linearLayout" />
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"></LinearLayout>
+
 </LinearLayout>
