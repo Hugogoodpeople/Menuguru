@@ -4,6 +4,7 @@ package pt.menuguru.menuguru6;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -78,6 +79,7 @@ public class TabsAdapterHugo extends FragmentPagerAdapter implements TabHost.OnT
         TabInfo info = new TabInfo(tag, clss, args);
         mTabs.add(info);
         mTabHost.addTab(tabSpec);
+
         notifyDataSetChanged();
 
     }
@@ -101,6 +103,7 @@ public class TabsAdapterHugo extends FragmentPagerAdapter implements TabHost.OnT
     {
         int position = mTabHost.getCurrentTab();
         mViewPager.setCurrentItem(position);
+
     }
 
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
@@ -124,6 +127,7 @@ public class TabsAdapterHugo extends FragmentPagerAdapter implements TabHost.OnT
 
     public void onPageScrollStateChanged(int state)
     {
+
         //mViewPager.setAdapter( this );
 
     }

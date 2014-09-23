@@ -174,7 +174,6 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="ok">Ok</string>
     <string name="sim">Sim</string>
     <string name="nao">Não</string>
-
     <string name="idioma">Idioma</string>
     <string name="nao_encontramos">Não encontramos nenhum destaque.</string>
     <string name="title_activity_resultado_festivais">Resultado_festivais</string>
@@ -184,7 +183,6 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
         <item>Obter direcções</item>
         <item>Cancelar</item>
     </string-array>
-
     <string-array name="cancelar_reserva">
         <item>Cancelar Reserva</item>
         <item>Obter direcções</item>
@@ -193,4 +191,6 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
 
     <string name="tranf_favoritos">Deseja transferir os favoritos de uma conta do Facebook para a sua conta Menu Guru?</string>
     <string name="fav_tranf">Favoritos adicionados</string>
+    <string name="title_activity_menu_especial">MenuEspecial</string>
+    <string name="oferta_exp">OFERTA EXPIRA</string>
 </resources>
