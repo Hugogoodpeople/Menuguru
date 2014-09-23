@@ -81,19 +81,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-<<<<<<< HEAD
+
             android:name=".Restaurante.Restaurante_main"
-=======
-<<<<<<< HEAD
-            android:name="pt.menuguru.menuguru6.Restaurante_main"
+
             android:screenOrientation="portrait"
             android:label="Restaurante">
-=======
-            android:name=".Restaurante_main"
->>>>>>> FETCH_HEAD
-            android:label="Restaurante"
-            android:screenOrientation="portrait" >
->>>>>>> FETCH_HEAD
+
         </activity>
         <activity
             android:name="pt.menuguru.menuguru6.ComoFunciona"

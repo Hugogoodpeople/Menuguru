@@ -2,7 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="Theme.MyAppTheme" parent="android:style/Theme.Holo.Light">
-<<<<<<< HEAD
+
         <item name="android:actionBarItemBackground">@drawable/selectable_background_menuguru</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.Menuguru</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Menuguru</item>
@@ -12,8 +12,8 @@
         <item name="android:actionModeBackground">@drawable/cab_background_top_menuguru</item>
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_menuguru</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Menuguru</item>
-=======
-        <item name="android:actionBarStyle">@style/Theme.MyAppTheme.ActionBar</item>
+
+
 
     </style>
     <style name="Theme.MyAppTheme.ActionBar" parent="android:style/Widget.Holo.Light.ActionBar">
@@ -23,7 +23,7 @@
     </style>
     <style name="Theme.MyAppTheme.ActionBar.TitleTextStyle" parent="android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">#000000</item>
->>>>>>> FETCH_HEAD
+
     </style>
 
 
