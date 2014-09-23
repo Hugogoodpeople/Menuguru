@@ -76,6 +76,7 @@ public class Restaurante_main extends FragmentActivity {
     private String mediarating;
     private String votacoes;
 
+    private String[] listEstrelas;
 
 
     @Override
@@ -162,7 +163,14 @@ public class Restaurante_main extends FragmentActivity {
         Fragment fragmentMedia = new tab_rating().create(mediarating, votacoes);
 
         fragments.add(fragmentMedia);
-        fragments.add(Fragment.instantiate(this, tab_five_ratin.class.getName()));
+
+        // agora tenho de fazer as alterções para receber um array com 5 posiçoes para o rating
+
+
+
+        Fragment fragmentAllStars = new tab_five_ratin().create(listEstrelas, votacoes);
+
+        fragments.add(fragmentAllStars);
 
         mPager = (ViewPager) findViewById(R.id.pager_restaurante);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragments);
@@ -502,6 +510,13 @@ public class Restaurante_main extends FragmentActivity {
 
                 votacoes = outro.getString("contagem");
                 mediarating = outro.getString("media");
+
+                listEstrelas = new String[5];
+                listEstrelas[0] = outro.getString("umaestrela");
+                listEstrelas[1] = outro.getString("duasestrela");
+                listEstrelas[2] = outro.getString("tresestrela");
+                listEstrelas[3] = outro.getString("quatroestrela");
+                listEstrelas[4] = outro.getString("cincoestrela");
 
 
                 Log.v("werqwe", "numero de votações " + votacoes);
