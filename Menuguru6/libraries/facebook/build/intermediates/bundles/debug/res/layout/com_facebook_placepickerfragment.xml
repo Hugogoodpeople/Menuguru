@@ -45,4 +45,8 @@
                  android:visibility="invisible"
             />
 </RelativeLayout>
+<<<<<<< HEAD
 <!-- From: file:/Users/user/Desktop/Menuguru_VitorHugo/Menuguru6/libraries/facebook/res/layout/com_facebook_placepickerfragment.xml -->
+=======
+<!-- From: file:/Users/hugocosta/Documents/Menuguru%20VitorHugoCardinaly/Menuguru6/libraries/facebook/res/layout/com_facebook_placepickerfragment.xml -->
+>>>>>>> FETCH_HEAD

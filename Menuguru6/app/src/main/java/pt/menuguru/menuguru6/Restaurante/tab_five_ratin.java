@@ -2,9 +2,13 @@ package pt.menuguru.menuguru6.Restaurante;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+
+import java.util.ArrayList;
 
 import pt.menuguru.menuguru6.R;
 
@@ -12,6 +16,9 @@ import pt.menuguru.menuguru6.R;
  * Created by hugocosta on 18/09/14.
  */
 public class tab_five_ratin extends Fragment {
+
+    private String[] lista;
+    private String contagem;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,12 +32,32 @@ public class tab_five_ratin extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater
                 .inflate(R.layout.tab_todas_estrelas, container, false);
 
+        lista = getArguments().getStringArray("array_estrelas");
+        contagem = getArguments().getString("contagem");
+
+
+        Log.v("cenas", "resultodo do conteudo do array " + lista);
+
+        ProgressBar progressBar1 =(ProgressBar) rootView.findViewById(R.id.progressBar1);
+        ProgressBar progressBar2 =(ProgressBar) rootView.findViewById(R.id.progressBar2);
+        ProgressBar progressBar3 =(ProgressBar) rootView.findViewById(R.id.progressBar3);
+        ProgressBar progressBar4 =(ProgressBar) rootView.findViewById(R.id.progressBar4);
+        ProgressBar progressBar5 =(ProgressBar) rootView.findViewById(R.id.progressBar5);
+
+        progressBar1.setProgress((int)(Float.parseFloat(lista[4]) / Float.parseFloat(contagem) * 100));
+        progressBar2.setProgress((int)(Float.parseFloat(lista[3]) / Float.parseFloat(contagem) * 100));
+        progressBar3.setProgress((int)(Float.parseFloat(lista[2]) / Float.parseFloat(contagem) * 100));
+        progressBar4.setProgress((int)(Float.parseFloat(lista[1]) / Float.parseFloat(contagem) * 100));
+        progressBar5.setProgress((int)(Float.parseFloat(lista[0]) / Float.parseFloat(contagem) * 100));
+
         return rootView;
     }
 
-    public static tab_five_ratin create() {
+    public static tab_five_ratin create(String[] listEstrelas, String votacoes) {
         tab_five_ratin fragment = new tab_five_ratin();
         Bundle args = new Bundle();
+        args.putStringArray("array_estrelas",listEstrelas);
+        args.putString("contagem", votacoes);
         fragment.setArguments(args);
 
         return fragment;

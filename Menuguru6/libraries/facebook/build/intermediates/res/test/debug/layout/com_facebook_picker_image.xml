@@ -22,4 +22,8 @@
     android:layout_height="50dip"
     android:layout_gravity="center_vertical"
     android:src="@drawable/com_facebook_profile_default_icon" />
+<<<<<<< HEAD
 <!-- From: file:/Users/user/Desktop/Menuguru_VitorHugo/Menuguru6/libraries/facebook/res/layout/com_facebook_picker_image.xml --><!-- From: file:/Users/user/Desktop/Menuguru_VitorHugo/Menuguru6/libraries/facebook/build/intermediates/bundles/debug/res/layout/com_facebook_picker_image.xml -->
+=======
+<!-- From: file:/Users/hugocosta/Documents/Menuguru%20VitorHugoCardinaly/Menuguru6/libraries/facebook/res/layout/com_facebook_picker_image.xml --><!-- From: file:/Users/hugocosta/Documents/Menuguru%20VitorHugoCardinaly/Menuguru6/libraries/facebook/build/intermediates/bundles/debug/res/layout/com_facebook_picker_image.xml -->
+>>>>>>> FETCH_HEAD

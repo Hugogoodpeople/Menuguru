@@ -25,4 +25,8 @@
     <item
             android:drawable="@drawable/com_facebook_top_background" />
 </selector>
+<<<<<<< HEAD
 <!-- From: file:/Users/user/Desktop/Menuguru_VitorHugo/Menuguru6/libraries/facebook/res/drawable/com_facebook_top_button.xml -->
+=======
+<!-- From: file:/Users/hugocosta/Documents/Menuguru%20VitorHugoCardinaly/Menuguru6/libraries/facebook/res/drawable/com_facebook_top_button.xml -->
+>>>>>>> FETCH_HEAD

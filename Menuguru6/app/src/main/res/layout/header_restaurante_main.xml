@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="55dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Exemplo exemplo Exemplo exemplo Exemplo exemplo Exemplo exemplo"
+        android:text="Exemplo de morada do restaurante"
 
         android:id="@+id/morada_rest"
         android:layout_below="@+id/galeria_imagens"
@@ -54,12 +54,9 @@
         android:id="@+id/distancia_restaurante_header"
         android:gravity="center"
 
-        android:layout_below="@+id/galeria_imagens"
-        android:layout_alignRight="@+id/textView4"
-        android:layout_alignEnd="@+id/textView4"
-
-        android:layout_marginTop="-25dp"
-        android:layout_marginRight="-5dp" />
+        android:layout_alignTop="@+id/imageView"
+        android:layout_toRightOf="@+id/morada_rest"
+        android:layout_toEndOf="@+id/morada_rest" />
 
     <TableLayout
         android:layout_width="fill_parent"
@@ -131,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/avaliar"
-                android:id="@+id/text_dias"
+                android:id="@+id/text_rating_desc"
                 android:gravity="center" />
 
             <TextView

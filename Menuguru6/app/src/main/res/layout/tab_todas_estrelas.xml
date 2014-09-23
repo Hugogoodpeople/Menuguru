@@ -22,32 +22,37 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="258dp"
             android:layout_height="wrap_content"
-            android:id="@+id/progressBar"
-            android:layout_marginTop="10dp" />
+            android:id="@+id/progressBar1"
+            android:layout_marginTop="10dp"
+            android:max="100" />
 
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="258dp"
             android:layout_height="wrap_content"
-            android:id="@+id/progressBar2" />
+            android:id="@+id/progressBar2"
+            android:max="100" />
 
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="258dp"
             android:layout_height="wrap_content"
-            android:id="@+id/progressBar3" />
+            android:id="@+id/progressBar3"
+            android:max="100" />
 
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="258dp"
             android:layout_height="wrap_content"
-            android:id="@+id/progressBar4" />
+            android:id="@+id/progressBar4"
+            android:max="100" />
 
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="258dp"
             android:layout_height="wrap_content"
-            android:id="@+id/progressBar5" />
+            android:id="@+id/progressBar5"
+            android:max="100" />
 
     </LinearLayout>
 </LinearLayout>

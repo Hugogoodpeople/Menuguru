@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Vector;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
+import pt.menuguru.menuguru6.MenuEspecial;
 import pt.menuguru.menuguru6.R;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
@@ -75,6 +76,7 @@ public class Restaurante_main extends FragmentActivity {
     private String mediarating;
     private String votacoes;
 
+    private String[] listEstrelas;
 
 
     @Override
@@ -91,8 +93,6 @@ public class Restaurante_main extends FragmentActivity {
         latitude = intent.getStringExtra("lat");
         longitude = intent.getStringExtra("lon");
         morada = intent.getStringExtra("morada");
-        mediarating = intent.getStringExtra("rating");
-        votacoes = intent.getStringExtra("votacoes");
 
 
         actionBar.setTitle(intent.getStringExtra("nome_rest"));
@@ -101,9 +101,9 @@ public class Restaurante_main extends FragmentActivity {
 
 
 
+        new AsyncTaskParseJsonEstrelas(this).execute();
 
 
-        new AsyncTaskParseJson1(this).execute();
 
     }
 
@@ -157,8 +157,20 @@ public class Restaurante_main extends FragmentActivity {
     public void initialisePagin()
     {
         List<Fragment> fragments = new Vector<Fragment>();
-        fragments.add(Fragment.instantiate(this, tab_rating.class.getName()));
-        fragments.add(Fragment.instantiate(this, tab_five_ratin.class.getName()));
+
+        // tenho de fazer alterações para poder atribuir o numero de estrelas
+
+        Fragment fragmentMedia = new tab_rating().create(mediarating, votacoes);
+
+        fragments.add(fragmentMedia);
+
+        // agora tenho de fazer as alterções para receber um array com 5 posiçoes para o rating
+
+
+
+        Fragment fragmentAllStars = new tab_five_ratin().create(listEstrelas, votacoes);
+
+        fragments.add(fragmentAllStars);
 
         mPager = (ViewPager) findViewById(R.id.pager_restaurante);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragments);
@@ -275,7 +287,7 @@ public class Restaurante_main extends FragmentActivity {
 
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
 
-                Log.v("jfgrhng","resultado da procura = "+ jsonString);
+                //Log.v("jfgrhng","resultado da procura = "+ jsonString);
 
 
                 // try parse the string to a JSON object
@@ -300,6 +312,9 @@ public class Restaurante_main extends FragmentActivity {
                     menu.setNome(c.getString("nome"));
                     menu.setUrlImage(c.getString("imagem"));
                     menu.setTipo(c.getString("tipo"));
+                    menu.setDb_id(c.getString("pai_id"));
+                    menu.setId_rest(rest_id);
+
 
                     if (menu.getTipo().equalsIgnoreCase("menu_especial"))
                     {
@@ -320,7 +335,11 @@ public class Restaurante_main extends FragmentActivity {
         }
 
         @Override
-        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncCompleteMenus(true);  }
+        protected void onPostExecute(String strFromDoInBg)
+        {
+            progressDialog.dismiss();
+            delegate.asyncCompleteMenus(true);
+        }
 
     }
 
@@ -410,9 +429,119 @@ public class Restaurante_main extends FragmentActivity {
         }
 
         @Override
-        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncCompleteFotos(true);  }
+        protected void onPostExecute(String strFromDoInBg)
+        {
+           // progressDialog.dismiss();
+            delegate.asyncCompleteFotos(true);
+        }
 
     }
+
+
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonEstrelas extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_listar_rating.php";
+
+
+        JSONObject dataJason = null;
+
+        private Restaurante_main delegate;
+
+        public AsyncTaskParseJsonEstrelas (Restaurante_main delegate){
+            this.delegate = delegate;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // não preciso desta parte porque ja tenho outro loading a correr
+            /*
+            progressDialog = new ProgressDialog(Restaurante_main.this);
+            progressDialog.setCancelable(true);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+            */
+        }
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+                dict.put("lang",Globals.getInstance().getLingua());
+
+                dict.put("id_rest",rest_id);
+
+                // tenho de enviar lat, long, data, hora, cidade, lang
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                Log.v("jfgrhng","resultado das estrelas = "+ jsonString);
+
+
+                // try parse the string to a JSON object
+                try {
+                    Log.v("Ver Json ","Ele retorna para as estrelas"+jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                // get the array of users
+
+                String completo = jsonObj.getString("res");
+                JSONObject outro =new JSONObject(completo);
+
+
+                // loop through all users
+
+
+                votacoes = outro.getString("contagem");
+                mediarating = outro.getString("media");
+
+                listEstrelas = new String[5];
+                listEstrelas[0] = outro.getString("umaestrela");
+                listEstrelas[1] = outro.getString("duasestrela");
+                listEstrelas[2] = outro.getString("tresestrela");
+                listEstrelas[3] = outro.getString("quatroestrela");
+                listEstrelas[4] = outro.getString("cincoestrela");
+
+
+                Log.v("werqwe", "numero de votações " + votacoes);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg)
+        {
+            //progressDialog.dismiss();
+            delegate.asyncCompleteEstrelas(true);
+        }
+
+    }
+
+    public void asyncCompleteEstrelas(boolean success)
+    {
+        new AsyncTaskParseJson1(this).execute();
+    }
+
 
     public void asyncCompleteFotos(boolean success)
     {
@@ -490,6 +619,7 @@ public class Restaurante_main extends FragmentActivity {
         initialisePagin();
         new AsyncTaskParseJsonGaleria(this).execute();
 
+
         mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -544,8 +674,23 @@ public class Restaurante_main extends FragmentActivity {
             ImageView icon3 = (ImageView) row.findViewById(R.id.imagem_tipo1);
             ImageView icon4 = (ImageView) row.findViewById(R.id.imagem_tipo2);
 
+            // tenho de criar o listener para quando clica na imagem abrir o especial
+            icon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent myIntent = new Intent(Restaurante_main.this, MenuEspecial.class);
+                    //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
+                    myIntent.putExtra("rest_cartao_id", "" + some_list.get(position*2).getDb_id());
+                    myIntent.putExtra("rest_id", ""+some_list.get(position*2).getId_rest());
 
-            setiamgeTipo(position*2, icon3);
+                    startActivity(myIntent);
+
+                    overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+                }
+            });
+
+
+            setiamgeTipo(position * 2, icon3);
 
             if (some_list.size() > (position * 2) +1) {
 
@@ -556,6 +701,22 @@ public class Restaurante_main extends FragmentActivity {
 
                 setiamgeTipo(position*2 + 1, icon4);
                 rel.setVisibility(View.VISIBLE);
+
+                icon2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent myIntent = new Intent(Restaurante_main.this, MenuEspecial.class);
+                        //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
+                        myIntent.putExtra("rest_cartao_id", "" + some_list.get(position*2 +1).getDb_id());
+                        myIntent.putExtra("rest_id", ""+some_list.get(position*2 +1).getId_rest());
+
+                        startActivity(myIntent);
+
+                        overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+                    }
+                });
+
+
             }else
             {
                 //icon2.setVisibility(View.GONE);

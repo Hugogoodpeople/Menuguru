@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+<<<<<<< HEAD
     <!-- From: file:/Users/user/Desktop/Menuguru_VitorHugo/Menuguru6/libraries/facebook/build/intermediates/bundles/debug/res/values-de/values.xml -->
+=======
+    <!-- From: file:/Users/hugocosta/Documents/Menuguru%20VitorHugoCardinaly/Menuguru6/libraries/facebook/build/intermediates/bundles/debug/res/values-de/values.xml -->
+>>>>>>> FETCH_HEAD
     <eat-comment />
 
     <string name="com_facebook_choose_friends">Choose Friends</string>

@@ -46,4 +46,8 @@
             android:layout_height="23dip"
             android:layout_marginRight="10dip"/>
 </LinearLayout>
+<<<<<<< HEAD
 <!-- From: file:/Users/user/Desktop/Menuguru_VitorHugo/Menuguru6/libraries/facebook/res/layout/com_facebook_picker_list_row.xml --><!-- From: file:/Users/user/Desktop/Menuguru_VitorHugo/Menuguru6/libraries/facebook/build/intermediates/bundles/debug/res/layout/com_facebook_picker_list_row.xml -->
+=======
+<!-- From: file:/Users/hugocosta/Documents/Menuguru%20VitorHugoCardinaly/Menuguru6/libraries/facebook/res/layout/com_facebook_picker_list_row.xml --><!-- From: file:/Users/hugocosta/Documents/Menuguru%20VitorHugoCardinaly/Menuguru6/libraries/facebook/build/intermediates/bundles/debug/res/layout/com_facebook_picker_list_row.xml -->
+>>>>>>> FETCH_HEAD

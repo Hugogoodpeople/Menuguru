@@ -2,6 +2,14 @@
 <resources>
 
     <string name="app_name">Menuguru</string>
+
+
+    <string name="horrivel" translatable="false">Horrível</string>
+    <string name="mau" translatable="false">Mau</string>
+    <string name="bom" translatable="false">Bom</string>
+    <string name="muito_bom" translatable="false">Muito bom</string>
+    <string name="excelente" translatable="false">Excelente</string>
+
     <string name="inicio" translatable="false">Inicio</string>
     <string name="votacoes" translatable="false">Avaliaçoes</string>
     <string name="reservas" translatable="false">Reservas</string>
