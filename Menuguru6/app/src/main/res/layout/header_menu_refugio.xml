@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="80dp"
         android:layout_height="32dp"
-        android:id="@+id/imagem_menu_1"
+        android:id="@+id/galeria_imagens"
         android:layout_weight="0.89"
         android:layout_marginTop="40dp"
         android:src="@drawable/logo_menuguru"

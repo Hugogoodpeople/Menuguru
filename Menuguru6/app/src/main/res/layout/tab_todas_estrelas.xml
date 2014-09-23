@@ -8,7 +8,7 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
 
-        android:id="@+id/lista_menus_restaurante"
+        android:id="@+id/morada_rest"
 
         android:layout_margin="10dp"
         android:background="@drawable/all_stars" />

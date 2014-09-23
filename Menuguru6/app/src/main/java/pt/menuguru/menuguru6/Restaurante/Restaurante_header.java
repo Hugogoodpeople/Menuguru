@@ -1,10 +1,6 @@
-package pt.menuguru.menuguru6;
+package pt.menuguru.menuguru6.Restaurante;
 
 import android.app.ActionBar;
-import android.app.Activity;
-import android.app.LocalActivityManager;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,18 +8,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.GestureDetector;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TabHost;
-import android.widget.TextView;
 
+import pt.menuguru.menuguru6.R;
+import pt.menuguru.menuguru6.Restaurante.tab_five_ratin;
+import pt.menuguru.menuguru6.Restaurante.tab_rating;
 import pt.menuguru.menuguru6.Utils.Globals;
-import pt.menuguru.menuguru6.Utils.Restaurante;
 
 /**
  * Created by hugocosta on 18/09/14.

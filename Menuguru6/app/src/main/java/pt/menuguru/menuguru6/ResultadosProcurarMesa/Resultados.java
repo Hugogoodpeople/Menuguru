@@ -17,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -29,6 +30,7 @@ import org.json.JSONObject;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.R;
+import pt.menuguru.menuguru6.Restaurante.Restaurante_main;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Restaurante;
@@ -42,6 +44,8 @@ public class Resultados extends Activity
     String data;
     String hora;
     String pessoas;
+
+
 
     Restaurante[] some_array = null;
     /**
@@ -66,6 +70,10 @@ public class Resultados extends Activity
         data = intent.getStringExtra("data");
         hora = intent.getStringExtra("hora");
         pessoas = intent.getStringExtra("pessoas");
+
+
+
+
 
 
         //setTitle(value);
@@ -114,6 +122,31 @@ public class Resultados extends Activity
         mAdapter = new MyListAdapter(this, R.layout.row_defenicoes, some_array);
         // Assign adapter to ListView
         mListView.setAdapter(mAdapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id)
+            {
+                Log.v("clicou no resutaurante","abrir " + some_array[position].getNome());
+                Intent myIntent = new Intent(Resultados.this, Restaurante_main.class);
+                myIntent.putExtra("restaurante", some_array[position].getDb_id()); //Optional parameters
+                myIntent.putExtra("urlfoto", some_array[position].getUrlImagem());
+                myIntent.putExtra("nome_rest",some_array[position].getNome());
+                myIntent.putExtra("lat",some_array[position].getLatitude());
+                myIntent.putExtra("lon",some_array[position].getLongitude());
+                myIntent.putExtra("morada",some_array[position].getMorada());
+
+                startActivity(myIntent);
+
+                overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+
+            }
+
+        });
 
 
     }
@@ -214,7 +247,7 @@ public class Resultados extends Activity
                     //rest.cidade = c.getString("cidade");
                     rest.urlImagem = c.getString("imagem");
                     rest.votacoes = c.getString("votacoes");
-                    //rest.morada = c.getString("morada");
+                    rest.morada = c.getString("morada");
                     //rest.precoMedio = c.getString("precomedio");
 
                     rest.tipo = c.getString("tipo");

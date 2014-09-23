@@ -9,8 +9,9 @@
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/lista_menus_restaurante"
+        android:id="@+id/morada_rest"
         tools:listitem="@layout/grid_menu"
         android:divider="@null"
-        android:dividerHeight="0dp"/>
+        android:dividerHeight="0dp"
+        tools:listheader="@layout/header_restaurante_main" />
 </LinearLayout>

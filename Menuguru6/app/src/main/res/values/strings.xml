@@ -3,6 +3,7 @@
 
     <string name="app_name">Menuguru</string>
     <string name="inicio" translatable="false">Inicio</string>
+    <string name="votacoes" translatable="false">Avaliaçoes</string>
     <string name="reservas" translatable="false">Reservas</string>
     <string name="definicao" translatable="false">Definições</string>
     <string name="destaque" translatable="false">Destaque</string>

@@ -59,7 +59,7 @@ public class ComoFunciona2 extends Fragment {
 
 
         como = Globals.getInstance().getCfunc();
-        new DownloadImageTask((ImageView) rootView.findViewById(R.id.imagem_menu_1)).execute("http://menuguru.pt/" + como[mPageNumber].getImg1());
+        new DownloadImageTask((ImageView) rootView.findViewById(R.id.galeria_imagens)).execute("http://menuguru.pt/" + como[mPageNumber].getImg1());
         new DownloadImageTask((ImageView) rootView.findViewById(R.id.imageView3)).execute("http://menuguru.pt/"+ como[mPageNumber].getImg2());
 
 

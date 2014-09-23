@@ -29,15 +29,15 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="150dp"
-                    android:id="@+id/imagem_menu_1"
+                    android:id="@+id/galeria_imagens"
                     android:src="@drawable/sem_foto"
                     android:scaleType="centerCrop" />
 
                 <FrameLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_below="@+id/imagem_menu_1"
-                    android:layout_alignBottom="@+id/lista_menus_restaurante"
+                    android:layout_below="@+id/galeria_imagens"
+                    android:layout_alignBottom="@+id/morada_rest"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentLeft="true"
@@ -50,10 +50,10 @@
                     android:layout_height="40dp"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Small Text"
-                    android:id="@+id/lista_menus_restaurante"
+                    android:id="@+id/morada_rest"
                     android:gravity="center_vertical"
                     android:textStyle="bold"
-                    android:layout_below="@+id/imagem_menu_1"
+                    android:layout_below="@+id/galeria_imagens"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginLeft="10dp"
@@ -64,8 +64,8 @@
                     android:layout_height="35dp"
                     android:id="@+id/imagem_tipo1"
                     android:layout_above="@+id/frameLayout"
-                    android:layout_alignRight="@+id/imagem_menu_1"
-                    android:layout_alignEnd="@+id/imagem_menu_1"
+                    android:layout_alignRight="@+id/galeria_imagens"
+                    android:layout_alignEnd="@+id/galeria_imagens"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="5dp" />
 

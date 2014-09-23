@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/ordenar"
-                android:id="@+id/textView3"
+                android:id="@+id/textView_avaliacoes"
                 android:layout_above="@+id/bt_transfFav"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/white"

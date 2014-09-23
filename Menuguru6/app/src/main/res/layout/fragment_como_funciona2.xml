@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/imagem_menu_1"
+        android:id="@+id/galeria_imagens"
         android:scaleType="centerCrop"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"

@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,6 +39,7 @@ import java.util.Arrays;
 
 import pt.menuguru.menuguru6.Inspiracoes.Activity_Inspiracao;
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
+import pt.menuguru.menuguru6.Restaurante.Restaurante_main;
 import pt.menuguru.menuguru6.Utils.ComoFunc;
 import pt.menuguru.menuguru6.Utils.Festival;
 import pt.menuguru.menuguru6.Utils.Globals;
@@ -272,6 +272,14 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                 Log.v("clicou no resutaurante","abrir " + some_array[position].getNome());
                 Intent myIntent = new Intent(getActivity(), Restaurante_main.class);
                 myIntent.putExtra("restaurante", some_array[position].getDb_id()); //Optional parameters
+                myIntent.putExtra("urlfoto", some_array[position].getUrlImagem());
+                myIntent.putExtra("nome_rest",some_array[position].getNome());
+                myIntent.putExtra("lat",some_array[position].getLatitude());
+                myIntent.putExtra("lon",some_array[position].getLongitude());
+                myIntent.putExtra("morada",some_array[position].getMorada());
+                myIntent.putExtra("rating",some_array[position].getMediarating());
+                myIntent.putExtra("votacoes",some_array[position].getVotacoes());
+
                 getActivity().startActivity(myIntent);
 
                 getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
@@ -496,7 +504,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                     //rest.cidade = c.getString("cidade");
                     rest.urlImagem = c.getString("imagem");
                     rest.votacoes = c.getString("votacoes");
-                    //rest.morada = c.getString("morada");
+                    rest.morada = c.getString("morada");
                     //rest.precoMedio = c.getString("precomedio");
 
                     rest.tipo = c.getString("tipo");

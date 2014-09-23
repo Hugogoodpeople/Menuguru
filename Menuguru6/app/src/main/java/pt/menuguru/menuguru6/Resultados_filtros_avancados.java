@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,6 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
+import pt.menuguru.menuguru6.Restaurante.Restaurante_main;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Restaurante;
@@ -397,6 +397,12 @@ public class Resultados_filtros_avancados extends Activity
                 Log.v("clicou no resutaurante","abrir " + some_array[position].getNome());
                 Intent myIntent = new Intent(Resultados_filtros_avancados.this, Restaurante_main.class);
                 myIntent.putExtra("restaurante", some_array[position].getDb_id()); //Optional parameters
+                myIntent.putExtra("urlfoto", some_array[position].getUrlImagem());
+                myIntent.putExtra("nome_rest",some_array[position].getNome());
+                myIntent.putExtra("lat",some_array[position].getLatitude());
+                myIntent.putExtra("lon",some_array[position].getLongitude());
+                myIntent.putExtra("morada",some_array[position].getMorada());
+
                 startActivity(myIntent);
 
                 overridePendingTransition(R.anim.push_view1, R.anim.push_view2);

@@ -31,6 +31,7 @@ import org.json.JSONObject;
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.MainActivity;
 import pt.menuguru.menuguru6.R;
+import pt.menuguru.menuguru6.Restaurante.Restaurante_main;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Locais;
@@ -40,7 +41,7 @@ import pt.menuguru.menuguru6.Utils.Utils;
 /**
  * Created by hugocosta on 14/08/14.
  */
-public class Resultado_inspiracao extends Activity implements AdapterView.OnItemClickListener {
+public class Resultado_inspiracao extends Activity {
     String value;
 
     Restaurante[] some_array = null;
@@ -114,12 +115,32 @@ public class Resultado_inspiracao extends Activity implements AdapterView.OnItem
         // Assign adapter to ListView
         mListView.setAdapter(mAdapter);
 
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id)
+            {
+                Log.v("clicou no resutaurante","abrir " + some_array[position].getNome());
+                Intent myIntent = new Intent(Resultado_inspiracao.this, Restaurante_main.class);
+                myIntent.putExtra("restaurante", some_array[position].getDb_id()); //Optional parameters
+                myIntent.putExtra("urlfoto", some_array[position].getUrlImagem());
+                myIntent.putExtra("nome_rest",some_array[position].getNome());
+                myIntent.putExtra("lat",some_array[position].getLatitude());
+                myIntent.putExtra("lon",some_array[position].getLongitude());
+                myIntent.putExtra("morada",some_array[position].getMorada());
+                startActivity(myIntent);
+
+                overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+
+            }
+
+        });
+
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-    }
 
     // you can make this class as another java file so it will be separated from your main activity.
     public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
@@ -210,7 +231,7 @@ public class Resultado_inspiracao extends Activity implements AdapterView.OnItem
                     //rest.cidade = c.getString("cidade");
                     rest.urlImagem = c.getString("imagem");
                     //rest.votacoes = c.getString("votacoes");
-                    //rest.morada = c.getString("morada");
+                    rest.morada = c.getString("morada");
                     //rest.precoMedio = c.getString("precomedio");
 
                     rest.tipo = c.getString("tipo");
@@ -262,6 +283,7 @@ public class Resultado_inspiracao extends Activity implements AdapterView.OnItem
 
                 this.finish();
 
+                overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
                 return false;
             default:
                 break;

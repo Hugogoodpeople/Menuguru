@@ -4,28 +4,28 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+
+    <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="200dp"
-        android:id="@+id/imagem_menu_1"
+        android:id="@+id/galeria_imagens"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:src="@drawable/sem_foto"
         android:scaleType="centerCrop" />
 
+
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-
-        android:id="@+id/lista_menus_restaurante"
-
         android:layout_marginTop="175dp"
         android:layout_marginRight="20dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/i_map" />
+        android:src="@drawable/i_map"
+        android:id="@+id/imageView" />
 
     <TextView
 
@@ -34,16 +34,17 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Exemplo exemplo Exemplo exemplo Exemplo exemplo Exemplo exemplo"
 
-        android:id="@+id/lista_menus_restaurante"
-        android:layout_below="@+id/imagem_menu_1"
+        android:id="@+id/morada_rest"
+        android:layout_below="@+id/galeria_imagens"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/lista_menus_restaurante"
-        android:layout_toStartOf="@+id/lista_menus_restaurante"
 
 
 
-        android:layout_marginLeft="15dp" />
+        android:layout_marginLeft="15dp"
+        android:textSize="18dp"
+        android:layout_toLeftOf="@+id/imageView"
+        android:layout_toStartOf="@+id/imageView" />
 
     <TextView
         android:layout_width="50dp"
@@ -52,7 +53,7 @@
         android:text="dist"
         android:id="@+id/distancia_restaurante_header"
         android:gravity="center"
-        android:layout_below="@+id/imagem_menu_1"
+        android:layout_below="@+id/galeria_imagens"
         android:layout_alignRight="@+id/textView4"
         android:layout_alignEnd="@+id/textView4"
         android:layout_marginTop="-25dp"
@@ -62,7 +63,7 @@
         android:layout_width="fill_parent"
         android:layout_height="85dp"
 
-        android:layout_below="@+id/lista_menus_restaurante"
+        android:layout_below="@+id/morada_rest"
 
 
 
@@ -175,7 +176,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="2 Avaliações"
-        android:id="@+id/textView3"
+        android:id="@+id/textView_avaliacoes"
         android:layout_below="@+id/tableLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
@@ -190,7 +191,7 @@
         android:layout_alignLeft="@+id/tableLayout2"
         android:layout_alignStart="@+id/tableLayout2"
         android:layout_marginTop="100dp"
-        android:layout_below="@+id/textView3" />
+        android:layout_below="@+id/textView_avaliacoes" />
 
     <View
         android:layout_width="100dp"
@@ -199,7 +200,7 @@
         android:layout_alignLeft="@+id/textView4"
         android:layout_alignStart="@+id/textView4"
         android:layout_marginTop="100dp"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/textView_avaliacoes"
         android:id="@+id/view2" />
 
     <TextView
@@ -210,20 +211,133 @@
         android:id="@+id/textView31"
         android:textSize="15dp"
         android:textColor="@color/gray"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_alignStart="@+id/textView3"
-        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/textView_avaliacoes"
+        android:layout_alignStart="@+id/textView_avaliacoes"
+        android:layout_below="@+id/textView_avaliacoes"
         android:layout_marginTop="90dp" />
 
     <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/pager_restaurante"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="0dp"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/textView_avaliacoes"
         android:layout_alignBottom="@+id/tableLayout21"
         android:fontFamily="@+id/ratingBar" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="160dp"
+        android:layout_below="@+id/tableLayout21"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"></LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="User name"
+                android:id="@+id/textView_user_name"
+                android:layout_marginTop="10dp"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Data comentario"
+                android:id="@+id/textView_data_comentario"
+                android:layout_gravity="center_horizontal"
+                android:textSize="10dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/textView_Comentario"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:textSize="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="View all"
+                android:id="@+id/textView11"
+                android:layout_gravity="center_horizontal"
+                android:textSize="16dp" />
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="8dp">
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="1dp"
+                    android:background="@color/gray"
+                    android:id="@+id/tableLayout31"
+
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Menus"
+                    android:id="@+id/textView12"
+                    android:textSize="15dp"
+                    android:textColor="@color/gray"
+                    android:layout_toRightOf="@+id/tableLayout31"
+                    android:layout_toEndOf="@+id/tableLayout31"
+                    android:gravity="center"
+                    android:layout_toLeftOf="@+id/tableLayout32"
+                    android:layout_toStartOf="@+id/tableLayout32" />
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="1dp"
+                    android:background="@color/gray"
+                    android:id="@+id/tableLayout32"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginTop="8dp" />
+
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
 
 
 </RelativeLayout>

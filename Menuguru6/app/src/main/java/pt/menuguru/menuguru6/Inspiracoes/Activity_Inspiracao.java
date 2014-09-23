@@ -77,7 +77,10 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
 
         Intent intent = new Intent(this, Resultado_inspiracao.class);
         intent.putExtra("id_item",childText.getDb_id());
+        intent.putExtra("local",childText.getNome());
         startActivity(intent);
+
+        overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
 
         return false;
     }
@@ -114,6 +117,7 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
                 //startActivity(myIntent);
                 finish();
 
+                overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
                 return false;
             default:
                 break;

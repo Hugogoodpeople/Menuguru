@@ -1,10 +1,10 @@
-package pt.menuguru.menuguru6;
+package pt.menuguru.menuguru6.Restaurante;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,7 +13,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,9 +37,11 @@ import java.util.List;
 import java.util.Vector;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
+import pt.menuguru.menuguru6.R;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Menu_do_restaurante;
+import pt.menuguru.menuguru6.Utils.Utils;
 
 /**
  * Created by hugocosta on 19/09/14.
@@ -62,9 +63,19 @@ public class Restaurante_main extends FragmentActivity {
 
     private static MyListAdapter mAdapter;
     private ArrayList<Menu_do_restaurante> some_list;
+    private ArrayList<String> fotos;
     private ListView gridView;
     private ProgressDialog progressDialog;
+    // informaçao que já vem de traz
     private String rest_id;
+    private String url_foto;
+    private String latitude;
+    private String longitude;
+    private String morada;
+    private String mediarating;
+    private String votacoes;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +87,15 @@ public class Restaurante_main extends FragmentActivity {
 
         Intent intent = this.getIntent();
         rest_id = intent.getStringExtra("restaurante");
+        url_foto = intent.getStringExtra("urlfoto");
+        latitude = intent.getStringExtra("lat");
+        longitude = intent.getStringExtra("lon");
+        morada = intent.getStringExtra("morada");
+        mediarating = intent.getStringExtra("rating");
+        votacoes = intent.getStringExtra("votacoes");
+
+
+        actionBar.setTitle(intent.getStringExtra("nome_rest"));
 
         setContentView(R.layout.activity_restaurante_main);
 
@@ -83,7 +103,8 @@ public class Restaurante_main extends FragmentActivity {
 
 
 
-        new AsyncTaskParseJson(this).execute();
+        new AsyncTaskParseJson1(this).execute();
+
     }
 
     @Override
@@ -106,34 +127,63 @@ public class Restaurante_main extends FragmentActivity {
     }
 
 
+    public void initializeGalery()
+    {
+
+        List<Fragment> fragments = new Vector<Fragment>();
+
+
+        Fragment fragmentCapa = new Imagem_galeria().create(url_foto);
+        fragments.add(fragmentCapa);
+
+
+        // aqui tem de conter um ciclo e mudar para ir buscar imagens a net
+        for (int i = 0 ; i< fotos.size() ; i++)
+        {
+            Fragment fragment = new Imagem_galeria().create(fotos.get(i));
+            fragments.add(fragment);
+        }
+
+
+
+
+        ViewPager galeria = (ViewPager) findViewById(R.id.galeria_imagens);
+        PagerAdapter adapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragments);
+
+        galeria.setAdapter(adapter);
+
+    }
+
     public void initialisePagin()
     {
         List<Fragment> fragments = new Vector<Fragment>();
         fragments.add(Fragment.instantiate(this, tab_rating.class.getName()));
         fragments.add(Fragment.instantiate(this, tab_five_ratin.class.getName()));
+
+        mPager = (ViewPager) findViewById(R.id.pager_restaurante);
+        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragments);
+
+        mPager.setAdapter(mPagerAdapter);
+
     }
 
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-        public ScreenSlidePagerAdapter(FragmentManager fm) {
+
+        List<Fragment> fragments;
+        public ScreenSlidePagerAdapter(FragmentManager fm, List<Fragment> fragments)
+        {
             super(fm);
+            this.fragments = fragments;
         }
+
+
 
         @Override
         public Fragment getItem(int position) {
 
-            switch (position)
-            {
-                case 0:
-                {
-                    return new tab_rating();
-                }
-                case 1:
-                {
-                    return new tab_five_ratin();
-                }
-            }
-            return tab_rating.create();
+
+            return fragments.get(position);
         }
 
 
@@ -141,7 +191,7 @@ public class Restaurante_main extends FragmentActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return fragments.size();
         }
     }
 
@@ -170,7 +220,7 @@ public class Restaurante_main extends FragmentActivity {
 
 
     // you can make this class as another java file so it will be separated from your main activity.
-    public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
+    public class AsyncTaskParseJson1 extends AsyncTask<String, String, String> {
 
         final String TAG = "AsyncTaskParseJson.java";
 
@@ -182,7 +232,7 @@ public class Restaurante_main extends FragmentActivity {
 
         private Restaurante_main delegate;
 
-        public AsyncTaskParseJson (Restaurante_main delegate){
+        public AsyncTaskParseJson1 (Restaurante_main delegate){
             this.delegate = delegate;
         }
 
@@ -270,23 +320,136 @@ public class Restaurante_main extends FragmentActivity {
         }
 
         @Override
-        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncComplete(true);  }
+        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncCompleteMenus(true);  }
 
     }
 
 
-    public void asyncComplete(boolean success){
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonGaleria extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/json_galeria_rest.php";
+
+        // contacts JSONArray
+        JSONArray dataJsonArr = null;
+
+        private Restaurante_main delegate;
+
+        public AsyncTaskParseJsonGaleria (Restaurante_main delegate){
+            this.delegate = delegate;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // não preciso desta parte porque ja tenho outro loading a correr
+            /*
+            progressDialog = new ProgressDialog(Restaurante_main.this);
+            progressDialog.setCancelable(true);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+            */
+        }
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+                dict.put("lang","");
+
+                dict.put("rest_id",rest_id);
+
+                // tenho de enviar lat, long, data, hora, cidade, lang
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                Log.v("jfgrhng","resultado da galeria = "+ jsonString);
+
+
+                // try parse the string to a JSON object
+                try {
+                    Log.v("Ver Json ","Ele retorna dentro do menu"+jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                // get the array of users
+
+                dataJsonArr = jsonObj.getJSONArray("rest");
+
+                // loop through all users
+
+
+                fotos = new ArrayList<String>();
+                for (int i = 0; i < dataJsonArr.length(); i++) {
+                    JSONObject c = dataJsonArr.getJSONObject(i);
+
+                    String foto = c.getString("foto");
+
+                    fotos.add(foto);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncCompleteFotos(true);  }
+
+    }
+
+    public void asyncCompleteFotos(boolean success)
+    {
+        initializeGalery();
+    }
+
+
+    public void asyncCompleteMenus(boolean success){
 
         //mAdapter.notifyDataSetChanged();
         //mAdapter = new MyListAdapter(getApplicationContext(), R.layout.row_defenicoes, some_array);
 
-        gridView = (ListView) findViewById(R.id.lista_menus_restaurante);
+        gridView = (ListView) findViewById(R.id.morada_rest);
         //adapter = new ArrayAdapter<Locais>(this,android.R.layout.simple_list_item_1, android.R.id.text1, local);
+
+// para calcular a distancia
+        Location locationRest = new Location("");
+        locationRest.setLatitude(Double.parseDouble(latitude));
+        locationRest.setLongitude(Double.parseDouble(longitude));
+
+        Location locationPhone = new Location("");
+        locationPhone.setLatitude(Double.parseDouble(Globals.getInstance().getLatitude()));
+        locationPhone.setLongitude(Double.parseDouble(Globals.getInstance().getLongitude()));
 
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
         ViewGroup header2 = (ViewGroup) inflater.inflate(R.layout.header_restaurante_main, gridView, false);
+        TextView dist = (TextView) header2.findViewById(R.id.distancia_restaurante_header);
+        dist.setText(Utils.getDistance(locationPhone, locationRest));
+
+        TextView adress = (TextView) header2.findViewById(R.id.morada_rest);
+        adress.setText(morada);
+
+        TextView votos = (TextView) header2.findViewById(R.id.textView_avaliacoes);
+        votos.setText(votacoes +" "+ getString(R.string.votacoes));
+
 
         gridView.addHeaderView(header2, null, false);
 
@@ -324,11 +487,8 @@ public class Restaurante_main extends FragmentActivity {
         });
 
 
-        // Instantiate a ViewPager and a PagerAdapter.
-        mPager = (ViewPager) findViewById(R.id.pager_restaurante);
-        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-
-        mPager.setAdapter(mPagerAdapter);
+        initialisePagin();
+        new AsyncTaskParseJsonGaleria(this).execute();
 
         mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -340,6 +500,9 @@ public class Restaurante_main extends FragmentActivity {
                 // invalidateOptionsMenu();
             }
         });
+
+
+
 
 
     }
@@ -368,12 +531,11 @@ public class Restaurante_main extends FragmentActivity {
 
             if (row == null)
                 row=inflater.inflate(R.layout.grid_menu, parent, false);
-            TextView label1=(TextView)row.findViewById(R.id.lista_menus_restaurante);
+            TextView label1=(TextView)row.findViewById(R.id.morada_rest);
             label1.setText(some_list.get(position*2).getNome());
 
 
-
-            ImageView icon=(ImageView)row.findViewById(R.id.imagem_menu_1);
+            ImageView icon=(ImageView)row.findViewById(R.id.galeria_imagens);
             imageLoader.DisplayImage("http://menuguru.pt/"+some_list.get(position*2).getUrlImage(), icon);
 
             ImageView icon2 = (ImageView) row.findViewById(R.id.imagem_menu_2);
@@ -417,17 +579,20 @@ public class Restaurante_main extends FragmentActivity {
 
             Menu_do_restaurante menu = some_list.get(position);
 
-            if (menu.getTipo().equalsIgnoreCase("menu_especial"))
-                if (menu.getPrecoNovo().length()!= 0 && menu.getPrecoAntigo().length() != 0)
-                {
+            if (menu.getTipo().equalsIgnoreCase("menu_especial")) {
+                image.setVisibility(View.VISIBLE);
+                if (menu.getPrecoNovo().length() != 0 && menu.getPrecoAntigo().length() != 0) {
                     image.setImageResource(R.drawable.antes_depois);
-                }else if(!menu.getDesconto().equalsIgnoreCase("0"))
-                {
+                } else if (!menu.getDesconto().equalsIgnoreCase("0")) {
                     image.setImageResource(R.drawable.desc_fatura);
-                }else
-                {
+                } else {
                     image.setImageResource(R.drawable.menu_esp);
                 }
+            }
+            else
+            {
+                image.setVisibility(View.GONE);
+            }
 
         }
 
