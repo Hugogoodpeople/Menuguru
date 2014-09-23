@@ -79,7 +79,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="00"
-        android:id="@+id/text_dias"
+        android:id="@+id/text_rating_desc"
         android:layout_toStartOf="@+id/text_preco"
         android:layout_alignTop="@+id/text_preco"
         android:layout_toLeftOf="@+id/text_preco"

@@ -12,8 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import pt.menuguru.menuguru6.R;
-import pt.menuguru.menuguru6.Restaurante.tab_five_ratin;
-import pt.menuguru.menuguru6.Restaurante.tab_rating;
 import pt.menuguru.menuguru6.Utils.Globals;
 
 /**
@@ -45,57 +43,9 @@ public class Restaurante_header extends FragmentActivity{
 
         setContentView(R.layout.header_restaurante_main);
 
-
-        // Instantiate a ViewPager and a PagerAdapter.
-        mPager = (ViewPager) findViewById(R.id.pager_restaurante);
-        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-
-        mPager.setAdapter(mPagerAdapter);
-        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                // When changing pages, reset the action bar actions since they are dependent
-                // on which page is currently active. An alternative approach is to have each
-                // fragment expose actions itself (rather than the activity exposing actions),
-                // but for simplicity, the activity provides the actions in this sample.
-                invalidateOptionsMenu();
-            }
-        });
-
-
-
     }
 
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-        public ScreenSlidePagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
 
-        @Override
-        public Fragment getItem(int position) {
-
-            switch (position)
-            {
-                case 0:
-                {
-                    return tab_rating.create();
-
-                }
-                case 1:
-                {
-                    return tab_five_ratin.create();
-
-                }
-            }
-
-           return tab_rating.create();
-        }
-
-        @Override
-        public int getCount() {
-            return NUM_PAGES;
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

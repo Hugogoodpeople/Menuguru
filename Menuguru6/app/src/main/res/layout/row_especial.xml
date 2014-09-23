@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="0"
-            android:id="@+id/text_dias"
+            android:id="@+id/text_rating_desc"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
@@ -46,8 +46,8 @@
             android:text="Ofertas obtidas:"
             android:id="@+id/text_oferta"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/text_dias"
-            android:layout_toStartOf="@+id/text_dias"
+            android:layout_toLeftOf="@+id/text_rating_desc"
+            android:layout_toStartOf="@+id/text_rating_desc"
             android:layout_marginTop="10dp"
             android:layout_marginRight="5dp" />
 
@@ -79,7 +79,7 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/text_dias"
+            android:layout_below="@+id/text_rating_desc"
             android:layout_alignLeft="@+id/text_preco_ant"
             android:layout_alignStart="@+id/text_preco_ant"
             android:background="@color/black"

@@ -19,14 +19,16 @@
             android:id="@+id/ratingBar"
             android:rating="3"
             android:numStars="5"
-            android:clickable="false" />
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Bom 3.5"
-            android:id="@+id/text_dias"
+            android:id="@+id/text_rating_desc"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
 </LinearLayout>
