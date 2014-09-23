@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/oferta_exp"
-        android:id="@+id/textView"
+        android:id="@+id/text_titulo"
         android:layout_toEndOf="@+id/imageView2"
         android:layout_alignBottom="@+id/imageView"
         android:layout_toRightOf="@+id/imageView2"
@@ -42,8 +42,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="00"
-        android:id="@+id/textView2"
-        android:layout_alignTop="@+id/textView"
+        android:id="@+id/text_preco_ant"
+        android:layout_alignTop="@+id/text_titulo"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="15dp"
@@ -55,10 +55,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="00"
-        android:id="@+id/textView4"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_toLeftOf="@+id/textView2"
-        android:layout_toStartOf="@+id/textView2"
+        android:id="@+id/text_oferta"
+        android:layout_alignTop="@+id/text_preco_ant"
+        android:layout_toLeftOf="@+id/text_preco_ant"
+        android:layout_toStartOf="@+id/text_preco_ant"
         android:layout_marginRight="15dp"
         android:textColor="@color/white" />
 
@@ -67,10 +67,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="00"
-        android:id="@+id/textView3"
-        android:layout_toStartOf="@+id/textView4"
-        android:layout_alignTop="@+id/textView4"
-        android:layout_toLeftOf="@+id/textView4"
+        android:id="@+id/text_preco"
+        android:layout_toStartOf="@+id/text_oferta"
+        android:layout_alignTop="@+id/text_oferta"
+        android:layout_toLeftOf="@+id/text_oferta"
         android:layout_marginRight="15dp"
         android:textColor="@color/white" />
 
@@ -79,51 +79,16 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="00"
-        android:id="@+id/textView5"
-        android:layout_toStartOf="@+id/textView3"
-        android:layout_alignTop="@+id/textView3"
-        android:layout_toLeftOf="@+id/textView3"
+        android:id="@+id/text_dias"
+        android:layout_toStartOf="@+id/text_preco"
+        android:layout_alignTop="@+id/text_preco"
+        android:layout_toLeftOf="@+id/text_preco"
         android:layout_marginRight="15dp"
         android:textColor="@color/white" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="DIAS"
-        android:id="@+id/textView6"
-        android:textSize="10dp"
-        android:layout_below="@+id/textView5"
-        android:layout_alignRight="@+id/textView5"
-        android:layout_alignEnd="@+id/textView5"
-        android:layout_marginRight="-3dp"
-        android:textColor="@color/white" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="HRS"
-        android:id="@+id/textView7"
-        android:textSize="10dp"
-        android:layout_below="@+id/textView3"
-        android:layout_alignRight="@+id/textView3"
-        android:layout_alignEnd="@+id/textView3"
-        android:layout_marginRight="-2dp"
-        android:textColor="@color/white" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="MIN"
-        android:id="@+id/textView9"
-        android:textSize="10dp"
-        android:layout_below="@+id/textView4"
-        android:layout_alignRight="@+id/textView4"
-        android:layout_alignEnd="@+id/textView4"
-        android:layout_marginRight="-2dp"
-        android:textColor="@color/white" />
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -132,16 +97,69 @@
         android:text="SEC"
         android:id="@+id/textView10"
         android:textSize="10dp"
-        android:layout_alignTop="@+id/textView9"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="13dp"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:layout_below="@+id/text_preco_ant"
+        android:layout_alignRight="@+id/text_preco_ant"
+        android:layout_alignEnd="@+id/text_preco_ant" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/list_esp"
-        android:layout_below="@+id/imageView" />
+        android:layout_below="@+id/imageView"
+        android:layout_above="@+id/bt_reservar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="MIN"
+        android:id="@+id/textView"
+        android:textSize="10dp"
+        android:textColor="@color/white"
+        android:layout_alignTop="@+id/textView10"
+        android:layout_toLeftOf="@+id/textView10"
+        android:layout_toStartOf="@+id/textView10"
+        android:layout_marginRight="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="HRS"
+        android:id="@+id/textView2"
+        android:textSize="10dp"
+        android:textColor="@color/white"
+        android:layout_alignTop="@+id/textView"
+        android:layout_toLeftOf="@+id/textView"
+        android:layout_toStartOf="@+id/textView"
+        android:layout_marginRight="11dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="DIAS"
+        android:id="@+id/textView3"
+        android:textSize="10dp"
+        android:textColor="@color/white"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_toLeftOf="@+id/textView2"
+        android:layout_toStartOf="@+id/textView2"
+        android:layout_marginRight="13dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reservar"
+        android:id="@+id/bt_reservar"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/dourado"
+        android:textColor="@color/white"
+        android:alpha="0.80" />
 
 </RelativeLayout>

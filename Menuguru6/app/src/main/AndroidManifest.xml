@@ -82,10 +82,12 @@
         </activity>
         <activity
 
+
             android:name=".Restaurante.Restaurante_main"
 
             android:screenOrientation="portrait"
             android:label="Restaurante">
+
 
         </activity>
         <activity

@@ -183,7 +183,10 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
             {
                 Log.v("clicou no resutaurante","abrir " + some_array[position].getNome());
                 Intent myIntent = new Intent(getActivity(), MenuEspecial.class);
-                //myIntent.putExtra("local", value); //Optional parameters
+                //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
+                myIntent.putExtra("rest_cartao_id", ""+some_array[position].getDb_id());
+                myIntent.putExtra("rest_id", ""+some_array[position].getId_rest());
+
                 getActivity().startActivity(myIntent);
 
                 getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
@@ -278,7 +281,7 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
                     menu.setDb_id(c.getString("id"));
                     menu.setDesconto(c.getString("desconto"));
                     menu.setEspecialFita(c.getString("especial_um_fita"));
-
+                    menu.setId_rest(c.getString("id_rest"));
                     menu.urlImage = c.getString("imagem");
 
 

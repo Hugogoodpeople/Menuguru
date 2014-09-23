@@ -25,10 +25,13 @@ public class Menu_Especial {
     private ArrayList n_pessoas;
     private String datafinal;
     private String dataActual;
+    private String tipo;
 
-    public String getReserva_disp() {
-        return reserva_disp;
-    }
+    public String getTipo() { return tipo; }
+
+    public void setTipo(String tipo) { this.tipo = tipo;}
+
+    public String getReserva_disp() { return reserva_disp; }
 
     public void setReserva_disp(String reserva_disp) {
         this.reserva_disp = reserva_disp;

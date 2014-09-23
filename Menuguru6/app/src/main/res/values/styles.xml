@@ -13,8 +13,6 @@
         <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_menuguru</item>
         <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Menuguru</item>
 
-
-
     </style>
     <style name="Theme.MyAppTheme.ActionBar" parent="android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">#ffff</item>

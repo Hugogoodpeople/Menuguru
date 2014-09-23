@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Bom 3.5"
-            android:id="@+id/textView5"
+            android:id="@+id/text_dias"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
 </LinearLayout>
