@@ -44,8 +44,6 @@ public class tab_five_ratin extends Fragment {
         ProgressBar progressBar4 =(ProgressBar) rootView.findViewById(R.id.progressBar4);
         ProgressBar progressBar5 =(ProgressBar) rootView.findViewById(R.id.progressBar5);
 
-
-
         progressBar1.setProgress((int)(Float.parseFloat(lista[4]) / Float.parseFloat(contagem) * 100));
         progressBar2.setProgress((int)(Float.parseFloat(lista[3]) / Float.parseFloat(contagem) * 100));
         progressBar3.setProgress((int)(Float.parseFloat(lista[2]) / Float.parseFloat(contagem) * 100));

@@ -59,17 +59,19 @@ public class tab_rating extends Fragment
     {
         String desc;
 
+
+
         if (Float.parseFloat(contagem)!= 0) {
             if (rating < 2)
-                desc = getString(R.string.horrivel) + " " + rating.toString();
+                desc = getString(R.string.horrivel) + " " + String.format("%.1f", rating);
             else if (rating < 3)
-                desc = getString(R.string.mau) + " " + rating.toString();
+                desc = getString(R.string.mau) + " " +  String.format("%.1f", rating);
             else if (rating < 4)
-                desc = getString(R.string.bom) + " " + rating.toString();
+                desc = getString(R.string.bom) + " "  + String.format("%.1f", rating);
             else if (rating < 5)
-                desc = getString(R.string.muito_bom) + " " + rating.toString();
+                desc = getString(R.string.muito_bom) + " "  + String.format("%.1f", rating);
             else
-                desc = getString(R.string.excelente) + " " + rating.toString();
+                desc = getString(R.string.excelente) + " " + String.format("%.1f", rating);
         }
         else
         {
@@ -84,6 +86,8 @@ public class tab_rating extends Fragment
     public static tab_rating create(String mediarating , String contagem) {
         tab_rating fragment = new tab_rating();
         Bundle args = new Bundle();
+
+
         args.putString("mediarating", mediarating);
         args.putString("contagem", contagem);
         fragment.setArguments(args);
