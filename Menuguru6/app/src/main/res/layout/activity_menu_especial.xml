@@ -20,7 +20,7 @@
         android:id="@+id/button_reservar"
         android:background="@color/dourado"
         android:textColor="@color/white"
-        android:alpha="0.80"
+        android:alpha="0.90"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

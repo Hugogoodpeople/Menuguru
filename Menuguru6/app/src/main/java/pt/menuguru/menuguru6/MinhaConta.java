@@ -145,6 +145,41 @@ public class MinhaConta extends Activity {
             loginBtn.setVisibility(View.INVISIBLE);
         }else{
             yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_editar_conta_android.php";
+            loginBtn.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
+                @Override
+                public void onUserInfoFetched(GraphUser user) {
+                    if (user != null) {
+                        id_face = user.getId();
+                        Log.v("tem login",id_face);
+
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MinhaConta.this);
+                        // set dialog message
+                        alertDialogBuilder
+                                .setMessage(R.string.tranf_favoritos)
+                                .setCancelable(false)
+                                .setPositiveButton(R.string.sim,new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/json_juntar_contas.php";
+                                        new AsyncTaskParseJsonFavoritos(MinhaConta.this).execute();
+                                    }
+                                })
+                                .setNegativeButton(R.string.nao,new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                        // create alert dialog
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        // show it
+                        alertDialog.show();
+
+
+                    } else {
+                        Log.v("NAO tem login","");
+                    }
+                }
+            });
+
         }
         edit_pnome.setText(pnome);
         edit_snome.setText(snome);
@@ -175,40 +210,6 @@ public class MinhaConta extends Activity {
             }
         });
 
-        loginBtn.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
-            @Override
-            public void onUserInfoFetched(GraphUser user) {
-                if (user != null) {
-                    id_face = user.getId();
-                    Log.v("tem login",id_face);
-
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MinhaConta.this);
-                    // set dialog message
-                    alertDialogBuilder
-                            .setMessage(R.string.tranf_favoritos)
-                            .setCancelable(false)
-                            .setPositiveButton(R.string.sim,new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,int id) {
-                                    yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/json_juntar_contas.php";
-                                    new AsyncTaskParseJsonFavoritos(MinhaConta.this).execute();
-                                }
-                            })
-                            .setNegativeButton(R.string.nao,new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,int id) {
-                                    dialog.cancel();
-                                }
-                            });
-                    // create alert dialog
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    // show it
-                    alertDialog.show();
-
-
-                } else {
-                    Log.v("NAO tem login","");
-                }
-            }
-        });
 
     }
     private Session.StatusCallback statusCallback = new Session.StatusCallback() {

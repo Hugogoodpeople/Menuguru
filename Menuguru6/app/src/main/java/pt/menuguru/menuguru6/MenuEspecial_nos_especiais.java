@@ -2,6 +2,7 @@ package pt.menuguru.menuguru6;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,8 +19,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -73,6 +76,7 @@ public class MenuEspecial_nos_especiais extends Activity {
     public EditText edit_min;
     public EditText edit_sec;
 
+    public Button bt_reserva;
 
     TextView edt;
     TextView edt1;
@@ -111,6 +115,20 @@ public class MenuEspecial_nos_especiais extends Activity {
 
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
+        bt_reserva = (Button)findViewById(R.id.button_reservar);
+
+        bt_reserva.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(MenuEspecial_nos_especiais.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_reserva);
+                dialog.show();
+
+
+            }
+        });
 
 
         new AsyncTaskParseJson(this).execute();
