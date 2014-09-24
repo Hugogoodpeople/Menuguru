@@ -129,6 +129,14 @@ public class MenuEspecial_nos_especiais extends Activity {
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.dialog_reserva);
                 calendar = (CalendarView)dialog.findViewById(R.id.calendarView2);
+                calendar.setSelectedWeekBackgroundColor(getResources().getColor(R.color.transparent));
+                calendar.setUnfocusedMonthDateColor(getResources().getColor(R.color.transparent));
+                calendar.setWeekSeparatorLineColor(getResources().getColor(R.color.transparent));
+                calendar.setSelectedDateVerticalBar(R.color.transparent);
+//                calendar.setMinDate(Long.parseLong(some_list.get(0).getDataActual()));
+                calendar.setWeekNumberColor(R.color.aqua);
+                calendar.setFocusedMonthDateColor(R.color.dourado);
+
 
                 Log.v("",""+calendar);
                 calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
