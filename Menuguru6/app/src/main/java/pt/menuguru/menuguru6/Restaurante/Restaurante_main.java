@@ -703,8 +703,8 @@ public class Restaurante_main extends FragmentActivity {
                     preco_novo.setText(menu.getPrecoNovo());
 
                     ImageView imagemEspecial = (ImageView) header2.findViewById(R.id.imageView_destaque);
-
-
+                    ImageLoader imageLoaderEspecial=new ImageLoader(getApplicationContext());
+                    imageLoaderEspecial.DisplayImage("http://menuguru.pt/"+ menu.getUrlImage(), imagemEspecial);
 
 
                 }

@@ -56,7 +56,8 @@
             android:id="@+id/textView_preco_ant_especial"
             android:layout_alignBottom="@+id/imageView_destaque"
             android:layout_toRightOf="@+id/imageView_destaque"
-            android:layout_toEndOf="@+id/imageView_destaque" />
+            android:layout_toEndOf="@+id/imageView_destaque"
+            android:layout_marginTop="-2dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,11 +65,13 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
             android:id="@+id/preco_novo_especial"
-            android:layout_toEndOf="@+id/textView_nome_especial"
+            android:layout_toEndOf="@+id/textView_preco_ant_especial"
             android:textColor="@color/dourado"
             android:textSize="16dp"
-            android:layout_alignBottom="@+id/textView_preco_ant_especial"
-            android:layout_toRightOf="@+id/textView_nome_especial" />
+            android:layout_alignTop="@+id/textView_preco_ant_especial"
+            android:layout_toRightOf="@+id/textView_preco_ant_especial"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="-2dp" />
 
         <ImageView
             android:layout_width="15dp"
