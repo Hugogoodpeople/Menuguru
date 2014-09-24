@@ -139,6 +139,8 @@ public class Resultados extends Activity
                 myIntent.putExtra("lat",some_array[position].getLatitude());
                 myIntent.putExtra("lon",some_array[position].getLongitude());
                 myIntent.putExtra("morada",some_array[position].getMorada());
+                myIntent.putExtra("rating",some_array[position].getMediarating());
+                myIntent.putExtra("votacoes",some_array[position].getVotacoes());
 
                 startActivity(myIntent);
 
@@ -252,6 +254,7 @@ public class Resultados extends Activity
 
                     rest.tipo = c.getString("tipo");
 
+                    rest.db_id = c.getString("id");
 
                     rest.latitude = c.getString("lat");
                     rest.longitude = c.getString("lon");

@@ -706,12 +706,9 @@ public class Restaurante_main extends FragmentActivity {
                     ImageLoader imageLoaderEspecial=new ImageLoader(getApplicationContext());
                     imageLoaderEspecial.DisplayImage("http://menuguru.pt/"+ menu.getUrlImage(), imagemEspecial);
 
-
                 }
 
-
             }
-
 
         }
         else {
@@ -725,8 +722,6 @@ public class Restaurante_main extends FragmentActivity {
 
         TextView votos = (TextView) header2.findViewById(R.id.textView_avaliacoes);
         votos.setText(votacoes +" "+ getString(R.string.votacoes));
-
-
 
 
         // para quando tem comentarios tenho de ir buscar por webservice
