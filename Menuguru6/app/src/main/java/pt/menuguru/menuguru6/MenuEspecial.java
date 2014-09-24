@@ -11,6 +11,8 @@ import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,7 +33,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.StringTokenizer;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
@@ -81,6 +90,11 @@ public class MenuEspecial extends Activity {
     ImageView edt9;
     Menu menu;
 
+    private CountDownTimer countDownTimer;
+    private boolean timerHasStarted = false;
+    private final long startTime = 30 * 1000;
+    private final long interval = 1 * 1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,20 +110,13 @@ public class MenuEspecial extends Activity {
         imagem_rest = getIntent().getExtras().getString("urlfoto");
         morada = getIntent().getExtras().getString("morada");
 
-        edt = (TextView) findViewById(R.id.text_dias);
-        edt1 = (TextView) findViewById(R.id.text_preco);
-        edt2 = (TextView) findViewById(R.id.text_oferta);
-        edt3 = (TextView) findViewById(R.id.text_preco_ant);
-        edt4 = (TextView) findViewById(R.id.text_titulo);
-        edt5 = (TextView) findViewById(R.id.textView3);
-        edt6 = (TextView) findViewById(R.id.textView2);
-        edt7 = (TextView) findViewById(R.id.textView);
-        edt8 = (TextView) findViewById(R.id.textView10);
-        edt9 = (ImageView) findViewById(R.id.imageView2);
+
         // Set the adapter
         mListView = (ListView)findViewById(R.id.list_esp);
 
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+
+
 
         new AsyncTaskParseJson(this).execute();
 
@@ -381,7 +388,7 @@ public class MenuEspecial extends Activity {
 
 
 
-    public void asyncComplete(boolean success){
+    public void asyncComplete(boolean success) {
 
         mAdapter = new MyListAdapter(this, R.layout.list_item, desc_list);
 
@@ -399,20 +406,129 @@ public class MenuEspecial extends Activity {
                 Intent myIntent = new Intent(MenuEspecial.this, Restaurante_main.class);
                 myIntent.putExtra("restaurante", rest_id); //Optional parameters
                 myIntent.putExtra("urlfoto", imagem_rest);
-                myIntent.putExtra("nome_rest",nome_rest);
-                myIntent.putExtra("lat",lat);
-                myIntent.putExtra("lon",lng);
-                myIntent.putExtra("morada",morada);
-                myIntent.putExtra("rating","2");
-                myIntent.putExtra("votacoes","2");
+                myIntent.putExtra("nome_rest", nome_rest);
+                myIntent.putExtra("lat", lat);
+                myIntent.putExtra("lon", lng);
+                myIntent.putExtra("morada", morada);
+                myIntent.putExtra("rating", "2");
+                myIntent.putExtra("votacoes", "2");
 
                 startActivity(myIntent);
 
                 overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
             }
         });
-        final CounterClass timer = new CounterClass(180000,1000);
-        timer.start();
+
+        edt = (TextView) findViewById(R.id.text_rating_desc);
+        edt1 = (TextView) findViewById(R.id.text_preco);
+        edt2 = (TextView) findViewById(R.id.text_oferta);
+        edt3 = (TextView) findViewById(R.id.text_preco_ant);
+        edt4 = (TextView) findViewById(R.id.text_titulo);
+        edt5 = (TextView) findViewById(R.id.textView3);
+        edt6 = (TextView) findViewById(R.id.textView2);
+        edt7 = (TextView) findViewById(R.id.textView);
+        edt8 = (TextView) findViewById(R.id.textView10);
+        edt9 = (ImageView) findViewById(R.id.imageView2);
+
+        Calendar c = Calendar.getInstance();
+
+        System.out.println("Current time => " + c.getTime());
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+        String formattedDate = df.format(c.getTime());
+
+        Log.v("DATA INICIO",""+some_list.get(0).getDatafinal());
+        Log.v("DATA ACTUAL",formattedDate);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date a = null, b = null;
+        try {
+            a = sdf.parse(some_list.get(0).getDatafinal());
+            b = sdf.parse(formattedDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        final StringBuilder time = new StringBuilder();
+        //      .getTime() does the conversion: Date --> long
+        CountDownTimer cdt = new CountDownTimer(a.getTime() - b.getTime(), 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+                //edt1.setText("Falta" + millisUntilFinished / 1000);
+                //Log.v("FALTA TANTO TEMPO:", "" + millisUntilFinished / 1000);
+
+
+                time.setLength(0);
+                // Use days if appropriate
+                if(millisUntilFinished > DateUtils.DAY_IN_MILLIS) {
+                    long count = millisUntilFinished / DateUtils.DAY_IN_MILLIS;
+                    edt.setText(""+count);
+                    if(count > 1) {
+                        edt5.setText(R.string.dias);
+                        time.append(count).append(" days, ");
+                    }else {
+                        edt5.setText(R.string.dia);
+                        time.append(count).append(" day, ");
+                    }
+                    millisUntilFinished %= DateUtils.DAY_IN_MILLIS;
+                }
+
+                if(millisUntilFinished > DateUtils.HOUR_IN_MILLIS) {
+                    long count2 = millisUntilFinished / DateUtils.HOUR_IN_MILLIS;
+                    edt1.setText(""+count2);
+                    if(count2 > 1) {
+                        edt6.setText(R.string.horas);
+                        time.append(count2).append(" hours, ");
+                    }else {
+                        edt6.setText(R.string.hora);
+                        time.append(count2).append(" hour, ");
+                    }
+                    millisUntilFinished %= DateUtils.HOUR_IN_MILLIS;
+                }
+                if(millisUntilFinished > DateUtils.MINUTE_IN_MILLIS) {
+                    long count3 = millisUntilFinished / DateUtils.MINUTE_IN_MILLIS;
+                    edt2.setText(""+count3);
+                    if(count3 > 1) {
+                        edt7.setText(R.string.mins);
+                        time.append(count3).append(" minutes, ");
+                    }else {
+                        edt7.setText(R.string.min);
+                        time.append(count3).append(" minute, ");
+                    }
+                    millisUntilFinished %= DateUtils.MINUTE_IN_MILLIS;
+                }
+
+                if(millisUntilFinished > DateUtils.SECOND_IN_MILLIS) {
+                    long count4 = millisUntilFinished / DateUtils.SECOND_IN_MILLIS;
+                    edt3.setText(""+count4);
+                    if(count4 > 1) {
+                        edt8.setText(R.string.secs);
+                        time.append(count4).append(" minutes, ");
+                    }else {
+                        edt8.setText(R.string.sec);
+                        time.append(count4).append(" minute, ");
+                    }
+                    millisUntilFinished %= DateUtils.MINUTE_IN_MILLIS;
+                }
+
+                time.append(DateUtils.formatElapsedTime(Math.round(millisUntilFinished / 1000d)));
+                //edt1.setText(time.toString());
+            }
+
+
+
+            public void onFinish() {
+                // TODO Auto-generated method stub
+
+            }
+        }.start();
+
+
+
+
         if(some_list.get(0).getTipo().equals("fixo")){
 
 
@@ -428,10 +544,7 @@ public class MenuEspecial extends Activity {
             edt9.setVisibility(View.GONE);
         }
         new DownloadImageTask((ImageView) header.findViewById(R.id.image_capa)).execute("http://menuguru.pt/"+ some_list.get(0).getImagem());
-        String a = "2";
-        if(!a.equals("1")){
-            this.invalidateOptionsMenu();
-        }
+
 
         // Assign adapter to ListView
         mListView.setAdapter(mAdapter);
@@ -462,21 +575,6 @@ public class MenuEspecial extends Activity {
 
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
-        }
-    }
-
-    public class CounterClass extends CountDownTimer {
-        public CounterClass(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval); }
-        @Override public void onFinish() { edt.setText("Completed."); }
-
-        @Override public void onTick(long millisUntilFinished) {
-            long millis = millisUntilFinished;
-            String hms = String.format("%02d:%02d:%02d",
-            TimeUnit.MILLISECONDS.toHours(millis),
-            TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)), TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
-            System.out.println(hms);
-            edt.setText(hms);
         }
     }
 

@@ -201,4 +201,13 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="fav_tranf">Favoritos adicionados</string>
     <string name="title_activity_menu_especial">MenuEspecial</string>
     <string name="oferta_exp">OFERTA EXPIRA</string>
+
+    <string name="dias">DIAS</string>
+    <string name="dia">DIA</string>
+    <string name="horas">HRS</string>
+    <string name="hora">HORA</string>
+    <string name="min">MIN</string>
+    <string name="mins">MIN</string>
+    <string name="sec">SEC</string>
+    <string name="secs">SEC</string>
 </resources>

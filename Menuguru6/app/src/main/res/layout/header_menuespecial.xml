@@ -51,7 +51,7 @@
         android:gravity="center" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="16dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="00"
@@ -61,10 +61,11 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="15dp"
         android:layout_marginTop="5dp"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:gravity="center" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="17dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="00"
@@ -73,10 +74,11 @@
         android:layout_toLeftOf="@+id/text_preco_ant"
         android:layout_toStartOf="@+id/text_preco_ant"
         android:layout_marginRight="15dp"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:gravity="center" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="17dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="00"
@@ -85,10 +87,11 @@
         android:layout_alignTop="@+id/text_oferta"
         android:layout_toLeftOf="@+id/text_oferta"
         android:layout_marginRight="15dp"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:gravity="center" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="17dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="00"
@@ -97,7 +100,8 @@
         android:layout_alignTop="@+id/text_preco"
         android:layout_toLeftOf="@+id/text_preco"
         android:layout_marginRight="15dp"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:gravity="center" />
 
 
 
@@ -139,7 +143,7 @@
         android:layout_alignTop="@+id/textView"
         android:layout_toLeftOf="@+id/textView"
         android:layout_toStartOf="@+id/textView"
-        android:layout_marginRight="11dp" />
+        android:layout_marginRight="13dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -152,6 +156,6 @@
         android:layout_alignTop="@+id/textView2"
         android:layout_toLeftOf="@+id/textView2"
         android:layout_toStartOf="@+id/textView2"
-        android:layout_marginRight="13dp" />
+        android:layout_marginRight="12dp" />
 
 </RelativeLayout>
