@@ -136,6 +136,7 @@ public class MenuEspecial extends Activity {
                 mAdapter=null;
                 mListView=null;
                 finish();
+                overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
                 return false;
             case R.id.partilhar:
                 Intent sendIntent = new Intent();
@@ -389,6 +390,7 @@ public class MenuEspecial extends Activity {
 
     public void asyncComplete(boolean success) {
 
+
         mAdapter = new MyListAdapter(this, R.layout.list_item, desc_list);
 
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -396,7 +398,7 @@ public class MenuEspecial extends Activity {
         ViewGroup footer = (ViewGroup) inflater.inflate(R.layout.footer_menuespcial, mListView, false);
         ViewGroup header = (ViewGroup) inflater.inflate(R.layout.header_menuespecial, mListView, false);
 
-        mListView.addFooterView(footer, null, false);
+        //mListView.addFooterView(footer, null, false);
         mListView.addHeaderView(header, null, false);
 
         LinearLayout forward = (LinearLayout) footer.findViewById(R.id.linear_footer);

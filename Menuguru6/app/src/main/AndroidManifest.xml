@@ -81,6 +81,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".MenuEspecial_nos_especiais"
+            android:label="Especial"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <activity
 
 
             android:name=".Restaurante.Restaurante_main"

@@ -79,6 +79,7 @@ public class Restaurante_main extends FragmentActivity {
     private String morada;
     private String mediarating;
     private String votacoes;
+    private boolean vemDeEspeciais = false;
 
     private String[] listEstrelas;
     ArrayList<Comentario> comentarios;
@@ -98,13 +99,14 @@ public class Restaurante_main extends FragmentActivity {
         latitude = intent.getStringExtra("lat");
         longitude = intent.getStringExtra("lon");
         morada = intent.getStringExtra("morada");
-
+        if (intent.getBooleanExtra("vem_de_especias",false))
+            vemDeEspeciais = true;
+        else
+            vemDeEspeciais = false;
 
         actionBar.setTitle(intent.getStringExtra("nome_rest"));
 
         setContentView(R.layout.activity_restaurante_main);
-
-
 
         new AsyncTaskParseJsonEstrelas(this).execute();
 
@@ -778,6 +780,7 @@ public class Restaurante_main extends FragmentActivity {
                         //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
                         myIntent.putExtra("rest_cartao_id", "" + some_list.get(position*2 +1).getDb_id());
                         myIntent.putExtra("rest_id", ""+some_list.get(position*2 +1).getId_rest());
+                        myIntent.putExtra("vem_de_especias", false);
 
                         startActivity(myIntent);
 
