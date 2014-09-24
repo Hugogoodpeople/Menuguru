@@ -17,6 +17,52 @@ public class Menu_do_restaurante {
     public String especialFita;
     public String id_rest;
 
+    public String lat;
+    public String lng;
+    public String nome_rest;
+    public String imagem_rest;
+    public String morada;
+
+    public String getMorada() {
+        return morada;
+    }
+
+    public void setMorada(String morada) {
+        this.morada = morada;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getNome_rest() {
+        return nome_rest;
+    }
+
+    public void setNome_rest(String nome_rest) {
+        this.nome_rest = nome_rest;
+    }
+
+    public String getImagem_rest() {
+        return imagem_rest;
+    }
+
+    public void setImagem_rest(String imagem_rest) {
+        this.imagem_rest = imagem_rest;
+    }
+
     public String getId_rest() {   return id_rest; }
 
     public void setId_rest(String id_rest) {  this.id_rest = id_rest;  }

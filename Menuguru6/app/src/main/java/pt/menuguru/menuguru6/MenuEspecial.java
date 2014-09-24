@@ -7,8 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,8 +32,10 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
+import pt.menuguru.menuguru6.Restaurante.Restaurante_main;
 import pt.menuguru.menuguru6.Utils.Descricao_Especial;
 import pt.menuguru.menuguru6.Utils.Horario_Especial;
 import pt.menuguru.menuguru6.Utils.Menu_Especial;
@@ -51,10 +55,31 @@ public class MenuEspecial extends Activity {
     private String rest_id;
     private String rest_cartao_id;
 
+    public String lat;
+    public String lng;
+    public String nome_rest;
+    public String imagem_rest;
+    public String morada;
+    public String rating;
+    public String votacoes;
+
     public EditText edit_dias;
     public EditText edit_hrs;
     public EditText edit_min;
     public EditText edit_sec;
+
+
+    TextView edt;
+    TextView edt1;
+    TextView edt2;
+    TextView edt3;
+    TextView edt4;
+    TextView edt5;
+    TextView edt6;
+    TextView edt7;
+    TextView edt8;
+    ImageView edt9;
+    Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,16 +90,22 @@ public class MenuEspecial extends Activity {
         Intent intent = getIntent();
         rest_id = getIntent().getExtras().getString("rest_id");
         rest_cartao_id = getIntent().getExtras().getString("rest_cartao_id");
+        lat = getIntent().getExtras().getString("lat");
+        lng = getIntent().getExtras().getString("lon");
+        nome_rest = getIntent().getExtras().getString("nome_rest");
+        imagem_rest = getIntent().getExtras().getString("urlfoto");
+        morada = getIntent().getExtras().getString("morada");
 
-
-        //Button bt_reserva = (Button)findViewById(R.id.bt_reservar);
-/*
-        edit_dias = (EditText)findViewById(R.id.text_dias);
-        edit_hrs = (EditText)findViewById(R.id.text_preco);
-        edit_min = (EditText)findViewById(R.id.text_oferta);
-        edit_sec = (EditText)findViewById(R.id.text_preco_ant);
-
-*/
+        edt = (TextView) findViewById(R.id.text_dias);
+        edt1 = (TextView) findViewById(R.id.text_preco);
+        edt2 = (TextView) findViewById(R.id.text_oferta);
+        edt3 = (TextView) findViewById(R.id.text_preco_ant);
+        edt4 = (TextView) findViewById(R.id.text_titulo);
+        edt5 = (TextView) findViewById(R.id.textView3);
+        edt6 = (TextView) findViewById(R.id.textView2);
+        edt7 = (TextView) findViewById(R.id.textView);
+        edt8 = (TextView) findViewById(R.id.textView10);
+        edt9 = (ImageView) findViewById(R.id.imageView2);
         // Set the adapter
         mListView = (ListView)findViewById(R.id.list_esp);
 
@@ -99,7 +130,15 @@ public class MenuEspecial extends Activity {
                 mAdapter=null;
                 mListView=null;
                 finish();
+                return false;
+            case R.id.partilhar:
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
 
+
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.o_que_pretende_pesquisar)));
                 return false;
             default:
                 break;
@@ -128,6 +167,8 @@ public class MenuEspecial extends Activity {
             LinearLayout linear_ris = (LinearLayout)row.findViewById(R.id.linearLayout_risca);
             LinearLayout linear_tit = (LinearLayout)row.findViewById(R.id.linear_tit);
 
+
+
             TextView label = (TextView)row.findViewById(R.id.text_titulo);
             TextView text_preco_ant = (TextView)row.findViewById(R.id.text_preco_ant);
             TextView text_preco_act = (TextView)row.findViewById(R.id.text_preco);
@@ -142,6 +183,7 @@ public class MenuEspecial extends Activity {
                 if(aux_tipo.equals("desconto")){
                     label.setText(some_list.get(position).getDescricao());
                     text_preco_act.setText(some_list.get(position).getPreco_actual());
+                    text_preco_ant.setPaintFlags(text_preco_ant.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     text_preco_ant.setText(some_list.get(position).getPreco_ant());
                     text_nr_ofertas.setText(some_list.get(position).getReserva_feita());
                     text_desc.setText(desc_list.get(position).getDescricao());
@@ -149,8 +191,9 @@ public class MenuEspecial extends Activity {
 
                 }else if(aux_tipo.equals("off")){
                     label.setText(some_list.get(position).getDescricao());
-                    text_preco_act.setText(some_list.get(position).getDesconto());
-                    text_preco_ant.setVisibility(View.GONE);
+                    text_preco_ant.setPaintFlags(text_preco_ant.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    text_preco_act.setText(some_list.get(position).getDesconto()+"%");
+                    //text_preco_ant.setVisibility(View.GONE);
                     text_nr_ofertas.setText(some_list.get(position).getReserva_feita());
                     text_desc.setText(desc_list.get(position).getDescricao());
                     text_desc2.setVisibility(View.GONE);
@@ -278,7 +321,7 @@ public class MenuEspecial extends Activity {
                 menu.setNome_cat(dataJsonArr.getString("nome_cat"));
                 menu.setNome(dataJsonArr.getString("nome"));
                 menu.setDescricao(dataJsonArr.getString("descricao"));
-                menu.setPreco_actual(dataJsonArr.getString("preco_ant"));
+                menu.setPreco_ant(dataJsonArr.getString("preco_ant"));
                 menu.setPreco_actual(dataJsonArr.getString("preco_actual"));
                 menu.setDestaque(dataJsonArr.getString("destaque"));
                 menu.setImagem(dataJsonArr.getString("imagem"));
@@ -349,6 +392,47 @@ public class MenuEspecial extends Activity {
 
         mListView.addFooterView(footer, null, false);
         mListView.addHeaderView(header, null, false);
+
+        LinearLayout forward = (LinearLayout) footer.findViewById(R.id.linear_footer);
+        forward.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent myIntent = new Intent(MenuEspecial.this, Restaurante_main.class);
+                myIntent.putExtra("restaurante", rest_id); //Optional parameters
+                myIntent.putExtra("urlfoto", imagem_rest);
+                myIntent.putExtra("nome_rest",nome_rest);
+                myIntent.putExtra("lat",lat);
+                myIntent.putExtra("lon",lng);
+                myIntent.putExtra("morada",morada);
+                myIntent.putExtra("rating","2");
+                myIntent.putExtra("votacoes","2");
+
+                startActivity(myIntent);
+
+                overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+            }
+        });
+        final CounterClass timer = new CounterClass(180000,1000);
+        timer.start();
+        if(some_list.get(0).getTipo().equals("fixo")){
+
+
+            edt.setVisibility(View.GONE);
+            edt1.setVisibility(View.GONE);
+            edt2.setVisibility(View.GONE);
+            edt3.setVisibility(View.GONE);
+            edt4.setVisibility(View.GONE);
+            edt5.setVisibility(View.GONE);
+            edt6.setVisibility(View.GONE);
+            edt7.setVisibility(View.GONE);
+            edt8.setVisibility(View.GONE);
+            edt9.setVisibility(View.GONE);
+        }
+        new DownloadImageTask((ImageView) header.findViewById(R.id.image_capa)).execute("http://menuguru.pt/"+ some_list.get(0).getImagem());
+        String a = "2";
+        if(!a.equals("1")){
+            this.invalidateOptionsMenu();
+        }
+
         // Assign adapter to ListView
         mListView.setAdapter(mAdapter);
 
@@ -380,4 +464,20 @@ public class MenuEspecial extends Activity {
             bmImage.setImageBitmap(result);
         }
     }
+
+    public class CounterClass extends CountDownTimer {
+        public CounterClass(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval); }
+        @Override public void onFinish() { edt.setText("Completed."); }
+
+        @Override public void onTick(long millisUntilFinished) {
+            long millis = millisUntilFinished;
+            String hms = String.format("%02d:%02d:%02d",
+            TimeUnit.MILLISECONDS.toHours(millis),
+            TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)), TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+            System.out.println(hms);
+            edt.setText(hms);
+        }
+    }
+
 }
