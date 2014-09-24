@@ -42,9 +42,9 @@
 
 
         android:layout_marginLeft="15dp"
-        android:textSize="18dp"
-        android:layout_toLeftOf="@+id/image_capa"
-        android:layout_toStartOf="@+id/image_capa" />
+        android:textSize="16dp"
+        android:layout_toLeftOf="@+id/imageView"
+        android:layout_toStartOf="@+id/imageView" />
 
     <TextView
         android:layout_width="50dp"
@@ -54,9 +54,11 @@
         android:id="@+id/distancia_restaurante_header"
         android:gravity="center"
 
-        android:layout_alignTop="@+id/imageView"
-        android:layout_toRightOf="@+id/morada_rest"
-        android:layout_toEndOf="@+id/morada_rest" />
+        android:layout_toEndOf="@+id/morada_rest"
+        android:textSize="14dp"
+        android:layout_alignTop="@+id/image_capa"
+        android:layout_alignLeft="@+id/image_capa"
+        android:layout_alignStart="@+id/image_capa" />
 
     <TableLayout
         android:layout_width="fill_parent"
@@ -289,14 +291,15 @@
                 android:id="@+id/textView_Comentario"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:textSize="14dp" />
+                android:textSize="14dp"
+                android:lines="2" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="View all"
-                android:id="@+id/textView11"
+                android:text="Ver todos"
+                android:id="@+id/textView_ver_todos"
                 android:layout_gravity="center_horizontal"
                 android:textSize="16dp" />
 

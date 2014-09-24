@@ -1,16 +1,14 @@
 package pt.menuguru.menuguru6;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,15 +20,16 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.facebook.model.GraphUser;
+
 import java.util.Locale;
 
 import pt.menuguru.menuguru6.Utils.Globals;
-import pt.menuguru.menuguru6.Utils.Locais;
 
 /**
  * Created by hugocosta on 11/09/14.
  */
-public class LanguageMenu extends ActivityLogin
+public class EscolherLingua extends Activity
 {
     //language_list
     ListView listView;
@@ -47,6 +46,8 @@ public class LanguageMenu extends ActivityLogin
 
 
     private static MyListAdapter mAdapter;
+
+
 
 
     public class MyListAdapter extends ArrayAdapter<String> {
@@ -145,9 +146,6 @@ public class LanguageMenu extends ActivityLogin
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
-
-
 
                 for(int a = 0; a < parent.getChildCount(); a++)
                 {

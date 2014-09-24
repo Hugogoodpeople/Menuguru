@@ -26,14 +26,11 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.facebook.Session;
-import com.facebook.model.GraphUser;
 
 import java.io.InputStream;
 import java.net.URL;
 
-import pt.menuguru.menuguru6.Inspiracoes.Activity_Inspiracao;
 import pt.menuguru.menuguru6.Utils.Globals;
-import pt.menuguru.menuguru6.Utils.User;
 
 
 public class Defenicoes extends Fragment implements AbsListView.OnItemClickListener {
@@ -50,15 +47,10 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
     }
 
     @Override
-
     public void onResume()
     {
         super.onResume();
         this.getActivity().invalidateOptionsMenu();
-
-
-
-
     }
 
 
@@ -69,7 +61,7 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
             case R.id.action_login:
                 // tenho de chamar aqui o login
 
-                Intent myIntent = new Intent(getActivity(), ActivityLogin.class);
+                Intent myIntent = new Intent(getActivity(), LoginMenuGuru.class);
                 getActivity().startActivity(myIntent);
 
 
@@ -121,10 +113,6 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
 
                 Log.v("clickmenu","clicou no menu");
                 return false;
-
-
-
-
 
             default:
                 break;
@@ -321,15 +309,29 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
                 Intent intent = new Intent(this.getActivity(), MinhaConta.class);
                 startActivity(intent);
             }else{
-                Intent intent = new Intent(this.getActivity(), ActivityLogin.class);
+                Intent intent = new Intent(this.getActivity(), LoginMenuGuru.class);
                 startActivity(intent);
             }
             getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
         }else if(position == 2)
         {
-            Intent intent = new Intent(this.getActivity(), LanguageMenu.class);
+            /*
+
+            Intent intentLanguage = new Intent(this.getActivity(), EscolherLingua.class);
+            startActivity(intentLanguage);
+            getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+
+            */
+
+            Intent intent = new Intent(this.getActivity(), EscolherLingua.class);
+
+            String mensagem = getString(R.string.sobre_menuguru);
+
+            intent.putExtra("menssagem", mensagem);
+
             startActivity(intent);
             getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+
         }
         else if (position == 3 || position == 4 || position == 5)
         {

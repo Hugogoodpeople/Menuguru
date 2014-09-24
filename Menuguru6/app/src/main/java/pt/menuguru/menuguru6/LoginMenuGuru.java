@@ -42,7 +42,7 @@ import pt.menuguru.menuguru6.Utils.User;
  * Created by hugocosta on 08/09/14.
  */
 
-public class ActivityLogin extends Activity
+public class LoginMenuGuru extends Activity
 {
     Button LoginB;
     Button Registo;
@@ -89,7 +89,7 @@ public class ActivityLogin extends Activity
         LoginB = (Button)findViewById(R.id.bt_login);
         Registo = (Button)findViewById(R.id.registo);
 
-        loginBtn = (LoginButton) findViewById(R.id.bt_transfFav);
+        loginBtn = (LoginButton) findViewById(R.id.bt_loginface);
 
         edit_email   = (EditText)findViewById(R.id.edit_email);
         edit_pass   = (EditText)findViewById(R.id.edit_pass);
@@ -100,7 +100,7 @@ public class ActivityLogin extends Activity
 
             @Override
             public void onClick(View v) {
-                final Dialog dialog = new Dialog(ActivityLogin.this);
+                final Dialog dialog = new Dialog(LoginMenuGuru.this);
                 dialog.setTitle(R.string.T_recuperar_pass);
                 dialog.setContentView(R.layout.dialog_recuperar_pass);
                 dialog.show();
@@ -126,7 +126,7 @@ public class ActivityLogin extends Activity
                         Log.v("Email Recuperacao", email_recup);
                         if(!isEmailValid(email_recup)){
                             dialog.dismiss();
-                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ActivityLogin.this);
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginMenuGuru.this);
                             // set dialog message
                             alertDialogBuilder
                                     .setMessage(R.string.erro_email)
@@ -143,7 +143,7 @@ public class ActivityLogin extends Activity
 
                         }else {
                             dialog.dismiss();
-                            new AsyncTaskParseJsonRecuperar(ActivityLogin.this).execute();
+                            new AsyncTaskParseJsonRecuperar(LoginMenuGuru.this).execute();
                         }
                     }
                 });
@@ -156,7 +156,7 @@ public class ActivityLogin extends Activity
                 {
                     public void onClick(View view)
                     {
-                        new AsyncTaskParseJson(ActivityLogin.this).execute();
+                        new AsyncTaskParseJson(LoginMenuGuru.this).execute();
                     }
                 });
 
@@ -165,9 +165,9 @@ public class ActivityLogin extends Activity
                 {
                     public void onClick(View view)
                     {
-                        Intent intent = new Intent(ActivityLogin.this, CriarUser.class);
+                        Intent intent = new Intent(LoginMenuGuru.this, CriarUser.class);
                         startActivity(intent);
-                        ActivityLogin.this.overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+                        LoginMenuGuru.this.overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
                     }
                 });
         loginBtn.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
@@ -175,7 +175,7 @@ public class ActivityLogin extends Activity
             public void onUserInfoFetched(GraphUser user) {
                 if (user != null) {
                     id_face = user.getId();
-                    new AsyncTaskParseJsonFace(ActivityLogin.this).execute();
+                    new AsyncTaskParseJsonFace(LoginMenuGuru.this).execute();
                 } else {
 
                 }
@@ -298,16 +298,16 @@ public class ActivityLogin extends Activity
         // contacts JSONArray
         JSONArray dataJsonArr = null;
 
-        private ActivityLogin delegate;
+        private LoginMenuGuru delegate;
 
-        public AsyncTaskParseJson (ActivityLogin delegate){
+        public AsyncTaskParseJson (LoginMenuGuru delegate){
             this.delegate = delegate;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = new ProgressDialog(ActivityLogin.this);
+            progressDialog = new ProgressDialog(LoginMenuGuru.this);
             progressDialog.setCancelable(true);
             progressDialog.setMessage("Loading...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -463,16 +463,16 @@ public class ActivityLogin extends Activity
         // contacts JSONArray
         JSONArray dataJsonArr = null;
 
-        private ActivityLogin delegate;
+        private LoginMenuGuru delegate;
 
-        public AsyncTaskParseJsonFace (ActivityLogin delegate){
+        public AsyncTaskParseJsonFace (LoginMenuGuru delegate){
             this.delegate = delegate;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = new ProgressDialog(ActivityLogin.this);
+            progressDialog = new ProgressDialog(LoginMenuGuru.this);
             progressDialog.setCancelable(true);
             progressDialog.setMessage("Loading...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -500,7 +500,8 @@ public class ActivityLogin extends Activity
                 try {
                     Log.v("Ver Json ", "Ele retorna isto" + jsonString);
                     jsonObj = new JSONObject(jsonString);
-                } catch (JSONException e) {
+                } catch (JSONException e)
+                {
                     Log.e(TAG, "Error parsing data " + e.toString());
                 }
                 // get the array of users
@@ -556,7 +557,10 @@ public class ActivityLogin extends Activity
         }
 
         @Override
-        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncCompleteFace(true);  }
+        protected void onPostExecute(String strFromDoInBg)
+        {
+            progressDialog.dismiss();
+            delegate.asyncCompleteFace(true);  }
 
     }
 
@@ -630,16 +634,16 @@ public class ActivityLogin extends Activity
         // contacts JSONArray
         JSONArray dataJsonArr = null;
 
-        private ActivityLogin delegate;
+        private LoginMenuGuru delegate;
 
-        public AsyncTaskParseJsonRecuperar (ActivityLogin delegate){
+        public AsyncTaskParseJsonRecuperar (LoginMenuGuru delegate){
             this.delegate = delegate;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = new ProgressDialog(ActivityLogin.this);
+            progressDialog = new ProgressDialog(LoginMenuGuru.this);
             progressDialog.setCancelable(true);
             progressDialog.setMessage("Loading...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -703,9 +707,9 @@ public class ActivityLogin extends Activity
                     .setCancelable(false)
                     .setPositiveButton(R.string.sim,new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog,int id) {
-                            Intent intent = new Intent(ActivityLogin.this, CriarUser.class);
+                            Intent intent = new Intent(LoginMenuGuru.this, CriarUser.class);
                             startActivity(intent);
-                            ActivityLogin.this.overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+                            LoginMenuGuru.this.overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
                         }
                     })
                     .setNegativeButton(R.string.nao,new DialogInterface.OnClickListener() {
