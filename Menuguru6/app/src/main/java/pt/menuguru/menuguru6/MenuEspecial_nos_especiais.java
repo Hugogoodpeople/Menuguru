@@ -23,12 +23,14 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -78,6 +80,8 @@ public class MenuEspecial_nos_especiais extends Activity {
 
     public Button bt_reserva;
 
+    CalendarView calendar;
+
     TextView edt;
     TextView edt1;
     TextView edt2;
@@ -124,6 +128,23 @@ public class MenuEspecial_nos_especiais extends Activity {
                 final Dialog dialog = new Dialog(MenuEspecial_nos_especiais.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.dialog_reserva);
+                calendar = (CalendarView)dialog.findViewById(R.id.calendarView2);
+
+                Log.v("",""+calendar);
+                calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+
+                    @Override
+                    public void onSelectedDayChange(CalendarView view, int year, int month,
+                                                    int dayOfMonth) {
+                        // TODO Auto-generated method stub
+
+                        Toast.makeText(getBaseContext(), "Selected Date is\n\n"
+                                        + dayOfMonth + " : " + month + " : " + year,
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
                 dialog.show();
 
 
