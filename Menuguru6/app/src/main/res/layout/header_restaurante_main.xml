@@ -42,15 +42,9 @@
 
 
         android:layout_marginLeft="15dp"
-<<<<<<< HEAD
         android:textSize="16dp"
         android:layout_toLeftOf="@+id/imageView"
         android:layout_toStartOf="@+id/imageView" />
-=======
-        android:textSize="18dp"
-        android:layout_toLeftOf="@+id/image_capa"
-        android:layout_toStartOf="@+id/image_capa" />
->>>>>>> FETCH_HEAD
 
     <TextView
         android:layout_width="50dp"
@@ -60,10 +54,11 @@
         android:id="@+id/distancia_restaurante_header"
         android:gravity="center"
 
-        android:layout_alignTop="@+id/imageView"
-        android:layout_toRightOf="@+id/morada_rest"
         android:layout_toEndOf="@+id/morada_rest"
-        android:textSize="14dp" />
+        android:textSize="14dp"
+        android:layout_alignTop="@+id/image_capa"
+        android:layout_alignLeft="@+id/image_capa"
+        android:layout_alignStart="@+id/image_capa" />
 
     <TableLayout
         android:layout_width="fill_parent"

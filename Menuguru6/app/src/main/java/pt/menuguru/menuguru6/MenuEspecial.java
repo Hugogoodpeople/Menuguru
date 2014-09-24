@@ -96,7 +96,7 @@ public class MenuEspecial extends Activity {
         imagem_rest = getIntent().getExtras().getString("urlfoto");
         morada = getIntent().getExtras().getString("morada");
 
-        edt = (TextView) findViewById(R.id.text_dias);
+        edt = (TextView) findViewById(R.id.text_rating_desc);
         edt1 = (TextView) findViewById(R.id.text_preco);
         edt2 = (TextView) findViewById(R.id.text_oferta);
         edt3 = (TextView) findViewById(R.id.text_preco_ant);
