@@ -100,22 +100,13 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
 
         //if (actual == 9)
-        {
-            mAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
-            mListView.setAdapter(mAdapter);
 
-            mListView.setSelection(anterior-1);
-        }
-        /*
-        else
-        {
-            mAdapter.notifyDataSetChanged();
-        }
-        */
-        /*
         mAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
-        // Assign adapter to ListView
-        */
+        mListView.setAdapter(mAdapter);
+
+        mListView.setSelection(anterior-1);
+
+
 
 
 
