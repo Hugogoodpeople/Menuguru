@@ -325,9 +325,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         switch (item.getItemId()) {
             case R.id.action_localizacao:
                 Intent myIntent = new Intent(getActivity(), Localizacao.class);
-                myIntent.putExtra("local", value); //Optional parameters
                 getActivity().startActivity(myIntent);
-                this.getActivity().finish();
                 return false;
             case R.id.action_pesquisa:
 

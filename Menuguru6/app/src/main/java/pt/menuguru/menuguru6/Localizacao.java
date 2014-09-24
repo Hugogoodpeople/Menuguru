@@ -5,21 +5,16 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RatingBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -30,11 +25,10 @@ import org.json.JSONObject;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.Globals;
-import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Locais;
 
 
-public class Localizacao extends Activity {
+public class Localizacao extends Activity implements SearchView.OnQueryTextListener{
     ListView listView;
 
     Locais[] local = null;
@@ -45,6 +39,7 @@ public class Localizacao extends Activity {
 
     private ProgressDialog progressDialog;
 
+    private SearchView mSearchView;
 
     private static MyListAdapter mAdapter;
 
@@ -77,9 +72,10 @@ public class Localizacao extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_localizacao);
-        Intent intent = getIntent();
-        value = intent.getStringExtra("local");
-        //setTitle(value);
+
+        mSearchView=(SearchView) findViewById(R.id.searchView);
+
+
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
@@ -103,6 +99,7 @@ public class Localizacao extends Activity {
         mAdapter = new MyListAdapter(this, R.layout.row_defenicoes, local);
         listView.setAdapter(mAdapter);
         // ListView Item Click Listener
+        setupSearchView();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -128,6 +125,9 @@ public class Localizacao extends Activity {
             }
 
         });
+
+
+
 
     }
 
@@ -188,29 +188,32 @@ public class Localizacao extends Activity {
                 Log.v("JsonObject","objecto = "+ jsonObj);
                 // loop through all users
                 Log.v("JsonObject","objecto = "+ jsonObj);
-                local = new Locais[dataJsonArr.length()];
+                local = new Locais[dataJsonArr.length()+1];
                                 //local[0] = "Perto de mim";
                 //Locais localli = new Locais();
                 //localli.nome = "Perto de mim";
                 //localli.db_id = "0";
                 //local[0] = localli;
-                for (int i = 0; i < dataJsonArr.length(); i++) {
+                for (int i = -1; i < dataJsonArr.length(); i++) {
 
-                    JSONObject c = dataJsonArr.getJSONObject(i);
+
                     Locais locall = new Locais();
-                    if(i==0){
-
+                    if(i==-1){
                     locall.nome = "Perto de mim";
                     locall.db_id = "0";
+                    local[0] = locall;
                     }else{
+                    JSONObject c = dataJsonArr.getJSONObject(i);
                     //Locais locall = new Locais();
                     locall.nome = c.getString("nome");
                     locall.db_id = c.getString("id");
                     locall.longitude = c.getString("lon");
                     locall.latitude = c.getString("lat");
-                    }
                     Log.v("Nome","objecto = "+ c.getString("nome"));
-                    local[i] = locall;
+                    local[i+1] = locall;
+                    }
+                    //
+
                 }
 
             } catch (JSONException e) {
@@ -231,10 +234,8 @@ public class Localizacao extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent myIntent = new Intent(Localizacao.this, MainActivity.class);
-                myIntent.putExtra("local", value);
-                Localizacao.this.startActivity(myIntent);
                 finish();
+                this.overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
 
                 return false;
             default:
@@ -244,6 +245,29 @@ public class Localizacao extends Activity {
         return false;
     }
 
+    private void setupSearchView()
+    {
+        mSearchView.setIconifiedByDefault(false);
+        mSearchView.setOnQueryTextListener(this);
+        mSearchView.setSubmitButtonEnabled(true);
+        mSearchView.setQueryHint("Search Here");
+    }
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
 
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        listView.setFilterText(newText.toString());
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
+    }
 
 }
