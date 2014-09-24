@@ -136,6 +136,7 @@ public class MenuEspecial extends Activity {
                 mAdapter=null;
                 mListView=null;
                 finish();
+                overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
                 return false;
             case R.id.partilhar:
                 Intent sendIntent = new Intent();
