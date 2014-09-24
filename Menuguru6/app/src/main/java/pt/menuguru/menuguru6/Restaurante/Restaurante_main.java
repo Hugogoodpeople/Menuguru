@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -79,10 +80,13 @@ public class Restaurante_main extends FragmentActivity {
     private String morada;
     private String mediarating;
     private String votacoes;
-    private boolean vemDeEspeciais = false;
+
 
     private String[] listEstrelas;
     ArrayList<Comentario> comentarios;
+
+    // se tiver destaque tem de aparecer um layout diferente
+    private boolean destaque = false;
 
 
     @Override
@@ -99,10 +103,7 @@ public class Restaurante_main extends FragmentActivity {
         latitude = intent.getStringExtra("lat");
         longitude = intent.getStringExtra("lon");
         morada = intent.getStringExtra("morada");
-        if (intent.getBooleanExtra("vem_de_especias",false))
-            vemDeEspeciais = true;
-        else
-            vemDeEspeciais = false;
+
 
         actionBar.setTitle(intent.getStringExtra("nome_rest"));
 
@@ -202,22 +203,12 @@ public class Restaurante_main extends FragmentActivity {
         }
 
 
-
-
         @Override
         public int getCount() {
             return fragments.size();
         }
     }
 
-    /*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_especial, menu);
-        return true;
-    }
-*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -317,7 +308,11 @@ public class Restaurante_main extends FragmentActivity {
                     menu.setTipo(c.getString("tipo"));
                     menu.setDb_id(c.getString("pai_id"));
                     menu.setId_rest(rest_id);
+                    menu.setDestaque(c.getString("destaque"));
+                    menu.setDescricao(c.getString("descricao"));
 
+                    if (menu.getDestaque().equalsIgnoreCase("1"))
+                        destaque = true;
 
                     if (menu.getTipo().equalsIgnoreCase("menu_especial"))
                     {
@@ -680,7 +675,48 @@ public class Restaurante_main extends FragmentActivity {
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        header2 = (ViewGroup) inflater.inflate(R.layout.header_restaurante_main, gridView, false);
+        if (destaque) {
+            // como tem algom em destaque tenho de chamar outro layout
+            header2 = (ViewGroup) inflater.inflate(R.layout.header_restaurante_main_destaque, gridView, false);
+
+            // este novo layout tem um menu no topo que tenho de preencher
+            // mas primeiro tenho de achar esse menu na lista de menus
+
+            for(int i = 0 ; i < some_list.size() ; i++)
+            {
+                Menu_do_restaurante menu = some_list.get(i);
+                if (menu.getDestaque().equalsIgnoreCase("1"))
+                {
+
+                    // aqui tenho de colocar este menu no topo do header
+                    TextView nome_menu = (TextView) header2.findViewById(R.id.textView_nome_especial);
+                    nome_menu.setText(menu.getNome());
+
+                    TextView desc_menu = (TextView) header2.findViewById(R.id.textView_desc_especial);
+                    desc_menu.setText(menu.getDescricao());
+
+                    TextView preco_ant = (TextView) header2.findViewById(R.id.textView_preco_ant_especial);
+                    preco_ant.setText(menu.getPrecoAntigo());
+                    preco_ant.setPaintFlags(preco_ant.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+                    TextView preco_novo = (TextView) header2.findViewById(R.id.preco_novo_especial);
+                    preco_novo.setText(menu.getPrecoNovo());
+
+                    ImageView imagemEspecial = (ImageView) header2.findViewById(R.id.imageView_destaque);
+
+
+
+
+                }
+
+
+            }
+
+
+        }
+        else {
+            header2 = (ViewGroup) inflater.inflate(R.layout.header_restaurante_main, gridView, false);
+        }
         TextView dist = (TextView) header2.findViewById(R.id.distancia_restaurante_header);
         dist.setText(Utils.getDistance(locationPhone, locationRest));
 
@@ -779,7 +815,7 @@ public class Restaurante_main extends FragmentActivity {
                         Intent myIntent = new Intent(Restaurante_main.this, MenuEspecial.class);
                         //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
                         myIntent.putExtra("rest_cartao_id", "" + some_list.get(position*2 +1).getDb_id());
-                        myIntent.putExtra("rest_id", ""+some_list.get(position*2 +1).getId_rest());
+                        myIntent.putExtra("rest_id", "" + some_list.get(position*2 +1).getId_rest());
                         myIntent.putExtra("vem_de_especias", false);
 
                         startActivity(myIntent);
@@ -791,9 +827,6 @@ public class Restaurante_main extends FragmentActivity {
 
             }else
             {
-                //icon2.setVisibility(View.GONE);
-                //label2.setVisibility(View.GONE);
-
                 rel.setVisibility(View.GONE);
             }
 

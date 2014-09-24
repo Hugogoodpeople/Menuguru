@@ -12,7 +12,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,10 +37,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
-import java.util.StringTokenizer;
 import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Restaurante.Restaurante_main;
@@ -426,8 +422,8 @@ public class MenuEspecial_nos_especiais extends Activity {
         edt3 = (TextView) findViewById(R.id.text_preco_ant);
         edt4 = (TextView) findViewById(R.id.text_titulo);
         edt5 = (TextView) findViewById(R.id.textView3);
-        edt6 = (TextView) findViewById(R.id.textView2);
-        edt7 = (TextView) findViewById(R.id.textView);
+        edt6 = (TextView) findViewById(R.id.textView_desc_especial);
+        edt7 = (TextView) findViewById(R.id.textView_nome_especial);
         edt8 = (TextView) findViewById(R.id.textView10);
         edt9 = (ImageView) findViewById(R.id.imageView2);
 

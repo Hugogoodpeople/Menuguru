@@ -16,12 +16,29 @@ public class Menu_do_restaurante {
     public String desconto;
     public String especialFita;
     public String id_rest;
-
+    public String destaque = "0";
     public String lat;
     public String lng;
     public String nome_rest;
     public String imagem_rest;
     public String morada;
+    public String descricao;
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getDestaque() {
+        return destaque;
+    }
+
+    public void setDestaque(String destaque) {
+        this.destaque = destaque;
+    }
 
     public String getMorada() {
         return morada;

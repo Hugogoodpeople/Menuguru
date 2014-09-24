@@ -124,7 +124,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="MIN"
-        android:id="@+id/textView"
+        android:id="@+id/textView_nome_especial"
         android:textSize="10dp"
         android:textColor="@color/white"
         android:layout_alignTop="@+id/textView10"
@@ -137,12 +137,12 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="HRS"
-        android:id="@+id/textView2"
+        android:id="@+id/textView_desc_especial"
         android:textSize="10dp"
         android:textColor="@color/white"
-        android:layout_alignTop="@+id/textView"
-        android:layout_toLeftOf="@+id/textView"
-        android:layout_toStartOf="@+id/textView"
+        android:layout_alignTop="@+id/textView_nome_especial"
+        android:layout_toLeftOf="@+id/textView_nome_especial"
+        android:layout_toStartOf="@+id/textView_nome_especial"
         android:layout_marginRight="13dp" />
 
     <TextView
@@ -153,9 +153,9 @@
         android:id="@+id/textView3"
         android:textSize="10dp"
         android:textColor="@color/white"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_toLeftOf="@+id/textView2"
-        android:layout_toStartOf="@+id/textView2"
+        android:layout_alignTop="@+id/textView_desc_especial"
+        android:layout_toLeftOf="@+id/textView_desc_especial"
+        android:layout_toStartOf="@+id/textView_desc_especial"
         android:layout_marginRight="12dp" />
 
 </RelativeLayout>

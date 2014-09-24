@@ -196,11 +196,8 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
                 //myIntent.putExtra("rating", ""+some_array[position].getId_rest());
                 //myIntent.putExtra("votacoes", ""+some_array[position].getId_rest());
 
-
                 getActivity().startActivity(myIntent);
-
                 getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
-
             }
 
         });
