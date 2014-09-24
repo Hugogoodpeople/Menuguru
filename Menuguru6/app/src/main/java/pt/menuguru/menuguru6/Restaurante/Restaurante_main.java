@@ -31,6 +31,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ import java.util.Vector;
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.MenuEspecial;
 import pt.menuguru.menuguru6.R;
+import pt.menuguru.menuguru6.Utils.Comentario;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Menu_do_restaurante;
@@ -62,6 +64,8 @@ public class Restaurante_main extends FragmentActivity {
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
 
+    private ViewGroup header2;
+
     private static MyListAdapter mAdapter;
     private ArrayList<Menu_do_restaurante> some_list;
     private ArrayList<String> fotos;
@@ -77,6 +81,7 @@ public class Restaurante_main extends FragmentActivity {
     private String votacoes;
 
     private String[] listEstrelas;
+    ArrayList<Comentario> comentarios;
 
 
     @Override
@@ -159,15 +164,11 @@ public class Restaurante_main extends FragmentActivity {
         List<Fragment> fragments = new Vector<Fragment>();
 
         // tenho de fazer alterações para poder atribuir o numero de estrelas
-
         Fragment fragmentMedia = new tab_rating().create(mediarating, votacoes);
 
         fragments.add(fragmentMedia);
 
         // agora tenho de fazer as alterções para receber um array com 5 posiçoes para o rating
-
-
-
         Fragment fragmentAllStars = new tab_five_ratin().create(listEstrelas, votacoes);
 
         fragments.add(fragmentAllStars);
@@ -455,19 +456,6 @@ public class Restaurante_main extends FragmentActivity {
             this.delegate = delegate;
         }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // não preciso desta parte porque ja tenho outro loading a correr
-            /*
-            progressDialog = new ProgressDialog(Restaurante_main.this);
-            progressDialog.setCancelable(true);
-            progressDialog.setMessage("Loading...");
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setProgress(0);
-            progressDialog.show();
-            */
-        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -537,6 +525,127 @@ public class Restaurante_main extends FragmentActivity {
 
     }
 
+
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonComentarios extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_listar_comentarios.php";
+
+
+        // contacts JSONArray
+        JSONArray dataJsonArr = null;
+
+        private Restaurante_main delegate;
+
+        public AsyncTaskParseJsonComentarios (Restaurante_main delegate){
+            this.delegate = delegate;
+        }
+
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+                dict.put("lang",Globals.getInstance().getLingua());
+
+                dict.put("id_rest",rest_id);
+
+                // tenho de enviar lat, long, data, hora, cidade, lang
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                Log.v("jfgrhng","resultado dos comentarios = "+ jsonString);
+
+
+                // try parse the string to a JSON object
+                try {
+                    Log.v("Ver Json ","Ele retorna estes comentarios"+jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                // get the array
+
+                dataJsonArr = jsonObj.getJSONArray("res");
+
+
+
+                comentarios = new ArrayList<Comentario>();
+
+                for (int i = 0 ; i < dataJsonArr.length() ; i++ )
+                {
+                    JSONObject c = dataJsonArr.getJSONObject(i);
+
+                    Comentario comentario = new Comentario();
+                    comentario.setId_com(c.getString("id_com"));
+                    comentario.setComentario(c.getString("comentario"));
+                    comentario.setResp_com(c.getString("resp_com"));
+                    comentario.setData_com(c.getString("data_com"));
+                    comentario.setData_respest(c.getString("data_respest"));
+                    comentario.setNome_user_com(c.getString("nome_user_com"));
+                    comentario.setNome_rest_com(c.getString("nome_rest_com"));
+
+
+                    comentarios.add(comentario);
+                }
+
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg)
+        {
+            //progressDialog.dismiss();
+            delegate.asyncCompleteComentarios(true);
+        }
+
+    }
+
+    public void asyncCompleteComentarios(boolean success)
+    {
+        // esta parte serve para os comentarios
+        TextView user_name = (TextView) header2.findViewById(R.id.textView_user_name);
+        TextView data_coment = (TextView) header2.findViewById(R.id.textView_data_comentario);
+        TextView comentario = (TextView) header2.findViewById(R.id.textView_Comentario);
+        TextView ver_todos = (TextView) header2.findViewById(R.id.textView_ver_todos);
+
+
+
+        // quando ainda não foram feitos comentarios
+
+        if (comentarios.size() == 0) {
+            user_name.setText(getString(R.string.sem_coments));
+            data_coment.setText("");
+            comentario.setText(getString(R.string.seja_o_primeiro_c));
+            comentario.setTextColor(R.color.gray);
+            ver_todos.setText("");
+        }else // quando ja tem comentarios
+        {
+            user_name.setText(comentarios.get(0).getNome_user_com());
+            data_coment.setText(comentarios.get(0).getData_com());
+            //comentario.setTextColor(R.color.black);
+            comentario.setText(comentarios.get(0).getComentario());
+            ver_todos.setText(getString(R.string.ver_todos));
+        }
+    }
+
     public void asyncCompleteEstrelas(boolean success)
     {
         new AsyncTaskParseJson1(this).execute();
@@ -557,7 +666,7 @@ public class Restaurante_main extends FragmentActivity {
         gridView = (ListView) findViewById(R.id.morada_rest);
         //adapter = new ArrayAdapter<Locais>(this,android.R.layout.simple_list_item_1, android.R.id.text1, local);
 
-// para calcular a distancia
+        // para calcular a distancia
         Location locationRest = new Location("");
         locationRest.setLatitude(Double.parseDouble(latitude));
         locationRest.setLongitude(Double.parseDouble(longitude));
@@ -569,7 +678,7 @@ public class Restaurante_main extends FragmentActivity {
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        ViewGroup header2 = (ViewGroup) inflater.inflate(R.layout.header_restaurante_main, gridView, false);
+        header2 = (ViewGroup) inflater.inflate(R.layout.header_restaurante_main, gridView, false);
         TextView dist = (TextView) header2.findViewById(R.id.distancia_restaurante_header);
         dist.setText(Utils.getDistance(locationPhone, locationRest));
 
@@ -580,60 +689,20 @@ public class Restaurante_main extends FragmentActivity {
         votos.setText(votacoes +" "+ getString(R.string.votacoes));
 
 
-        gridView.addHeaderView(header2, null, false);
 
+
+        // para quando tem comentarios tenho de ir buscar por webservice
+
+        gridView.addHeaderView(header2, null, false);
 
         // Assign adapter to ListView
         //listView.setAdapter(adapter);
         mAdapter = new MyListAdapter(this, R.layout.grid_menu, some_list);
         gridView.setAdapter(mAdapter);
 
-        // ListView Item Click Listener
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                /*
-                // ListView Clicked item index
-                int itemPosition = position;
-
-                // ListView Clicked item value
-                Locais itemValue = local[position];
-                Log.v("Clicou",itemValue.db_id);
-                Globals.getInstance().setCidedade_id(itemValue.db_id);
-                Globals.getInstance().setCidadeÇ_nome(itemValue.nome);
-
-                Intent myIntent = new Intent(Localizacao.this, MainActivity.class);
-                Localizacao.this.startActivity(myIntent);
-
-
-                finish();
-*/
-            }
-
-        });
-
-
         initialisePagin();
         new AsyncTaskParseJsonGaleria(this).execute();
-
-
-        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                // When changing pages, reset the action bar actions since they are dependent
-                // on which page is currently active. An alternative approach is to have each
-                // fragment expose actions itself (rather than the activity exposing actions),
-                // but for simplicity, the activity provides the actions in this sample.
-                // invalidateOptionsMenu();
-            }
-        });
-
-
-
-
+        new AsyncTaskParseJsonComentarios(this).execute();
 
     }
 

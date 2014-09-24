@@ -16,7 +16,7 @@
         android:textColor="@color/white" />
 
     <com.facebook.widget.LoginButton
-        android:id="@+id/bt_transfFav"
+        android:id="@+id/bt_loginface"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
 
@@ -153,8 +153,8 @@
         android:layout_toStartOf="@+id/descricao_vazio"
         android:background="@color/gray"
         android:id="@+id/linearLayout_risca"
-        android:layout_alignRight="@+id/bt_transfFav"
-        android:layout_alignEnd="@+id/bt_transfFav"
+        android:layout_alignRight="@+id/bt_loginface"
+        android:layout_alignEnd="@+id/bt_loginface"
         android:layout_alignTop="@+id/linearLayout_risca"
         android:layout_toRightOf="@+id/descricao_vazio"
         android:layout_toEndOf="@+id/descricao_vazio" />

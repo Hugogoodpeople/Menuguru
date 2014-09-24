@@ -9,6 +9,10 @@
     <string name="bom" translatable="false">Bom</string>
     <string name="muito_bom" translatable="false">Muito bom</string>
     <string name="excelente" translatable="false">Excelente</string>
+    <string name="sem_coments" translatable="false">Sem comentários</string>
+    <string name="seja_o_primeiro_c" translatable="false">Seja o primeiro a avaliar este restaurante</string>
+    <string name="escreva_baixo" translatable="false">Escreva em baixo a sua opinião</string>
+    <string name="ver_todos" translatable="false">Ver todos</string>
 
     <string name="inicio" translatable="false">Inicio</string>
     <string name="votacoes" translatable="false">Avaliaçoes</string>
