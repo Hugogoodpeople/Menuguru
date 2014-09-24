@@ -110,20 +110,6 @@ public class MenuEspecial extends Activity {
         imagem_rest = getIntent().getExtras().getString("urlfoto");
         morada = getIntent().getExtras().getString("morada");
 
-<<<<<<< HEAD
-
-=======
-        edt = (TextView) findViewById(R.id.text_rating_desc);
-        edt1 = (TextView) findViewById(R.id.text_preco);
-        edt2 = (TextView) findViewById(R.id.text_oferta);
-        edt3 = (TextView) findViewById(R.id.text_preco_ant);
-        edt4 = (TextView) findViewById(R.id.text_titulo);
-        edt5 = (TextView) findViewById(R.id.textView3);
-        edt6 = (TextView) findViewById(R.id.textView2);
-        edt7 = (TextView) findViewById(R.id.textView);
-        edt8 = (TextView) findViewById(R.id.textView10);
-        edt9 = (ImageView) findViewById(R.id.imageView2);
->>>>>>> FETCH_HEAD
         // Set the adapter
         mListView = (ListView)findViewById(R.id.list_esp);
 
