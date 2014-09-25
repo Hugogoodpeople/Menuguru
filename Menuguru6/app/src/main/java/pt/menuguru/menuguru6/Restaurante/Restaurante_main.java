@@ -4,10 +4,12 @@ import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +17,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,10 +26,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import org.json.JSONArray;
@@ -38,9 +45,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import pt.menuguru.menuguru6.BounceListView;
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.MenuEspecial;
 import pt.menuguru.menuguru6.R;
+import pt.menuguru.menuguru6.Restaurante.Info.InfoRestaurante;
 import pt.menuguru.menuguru6.Utils.Comentario;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
@@ -80,6 +89,8 @@ public class Restaurante_main extends FragmentActivity {
     private String morada;
     private String mediarating;
     private String votacoes;
+    private String abertoFechado;
+    private String horarioAbertura;
 
 
     private String[] listEstrelas;
@@ -281,7 +292,7 @@ public class Restaurante_main extends FragmentActivity {
 
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
 
-                //Log.v("jfgrhng","resultado da procura = "+ jsonString);
+                // Log.v("jfgrhng","resultado da procura = "+ jsonString);
 
 
                 // try parse the string to a JSON object
@@ -296,6 +307,11 @@ public class Restaurante_main extends FragmentActivity {
                 dataJsonArr = jsonObj.getJSONArray("res");
 
                 // loop through all users
+
+                // para saber se o restaurante esta aberto ou fechado
+                JSONObject horario = jsonObj.getJSONObject("horario");
+                abertoFechado = horario.getString("aberto");
+                horarioAbertura = horario.getString("horario");
 
 
                 some_list = new ArrayList<Menu_do_restaurante>();
@@ -398,7 +414,7 @@ public class Restaurante_main extends FragmentActivity {
 
                 // try parse the string to a JSON object
                 try {
-                    Log.v("Ver Json ","Ele retorna dentro do menu"+jsonString);
+                    Log.v("Ver Json ","Ele retorna galeria "+jsonString);
                     jsonObj = new JSONObject(jsonString);
                 } catch (JSONException e) {
                     Log.e(TAG, "Error parsing data " + e.toString());
@@ -673,7 +689,7 @@ public class Restaurante_main extends FragmentActivity {
         locationPhone.setLongitude(Double.parseDouble(Globals.getInstance().getLongitude()));
 
 
-        LayoutInflater inflater = LayoutInflater.from(this);
+        final LayoutInflater inflater = LayoutInflater.from(this);
 
         if (destaque) {
             // como tem algom em destaque tenho de chamar outro layout
@@ -681,7 +697,6 @@ public class Restaurante_main extends FragmentActivity {
 
             // este novo layout tem um menu no topo que tenho de preencher
             // mas primeiro tenho de achar esse menu na lista de menus
-
             for(int i = 0 ; i < some_list.size() ; i++)
             {
                 Menu_do_restaurante menu = some_list.get(i);
@@ -724,21 +739,78 @@ public class Restaurante_main extends FragmentActivity {
         votos.setText(votacoes +" "+ getString(R.string.votacoes));
 
 
+
+        ImageButton buttonInfo = (ImageButton)header2.findViewById(R.id.button_info);
+        buttonInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // lançar intent com a info
+                Intent intent = new Intent(Restaurante_main.this, InfoRestaurante.class);
+                intent.putExtra("restaurante_id",rest_id);
+
+                startActivity(intent);
+
+                overridePendingTransition(R.anim.abc_slide_in_bottom, 0);
+            }
+        });
+
+
         // para quando tem comentarios tenho de ir buscar por webservice
 
+        ViewGroup aberto_fechado = (ViewGroup)inflater.inflate(R.layout.restaurante_aberto_fechado, gridView , false);
+
+        TextView labelAberto = (TextView) aberto_fechado.findViewById(R.id.textView_aberto_fechado);
+       // LinearLayout layout_aberto = (LinearLayout) aberto_fechado.findViewById(R.)
+
+        // toast para saber se esta aberto ou fechado
+        // encontrei uma alternativa... podemos adicionar varios headers a lista... adicionamos se esta aberto ou fechado
+        // depois so temos de meter este texto em baixo nessa view
+        if (abertoFechado.equalsIgnoreCase("nao"))
+        {
+            //display in short period of time
+            //linearLayout_abertofechado
+            LinearLayout abc =(LinearLayout) aberto_fechado.findViewById(R.id.linearLayout_abertofechado);
+           // abc.setBackgroundColor(Color.parseColor("#cc0000"));
+            labelAberto.setText( getString(R.string.hoje) +" "+ horarioAbertura);
+        }
+        else
+        {
+            //display in short period of time
+            labelAberto.setText(getString(R.string.aberto));
+            LinearLayout abc =(LinearLayout) aberto_fechado.findViewById(R.id.linearLayout_abertofechado);
+            abc.setBackgroundColor(Color.parseColor("#669900"));
+        }
+
+
+        gridView.addHeaderView(aberto_fechado, null, false);
         gridView.addHeaderView(header2, null, false);
+
 
         // Assign adapter to ListView
         //listView.setAdapter(adapter);
         mAdapter = new MyListAdapter(this, R.layout.grid_menu, some_list);
         gridView.setAdapter(mAdapter);
 
+
+
+        gridView.setSelection(1);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 100ms
+                gridView.smoothScrollToPosition(0);
+            }
+        }, 1000);
+
+
+
         initialisePagin();
         new AsyncTaskParseJsonGaleria(this).execute();
         new AsyncTaskParseJsonComentarios(this).execute();
 
     }
-
 
 
 
