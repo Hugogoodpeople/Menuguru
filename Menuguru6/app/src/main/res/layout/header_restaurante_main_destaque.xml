@@ -110,18 +110,13 @@
         android:layout_height="55dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Exemplo de morada do restaurante"
-
         android:id="@+id/morada_rest"
         android:layout_below="@+id/galeria_imagens"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-
-
-
         android:layout_marginLeft="15dp"
         android:textSize="16dp"
-        android:layout_toLeftOf="@+id/imageView"
-        android:layout_toStartOf="@+id/imageView" />
+        android:layout_marginTop="5dp" />
 
     <TextView
         android:layout_width="50dp"
@@ -171,7 +166,8 @@
                 android:id="@+id/imageButton2"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp" />
+                android:layout_marginRight="20dp"
+                android:background="@drawable/d" />
 
             <ImageButton
                 android:layout_width="50dp"
@@ -185,7 +181,7 @@
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:id="@+id/imageButton4"
+                android:id="@+id/button_info"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"

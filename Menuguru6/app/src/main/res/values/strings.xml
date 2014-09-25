@@ -13,6 +13,9 @@
     <string name="seja_o_primeiro_c" translatable="false">Seja o primeiro a avaliar este restaurante</string>
     <string name="escreva_baixo" translatable="false">Escreva em baixo a sua opinião</string>
     <string name="ver_todos" translatable="false">Ver todos</string>
+    <string name="aberto" translatable="false">Aberto agora</string>
+    <string name="fechado" translatable="false">Fechado</string>
+
 
     <string name="inicio" translatable="false">Inicio</string>
     <string name="votacoes" translatable="false">Avaliaçoes</string>

@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,10 +24,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import org.json.JSONArray;
@@ -80,6 +83,8 @@ public class Restaurante_main extends FragmentActivity {
     private String morada;
     private String mediarating;
     private String votacoes;
+    private String abertoFechado;
+    private String horarioAbertura;
 
 
     private String[] listEstrelas;
@@ -281,7 +286,7 @@ public class Restaurante_main extends FragmentActivity {
 
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
 
-                //Log.v("jfgrhng","resultado da procura = "+ jsonString);
+                // Log.v("jfgrhng","resultado da procura = "+ jsonString);
 
 
                 // try parse the string to a JSON object
@@ -296,6 +301,11 @@ public class Restaurante_main extends FragmentActivity {
                 dataJsonArr = jsonObj.getJSONArray("res");
 
                 // loop through all users
+
+                // para saber se o restaurante esta aberto ou fechado
+                JSONObject horario = jsonObj.getJSONObject("horario");
+                abertoFechado = horario.getString("aberto");
+                horarioAbertura = horario.getString("horario");
 
 
                 some_list = new ArrayList<Menu_do_restaurante>();
@@ -398,7 +408,7 @@ public class Restaurante_main extends FragmentActivity {
 
                 // try parse the string to a JSON object
                 try {
-                    Log.v("Ver Json ","Ele retorna dentro do menu"+jsonString);
+                    Log.v("Ver Json ","Ele retorna galeria "+jsonString);
                     jsonObj = new JSONObject(jsonString);
                 } catch (JSONException e) {
                     Log.e(TAG, "Error parsing data " + e.toString());
@@ -681,7 +691,6 @@ public class Restaurante_main extends FragmentActivity {
 
             // este novo layout tem um menu no topo que tenho de preencher
             // mas primeiro tenho de achar esse menu na lista de menus
-
             for(int i = 0 ; i < some_list.size() ; i++)
             {
                 Menu_do_restaurante menu = some_list.get(i);
@@ -724,6 +733,17 @@ public class Restaurante_main extends FragmentActivity {
         votos.setText(votacoes +" "+ getString(R.string.votacoes));
 
 
+        Button buttonInfo = (Button)header2.findViewById(R.id.button_info);
+        buttonInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // lançar intent com a info
+
+
+            }
+        });
+
+
         // para quando tem comentarios tenho de ir buscar por webservice
 
         gridView.addHeaderView(header2, null, false);
@@ -733,12 +753,26 @@ public class Restaurante_main extends FragmentActivity {
         mAdapter = new MyListAdapter(this, R.layout.grid_menu, some_list);
         gridView.setAdapter(mAdapter);
 
+        // toast para saber se esta aberto ou fechado
+        if (abertoFechado.equalsIgnoreCase("nao"))
+        {
+            //display in short period of time
+            Toast toast = Toast.makeText(this, getString(R.string.fechado) +"\n\n"+ horarioAbertura, Toast.LENGTH_LONG);
+            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+            if( v != null) v.setGravity(Gravity.CENTER);
+            toast.show();
+        }
+        else
+        {
+            //display in short period of time
+            Toast.makeText(getApplicationContext(), getString(R.string.aberto), Toast.LENGTH_SHORT).show();
+        }
+
         initialisePagin();
         new AsyncTaskParseJsonGaleria(this).execute();
         new AsyncTaskParseJsonComentarios(this).execute();
 
     }
-
 
 
 
