@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:weightSum="1"
-    android:background="@color/transparent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -17,21 +13,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Selecione a data para reservar a mesa e usurfuir da oferta"
+            android:text="@string/sel_hora"
             android:id="@+id/textSpiner"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="85dp"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp" />
+            android:layout_marginTop="85dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/cancelar"
-            android:id="@+id/bt_cancelar"
+            android:text="@string/ant"
+            android:id="@+id/bt_ant_cal"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -44,7 +37,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/seg"
-            android:id="@+id/bt_seguuintw"
+            android:id="@+id/bt_seg_nrp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="false"
@@ -53,17 +46,18 @@
             android:textColor="@color/dourado"
             android:layout_alignParentStart="false" />
 
-        <CalendarView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/calendarView2"
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/list_hora"
             android:layout_below="@+id/textSpiner"
-            android:layout_alignLeft="@+id/bt_cancelar"
-            android:layout_alignStart="@+id/bt_cancelar"
-            android:layout_above="@+id/bt_cancelar"
-            android:layout_alignRight="@+id/bt_seguuintw"
-            android:layout_alignEnd="@+id/bt_seguuintw"
-            android:padding="10dp"
-            android:showWeekNumber="false" />
+            android:layout_alignLeft="@+id/bt_ant_cal"
+            android:layout_alignStart="@+id/bt_ant_cal"
+            android:layout_marginTop="20dp"
+            android:layout_above="@+id/bt_ant_cal"
+            android:layout_alignRight="@+id/bt_seg_nrp"
+            android:layout_alignEnd="@+id/bt_seg_nrp"
+            android:layout_marginBottom="20dp" />
+
     </RelativeLayout>
 </LinearLayout>

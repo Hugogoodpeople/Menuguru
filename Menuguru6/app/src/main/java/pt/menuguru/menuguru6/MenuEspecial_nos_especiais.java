@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -29,7 +30,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.NumberPicker;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -46,9 +50,13 @@ import java.util.TimeZone;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Restaurante.Restaurante_main;
+import pt.menuguru.menuguru6.Utils.CustomTimePickerDialog;
 import pt.menuguru.menuguru6.Utils.Descricao_Especial;
 import pt.menuguru.menuguru6.Utils.Horario_Especial;
 import pt.menuguru.menuguru6.Utils.Menu_Especial;
+
+import static android.R.layout.simple_list_item_1;
+import static android.R.layout.simple_spinner_item;
 
 
 public class MenuEspecial_nos_especiais extends Activity {
@@ -57,6 +65,7 @@ public class MenuEspecial_nos_especiais extends Activity {
     private ArrayList<Menu_Especial> some_list;
     private ArrayList<Descricao_Especial> desc_list;
     private ArrayList<Horario_Especial> hora_list;
+    private ArrayList<Horario_Especial> aux_hora_list;
 
     private ListView mListView;
 
@@ -82,6 +91,8 @@ public class MenuEspecial_nos_especiais extends Activity {
 
     CalendarView calendar;
 
+
+
     TextView edt;
     TextView edt1;
     TextView edt2;
@@ -94,10 +105,17 @@ public class MenuEspecial_nos_especiais extends Activity {
     ImageView edt9;
     Menu menu;
 
+    String data_selec;
+
     private CountDownTimer countDownTimer;
     private boolean timerHasStarted = false;
     private final long startTime = 30 * 1000;
     private final long interval = 1 * 1000;
+
+
+    private CustomTimePickerDialog mTimePicker;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,18 +143,112 @@ public class MenuEspecial_nos_especiais extends Activity {
 
             @Override
             public void onClick(View v) {
-                final Dialog dialog = new Dialog(MenuEspecial_nos_especiais.this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(R.layout.dialog_reserva);
-                calendar = (CalendarView)dialog.findViewById(R.id.calendarView2);
-                calendar.setSelectedWeekBackgroundColor(getResources().getColor(R.color.dourado));
+                final Dialog dialog1 = new Dialog(MenuEspecial_nos_especiais.this);
+                dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog1.setContentView(R.layout.dialog_reserva);
+
+                Calendar c = Calendar.getInstance();
+                System.out.println("Current time => " + c.getTime());
+
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                data_selec = df.format(c.getTime());
+
+                Date data_act = null;
+                try {
+                    data_act = df.parse(data_selec);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                long data_A = data_act.getTime();
+                calendar = (CalendarView)dialog1.findViewById(R.id.calendarView2);
+                calendar.setSelectedWeekBackgroundColor(getResources().getColor(R.color.dourado_trans));
                 calendar.setFocusedMonthDateColor(getResources().getColor(R.color.black));
                 calendar.setUnfocusedMonthDateColor(getResources().getColor(R.color.silver));
                 calendar.setWeekSeparatorLineColor(getResources().getColor(R.color.transparent));
-                calendar.setSelectedDateVerticalBar(R.color.transparent);
-//                calendar.setMinDate(Long.parseLong(some_list.get(0).getDataActual()));
-                //calendar.set(R.color.aqua);
-                //calendar.setFocusedMonthDateColor(R.color.dourado);
+                calendar.setSelectedDateVerticalBar(R.color.dourado);
+                calendar.setDate(data_A);
+                calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+
+                    @Override
+                    public void onSelectedDayChange(CalendarView view, int year, int month,
+                                                    int dayOfMonth) {
+                        month = month+1;
+                        Log.v("ANO",""+year);
+                        Log.v("MES",""+month);
+                        Log.v("DIA",""+dayOfMonth);
+
+                        data_selec = year+"-"+month+"-"+dayOfMonth;
+                    }
+                });
+
+                TextView bt_cancelar = (TextView) dialog1.findViewById(R.id.bt_cancelar);
+                TextView bt_segasd = (TextView) dialog1.findViewById(R.id.bt_seguuintw);
+
+                bt_segasd.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        Calendar cc = Calendar.getInstance();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        String dataactual = sdf.format(cc.getTime());
+                        Date date1=null, date2=null;
+                        try {
+                            date1 = sdf.parse(data_selec);
+                            date2 = sdf.parse(dataactual);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        Log.v("data 1",""+date1);
+                        Log.v("data 2",""+date2);
+
+                        if(date1.compareTo(date2)>=0){
+                            cc.setTime(date1);
+                            int day = cc.get(Calendar.DAY_OF_WEEK);
+                            int dia_semana = 0;
+                            switch (day){
+                                case 1:dia_semana=7;break;
+                                case 2:dia_semana=1;break;
+                                case 3:dia_semana=2;break;
+                                case 4:dia_semana=3;break;
+                                case 5:dia_semana=4;break;
+                                case 6:dia_semana=5;break;
+                                case 7:dia_semana=6;break;
+                            }
+                            aux_hora_list = new ArrayList<Horario_Especial>();
+                            for (int i = 0; i < hora_list.size(); i++) {
+                                //JSONObject a = dataJsonHorarios.getJSONObject(i);
+
+                                Horario_Especial hora = new Horario_Especial();
+                                int foo = Integer.parseInt(hora_list.get(i).getDia_id());
+                                if(dia_semana==foo){
+                                    hora.setId(hora_list.get(i).getId());
+                                    hora.setDia_id(hora_list.get(i).getDia_id());
+                                    hora.setHora_inicio(hora_list.get(i).getHora_inicio());
+                                    hora.setN_pessoas_h(hora_list.get(i).getN_pessoas_h());
+                                    aux_hora_list.add(hora);
+                                }
+                            }
+
+
+                            SelecionaHora();
+                        }else{
+                            Aviso();
+                        }
+
+
+
+                    }
+                });
+
+                bt_cancelar.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        dialog1.dismiss();
+                    }
+                });
+
+
 
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 formatter.setLenient(false);
@@ -161,24 +273,10 @@ public class MenuEspecial_nos_especiais extends Activity {
                 long nMillis = nDate.getTime();
 
 
-                calendar.setMaxDate(oldMillis);
-                calendar.setMinDate(nMillis);
-                Log.v("",""+calendar);
-                calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+                //calendar.setMaxDate(oldMillis);
+                //calendar.setMinDate(nMillis);
 
-                    @Override
-                    public void onSelectedDayChange(CalendarView view, int year, int month,
-                                                    int dayOfMonth) {
-                        // TODO Auto-generated method stub
-
-                        Toast.makeText(getBaseContext(), "Selected Date is\n\n"
-                                        + dayOfMonth + " : " + month + " : " + year,
-                                0).show();
-                    }
-                });
-
-
-                dialog.show();
+                dialog1.show();
 
 
             }
@@ -186,6 +284,159 @@ public class MenuEspecial_nos_especiais extends Activity {
 
 
         new AsyncTaskParseJson(this).execute();
+
+    }
+
+
+
+    private static String padding_str(int c) {
+        if (c >= 10)
+        return String.valueOf(c);
+        else
+        return "0" + String.valueOf(c);
+    }
+
+
+    public void Aviso(){
+        final Dialog dialog_hora = new Dialog(MenuEspecial_nos_especiais.this);
+        dialog_hora.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_hora.setContentView(R.layout.dialog_hora);
+
+
+
+        TextView bt_ant = (TextView) dialog_hora.findViewById(R.id.bt_ant_cal);
+        TextView bt_seg = (TextView) dialog_hora.findViewById(R.id.bt_seg_nrp);
+        bt_ant.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog_hora.dismiss();
+            }
+        });
+
+        bt_seg.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog_hora.dismiss();
+            }
+        });
+        dialog_hora.show();
+    }
+
+
+    public void SelecionaHora(){
+
+        Log.v("CARREGOU","SEGUINTE");
+        final Dialog dialog_hora = new Dialog(MenuEspecial_nos_especiais.this); //, R.style.PauseDialog2);
+        dialog_hora.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_hora.setContentView(R.layout.dialog_hora);
+
+        TextView bt_ant = (TextView) dialog_hora.findViewById(R.id.bt_ant_cal);
+        TextView bt_seg = (TextView) dialog_hora.findViewById(R.id.bt_seg_nrp);
+
+        ListView list = (ListView) dialog_hora.findViewById(R.id.list_hora);
+        SpinnerAdapterVitor dataAdapter = new SpinnerAdapterVitor(MenuEspecial_nos_especiais.this,
+                simple_list_item_1,aux_hora_list);
+        list.setAdapter(dataAdapter);
+/*
+        Spinner sp = (Spinner) dialog_hora.findViewById(R.id.spinner2);
+        SpinnerAdapterVitor dataAdapter = new SpinnerAdapterVitor(MenuEspecial_nos_especiais.this,
+                simple_spinner_item,aux_hora_list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp.setAdapter(dataAdapter);
+
+        NumberPicker np=
+                (NumberPicker) dialog_hora.findViewById(R.id.numberPicker2);
+        String[] values=new String[3];
+        values[0]="mike";
+        values[1]="sue";
+        values[2]="harry";
+        np.setMaxValue(values.length-1);
+        np.setMinValue(0);
+        np.setDisplayedValues(values);
+        final TextView hora = (TextView) dialog_hora.findViewById(R.id.hora);
+
+        hora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+
+                mTimePicker = new CustomTimePickerDialog(MenuEspecial_nos_especiais.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        // ainda falta qui codigo para fazer o resto das cenas
+                        // tenho de ter a validação se é 0 ou 30
+
+                        if (selectedMinute == 0)
+                            hora.setText(Integer.toString(selectedHour) + ":00");
+                        else
+                            hora.setText(Integer.toString(selectedHour) + ":30");
+
+
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
+        });
+        */
+        bt_ant.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog_hora.dismiss();
+            }
+        });
+
+        bt_seg.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog_hora.dismiss();
+            }
+        });
+        dialog_hora.show();
+    }
+
+    public class SpinnerAdapterVitor extends ArrayAdapter<Horario_Especial>
+    {
+        private ArrayList<Horario_Especial> hro;
+
+        public SpinnerAdapterVitor(Context context, int resource, ArrayList<Horario_Especial> lista)
+        {
+            super(context, resource, lista);
+            hro = lista;
+        }
+
+        @Override
+        public View getDropDownView(int position, View cnvtView, ViewGroup prnt)
+        {
+            return getCustomView(position, cnvtView, prnt);
+        }
+
+        @Override public View getView(int pos, View cnvtView, ViewGroup prnt)
+        {
+            return getCustomView(pos, cnvtView, prnt);
+        }
+
+        public View getCustomView(int position, View convertView, ViewGroup parent)
+        {
+            LayoutInflater inflater = getLayoutInflater();
+            View mySpinner = inflater.inflate(R.layout.list_spiner, parent, false);
+
+            TextView tx_hora = (TextView) mySpinner.findViewById(R.id.textSpiner);
+            tx_hora.setText(hro.get(position).getHora_inicio());
+                                                   // depois tens de meter o codigo para o resto
+
+
+
+
+            return mySpinner;
+        }
 
 
     }
@@ -493,7 +744,7 @@ public class MenuEspecial_nos_especiais extends Activity {
         edt2 = (TextView) findViewById(R.id.text_oferta);
         edt3 = (TextView) findViewById(R.id.text_preco_ant);
         edt4 = (TextView) findViewById(R.id.text_titulo);
-        edt5 = (TextView) findViewById(R.id.textView3);
+        edt5 = (TextView) findViewById(R.id.bt_seguuintw);
         edt6 = (TextView) findViewById(R.id.textView_desc_especial);
         edt7 = (TextView) findViewById(R.id.textView_nome_especial);
         edt8 = (TextView) findViewById(R.id.textView10);

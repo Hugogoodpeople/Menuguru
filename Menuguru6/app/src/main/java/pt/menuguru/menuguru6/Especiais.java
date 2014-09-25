@@ -333,7 +333,6 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
             case R.id.action_localizacao:
                 Intent myIntent = new Intent(getActivity(), Localizacao.class);
                 getActivity().startActivity(myIntent);
-                this.getActivity().finish();
                 return false;
 
             default:
