@@ -90,8 +90,12 @@
             android:label="Info"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name=".Restaurante.Info.InfoRestReportarErro"
+            android:label="Reportar erro"
+            android:screenOrientation="portrait" >
+        </activity>
 
-        InfoRestaurante
 
         <activity
 

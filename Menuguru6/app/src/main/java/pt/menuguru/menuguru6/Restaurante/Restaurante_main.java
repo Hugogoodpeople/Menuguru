@@ -768,14 +768,17 @@ public class Restaurante_main extends FragmentActivity {
         if (abertoFechado.equalsIgnoreCase("nao"))
         {
             //display in short period of time
+            //linearLayout_abertofechado
+            LinearLayout abc =(LinearLayout) aberto_fechado.findViewById(R.id.linearLayout_abertofechado);
+           // abc.setBackgroundColor(Color.parseColor("#cc0000"));
             labelAberto.setText( getString(R.string.hoje) +" "+ horarioAbertura);
-            aberto_fechado.setBackgroundColor(Color.parseColor("#cc0000"));
         }
         else
         {
             //display in short period of time
             labelAberto.setText(getString(R.string.aberto));
-            aberto_fechado.setBackgroundColor(Color.parseColor("#669900"));
+            LinearLayout abc =(LinearLayout) aberto_fechado.findViewById(R.id.linearLayout_abertofechado);
+            abc.setBackgroundColor(Color.parseColor("#669900"));
         }
 
 

@@ -16,8 +16,10 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -175,6 +177,19 @@ public class InfoRestaurante extends Activity
         final LayoutInflater inflater = LayoutInflater.from(this);
 
         ViewGroup footer = (ViewGroup) inflater.inflate(R.layout.footer_reportar_erro, listaInfo, false);
+
+        RelativeLayout lay = (RelativeLayout) footer.findViewById(R.id.layout_footer_click);
+        lay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(InfoRestaurante.this, InfoRestReportarErro.class);
+                intent.putExtra("restaurante_id", rest_id);
+
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+
+            }
+        });
 
         listaInfo.addFooterView(footer);
 
