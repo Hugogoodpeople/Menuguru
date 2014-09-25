@@ -15,7 +15,9 @@
     <string name="ver_todos" translatable="false">Ver todos</string>
     <string name="aberto" translatable="false">Aberto agora</string>
     <string name="fechado" translatable="false">Fechado</string>
-
+    <string name="hoje" translatable="false">Hoje</string>
+    <string name="info_rest" translatable="false">Informações úteis</string>
+    <string name="reportar_erro" translatable="false">Reportar erro</string>
 
     <string name="inicio" translatable="false">Inicio</string>
     <string name="votacoes" translatable="false">Avaliaçoes</string>

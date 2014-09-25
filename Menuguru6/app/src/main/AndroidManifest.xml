@@ -85,6 +85,13 @@
             android:label="Especial"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="pt.menuguru.menuguru6.Restaurante.Info.InfoRestaurante"
+            android:label="Info"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        InfoRestaurante
 
         <activity
 

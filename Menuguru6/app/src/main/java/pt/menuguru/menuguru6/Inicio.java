@@ -104,8 +104,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         mAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
         mListView.setAdapter(mAdapter);
 
-        mListView.setSelection(anterior-1);
-
+        mListView.smoothScrollToPosition(anterior-1);
 
 
 
