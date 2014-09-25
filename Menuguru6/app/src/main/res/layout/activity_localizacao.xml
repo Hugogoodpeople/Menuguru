@@ -10,16 +10,10 @@ android:layout_height="match_parent">
         android:id="@+id/searchView"
         android:layout_gravity="center_horizontal" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText" />
-
-    <ListView
+    <pt.menuguru.menuguru6.BounceListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/listV_localizacao"
-
-        android:choiceMode="singleChoice"></ListView>
+        android:choiceMode="singleChoice">
+    </pt.menuguru.menuguru6.BounceListView>
 </LinearLayout>

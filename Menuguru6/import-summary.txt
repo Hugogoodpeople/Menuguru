@@ -1,16 +1,6 @@
 ECLIPSE ANDROID PROJECT IMPORT SUMMARY
 ======================================
 
-Risky Project Location:
------------------------
-The tools *should* handle project locations in any directory. However,
-due to bugs, placing projects in directories containing spaces in the
-path, or characters like ", ' and &, have had issues. We're working to
-eliminate these bugs, but to save yourself headaches you may want to
-move your project to a location where this is not a problem.
-/Users/hugocosta/Documents/Menuguru VitorHugoCardinaly/Menuguru6
-                                   -                            
-
 Ignored Files:
 --------------
 The following files were *not* copied into the new Gradle project; you
@@ -18,43 +8,19 @@ should evaluate whether these are still needed in your project and if
 so manually move them:
 
 * .DS_Store
-* README.md
+* Screenshot_2014-01-10-19-57-06_framed.png
+* Screenshot_2014-04-04-18-11-16.png
+* build.properties
 * proguard-project.txt
-
-Replaced Jars with Dependencies:
---------------------------------
-The importer recognized the following .jar files as third party
-libraries and replaced them with Gradle dependencies instead. This has
-the advantage that more explicit version information is known, and the
-libraries can be updated automatically. However, it is possible that
-the .jar file in your project was of an older version than the
-dependency we picked, which could render the project not compileable.
-You can disable the jar replacement in the import wizard and try again:
-
-android-support-v4.jar => com.android.support:support-v4:18.+
 
 Moved Files:
 ------------
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-* AndroidManifest.xml => headerGridView/src/main/AndroidManifest.xml
-* res/ => headerGridView/src/main/res/
-* src/ => headerGridView/src/main/java/
-
-Missing Android Support Repository:
------------------------------------
-Some useful libraries, such as the Android Support Library, are
-installed from a special Maven repository, which should be installed
-via the SDK manager.
-
-It looks like this library is missing from your SDK installation at:
-null
-
-To install it, open the SDK manager, and in the Extras category,
-select "Android Support Repository". You may also want to install the
-"Google Repository" if you want to use libraries like Google Play
-Services.
+* AndroidManifest.xml => CalendarView/src/main/AndroidManifest.xml
+* res/ => CalendarView/src/main/res/
+* src/ => CalendarView/src/main/java/
 
 Next Steps:
 -----------

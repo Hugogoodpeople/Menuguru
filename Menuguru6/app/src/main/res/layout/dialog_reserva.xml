@@ -20,7 +20,7 @@
             android:id="@+id/textView"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="94dp"
+            android:layout_marginTop="85dp"
             android:gravity="center"
             android:paddingLeft="20dp"
             android:paddingRight="20dp" />
@@ -50,7 +50,8 @@
             android:layout_marginBottom="30dp"
             android:layout_marginRight="30dp"
             android:textColor="@color/dourado"
-            android:enabled="false" />
+            android:enabled="false"
+            android:layout_alignParentStart="false" />
 
         <CalendarView
             android:layout_width="match_parent"
@@ -63,7 +64,6 @@
             android:layout_alignRight="@+id/textView3"
             android:layout_alignEnd="@+id/textView3"
             android:padding="10dp"
-            android:showWeekNumber="false"/>
-
+            android:showWeekNumber="false" />
     </RelativeLayout>
 </LinearLayout>

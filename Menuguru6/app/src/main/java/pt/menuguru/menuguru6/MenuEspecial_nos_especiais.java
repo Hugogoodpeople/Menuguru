@@ -129,15 +129,40 @@ public class MenuEspecial_nos_especiais extends Activity {
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.dialog_reserva);
                 calendar = (CalendarView)dialog.findViewById(R.id.calendarView2);
-                calendar.setSelectedWeekBackgroundColor(getResources().getColor(R.color.transparent));
-                calendar.setUnfocusedMonthDateColor(getResources().getColor(R.color.transparent));
+                calendar.setSelectedWeekBackgroundColor(getResources().getColor(R.color.dourado));
+                calendar.setFocusedMonthDateColor(getResources().getColor(R.color.black));
+                calendar.setUnfocusedMonthDateColor(getResources().getColor(R.color.silver));
                 calendar.setWeekSeparatorLineColor(getResources().getColor(R.color.transparent));
                 calendar.setSelectedDateVerticalBar(R.color.transparent);
 //                calendar.setMinDate(Long.parseLong(some_list.get(0).getDataActual()));
-                calendar.setWeekNumberColor(R.color.aqua);
-                calendar.setFocusedMonthDateColor(R.color.dourado);
+                //calendar.set(R.color.aqua);
+                //calendar.setFocusedMonthDateColor(R.color.dourado);
+
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                formatter.setLenient(false);
+                SimpleDateFormat formatte = new SimpleDateFormat("yyyy-MM-dd");
+                formatte.setLenient(false);
+                String oldTime = some_list.get(0).getDatafinal();
+                Date oldDate = null;
+                try {
+                    oldDate = formatter.parse(oldTime);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                long oldMillis = oldDate.getTime();
+
+                String nTime = some_list.get(0).getDataActual();
+                Date nDate = null;
+                try {
+                    nDate = formatte.parse(nTime);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                long nMillis = nDate.getTime();
 
 
+                calendar.setMaxDate(oldMillis);
+                calendar.setMinDate(nMillis);
                 Log.v("",""+calendar);
                 calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
@@ -148,7 +173,7 @@ public class MenuEspecial_nos_especiais extends Activity {
 
                         Toast.makeText(getBaseContext(), "Selected Date is\n\n"
                                         + dayOfMonth + " : " + month + " : " + year,
-                                Toast.LENGTH_LONG).show();
+                                0).show();
                     }
                 });
 
@@ -478,14 +503,14 @@ public class MenuEspecial_nos_especiais extends Activity {
 
         System.out.println("Current time => " + c.getTime());
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         df.setTimeZone(TimeZone.getTimeZone("GMT"));
         String formattedDate = df.format(c.getTime());
 
         Log.v("DATA INICIO",""+some_list.get(0).getDatafinal());
         Log.v("DATA ACTUAL",formattedDate);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date a = null, b = null;
         try {
             a = sdf.parse(some_list.get(0).getDatafinal());
