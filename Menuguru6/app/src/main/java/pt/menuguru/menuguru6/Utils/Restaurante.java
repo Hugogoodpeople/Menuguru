@@ -1,9 +1,12 @@
 package pt.menuguru.menuguru6.Utils;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by hugocosta on 12/08/14.
  */
-public class Restaurante {
+public class Restaurante  implements Parcelable {
 
     public String nome= " ";
     public String db_id= " ";
@@ -106,6 +109,16 @@ public class Restaurante {
 
     public void setMediarating(String mediarating) {
         this.mediarating = mediarating;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }
 
