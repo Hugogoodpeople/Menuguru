@@ -192,7 +192,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
                 ImageView icon=(ImageView)row.findViewById(R.id.capa);
 
-                RatingBar rating = (RatingBar)row.findViewById(R.id.ratingBar);
+                RatingBar rating = (RatingBar)row.findViewById(R.id.ratingBar_avaliar);
 
                 rating.setOnTouchListener(new View.OnTouchListener() {
                     public boolean onTouch(View v, MotionEvent event) {

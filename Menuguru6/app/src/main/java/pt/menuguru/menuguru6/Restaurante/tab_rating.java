@@ -38,7 +38,7 @@ public class tab_rating extends Fragment
         mediaRating = getArguments().getString("mediarating");
 
         // ratingview
-        RatingBar rating =(RatingBar)rootView.findViewById(R.id.ratingBar);
+        RatingBar rating =(RatingBar)rootView.findViewById(R.id.ratingBar_avaliar);
         rating.setRating(Float.parseFloat(mediaRating));
         rating.setFocusable(false);
         rating.setOnTouchListener(new View.OnTouchListener() {

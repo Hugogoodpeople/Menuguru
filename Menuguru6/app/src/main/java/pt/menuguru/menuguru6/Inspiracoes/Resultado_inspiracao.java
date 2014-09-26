@@ -21,7 +21,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -29,12 +28,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
-import pt.menuguru.menuguru6.MainActivity;
 import pt.menuguru.menuguru6.R;
 import pt.menuguru.menuguru6.Restaurante.Restaurante_main;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
-import pt.menuguru.menuguru6.Utils.Locais;
 import pt.menuguru.menuguru6.Utils.Restaurante;
 import pt.menuguru.menuguru6.Utils.Utils;
 
@@ -328,7 +325,7 @@ public class Resultado_inspiracao extends Activity {
 
                 ImageView icon=(ImageView)row.findViewById(R.id.capa);
 
-                RatingBar rating = (RatingBar)row.findViewById(R.id.ratingBar);
+                RatingBar rating = (RatingBar)row.findViewById(R.id.ratingBar_avaliar);
 
                 rating.setOnTouchListener(new View.OnTouchListener() {
                     public boolean onTouch(View v, MotionEvent event) {

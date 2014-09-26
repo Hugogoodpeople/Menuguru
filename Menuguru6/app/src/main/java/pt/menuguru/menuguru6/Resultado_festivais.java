@@ -5,13 +5,11 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,14 +25,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
-import pt.menuguru.menuguru6.Utils.Festival;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Restaurante;
-import pt.menuguru.menuguru6.Utils.TopTitulosFiltros;
 import pt.menuguru.menuguru6.Utils.Utils;
 
 
@@ -114,7 +108,7 @@ public class Resultado_festivais extends Activity {
 
                 ImageView icon=(ImageView)row.findViewById(R.id.capa);
 
-                RatingBar rating = (RatingBar)row.findViewById(R.id.ratingBar);
+                RatingBar rating = (RatingBar)row.findViewById(R.id.ratingBar_avaliar);
 
                 rating.setOnTouchListener(new View.OnTouchListener() {
                     public boolean onTouch(View v, MotionEvent event) {

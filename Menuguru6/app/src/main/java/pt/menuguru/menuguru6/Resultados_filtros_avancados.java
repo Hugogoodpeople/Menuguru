@@ -450,7 +450,7 @@ public class Resultados_filtros_avancados extends Activity
 
                 ImageView icon=(ImageView)row.findViewById(R.id.capa);
 
-                RatingBar rating = (RatingBar)row.findViewById(R.id.ratingBar);
+                RatingBar rating = (RatingBar)row.findViewById(R.id.ratingBar_avaliar);
 
                 rating.setOnTouchListener(new View.OnTouchListener() {
                     public boolean onTouch(View v, MotionEvent event) {

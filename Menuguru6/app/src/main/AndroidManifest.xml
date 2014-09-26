@@ -95,7 +95,11 @@
             android:label="Reportar erro"
             android:screenOrientation="portrait" >
         </activity>
-
+        <activity
+            android:name=".Restaurante.Avaliar.Avaliar_restaurante"
+            android:label="Avaliar"
+            android:screenOrientation="portrait" >
+        </activity>
 
         <activity
 

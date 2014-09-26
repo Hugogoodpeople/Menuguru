@@ -18,7 +18,7 @@
     <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="50px"
-        android:id="@+id/ratingBar"
+        android:id="@+id/ratingBar_avaliar"
         android:rating="5"
         android:stepSize="0.5"
         android:numStars="5"
@@ -77,7 +77,7 @@
         android:src="@drawable/i_map"
         android:layout_gravity="right"
         android:layout_marginRight="24dp"
-        android:layout_alignTop="@+id/ratingBar"
+        android:layout_alignTop="@+id/ratingBar_avaliar"
         android:layout_alignRight="@+id/nomeRestaurante"
         android:layout_alignEnd="@+id/nomeRestaurante" />
 
@@ -107,10 +107,10 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/votosnumber"
-        android:layout_toEndOf="@+id/ratingBar"
+        android:layout_toEndOf="@+id/ratingBar_avaliar"
         android:textColor="@color/white"
-        android:layout_alignTop="@+id/ratingBar"
-        android:layout_toRightOf="@+id/ratingBar"
+        android:layout_alignTop="@+id/ratingBar_avaliar"
+        android:layout_toRightOf="@+id/ratingBar_avaliar"
         android:layout_alignBottom="@+id/capa"
         android:layout_marginTop="-2dp"
         android:layout_marginLeft="4dp"

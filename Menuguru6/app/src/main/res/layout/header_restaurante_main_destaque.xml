@@ -163,7 +163,7 @@
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:id="@+id/imageButton2"
+                android:id="@+id/button_avaliar"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
@@ -311,7 +311,7 @@
         android:layout_below="@+id/textView_avaliacoes"
 
         android:layout_alignBottom="@+id/tableLayout21"
-        android:fontFamily="@+id/ratingBar" />
+        android:fontFamily="@+id/ratingBar_avaliar" />
 
     <RelativeLayout
         android:layout_width="fill_parent"
