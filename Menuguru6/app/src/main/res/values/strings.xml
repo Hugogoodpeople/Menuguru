@@ -22,7 +22,10 @@
     <string name="morada_errada" translatable="false">Morada errada</string>
     <string name="ementa_desactualizada" translatable="false">Ementa desactualizada</string>
     <string name="outros_detalhes" translatable="false">Outros detalhes (Opcional)</string>
-
+    <string name="avalie_aqui" translatable="false">Avalie aqui a sua visita</string>
+    <string name="sem_comentarios" translatable="false">Sem comentários</string>
+    <string name="seja_o_primeiro_avaliar" translatable="false">Seja o primeiro a avaliar este resturante</string>
+    <string name="enviar" translatable="false">Enviar</string>
 
     <string name="inicio" translatable="false">Inicio</string>
     <string name="votacoes" translatable="false">Avaliaçoes</string>
