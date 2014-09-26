@@ -269,6 +269,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                 myIntent.putExtra("morada",some_array[position].getMorada());
                 myIntent.putExtra("rating",some_array[position].getMediarating());
                 myIntent.putExtra("votacoes",some_array[position].getVotacoes());
+                myIntent.putExtra("cidade_nome", some_array[position].getCidade());
 
                 getActivity().startActivity(myIntent);
 
@@ -489,7 +490,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
                     rest.morada = c.getString("morada");
                     //rest.mediarating = c.getString("mediarating");
-                    //rest.cidade = c.getString("cidade");
+                    rest.cidade = c.getString("cidade");
                     rest.urlImagem = c.getString("imagem");
                     rest.votacoes = c.getString("votacoes");
                     rest.morada = c.getString("morada");

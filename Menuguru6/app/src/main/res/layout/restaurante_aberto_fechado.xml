@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/linearLayout_abertofechado"
-    android:background="@color/dourado">
+
+    android:background="@color/gray">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/linearLayout_abertofechado"></LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -14,5 +23,10 @@
         android:layout_margin="5dp"
         android:textSize="18dp"
         android:gravity="center"
-        android:textColor="@color/white" />
-</LinearLayout>
+        android:textColor="@color/white"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp" />
+
+</RelativeLayout>

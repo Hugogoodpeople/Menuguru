@@ -497,7 +497,7 @@ public class MenuEspecial_nos_especiais extends Activity {
         edt6 = (TextView) findViewById(R.id.textView_desc_especial);
         edt7 = (TextView) findViewById(R.id.textView_nome_especial);
         edt8 = (TextView) findViewById(R.id.textView10);
-        edt9 = (ImageView) findViewById(R.id.imageView2);
+        edt9 = (ImageView) findViewById(R.id.icon_err3);
 
         Calendar c = Calendar.getInstance();
 

@@ -131,6 +131,7 @@ public class Resultado_inspiracao extends Activity {
                 myIntent.putExtra("lat",some_array[position].getLatitude());
                 myIntent.putExtra("lon",some_array[position].getLongitude());
                 myIntent.putExtra("morada",some_array[position].getMorada());
+                myIntent.putExtra("cidade_nome", some_array[position].getCidade());
                 startActivity(myIntent);
 
                 overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
@@ -228,7 +229,7 @@ public class Resultado_inspiracao extends Activity {
 
                     rest.morada = c.getString("morada");
                     //rest.mediarating = c.getString("mediarating");
-                    //rest.cidade = c.getString("cidade");
+                    rest.cidade = c.getString("cidade");
                     rest.urlImagem = c.getString("imagem");
                     //rest.votacoes = c.getString("votacoes");
                     rest.morada = c.getString("morada");

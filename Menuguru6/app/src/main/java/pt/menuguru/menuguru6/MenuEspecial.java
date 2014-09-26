@@ -2,11 +2,9 @@ package pt.menuguru.menuguru6;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -444,7 +442,7 @@ public class MenuEspecial extends Activity {
         edt6 = (TextView) findViewById(R.id.textView_desc_especial);
         edt7 = (TextView) findViewById(R.id.textView_nome_especial);
         edt8 = (TextView) findViewById(R.id.textView10);
-        edt9 = (ImageView) findViewById(R.id.imageView2);
+        edt9 = (ImageView) findViewById(R.id.icon_err3);
 
         Calendar c = Calendar.getInstance();
 

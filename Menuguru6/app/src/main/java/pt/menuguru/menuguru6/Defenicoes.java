@@ -166,7 +166,7 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
                 TextView label2 = (TextView) row.findViewById(R.id.headerText);
                 label2.setText(array_headers[position/3]);
 
-                ImageView icon = (ImageView) row.findViewById(R.id.icon);
+                ImageView icon = (ImageView) row.findViewById(R.id.icon_err2);
 
                 //Customize your icon here
                 icon.setImageResource(R.drawable.ic_right_b);
@@ -176,7 +176,7 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
                 row = inflater.inflate(R.layout.row_defenicoes, parent, false);
                 TextView label = (TextView) row.findViewById(R.id.month);
                 label.setText(some_array[position]);
-                ImageView icon = (ImageView) row.findViewById(R.id.icon);
+                ImageView icon = (ImageView) row.findViewById(R.id.icon_err2);
 
                 //Customize your icon here
                 icon.setImageResource(R.drawable.ic_right_b);
