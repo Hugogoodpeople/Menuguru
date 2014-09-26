@@ -51,13 +51,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/list_hora"
             android:layout_below="@+id/textSpiner"
-            android:layout_alignLeft="@+id/bt_ant_cal"
-            android:layout_alignStart="@+id/bt_ant_cal"
             android:layout_marginTop="20dp"
             android:layout_above="@+id/bt_ant_cal"
-            android:layout_alignRight="@+id/bt_seg_nrp"
-            android:layout_alignEnd="@+id/bt_seg_nrp"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            android:layout_toLeftOf="@+id/bt_seg_nrp"
+            android:layout_toStartOf="@+id/bt_seg_nrp"
+            android:layout_toRightOf="@+id/bt_ant_cal"
+            android:layout_toEndOf="@+id/bt_ant_cal" />
 
     </RelativeLayout>
 </LinearLayout>

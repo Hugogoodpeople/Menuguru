@@ -18,11 +18,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Selecione a data para reservar a mesa e usurfuir da oferta"
-<<<<<<< HEAD
             android:id="@+id/textSpiner"
-=======
-            android:id="@+id/textView_aberto_fechado"
->>>>>>> FETCH_HEAD
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="85dp"
@@ -34,13 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-<<<<<<< HEAD
             android:text="@string/cancelar"
             android:id="@+id/bt_cancelar"
-=======
-            android:text="Cancelar"
-            android:id="@+id/textView_info_desc"
->>>>>>> FETCH_HEAD
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -66,21 +57,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/calendarView2"
-<<<<<<< HEAD
             android:layout_below="@+id/textSpiner"
             android:layout_alignLeft="@+id/bt_cancelar"
             android:layout_alignStart="@+id/bt_cancelar"
             android:layout_above="@+id/bt_cancelar"
             android:layout_alignRight="@+id/bt_seguuintw"
             android:layout_alignEnd="@+id/bt_seguuintw"
-=======
-            android:layout_below="@+id/textView_aberto_fechado"
-            android:layout_alignLeft="@+id/textView_info_desc"
-            android:layout_alignStart="@+id/textView_info_desc"
-            android:layout_above="@+id/textView_info_desc"
-            android:layout_alignRight="@+id/textView3"
-            android:layout_alignEnd="@+id/textView3"
->>>>>>> FETCH_HEAD
             android:padding="10dp"
             android:showWeekNumber="false" />
     </RelativeLayout>

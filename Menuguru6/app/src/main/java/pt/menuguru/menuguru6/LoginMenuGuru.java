@@ -519,7 +519,7 @@ public class LoginMenuGuru extends Activity
                     Log.v("titulo","objecto = "+ jsonObj.getString("titulo"));
                 }else {
                     aux_user = "1";
-                    users.userid = jsonObj.getString("userid");
+                    users.userid = "0";
                     users.email = jsonObj.getString("email");
                     users.pnome = jsonObj.getString("pnome");
                     users.snome = jsonObj.getString("snome");
@@ -606,7 +606,7 @@ public class LoginMenuGuru extends Activity
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("user_name", utilizador.getPnome());
             editor.putString("user_last_name", utilizador.getSnome());
-            editor.putString("user_id", utilizador.getUserid());
+            editor.putString("user_id", "0");
             editor.putString("user_data", utilizador.getData_nasc());
             editor.putString("user_tel", utilizador.getTelefone_user());
             editor.putString("user_mail", utilizador.getEmail());
