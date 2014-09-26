@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -333,7 +332,7 @@ public class Resultados extends Activity
 
                 ImageView icon=(ImageView)row.findViewById(R.id.capa);
 
-                RatingBar rating = (RatingBar)row.findViewById(R.id.ratingBar);
+                RatingBar rating = (RatingBar)row.findViewById(R.id.ratingBar_avaliar);
 
                 rating.setOnTouchListener(new View.OnTouchListener() {
                     public boolean onTouch(View v, MotionEvent event) {

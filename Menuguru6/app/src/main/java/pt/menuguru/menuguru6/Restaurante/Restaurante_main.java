@@ -50,11 +50,13 @@ import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.LoginMenuGuru;
 import pt.menuguru.menuguru6.MenuEspecial;
 import pt.menuguru.menuguru6.R;
+import pt.menuguru.menuguru6.Restaurante.Avaliar.Avaliar_restaurante;
 import pt.menuguru.menuguru6.Restaurante.Info.InfoRestaurante;
 import pt.menuguru.menuguru6.Utils.Comentario;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Menu_do_restaurante;
+import pt.menuguru.menuguru6.Utils.Restaurante;
 import pt.menuguru.menuguru6.Utils.Utils;
 
 /**
@@ -124,9 +126,12 @@ public class Restaurante_main extends FragmentActivity {
 
         setContentView(R.layout.activity_restaurante_main);
 
-        new AsyncTaskParseJsonEstrelas(this).execute();
 
+        new AsyncTaskParseJsonEstrelas(this).execute();
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -157,15 +162,12 @@ public class Restaurante_main extends FragmentActivity {
         Fragment fragmentCapa = new Imagem_galeria().create(url_foto);
         fragments.add(fragmentCapa);
 
-
         // aqui tem de conter um ciclo e mudar para ir buscar imagens a net
         for (int i = 0 ; i< fotos.size() ; i++)
         {
             Fragment fragment = new Imagem_galeria().create(fotos.get(i));
             fragments.add(fragment);
         }
-
-
 
 
         ViewPager galeria = (ViewPager) findViewById(R.id.galeria_imagens);
@@ -768,6 +770,27 @@ public class Restaurante_main extends FragmentActivity {
             }
         });
 
+        ImageButton buttonAvaliar = (ImageButton) header2.findViewById(R.id.button_avaliar);
+        buttonAvaliar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Globals.get_instance().getUser() == null)
+                {
+                    Intent intent = new Intent(Restaurante_main.this, LoginMenuGuru.class);
+                    startActivity(intent);
+
+                }else
+                {
+                    Intent inten = new Intent(Restaurante_main.this, Avaliar_restaurante.class);
+                    inten.putExtra("restaurante", rest_id);
+                    inten.putExtra("rating",mediarating);
+                    //startActivityForResult(inten);
+                    startActivity(inten);
+                    overridePendingTransition(R.anim.abc_slide_in_bottom , R.anim.abc_fade_out);
+                }
+            }
+        });
+
 
         // para quando tem comentarios tenho de ir buscar por webservice
 
@@ -825,7 +848,6 @@ public class Restaurante_main extends FragmentActivity {
         new AsyncTaskParseJsonComentarios(this).execute();
 
     }
-
 
 
     public class MyListAdapter extends ArrayAdapter<Menu_do_restaurante> {
