@@ -186,7 +186,7 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:id="@+id/imageView2" />
+                    android:id="@+id/icon_err3" />
 
                 <TextView
                     android:padding="5dp"

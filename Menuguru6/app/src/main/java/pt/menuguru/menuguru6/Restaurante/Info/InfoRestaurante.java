@@ -44,6 +44,9 @@ public class InfoRestaurante extends Activity
     private ListView listaInfo;
     private AdapterInfos mAdapter;
 
+    private String nome_rest;
+    private String cidade_nome;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +59,13 @@ public class InfoRestaurante extends Activity
 
         Intent intent = this.getIntent();
         rest_id = intent.getStringExtra("restaurante_id");
-
+        nome_rest = intent.getStringExtra("nome_rest");
+        cidade_nome = intent.getStringExtra("cidade_nome");
 
         setContentView(R.layout.restaurante_info_list);
 
         new AsyncTaskParseJsonComentarios(this).execute();
     }
-
-
 
 
 
@@ -114,6 +116,7 @@ public class InfoRestaurante extends Activity
                 dict.put("lang", Globals.getInstance().getLingua());
 
                 dict.put("id_rest",rest_id);
+
 
                 // tenho de enviar lat, long, data, hora, cidade, lang
 
@@ -184,6 +187,8 @@ public class InfoRestaurante extends Activity
             public void onClick(View v) {
                 Intent intent = new Intent(InfoRestaurante.this, InfoRestReportarErro.class);
                 intent.putExtra("restaurante_id", rest_id);
+                intent.putExtra("nome_rest", nome_rest);
+                intent.putExtra("cidade_nome",cidade_nome);
 
                 startActivity(intent);
                 overridePendingTransition(R.anim.push_view1, R.anim.push_view2);

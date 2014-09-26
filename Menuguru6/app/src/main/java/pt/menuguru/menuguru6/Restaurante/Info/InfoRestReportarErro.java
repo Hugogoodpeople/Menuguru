@@ -9,12 +9,14 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.R;
@@ -25,7 +27,17 @@ import pt.menuguru.menuguru6.Utils.Globals;
  */
 public class InfoRestReportarErro extends Activity
 {
+
+
+    private boolean morada_errada = false;
+    private boolean fechado = false;
+    private boolean ementa_desactualizada = false;
+
     private String rest_id;
+    private String nome_rest;
+    private String cidade_nome;
+
+    private EditText detalhes;
 
 
     @Override
@@ -39,6 +51,8 @@ public class InfoRestReportarErro extends Activity
 
         Intent intent = this.getIntent();
         rest_id = intent.getStringExtra("restaurante_id");
+        nome_rest = intent.getStringExtra("nome_rest");
+        cidade_nome = intent.getStringExtra("cidade_nome");
 
 
         setContentView(R.layout.activity_reportar_erro);
@@ -52,6 +66,66 @@ public class InfoRestReportarErro extends Activity
                 enviarErros();
             }
         });
+
+
+        RelativeLayout morada_er = (RelativeLayout) findViewById(R.id.lay_morada_errada);
+        morada_er.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!morada_errada)
+                {
+                    ImageView icon = (ImageView) findViewById(R.id.icon_err);
+                    icon.setImageResource(R.drawable.ic_action_framecheck_w);
+
+                }else
+                {
+                    ImageView icon = (ImageView) findViewById(R.id.icon_err);
+                    icon.setImageResource(R.drawable.uncheck);
+                }
+                morada_errada = !morada_errada;
+            }
+        });
+
+        RelativeLayout fechad = (RelativeLayout) findViewById(R.id.lay_fechado);
+        fechad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!fechado)
+                {
+                    ImageView icon = (ImageView) findViewById(R.id.icon_err2);
+                    icon.setImageResource(R.drawable.ic_action_framecheck_w);
+
+                }else
+                {
+                    ImageView icon = (ImageView) findViewById(R.id.icon_err2);
+                    icon.setImageResource(R.drawable.uncheck);
+                }
+                fechado = !fechado;
+            }
+        });
+
+        RelativeLayout ementD = (RelativeLayout) findViewById(R.id.lay_ementa_des);
+        ementD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!ementa_desactualizada)
+                {
+                    ImageView icon = (ImageView) findViewById(R.id.icon_err3);
+                    icon.setImageResource(R.drawable.ic_action_framecheck_w);
+
+                }else
+                {
+                    ImageView icon = (ImageView) findViewById(R.id.icon_err3);
+                    icon.setImageResource(R.drawable.uncheck);
+                }
+                ementa_desactualizada = !ementa_desactualizada;
+            }
+        });
+
+        detalhes = (EditText) findViewById(R.id.editText_outros_detalhes);
+
+
+
     }
 
     public void enviarErros()
@@ -111,44 +185,39 @@ public class InfoRestReportarErro extends Activity
 
                 dict.put("id_rest",rest_id);
 
-                /* exemplo das chaves que tenho de enviar
-                [dict setObject:restaurante.name forKey:@"rest_name"];
-                [dict setObject:restaurante.city forKey:@"rest_cidade"];
+                dict.put("rest_name", nome_rest);
+                dict.put("rest_cidade", cidade_nome);
+                dict.put("face_id", Globals.getInstance().getUser().getId_face());
+                dict.put("user_id", Globals.getInstance().getUser().getUserid());
+                dict.put("user_nome", Globals.getInstance().getUser().getPnome());
+                dict.put("sugestao", detalhes.getText());
 
-                [dict setObject: [Globals user].name forKey:@"user_nome"];
-                [dict setObject:restaurante.name forKey:@"menus"];
-                [dict setObject: self.textArea.text forKey:@"sugestao"];
+                String sugestao = "";
 
-                if([Globals user].faceId)
+                if (morada_errada)
                 {
-                    [dict setObject: [Globals user].faceId forKey:@"face_id"];
-                    [dict setObject: [NSString stringWithFormat:@"%d", 0] forKey:@"user_id"];
-                }else
+                    sugestao = "morada errada, ";
+                }
+                if (fechado)
                 {
-                    [dict setObject: [NSString stringWithFormat:@"%d", 0] forKey:@"face_id"];
-                    [dict setObject: [NSString stringWithFormat:@"%d", [Globals user].dbId] forKey:@"user_id"];
+                    sugestao = sugestao + "fechado errado, ";
+                }
+                if (ementa_desactualizada)
+                {
+                    sugestao = sugestao + "ementa incorrecta, ";
                 }
 
-                [dict setObject: interessado forKey:@"menus"];
-                * */
+                dict.put("menus",sugestao);
 
                 /*
-                * preciso ir buscar
-                * rest_name
-                * rest_cidade  -> tenho de ver se é o id ou nome
-                * user_name
-                * menus
-                * sugestao     -> contem texto simples com a descriçao do que o utilizador quer
-                * face_id
-                * user_id
-                *   [0]	(null)	@"user_id" : @"862"
+                    [0]	(null)	@"user_id" : @"862"
                     [1]	(null)	@"sugestao" : @"nada de errado encontrado...\nContinuem o bom trabalho."
                     [2]	(null)	@"rest_cidade" : @"Porto"
                     [3]	(null)	@"menus" : @"morada errada, fechado errado, ementa incorreta, "
                     [4]	(null)	@"face_id" : @"0"
                     [5]	(null)	@"rest_name" : @"O Caçula"
                     [6]	(null)	@"user_nome" : @"Hugo Filipe"
-                * */
+                */
 
 
 

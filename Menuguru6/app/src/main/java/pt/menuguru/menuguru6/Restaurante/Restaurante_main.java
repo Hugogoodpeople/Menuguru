@@ -47,6 +47,7 @@ import java.util.Vector;
 
 import pt.menuguru.menuguru6.BounceListView;
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
+import pt.menuguru.menuguru6.LoginMenuGuru;
 import pt.menuguru.menuguru6.MenuEspecial;
 import pt.menuguru.menuguru6.R;
 import pt.menuguru.menuguru6.Restaurante.Info.InfoRestaurante;
@@ -91,6 +92,8 @@ public class Restaurante_main extends FragmentActivity {
     private String votacoes;
     private String abertoFechado;
     private String horarioAbertura;
+    private String nome_rest;
+    private String cidade_nome;
 
 
     private String[] listEstrelas;
@@ -114,15 +117,14 @@ public class Restaurante_main extends FragmentActivity {
         latitude = intent.getStringExtra("lat");
         longitude = intent.getStringExtra("lon");
         morada = intent.getStringExtra("morada");
+        nome_rest = intent.getStringExtra("nome_rest");
+        cidade_nome = intent.getStringExtra("cidade_nome");
 
-
-        actionBar.setTitle(intent.getStringExtra("nome_rest"));
+        actionBar.setTitle(nome_rest);
 
         setContentView(R.layout.activity_restaurante_main);
 
         new AsyncTaskParseJsonEstrelas(this).execute();
-
-
 
     }
 
@@ -726,7 +728,8 @@ public class Restaurante_main extends FragmentActivity {
             }
 
         }
-        else {
+        else
+        {
             header2 = (ViewGroup) inflater.inflate(R.layout.header_restaurante_main, gridView, false);
         }
         TextView dist = (TextView) header2.findViewById(R.id.distancia_restaurante_header);
@@ -743,14 +746,25 @@ public class Restaurante_main extends FragmentActivity {
         ImageButton buttonInfo = (ImageButton)header2.findViewById(R.id.button_info);
         buttonInfo.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // lançar intent com a info
-                Intent intent = new Intent(Restaurante_main.this, InfoRestaurante.class);
-                intent.putExtra("restaurante_id",rest_id);
+            public void onClick(View v)
+                {
+                    if(Globals.get_instance().getUser() == null)
+                    {
+                        Intent intent = new Intent(Restaurante_main.this, LoginMenuGuru.class);
+                        startActivity(intent);
+                    }else
+                    {
 
-                startActivity(intent);
+                        // lançar intent com a info
+                        Intent intent = new Intent(Restaurante_main.this, InfoRestaurante.class);
+                        intent.putExtra("restaurante_id", rest_id);
+                        intent.putExtra("nome_rest", nome_rest);
+                        intent.putExtra("cidade", cidade_nome);
 
-                overridePendingTransition(R.anim.abc_slide_in_bottom, 0);
+                        startActivity(intent);
+
+                        overridePendingTransition(R.anim.abc_slide_in_bottom, 0);
+                    }
             }
         });
 

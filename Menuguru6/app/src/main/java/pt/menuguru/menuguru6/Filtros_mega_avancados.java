@@ -912,7 +912,7 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
                     label2.setText(arrayTopTitulos[valorNoArray +1].getTitulo());
                 }
 
-                ImageView icon = (ImageView) row.findViewById(R.id.icon);
+                ImageView icon = (ImageView) row.findViewById(R.id.icon_err2);
 
                 //Customize your icon here
                 icon.setImageResource(R.drawable.ic_action_frame_b);
@@ -924,7 +924,7 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
                 label.setText(tempArray[position].getSub_titulo());
 
 
-                ImageView icon = (ImageView) row.findViewById(R.id.icon);
+                ImageView icon = (ImageView) row.findViewById(R.id.icon_err2);
 
                 //Customize your icon here
                 icon.setImageResource(R.drawable.ic_action_frame_b);
@@ -937,7 +937,7 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
                 TextView label2 = (TextView) row.findViewById(R.id.headerText);
                 label2.setText(arrayTopTitulos[valorNoArray].getTitulo());
 
-                ImageView icon = (ImageView) row.findViewById(R.id.icon);
+                ImageView icon = (ImageView) row.findViewById(R.id.icon_err2);
 
                 //Customize your icon here
                 icon.setImageResource(R.drawable.ic_action_frame_b);
@@ -947,7 +947,7 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
                 row = inflater.inflate(R.layout.row_defenicoes, parent, false);
                 TextView label = (TextView) row.findViewById(R.id.month);
                 label.setText(tempArray[position].getSub_titulo());
-                ImageView icon = (ImageView) row.findViewById(R.id.icon);
+                ImageView icon = (ImageView) row.findViewById(R.id.icon_err2);
 
                 //Customize your icon here
                 icon.setImageResource(R.drawable.ic_action_frame_b);
@@ -956,7 +956,7 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
 
             int valorCorrecto = valorDoIndiceCorrecto(selected);
 
-            ImageView icon1 = (ImageView) row.findViewById(R.id.icon);
+            ImageView icon1 = (ImageView) row.findViewById(R.id.icon_err2);
 
             if (arrayTopTitulos[valorCorrecto].getArrayObjectos().length > position)
             {

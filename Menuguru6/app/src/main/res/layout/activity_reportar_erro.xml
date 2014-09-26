@@ -4,7 +4,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal"
+<<<<<<< HEAD
     android:background="@color/white">
+=======
+    android:background="@color/white"
+   >
+>>>>>>> FETCH_HEAD
 
     <FrameLayout
         android:layout_width="fill_parent"
@@ -24,26 +29,6 @@
             android:text="@string/o_que_esta_errado"
             android:textSize="16dp" />
 
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_gravity="right"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="false"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
-            />
-        <TextView
-            android:id="@+id/month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="15dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="15dp" />
-
     </FrameLayout>
 
     <RelativeLayout
@@ -52,18 +37,18 @@
         android:layout_marginTop="27dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/relativeLayout2">
+        android:id="@+id/lay_morada_errada">
 
         <ImageView
-            android:id="@+id/icon"
+            android:id="@+id/icon_err"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="right"
-            android:background="@drawable/uncheck"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="20dp"
+            android:src="@drawable/uncheck" />
 
         <TextView
             android:id="@+id/month"
@@ -71,7 +56,7 @@
             android:layout_height="wrap_content"
             android:text="@string/morada_errada"
             android:textSize="14dp"
-            android:layout_alignBottom="@+id/icon"
+            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="20dp" />
@@ -89,21 +74,22 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="60dp"
-        android:layout_below="@+id/relativeLayout2"
+        android:layout_below="@+id/lay_morada_errada"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/relativeLayout4">
+        android:id="@+id/lay_fechado">
 
         <ImageView
-            android:id="@+id/icon"
+            android:id="@+id/icon_err2"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="right"
-            android:background="@drawable/uncheck"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="20dp"
+            android:focusableInTouchMode="false"
+            android:src="@drawable/uncheck" />
 
         <TextView
             android:id="@+id/month"
@@ -111,7 +97,7 @@
             android:layout_height="wrap_content"
             android:text="@string/fechado"
             android:textSize="14dp"
-            android:layout_alignBottom="@+id/icon"
+            android:layout_alignBottom="@+id/icon_err2"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="20dp" />
@@ -129,20 +115,20 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="60dp"
-        android:id="@+id/relativeLayout3"
-        android:layout_below="@+id/relativeLayout4"
+        android:id="@+id/lay_ementa_des"
+        android:layout_below="@+id/lay_fechado"
         android:layout_centerHorizontal="true">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/icon_err3"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="right"
-            android:background="@drawable/uncheck"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="20dp"
+            android:src="@drawable/uncheck" />
 
         <TextView
             android:id="@+id/bt_seg_obs"
@@ -150,7 +136,7 @@
             android:layout_height="wrap_content"
             android:text="@string/ementa_desactualizada"
             android:textSize="14dp"
-            android:layout_alignBottom="@+id/imageView2"
+            android:layout_alignBottom="@+id/icon_err3"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="20dp" />
@@ -169,7 +155,7 @@
         android:layout_width="wrap_content"
         android:layout_height="150dp"
         android:id="@+id/editText_outros_detalhes"
-        android:layout_below="@+id/relativeLayout3"
+        android:layout_below="@+id/lay_ementa_des"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
@@ -179,27 +165,15 @@
         android:hint="@string/outros_detalhes"
         android:gravity="left|top" />
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:alpha="1"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/dourado"
-        android:id="@+id/button_enviar_erros">
-
-    </RelativeLayout>
-
     <Button
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:text="Enviar"
-        android:id="@+id/button"
+        android:id="@+id/button_enviar_erros"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="#00000000"
+        android:background="@color/dourado"
         android:textColor="@color/white" />
 
 </RelativeLayout>

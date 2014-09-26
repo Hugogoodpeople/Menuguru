@@ -74,7 +74,7 @@
         <ImageView
             android:layout_width="15dp"
             android:layout_height="fill_parent"
-            android:id="@+id/imageView2"
+            android:id="@+id/icon_err3"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"

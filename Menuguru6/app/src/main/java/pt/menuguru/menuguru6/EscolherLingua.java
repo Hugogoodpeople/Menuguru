@@ -20,8 +20,6 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-import com.facebook.model.GraphUser;
-
 import java.util.Locale;
 
 import pt.menuguru.menuguru6.Utils.Globals;
@@ -76,7 +74,7 @@ public class EscolherLingua extends Activity
 
 
 
-                ImageView icon1 = (ImageView) row.findViewById(R.id.icon);
+                ImageView icon1 = (ImageView) row.findViewById(R.id.icon_err2);
                 //parent.getChildAt(a).setBackgroundColor(getResources().getColor(R.color.silver) );
                 icon1.setImageResource(0);
 
@@ -146,7 +144,7 @@ public class EscolherLingua extends Activity
 
                 for(int a = 0; a < parent.getChildCount(); a++)
                 {
-                    ImageView icon1 = (ImageView) parent.getChildAt(a).findViewById(R.id.icon);
+                    ImageView icon1 = (ImageView) parent.getChildAt(a).findViewById(R.id.icon_err2);
                     //parent.getChildAt(a).setBackgroundColor(getResources().getColor(R.color.silver) );
                     icon1.setImageResource(0);
                 }
@@ -154,7 +152,7 @@ public class EscolherLingua extends Activity
                 //view.setBackgroundColor(Color.RED);
 
 
-                ImageView icon2 = (ImageView) view.findViewById(R.id.icon);
+                ImageView icon2 = (ImageView) view.findViewById(R.id.icon_err2);
                 //Customize your icon here
                 icon2.setImageResource(R.drawable.ic_check_b);
 
