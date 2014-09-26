@@ -193,10 +193,11 @@ public class MenuEspecial_nos_especiais extends Activity {
                         Calendar cc = Calendar.getInstance();
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         String dataactual = sdf.format(cc.getTime());
-                        Date date1=null, date2=null;
+                        Date date1=null, date2=null, date3=null;
                         try {
                             date1 = sdf.parse(data_selec);
                             date2 = sdf.parse(dataactual);
+                            date3 = sdf.parse(some_list.get(0).getDatafinal());
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -204,33 +205,35 @@ public class MenuEspecial_nos_especiais extends Activity {
                         Log.v("data 2",""+date2);
 
                         if(date1.compareTo(date2)>=0){
-                            cc.setTime(date1);
-                            int day = cc.get(Calendar.DAY_OF_WEEK);
-                            int dia_semana = 0;
-                            switch (day){
-                                case 1:dia_semana=7;break;
-                                case 2:dia_semana=1;break;
-                                case 3:dia_semana=2;break;
-                                case 4:dia_semana=3;break;
-                                case 5:dia_semana=4;break;
-                                case 6:dia_semana=5;break;
-                                case 7:dia_semana=6;break;
-                            }
-                            aux_hora_list = new ArrayList<Horario_Especial>();
-                            for (int i = 0; i < hora_list.size(); i++) {
-                                Horario_Especial hora = new Horario_Especial();
-                                int foo = Integer.parseInt(hora_list.get(i).getDia_id());
-                                if(dia_semana==foo){
-                                    hora.setId(hora_list.get(i).getId());
-                                    hora.setDia_id(hora_list.get(i).getDia_id());
-                                    hora.setHora_inicio(hora_list.get(i).getHora_inicio());
-                                    hora.setN_pessoas_h(hora_list.get(i).getN_pessoas_h());
-                                    aux_hora_list.add(hora);
+                            if(date1.compareTo(date3)<=0){
+                                cc.setTime(date1);
+                                int day = cc.get(Calendar.DAY_OF_WEEK);
+                                int dia_semana = 0;
+                                switch (day){
+                                    case 1:dia_semana=7;break;
+                                    case 2:dia_semana=1;break;
+                                    case 3:dia_semana=2;break;
+                                    case 4:dia_semana=3;break;
+                                    case 5:dia_semana=4;break;
+                                    case 6:dia_semana=5;break;
+                                    case 7:dia_semana=6;break;
                                 }
+                                aux_hora_list = new ArrayList<Horario_Especial>();
+                                for (int i = 0; i < hora_list.size(); i++) {
+                                    Horario_Especial hora = new Horario_Especial();
+                                    int foo = Integer.parseInt(hora_list.get(i).getDia_id());
+                                    if(dia_semana==foo){
+                                        hora.setId(hora_list.get(i).getId());
+                                        hora.setDia_id(hora_list.get(i).getDia_id());
+                                        hora.setHora_inicio(hora_list.get(i).getHora_inicio());
+                                        hora.setN_pessoas_h(hora_list.get(i).getN_pessoas_h());
+                                        aux_hora_list.add(hora);
+                                    }
+                                }
+                                SelecionaHora();
+                            }else{
+                                AvisoData_dep();
                             }
-
-
-                            SelecionaHora();
                         }else if(date1.compareTo(date2)<0){
                             AvisoData_ant();
                         }
@@ -486,7 +489,6 @@ public class MenuEspecial_nos_especiais extends Activity {
                 simple_list_item_1,nr_pes_list);
         list_pes.setAdapter(dataAdapter);
 
-
         // ListView Item Click Listener
         list_pes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -519,7 +521,7 @@ public class MenuEspecial_nos_especiais extends Activity {
                 if(!sel_nr_pes.equals("")){
                     SelecionaObs();
                 }else {
-                    AvisoHora();
+                    AvisoPessoas();
                 }
             }
         });
