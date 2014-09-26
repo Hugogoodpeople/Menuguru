@@ -26,6 +26,11 @@ public class Menu_Especial {
     private String datafinal;
     private String dataActual;
     private String tipo;
+    private String id_pai;
+
+    public String getId_pai() { return id_pai; }
+
+    public void setId_pai(String id_pai) {  this.id_pai = id_pai;  }
 
     public String getTipo() { return tipo; }
 

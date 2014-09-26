@@ -38,6 +38,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -368,6 +369,57 @@ public class MenuEspecial_nos_especiais extends Activity {
         alertDialog.show();
     }
 
+    public void AvisoNome(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MenuEspecial_nos_especiais.this);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.inserir_nome)
+                .setCancelable(false)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
+
+    public void AvisoEmail(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MenuEspecial_nos_especiais.this);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.inserir_email)
+                .setCancelable(false)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
+
+    public void AvisoTelefone(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MenuEspecial_nos_especiais.this);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.inserir_telefone)
+                .setCancelable(false)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
+
 
     public void SelecionaHora(){
         sel_hora = "";
@@ -555,21 +607,43 @@ public class MenuEspecial_nos_especiais extends Activity {
         dialog_obs.show();
     }
 
-    public void SelecionaConfDados(){
+    public void SelecionaConfDados() {
         final Dialog dialog_conf = new Dialog(MenuEspecial_nos_especiais.this); //, R.style.PauseDialog2);
         dialog_conf.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_conf.setContentView(R.layout.dialog_conf_dados);
 
         TextView bt_ant_obs = (TextView) dialog_conf.findViewById(R.id.bt_ant_obs);
         TextView bt_conf = (TextView) dialog_conf.findViewById(R.id.bt_conf);
-        TextView textView2 = (TextView) dialog_conf.findViewById(R.id.textView2);
+        TextView textView2 = (TextView) dialog_conf.findViewById(R.id.textView_data);
         textView2.setText(sel_obs);
         final EditText edit_nome = (EditText) dialog_conf.findViewById(R.id.edit_nome);
         final EditText edit_telefone = (EditText) dialog_conf.findViewById(R.id.edit_telefone);
         final EditText edit_email = (EditText) dialog_conf.findViewById(R.id.edit_email);
+        final TextView textView_data = (TextView) dialog_conf.findViewById(R.id.textView_data);
+        final TextView textView_hora = (TextView) dialog_conf.findViewById(R.id.textView_hora);
+
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = (Date)format.parse(data_selec);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        DateFormat df = new SimpleDateFormat("EEEE dd MMMM yyyy");
+
+        String reportDate = df.format(date);
+        textView_data.setText(""+reportDate);
+        String aux_pes;
+        if(sel_nr_pes.equals("1")){
+            aux_pes = getString(R.string.pessoa);
+        }else{
+            aux_pes = getString(R.string.pessoas);
+        }
+        textView_hora.setText(sel_hora+" "+sel_nr_pes+" "+aux_pes);
 
         if(Globals.getInstance().getUser()!=null) {
-            edit_nome.setText(Globals.get_instance().getUser().getPnome());
+            edit_nome.setText(Globals.get_instance().getUser().getPnome()+" "+Globals.get_instance().getUser().getSnome());
             edit_telefone.setText(Globals.get_instance().getUser().getTelefone_user());
             edit_email.setText(Globals.get_instance().getUser().getEmail());
         }
@@ -587,35 +661,22 @@ public class MenuEspecial_nos_especiais extends Activity {
 
             @Override
             public void onClick(View v) {
-
-
-                if(Globals.get_instance().getUser() == null) {
-                    Intent myIntent = new Intent(MenuEspecial_nos_especiais.this, LoginMenuGuru.class);
-                    startActivity(myIntent);
-                    edit_nome.setText(Globals.get_instance().getUser().getPnome());
-                    edit_telefone.setText(Globals.get_instance().getUser().getTelefone_user());
-                    edit_email.setText(Globals.get_instance().getUser().getEmail());
-
+                if(sel_nome.isEmpty()){
+                    AvisoNome();
+                }else if(sel_telefone.isEmpty()){
+                    AvisoTelefone();
+                }else if(sel_email.isEmpty()){
+                    AvisoEmail();
+                }else{
+                    if(Globals.get_instance().getUser() == null) {
+                        Intent myIntent = new Intent(MenuEspecial_nos_especiais.this, LoginMenuGuru.class);
+                        startActivity(myIntent);
+                    }
+                    sel_nome =  edit_nome.getText().toString();
+                    sel_telefone =  edit_telefone.getText().toString();
+                    sel_email =  edit_email.getText().toString();
+                    new AsyncTaskParseJsonReserva(MenuEspecial_nos_especiais.this).execute();
                 }
-                sel_nome =  edit_nome.getText().toString();
-                sel_telefone =  edit_telefone.getText().toString();
-                sel_email =  edit_email.getText().toString();
-                Log.v("ID PAI",some_list.get(0).getId());
-                Log.v("ID ESP",some_list.get(0).getId());
-                Log.v("LANG",""+Globals.get_instance().getLingua());
-                Log.v("NOME CARTAO",some_list.get(0).getNome());
-                Log.v("EMAIL USER",sel_email);
-                Log.v("TELEFONE",sel_telefone);
-                Log.v("H_ID",sel_id_hora);
-                Log.v("NR PESSOAS",sel_nr_pes);
-                Log.v("ESCRITO",sel_obs);
-                Log.v("DIA NR SEMANA",sel_dia_semana);
-                Log.v("DATA",data_selec);
-                Log.v("REST ID",rest_id);
-                Log.v("USER NOME",sel_nome);
-                Log.v("FACE ID",""+Globals.get_instance().getUser().getId_face());
-                Log.v("USER ID",""+Globals.get_instance().getUser().getUserid());
-
             }
         });
         dialog_conf.show();
@@ -907,6 +968,7 @@ public class MenuEspecial_nos_especiais extends Activity {
                 menu.setDatafinal(dataJsonArr.getString("datafinal"));
                 menu.setDataActual(dataJsonArr.getString("dataActual"));
                 menu.setTipo(dataJsonArr.getString("tipo"));
+                menu.setId_pai(dataJsonArr.getString("id_pai"));
                 some_list.add(menu);
 
                 Log.v("PRECO ANT",dataJsonArr.getString("preco_ant"));
@@ -1152,4 +1214,115 @@ public class MenuEspecial_nos_especiais extends Activity {
         }
     }
 
-}
+
+
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonReserva extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_reserva_especial_criar.php";
+
+        // contacts JSONArray
+        JSONObject dataJsonArr = null;
+        JSONObject dataJsonRep = null;
+
+
+        private MenuEspecial_nos_especiais delegate;
+
+        public AsyncTaskParseJsonReserva (MenuEspecial_nos_especiais delegate){
+            this.delegate = delegate;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(MenuEspecial_nos_especiais.this);
+            progressDialog.setCancelable(true);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+                dict.put("id_pai",some_list.get(0).getId_pai());
+                dict.put("id_esp",some_list.get(0).getId());
+                dict.put("lang",Globals.get_instance().getLingua());
+                dict.put("nome_cartao",some_list.get(0).getNome());
+                dict.put("email_user",sel_email);
+                dict.put("telefone",sel_telefone);
+                dict.put("h_id",sel_id_hora);
+                dict.put("num_pes_reserva",sel_nr_pes);
+                if(sel_obs.isEmpty()){
+                    dict.put("escrito"," ");
+                }else{
+                    dict.put("escrito",sel_obs);
+                }
+                dict.put("dia",sel_dia_semana);
+                dict.put("data", data_selec);
+                dict.put("rest_id", rest_id);
+                dict.put("user_nome",sel_nome);
+                if(Globals.getInstance().getUser().getTipoconta().equals("facebook")){
+                    dict.put("face_id",Globals.get_instance().getUser().getId_face());
+                    dict.put("user_id","0");
+                }else{
+                    dict.put("face_id","0");
+                    dict.put("user_id",Globals.get_instance().getUser().getUserid());
+                }
+
+
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+
+                // try parse the string to a JSON object
+                try {
+                    Log.v("Ver Json ","Ele retorna isto"+jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                // get the array of users
+
+                dataJsonRep = jsonObj.getJSONObject("resp");
+                dataJsonArr = dataJsonRep.getJSONObject("res");
+
+
+
+
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncCompleteReserva(true);  }
+
+    }
+
+
+
+    public void asyncCompleteReserva(boolean success) {
+
+    }
+
+
+    }

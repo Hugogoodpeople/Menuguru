@@ -62,16 +62,20 @@
             android:layout_alignEnd="@+id/bt_seg_dados"
             android:layout_alignLeft="@+id/bt_ant_pes"
             android:layout_alignStart="@+id/bt_ant_pes"
-            android:layout_above="@+id/textView4"
+            android:layout_above="@+id/textView_hora"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/border_black" />
+            android:background="@drawable/border_black"
+            android:gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:padding="5dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/descobs"
-            android:id="@+id/textView4"
+            android:id="@+id/textView_hora"
             android:layout_above="@+id/bt_ant_pes"
             android:layout_marginBottom="50dp"
             android:layout_alignLeft="@+id/bt_ant_pes"

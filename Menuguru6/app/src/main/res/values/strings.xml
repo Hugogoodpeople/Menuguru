@@ -245,5 +245,10 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="conf">Confirme os dados para efectuarmos  a sua reserva.</string>
 
     <string name="reserva">Reserva para</string>
+    <string name="pessoas">Pessoas</string>
+    <string name="pessoa">Pessoa</string>
+    <string name="inserir_nome">Por favor insira o seu nome.</string>
+    <string name="inserir_telefone">Por favor insira o seu telefone.</string>
+    <string name="inserir_email">Por favor insira o seu email.</string>
 
 </resources>
