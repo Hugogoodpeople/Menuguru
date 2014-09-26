@@ -4,8 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal"
-    android:background="@color/white"
-    android:id="@+id/">
+    android:background="@color/white">
 
     <FrameLayout
         android:layout_width="fill_parent"
@@ -146,7 +145,7 @@
             android:layout_marginRight="20dp" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/bt_seg_obs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ementa_desactualizada"

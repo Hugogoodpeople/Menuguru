@@ -113,9 +113,6 @@ public class EscolherLingua extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language);
-        Intent intent = getIntent();
-        value = intent.getStringExtra("local");
-        //setTitle(value);
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 

@@ -86,19 +86,18 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
                                 Globals.get_instance().setUser(null);
                                 // para ir guardar as preferencias de utilizador
                                 SharedPreferences preferences = getActivity().getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
-
                                 SharedPreferences.Editor editor = preferences.edit();
-                                editor.putString("user_name", "");
-                                editor.putString("user_last_name", "");
-                                editor.putString("user_id", "");
-                                editor.putString("user_data", "");
-                                editor.putString("user_tel", "");
-                                editor.putString("user_mail", "");
-                                editor.putString("user_tipo", "");
-                                editor.putString("user_pass", "");
-                                editor.putString("user_cidade","");
-                                editor.putString("face_id","");
-                                editor.putBoolean("user_news",false);
+                                editor.remove("user_name");
+                                editor.remove("user_last_name");
+                                editor.remove("user_id");
+                                editor.remove("user_data");
+                                editor.remove("user_tel");
+                                editor.remove("user_mail");
+                                editor.remove("user_tipo");
+                                editor.remove("user_pass");
+                                editor.remove("user_cidade");
+                                editor.remove("face_id");
+                                editor.remove("user_news");
                                 editor.commit();
                                 callFacebookLogout(myContext);
                                 getActivity().invalidateOptionsMenu();

@@ -2,10 +2,11 @@ package pt.menuguru.menuguru6;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -30,11 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.NumberPicker;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,11 +49,12 @@ import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Restaurante.Restaurante_main;
 import pt.menuguru.menuguru6.Utils.CustomTimePickerDialog;
 import pt.menuguru.menuguru6.Utils.Descricao_Especial;
+import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.Horario_Especial;
 import pt.menuguru.menuguru6.Utils.Menu_Especial;
+import pt.menuguru.menuguru6.Utils.Nr_Pessoas_Especial;
 
 import static android.R.layout.simple_list_item_1;
-import static android.R.layout.simple_spinner_item;
 
 
 public class MenuEspecial_nos_especiais extends Activity {
@@ -66,6 +64,7 @@ public class MenuEspecial_nos_especiais extends Activity {
     private ArrayList<Descricao_Especial> desc_list;
     private ArrayList<Horario_Especial> hora_list;
     private ArrayList<Horario_Especial> aux_hora_list;
+    private ArrayList<Nr_Pessoas_Especial> nr_pes_list;
 
     private ListView mListView;
 
@@ -82,15 +81,18 @@ public class MenuEspecial_nos_especiais extends Activity {
     public String rating;
     public String votacoes;
 
-    public EditText edit_dias;
-    public EditText edit_hrs;
-    public EditText edit_min;
-    public EditText edit_sec;
-
     public Button bt_reserva;
 
     CalendarView calendar;
 
+    String sel_id_hora = "";
+    String sel_hora = "";
+    String sel_nr_pes = "";
+    String sel_obs = "";
+    String sel_nome = "";
+    String sel_telefone = "";
+    String sel_email = "" ;
+    String sel_dia_semana = "" ;
 
 
     TextView edt;
@@ -216,8 +218,6 @@ public class MenuEspecial_nos_especiais extends Activity {
                             }
                             aux_hora_list = new ArrayList<Horario_Especial>();
                             for (int i = 0; i < hora_list.size(); i++) {
-                                //JSONObject a = dataJsonHorarios.getJSONObject(i);
-
                                 Horario_Especial hora = new Horario_Especial();
                                 int foo = Integer.parseInt(hora_list.get(i).getDia_id());
                                 if(dia_semana==foo){
@@ -231,8 +231,8 @@ public class MenuEspecial_nos_especiais extends Activity {
 
 
                             SelecionaHora();
-                        }else{
-                            Aviso();
+                        }else if(date1.compareTo(date2)<0){
+                            AvisoData_ant();
                         }
 
 
@@ -297,37 +297,79 @@ public class MenuEspecial_nos_especiais extends Activity {
     }
 
 
-    public void Aviso(){
-        final Dialog dialog_hora = new Dialog(MenuEspecial_nos_especiais.this);
-        dialog_hora.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog_hora.setContentView(R.layout.dialog_hora);
+    public void AvisoData_ant(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MenuEspecial_nos_especiais.this);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.erro_data_ant)
+                .setCancelable(false)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
 
+    public void AvisoData_dep(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MenuEspecial_nos_especiais.this);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.erro_data_dep)
+                .setCancelable(false)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
 
+    public void AvisoHora(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MenuEspecial_nos_especiais.this);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.erro_hora)
+                .setCancelable(false)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
 
-        TextView bt_ant = (TextView) dialog_hora.findViewById(R.id.bt_ant_cal);
-        TextView bt_seg = (TextView) dialog_hora.findViewById(R.id.bt_seg_nrp);
-        bt_ant.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                dialog_hora.dismiss();
-            }
-        });
-
-        bt_seg.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                dialog_hora.dismiss();
-            }
-        });
-        dialog_hora.show();
+    public void AvisoPessoas(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MenuEspecial_nos_especiais.this);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.erro_pes)
+                .setCancelable(false)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
     }
 
 
     public void SelecionaHora(){
-
-        Log.v("CARREGOU","SEGUINTE");
+        sel_hora = "";
+        sel_dia_semana = "";
+        sel_id_hora = "";
         final Dialog dialog_hora = new Dialog(MenuEspecial_nos_especiais.this); //, R.style.PauseDialog2);
         dialog_hora.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_hora.setContentView(R.layout.dialog_hora);
@@ -335,10 +377,30 @@ public class MenuEspecial_nos_especiais extends Activity {
         TextView bt_ant = (TextView) dialog_hora.findViewById(R.id.bt_ant_cal);
         TextView bt_seg = (TextView) dialog_hora.findViewById(R.id.bt_seg_nrp);
 
-        ListView list = (ListView) dialog_hora.findViewById(R.id.list_hora);
+        ListView list_hora = (ListView) dialog_hora.findViewById(R.id.list_hora);
         SpinnerAdapterVitor dataAdapter = new SpinnerAdapterVitor(MenuEspecial_nos_especiais.this,
                 simple_list_item_1,aux_hora_list);
-        list.setAdapter(dataAdapter);
+        list_hora.setAdapter(dataAdapter);
+
+
+        // ListView Item Click Listener
+        list_hora.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                for(int a = 0; a < parent.getChildCount(); a++)
+                {
+                    parent.getChildAt(a).setBackgroundColor(getResources().getColor(R.color.white) );
+                }
+                parent.getChildAt(position).setBackgroundColor(getResources().getColor(R.color.dourado));
+                sel_id_hora = aux_hora_list.get(position).getId();
+                sel_hora = aux_hora_list.get(position).getHora_inicio();
+                sel_dia_semana = aux_hora_list.get(position).getDia_id();
+
+            }
+
+        });
 /*
         Spinner sp = (Spinner) dialog_hora.findViewById(R.id.spinner2);
         SpinnerAdapterVitor dataAdapter = new SpinnerAdapterVitor(MenuEspecial_nos_especiais.this,
@@ -396,11 +458,169 @@ public class MenuEspecial_nos_especiais extends Activity {
 
             @Override
             public void onClick(View v) {
-                dialog_hora.dismiss();
+
+               if(!sel_hora.equals("")){
+                    SelecionaNrPessoas();
+
+                   Log.v("ID_HORA",sel_id_hora);
+                   Log.v("DIA SEMANA",sel_dia_semana);
+               }else {
+                   AvisoHora();
+               }
             }
         });
         dialog_hora.show();
     }
+
+    public void SelecionaNrPessoas(){
+        sel_nr_pes = "";
+        final Dialog dialog_pes = new Dialog(MenuEspecial_nos_especiais.this); //, R.style.PauseDialog2);
+        dialog_pes.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_pes.setContentView(R.layout.dialog_pessoas);
+
+        TextView bt_ant_hora = (TextView) dialog_pes.findViewById(R.id.bt_ant_hora);
+        TextView bt_seg_obs = (TextView) dialog_pes.findViewById(R.id.bt_seg_obs);
+
+        ListView list_pes = (ListView) dialog_pes.findViewById(R.id.list_nr_pessoa);
+        AdapterVitor dataAdapter = new AdapterVitor(MenuEspecial_nos_especiais.this,
+                simple_list_item_1,nr_pes_list);
+        list_pes.setAdapter(dataAdapter);
+
+
+        // ListView Item Click Listener
+        list_pes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                for(int a = 0; a < parent.getChildCount(); a++)
+                {
+                    parent.getChildAt(a).setBackgroundColor(getResources().getColor(R.color.white) );
+                }
+                parent.getChildAt(position).setBackgroundColor(getResources().getColor(R.color.dourado));
+                sel_nr_pes = nr_pes_list.get(position).getNr();
+
+            }
+
+        });
+
+        bt_ant_hora.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog_pes.dismiss();
+            }
+        });
+
+        bt_seg_obs.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(!sel_nr_pes.equals("")){
+                    SelecionaObs();
+                }else {
+                    AvisoHora();
+                }
+            }
+        });
+        dialog_pes.show();
+    }
+
+    public void SelecionaObs(){
+        final Dialog dialog_obs = new Dialog(MenuEspecial_nos_especiais.this); //, R.style.PauseDialog2);
+        dialog_obs.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_obs.setContentView(R.layout.dialog_obs);
+
+        TextView bt_ant_pes = (TextView) dialog_obs.findViewById(R.id.bt_ant_pes);
+        TextView bt_seg_dados = (TextView) dialog_obs.findViewById(R.id.bt_seg_dados);
+        bt_ant_pes.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog_obs.dismiss();
+            }
+        });
+
+        bt_seg_dados.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                EditText text = (EditText) dialog_obs.findViewById(R.id.editText_obs);
+                sel_obs = text.getText().toString();
+                SelecionaConfDados();
+            }
+        });
+        dialog_obs.show();
+    }
+
+    public void SelecionaConfDados(){
+        final Dialog dialog_conf = new Dialog(MenuEspecial_nos_especiais.this); //, R.style.PauseDialog2);
+        dialog_conf.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_conf.setContentView(R.layout.dialog_conf_dados);
+
+        TextView bt_ant_obs = (TextView) dialog_conf.findViewById(R.id.bt_ant_obs);
+        TextView bt_conf = (TextView) dialog_conf.findViewById(R.id.bt_conf);
+        TextView textView2 = (TextView) dialog_conf.findViewById(R.id.textView2);
+        textView2.setText(sel_obs);
+        final EditText edit_nome = (EditText) dialog_conf.findViewById(R.id.edit_nome);
+        final EditText edit_telefone = (EditText) dialog_conf.findViewById(R.id.edit_telefone);
+        final EditText edit_email = (EditText) dialog_conf.findViewById(R.id.edit_email);
+
+        if(Globals.getInstance().getUser()!=null) {
+            edit_nome.setText(Globals.get_instance().getUser().getPnome());
+            edit_telefone.setText(Globals.get_instance().getUser().getTelefone_user());
+            edit_email.setText(Globals.get_instance().getUser().getEmail());
+        }
+
+
+        bt_ant_obs.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog_conf.dismiss();
+            }
+        });
+
+        bt_conf.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+
+                if(Globals.get_instance().getUser() == null) {
+                    Intent myIntent = new Intent(MenuEspecial_nos_especiais.this, LoginMenuGuru.class);
+                    startActivity(myIntent);
+                    edit_nome.setText(Globals.get_instance().getUser().getPnome());
+                    edit_telefone.setText(Globals.get_instance().getUser().getTelefone_user());
+                    edit_email.setText(Globals.get_instance().getUser().getEmail());
+
+                }
+                sel_nome =  edit_nome.getText().toString();
+                sel_telefone =  edit_telefone.getText().toString();
+                sel_email =  edit_email.getText().toString();
+                Log.v("ID PAI",some_list.get(0).getId());
+                Log.v("ID ESP",some_list.get(0).getId());
+                Log.v("LANG",""+Globals.get_instance().getLingua());
+                Log.v("NOME CARTAO",some_list.get(0).getNome());
+                Log.v("EMAIL USER",sel_email);
+                Log.v("TELEFONE",sel_telefone);
+                Log.v("H_ID",sel_id_hora);
+                Log.v("NR PESSOAS",sel_nr_pes);
+                Log.v("ESCRITO",sel_obs);
+                Log.v("DIA NR SEMANA",sel_dia_semana);
+                Log.v("DATA",data_selec);
+                Log.v("REST ID",rest_id);
+                Log.v("USER NOME",sel_nome);
+                Log.v("FACE ID",""+Globals.get_instance().getUser().getId_face());
+                Log.v("USER ID",""+Globals.get_instance().getUser().getUserid());
+
+            }
+        });
+        dialog_conf.show();
+    }
+
+
+
 
     public class SpinnerAdapterVitor extends ArrayAdapter<Horario_Especial>
     {
@@ -430,16 +650,43 @@ public class MenuEspecial_nos_especiais extends Activity {
 
             TextView tx_hora = (TextView) mySpinner.findViewById(R.id.textSpiner);
             tx_hora.setText(hro.get(position).getHora_inicio());
-                                                   // depois tens de meter o codigo para o resto
-
-
-
-
             return mySpinner;
         }
-
-
     }
+
+
+    public class AdapterVitor extends ArrayAdapter<Nr_Pessoas_Especial>
+    {
+        private ArrayList<Nr_Pessoas_Especial> pes;
+
+        public AdapterVitor(Context context, int resource, ArrayList<Nr_Pessoas_Especial> lista)
+        {
+            super(context, resource, lista);
+            pes = lista;
+        }
+
+        @Override
+        public View getDropDownView(int position, View cnvtView, ViewGroup prnt)
+        {
+            return getCustomView(position, cnvtView, prnt);
+        }
+
+        @Override public View getView(int pos, View cnvtView, ViewGroup prnt)
+        {
+            return getCustomView(pos, cnvtView, prnt);
+        }
+
+        public View getCustomView(int position, View convertView, ViewGroup parent)
+        {
+            LayoutInflater inflater = getLayoutInflater();
+            View mySpinner = inflater.inflate(R.layout.list_spiner, parent, false);
+
+            TextView tx_hora = (TextView) mySpinner.findViewById(R.id.textSpiner);
+            tx_hora.setText(pes.get(position).getNr());
+            return mySpinner;
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -672,10 +919,6 @@ public class MenuEspecial_nos_especiais extends Activity {
                     Descricao_Especial desc = new Descricao_Especial();
                     desc.setDescricao(c.getString("descricao"));
                     desc.setTitulo(c.getString("titulo"));
-                    //desc.setTitulo_id(c.getString("titulo_id"));
-                    Log.v("descricao",c.getString("descricao"));
-                    //Log.v("titulo",c.getString("titulo_id"));
-                    Log.v("titulo",c.getString("descricao"));
                     desc_list.add(desc);
                 }
 
@@ -688,9 +931,18 @@ public class MenuEspecial_nos_especiais extends Activity {
                     hora.setHora_inicio(a.getString("hora_inicio"));
                     hora.setN_pessoas_h(a.getString("n_pessoas_h"));
                     hora.setDia_id(a.getString("dia_id"));
-
                     hora_list.add(hora);
                 }
+
+
+                nr_pes_list = new ArrayList<Nr_Pessoas_Especial>();
+                for (int i=0;i<dataJsonPessoas.length();i++){
+                    Nr_Pessoas_Especial pes = new Nr_Pessoas_Especial();
+                    pes.setNr(dataJsonPessoas.get(i).toString());
+                    nr_pes_list.add(pes);
+                }
+
+
 
 
             } catch (JSONException e) {

@@ -80,7 +80,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
         String face_id = preferences.getString("id_face","");
         Boolean user_news = preferences.getBoolean("user_news", false);
 
-        if (!user_id.equalsIgnoreCase(""))
+        if (Globals.getInstance().getUser()==null)
         {
             User u = new User();
             u.setUserid(user_id);
