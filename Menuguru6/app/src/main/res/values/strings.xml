@@ -224,4 +224,8 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="mins">MIN</string>
     <string name="sec">SEC</string>
     <string name="secs">SEC</string>
+
+    <string name="sel_hora">Selecione a hora</string>
+    <string name="seg">Seguinte</string>
+    <string name="ant">Anterior</string>
 </resources>

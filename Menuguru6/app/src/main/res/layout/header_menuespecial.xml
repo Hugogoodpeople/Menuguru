@@ -150,7 +150,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="DIAS"
-        android:id="@+id/textView3"
+        android:id="@+id/bt_seguuintw"
         android:textSize="10dp"
         android:textColor="@color/white"
         android:layout_alignTop="@+id/textView_desc_especial"

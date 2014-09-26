@@ -18,6 +18,7 @@
     <color name="navy">#000080</color>
     <color name="black">#000000</color>
     <color name="dourado">#cc9966</color>
+    <color name="dourado_trans">#8ccc9966</color>
     <color name="transparent">#00FFFFFF</color>
 
 </resources>

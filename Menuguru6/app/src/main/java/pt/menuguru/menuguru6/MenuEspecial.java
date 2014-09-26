@@ -438,7 +438,7 @@ public class MenuEspecial extends Activity {
         edt2 = (TextView) findViewById(R.id.text_oferta);
         edt3 = (TextView) findViewById(R.id.text_preco_ant);
         edt4 = (TextView) findViewById(R.id.text_titulo);
-        edt5 = (TextView) findViewById(R.id.textView3);
+        edt5 = (TextView) findViewById(R.id.bt_seguuintw);
         edt6 = (TextView) findViewById(R.id.textView_desc_especial);
         edt7 = (TextView) findViewById(R.id.textView_nome_especial);
         edt8 = (TextView) findViewById(R.id.textView10);
