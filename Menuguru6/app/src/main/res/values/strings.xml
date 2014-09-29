@@ -246,6 +246,7 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="erro_data_dep">Lamentamos mas não existe mesas disponíveis para este dia. Por favor tente numa nova data.</string>
     <string name="erro_pes">Por favor selecione o numero de pessoas pertendido.</string>
     <string name="conf">Confirme os dados para efectuarmos  a sua reserva.</string>
+    <string name="guardar_agenda">Estamos a reservar a sua mesa na agenda do restaurante.</string>
 
     <string name="reserva">Reserva para</string>
     <string name="pessoas">Pessoas</string>

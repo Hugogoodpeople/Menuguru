@@ -70,6 +70,7 @@ public class MenuEspecial_nos_especiais extends Activity {
     private ArrayList<Horario_Especial> hora_list;
     private ArrayList<Horario_Especial> aux_hora_list;
     private ArrayList<Nr_Pessoas_Especial> nr_pes_list;
+    private ArrayList<Nr_Pessoas_Especial> aux_nr_pes_list;
 
     private ListView mListView;
 
@@ -132,6 +133,14 @@ public class MenuEspecial_nos_especiais extends Activity {
 
     String res_reserva;
     String msg_reserva;
+
+    String num_por_dia;
+    String num_por_hora;
+
+    String reportDate;
+
+    public MenuEspecial_nos_especiais() {
+    }
 
     public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
         long diffInMillies = date2.getTime() - date1.getTime();
@@ -272,7 +281,7 @@ public class MenuEspecial_nos_especiais extends Activity {
                                         long aaa = getDateDiff(teste1, teste2, TimeUnit.HOURS);
                                         Log.v("DIFERENCA "+i ,""+aaa);
 
-                                        if(aaa >= Long.parseLong(hora_min_reserva)){
+                                        if(Long.parseLong(hora_min_reserva)<=aaa){
                                             hora.setId(hora_list.get(i).getId());
                                             hora.setDia_id(hora_list.get(i).getDia_id());
                                             hora.setHora_inicio(hora_list.get(i).getHora_inicio());
@@ -476,6 +485,27 @@ public class MenuEspecial_nos_especiais extends Activity {
         dialog_loading = new Dialog(MenuEspecial_nos_especiais.this);
         dialog_loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_loading.setContentView(R.layout.dialog_loading);
+        TextView tx_data = (TextView) dialog_loading.findViewById(R.id.tv_data);
+        TextView tx_hora= (TextView) dialog_loading.findViewById(R.id.tv_hora);
+        TextView tx_nome = (TextView) dialog_loading.findViewById(R.id.tv_nome);
+        TextView tx_tele = (TextView) dialog_loading.findViewById(R.id.tv_telefone);
+        TextView tx_email = (TextView) dialog_loading.findViewById(R.id.tv_email);
+        TextView tx_obs = (TextView) dialog_loading.findViewById(R.id.tv_obs);
+
+        tx_data.setText(reportDate);
+        String aux_pes;
+        if(sel_nr_pes.equals("1")){
+            aux_pes = getString(R.string.pessoa);
+        }else{
+            aux_pes = getString(R.string.pessoas);
+        }
+        tx_hora.setText(sel_hora+" "+sel_nr_pes+" "+aux_pes);
+        tx_nome.setText(sel_nome);
+        tx_tele.setText(sel_telefone);
+        tx_email.setText(sel_email);
+        tx_obs.setText(sel_obs);
+
+
         dialog_loading.show();
     }
 
@@ -512,6 +542,7 @@ public class MenuEspecial_nos_especiais extends Activity {
                 sel_id_hora = aux_hora_list.get(position).getId();
                 sel_hora = aux_hora_list.get(position).getHora_inicio();
                 sel_dia_semana = aux_hora_list.get(position).getDia_id();
+                num_por_hora = aux_hora_list.get(position).getN_pessoas_h();
 
             }
 
@@ -530,7 +561,18 @@ public class MenuEspecial_nos_especiais extends Activity {
             public void onClick(View v) {
 
                if(!sel_hora.equals("")){
-                    SelecionaNrPessoas();
+                    Log.v("NUM POR HORA",""+num_por_hora);
+                   aux_nr_pes_list = new ArrayList<Nr_Pessoas_Especial>();
+                   for (int i = 0; i < nr_pes_list.size(); i++) {
+                       Nr_Pessoas_Especial nr_pes = new Nr_Pessoas_Especial();
+                       if(Integer.parseInt(nr_pes_list.get(i).getNr())<=Integer.parseInt(num_por_dia) && Integer.parseInt(nr_pes_list.get(i).getNr())<=Integer.parseInt(num_por_hora)
+                               && Integer.parseInt(nr_pes_list.get(i).getNr())<=Integer.parseInt(some_list.get(0).getNumero_vaucher())) {
+                           nr_pes.setNr(nr_pes_list.get(i).getNr());
+                           aux_nr_pes_list.add(nr_pes);
+                       }
+                   }
+
+                   SelecionaNrPessoas();
 
                    Log.v("ID_HORA",sel_id_hora);
                    Log.v("DIA SEMANA",sel_dia_semana);
@@ -554,7 +596,7 @@ public class MenuEspecial_nos_especiais extends Activity {
 
         ListView list_pes = (ListView) dialog_pes.findViewById(R.id.list_nr_pessoa);
         AdapterVitor dataAdapter = new AdapterVitor(MenuEspecial_nos_especiais.this,
-                simple_list_item_1,nr_pes_list);
+                simple_list_item_1,aux_nr_pes_list);
         list_pes.setAdapter(dataAdapter);
 
         // ListView Item Click Listener
@@ -650,7 +692,7 @@ public class MenuEspecial_nos_especiais extends Activity {
 
         DateFormat df = new SimpleDateFormat("EEEE dd MMMM yyyy");
 
-        String reportDate = df.format(date);
+        reportDate = df.format(date);
         textView_data.setText(""+reportDate);
         String aux_pes;
         if(sel_nr_pes.equals("1")){
@@ -1382,7 +1424,7 @@ public class MenuEspecial_nos_especiais extends Activity {
 
         // contacts JSONArray
         JSONObject dataJsonArr = null;
-        JSONObject dataJsonRep = null;
+        JSONArray dataJsonRep = null;
 
         private MenuEspecial_nos_especiais delegate;
 
@@ -1433,7 +1475,9 @@ public class MenuEspecial_nos_especiais extends Activity {
                 }
                 // get the array of users
 
-                //dataJsonRep = jsonObj.getJSONObject("resp");
+                String completo = jsonObj.getString("res");
+                JSONObject outro =new JSONObject(completo);
+                num_por_dia = outro.getString("num");
 
 
             } catch (JSONException e) {

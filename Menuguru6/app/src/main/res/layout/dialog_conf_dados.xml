@@ -102,7 +102,8 @@
             android:layout_marginTop="23dp"
             android:layout_toLeftOf="@+id/bt_conf"
             android:layout_toStartOf="@+id/bt_conf"
-            android:gravity="center" />
+            android:gravity="center"
+            android:id="@+id/tv_data" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -110,15 +111,13 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/textView_data"
             android:layout_toEndOf="@+id/bt_ant_obs"
-            android:layout_alignRight="@+id/edit_email"
             android:layout_alignEnd="@+id/edit_email"
-            android:layout_below="@+id/laout_comentario"
-            android:layout_alignLeft="@+id/edit_email"
-            android:layout_alignStart="@+id/edit_email"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:gravity="center"
-            android:layout_marginTop="10dp" />
+            android:layout_below="@+id/textView_hora"
+            android:layout_alignLeft="@+id/edit_email"
+            android:layout_alignStart="@+id/edit_email" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -126,13 +125,13 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/textView_hora"
             android:layout_toEndOf="@+id/bt_ant_obs"
-            android:layout_alignRight="@+id/textView_data"
-            android:layout_alignEnd="@+id/textView_data"
-            android:layout_below="@+id/textView_data"
+            android:gravity="center"
+            android:paddingLeft="10dp"
             android:layout_alignLeft="@+id/textView_data"
             android:layout_alignStart="@+id/textView_data"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:paddingLeft="10dp" />
+            android:layout_below="@+id/tv_data"
+            android:layout_alignRight="@+id/textView_data"
+            android:layout_alignEnd="@+id/textView_data"
+            android:layout_marginTop="5dp" />
     </RelativeLayout>
 </LinearLayout>
