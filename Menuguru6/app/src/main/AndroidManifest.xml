@@ -107,7 +107,13 @@
             android:screenOrientation="portrait" >
         </activity>
 
-        Lista_comentarios
+        <activity
+            android:name=".Favoritos.Favoritos"
+            android:label="Favoritos"
+            android:screenOrientation="portrait" >
+        </activity>
+
+
 
         <activity
 

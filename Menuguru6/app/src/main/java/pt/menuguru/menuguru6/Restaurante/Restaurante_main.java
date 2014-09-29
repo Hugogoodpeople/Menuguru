@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import pt.menuguru.menuguru6.Favoritos.Favoritos;
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.LoginMenuGuru;
 import pt.menuguru.menuguru6.MenuEspecial;
@@ -561,7 +562,8 @@ public class Restaurante_main extends FragmentActivity {
 
         private Restaurante_main delegate;
 
-        public AsyncTaskParseJsonComentarios (Restaurante_main delegate){
+        public AsyncTaskParseJsonComentarios (Restaurante_main delegate)
+        {
             this.delegate = delegate;
         }
 
@@ -673,7 +675,6 @@ public class Restaurante_main extends FragmentActivity {
                 }
             });
 
-            //view_comentario
         }
     }
 
@@ -798,6 +799,28 @@ public class Restaurante_main extends FragmentActivity {
                 }else
                 {
                     Intent inten = new Intent(Restaurante_main.this, Avaliar_restaurante.class);
+                    inten.putExtra("restaurante", rest_id);
+                    inten.putExtra("rating",mediarating);
+                    //startActivityForResult(inten);
+                    startActivity(inten);
+                    overridePendingTransition(R.anim.abc_slide_in_bottom , R.anim.abc_fade_out);
+                }
+            }
+        });
+
+
+        ImageButton buttonFavoritos = (ImageButton) header2.findViewById(R.id.texto_fav_nome);
+        buttonFavoritos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Globals.get_instance().getUser() == null)
+                {
+                    Intent intent = new Intent(Restaurante_main.this, LoginMenuGuru.class);
+                    startActivity(intent);
+
+                }else
+                {
+                    Intent inten = new Intent(Restaurante_main.this, Favoritos.class);
                     inten.putExtra("restaurante", rest_id);
                     inten.putExtra("rating",mediarating);
                     //startActivityForResult(inten);
