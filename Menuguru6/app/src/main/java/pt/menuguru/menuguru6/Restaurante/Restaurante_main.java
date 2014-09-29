@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+
 import pt.menuguru.menuguru6.Favoritos.Favoritos;
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.LoginMenuGuru;
@@ -821,6 +822,7 @@ public class Restaurante_main extends FragmentActivity {
                 }else
                 {
                     Intent inten = new Intent(Restaurante_main.this, Favoritos.class);
+                    //Intent inten = new Intent(Restaurante_main.this, EmptyListActivity.class);
                     inten.putExtra("restaurante", rest_id);
                     inten.putExtra("rating",mediarating);
                     //startActivityForResult(inten);

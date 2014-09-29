@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -33,8 +34,10 @@ public class Favoritos extends Activity
 {
     private ArrayList<Favorito_item> some_list;
 
+    private ViewGroup footer;
     private ListView listView;
     private String rest_id;
+    private AdapterFavoritos mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,8 +178,15 @@ public class Favoritos extends Activity
     {
         // aqui tenhe de inicializar o novo adapter para ter a lista de comentarios
         listView = (ListView) findViewById(R.id.lista_favoritos);
+        final LayoutInflater inflater = LayoutInflater.from(this);
 
-        AdapterFavoritos mAdapter = new AdapterFavoritos(this, R.layout.row_favorito, some_list);
+        footer = (ViewGroup)  inflater.inflate(R.layout.footer_favoritos, listView, false);
+
+
+        mAdapter = new AdapterFavoritos(this, R.layout.row_favorito, some_list);
+
+        listView.addFooterView(footer);
+
         listView.setAdapter(mAdapter);
 
     }
@@ -214,5 +224,6 @@ public class Favoritos extends Activity
         }
 
     }
+
 
 }
