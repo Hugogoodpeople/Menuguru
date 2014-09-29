@@ -192,6 +192,7 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
                 myIntent.putExtra("lat", ""+some_array[position].getLat());
                 myIntent.putExtra("lon", ""+some_array[position].getLng());
                 myIntent.putExtra("morada", ""+some_array[position].getMorada());
+                myIntent.putExtra("hora_min_reserva", ""+some_array[position].getHora_minimo_antedencia_especial());
 
                 //myIntent.putExtra("rating", ""+some_array[position].getId_rest());
                 //myIntent.putExtra("votacoes", ""+some_array[position].getId_rest());
@@ -295,6 +296,7 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
                     menu.setNome_rest(c.getString("nome_rest"));
                     menu.setImagem_rest(c.getString("imagem_rest"));
                     menu.setMorada(c.getString("adress"));
+                    menu.setHora_minimo_antedencia_especial(c.getString("hora_minimo_antedencia_especial"));
 
                     Restaurante rest = new Restaurante();
                     rest.setNome(c.getString("nome_rest"));

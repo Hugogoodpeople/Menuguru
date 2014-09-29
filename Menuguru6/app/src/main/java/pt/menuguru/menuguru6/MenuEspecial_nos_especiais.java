@@ -14,6 +14,7 @@ import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +46,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Restaurante.Restaurante_main;
@@ -81,6 +85,7 @@ public class MenuEspecial_nos_especiais extends Activity {
     public String morada;
     public String rating;
     public String votacoes;
+    public String hora_min_reserva;
 
     public Button bt_reserva;
 
@@ -118,7 +123,20 @@ public class MenuEspecial_nos_especiais extends Activity {
 
     private CustomTimePickerDialog mTimePicker;
 
+    Dialog dialog_loading;
+    Dialog dialog_conf;
+    Dialog dialog_obs;
+    Dialog dialog_pes;
+    Dialog dialog_hora;
+    Dialog dialog1;
 
+    String res_reserva;
+    String msg_reserva;
+
+    public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+        long diffInMillies = date2.getTime() - date1.getTime();
+        return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +152,8 @@ public class MenuEspecial_nos_especiais extends Activity {
         nome_rest = getIntent().getExtras().getString("nome_rest");
         imagem_rest = getIntent().getExtras().getString("urlfoto");
         morada = getIntent().getExtras().getString("morada");
-
+        hora_min_reserva = getIntent().getExtras().getString("hora_min_reserva");
+        Log.v("HORA MIN RESERVA",hora_min_reserva);
         // Set the adapter
         mListView = (ListView)findViewById(R.id.list_esp);
 
@@ -146,7 +165,7 @@ public class MenuEspecial_nos_especiais extends Activity {
 
             @Override
             public void onClick(View v) {
-                final Dialog dialog1 = new Dialog(MenuEspecial_nos_especiais.this);
+                dialog1 = new Dialog(MenuEspecial_nos_especiais.this);
                 dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog1.setContentView(R.layout.dialog_reserva);
 
@@ -177,10 +196,19 @@ public class MenuEspecial_nos_especiais extends Activity {
                                                     int dayOfMonth) {
                         month = month+1;
                         Log.v("ANO",""+year);
-                        Log.v("MES",""+month);
-                        Log.v("DIA",""+dayOfMonth);
 
-                        data_selec = year+"-"+month+"-"+dayOfMonth;
+                        String auxmonth = ""+month;
+                        if(month<10){
+                            auxmonth = String.format("%02d", month);
+                        }
+                        Log.v("MES",""+auxmonth);
+
+                        String auxdayOfMonth = ""+dayOfMonth;
+                        if(dayOfMonth<10){
+                            auxdayOfMonth = String.format("%02d", dayOfMonth);
+                        }
+                        Log.v("DIA",""+auxdayOfMonth);
+                        data_selec = year+"-"+auxmonth+"-"+auxdayOfMonth;
                     }
                 });
 
@@ -219,18 +247,42 @@ public class MenuEspecial_nos_especiais extends Activity {
                                     case 6:dia_semana=5;break;
                                     case 7:dia_semana=6;break;
                                 }
+
                                 aux_hora_list = new ArrayList<Horario_Especial>();
                                 for (int i = 0; i < hora_list.size(); i++) {
                                     Horario_Especial hora = new Horario_Especial();
                                     int foo = Integer.parseInt(hora_list.get(i).getDia_id());
+
                                     if(dia_semana==foo){
-                                        hora.setId(hora_list.get(i).getId());
-                                        hora.setDia_id(hora_list.get(i).getDia_id());
-                                        hora.setHora_inicio(hora_list.get(i).getHora_inicio());
-                                        hora.setN_pessoas_h(hora_list.get(i).getN_pessoas_h());
-                                        aux_hora_list.add(hora);
+
+                                        Calendar ccc = Calendar.getInstance();
+                                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd k:m:s");
+                                        String test2 = data_selec + " "+ hora_list.get(i).getHora_inicio()+":00";
+                                        String hora_actual = format.format(ccc.getTime());
+
+                                        Date teste2 = null, teste1 = null;
+                                        try {
+                                            teste1 = format.parse(hora_actual);
+                                            teste2 = format.parse(test2);
+                                        } catch (ParseException e) {
+                                            e.printStackTrace();
+                                        }
+                                        Log.v("TESTE 1",""+teste1);
+                                        Log.v("TESTE 2",""+teste2);
+                                        long aaa = getDateDiff(teste1, teste2, TimeUnit.HOURS);
+                                        Log.v("DIFERENCA "+i ,""+aaa);
+
+                                        if(aaa >= Long.parseLong(hora_min_reserva)){
+                                            hora.setId(hora_list.get(i).getId());
+                                            hora.setDia_id(hora_list.get(i).getDia_id());
+                                            hora.setHora_inicio(hora_list.get(i).getHora_inicio());
+                                            hora.setN_pessoas_h(hora_list.get(i).getN_pessoas_h());
+                                            aux_hora_list.add(hora);
+                                        }
                                     }
                                 }
+
+                                new AsyncTaskParseJsonNrpessoas(MenuEspecial_nos_especiais.this).execute();
                                 SelecionaHora();
                             }else{
                                 AvisoData_dep();
@@ -420,12 +472,20 @@ public class MenuEspecial_nos_especiais extends Activity {
         alertDialog.show();
     }
 
+    public void Loading(){
+        dialog_loading = new Dialog(MenuEspecial_nos_especiais.this);
+        dialog_loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_loading.setContentView(R.layout.dialog_loading);
+        dialog_loading.show();
+    }
+
 
     public void SelecionaHora(){
         sel_hora = "";
         sel_dia_semana = "";
         sel_id_hora = "";
-        final Dialog dialog_hora = new Dialog(MenuEspecial_nos_especiais.this); //, R.style.PauseDialog2);
+        //, R.style.PauseDialog2);
+        dialog_hora = new Dialog(MenuEspecial_nos_especiais.this);
         dialog_hora.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_hora.setContentView(R.layout.dialog_hora);
 
@@ -448,7 +508,7 @@ public class MenuEspecial_nos_especiais extends Activity {
                 {
                     parent.getChildAt(a).setBackgroundColor(getResources().getColor(R.color.white) );
                 }
-                parent.getChildAt(position).setBackgroundColor(getResources().getColor(R.color.dourado));
+                view.setBackgroundColor(getResources().getColor(R.color.dourado));
                 sel_id_hora = aux_hora_list.get(position).getId();
                 sel_hora = aux_hora_list.get(position).getHora_inicio();
                 sel_dia_semana = aux_hora_list.get(position).getDia_id();
@@ -456,51 +516,6 @@ public class MenuEspecial_nos_especiais extends Activity {
             }
 
         });
-/*
-        Spinner sp = (Spinner) dialog_hora.findViewById(R.id.spinner2);
-        SpinnerAdapterVitor dataAdapter = new SpinnerAdapterVitor(MenuEspecial_nos_especiais.this,
-                simple_spinner_item,aux_hora_list);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp.setAdapter(dataAdapter);
-
-        NumberPicker np=
-                (NumberPicker) dialog_hora.findViewById(R.id.numberPicker2);
-        String[] values=new String[3];
-        values[0]="mike";
-        values[1]="sue";
-        values[2]="harry";
-        np.setMaxValue(values.length-1);
-        np.setMinValue(0);
-        np.setDisplayedValues(values);
-        final TextView hora = (TextView) dialog_hora.findViewById(R.id.hora);
-
-        hora.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-
-                mTimePicker = new CustomTimePickerDialog(MenuEspecial_nos_especiais.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        // ainda falta qui codigo para fazer o resto das cenas
-                        // tenho de ter a validação se é 0 ou 30
-
-                        if (selectedMinute == 0)
-                            hora.setText(Integer.toString(selectedHour) + ":00");
-                        else
-                            hora.setText(Integer.toString(selectedHour) + ":30");
-
-
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-
-                mTimePicker.setTitle("Select Time");
-                mTimePicker.show();
-            }
-        });
-        */
         bt_ant.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -529,7 +544,8 @@ public class MenuEspecial_nos_especiais extends Activity {
 
     public void SelecionaNrPessoas(){
         sel_nr_pes = "";
-        final Dialog dialog_pes = new Dialog(MenuEspecial_nos_especiais.this); //, R.style.PauseDialog2);
+        //, R.style.PauseDialog2);
+        dialog_pes = new Dialog(MenuEspecial_nos_especiais.this);
         dialog_pes.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_pes.setContentView(R.layout.dialog_pessoas);
 
@@ -551,7 +567,7 @@ public class MenuEspecial_nos_especiais extends Activity {
                 {
                     parent.getChildAt(a).setBackgroundColor(getResources().getColor(R.color.white) );
                 }
-                parent.getChildAt(position).setBackgroundColor(getResources().getColor(R.color.dourado));
+                view.setBackgroundColor(getResources().getColor(R.color.dourado));
                 sel_nr_pes = nr_pes_list.get(position).getNr();
 
             }
@@ -581,7 +597,8 @@ public class MenuEspecial_nos_especiais extends Activity {
     }
 
     public void SelecionaObs(){
-        final Dialog dialog_obs = new Dialog(MenuEspecial_nos_especiais.this); //, R.style.PauseDialog2);
+        //, R.style.PauseDialog2);
+        dialog_obs = new Dialog(MenuEspecial_nos_especiais.this);
         dialog_obs.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_obs.setContentView(R.layout.dialog_obs);
 
@@ -608,7 +625,8 @@ public class MenuEspecial_nos_especiais extends Activity {
     }
 
     public void SelecionaConfDados() {
-        final Dialog dialog_conf = new Dialog(MenuEspecial_nos_especiais.this); //, R.style.PauseDialog2);
+         //, R.style.PauseDialog2);
+        dialog_conf = new Dialog(MenuEspecial_nos_especiais.this);
         dialog_conf.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_conf.setContentView(R.layout.dialog_conf_dados);
 
@@ -625,7 +643,7 @@ public class MenuEspecial_nos_especiais extends Activity {
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Date date = null;
         try {
-            date = (Date)format.parse(data_selec);
+            date = format.parse(data_selec);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -661,11 +679,11 @@ public class MenuEspecial_nos_especiais extends Activity {
 
             @Override
             public void onClick(View v) {
-                if(sel_nome.isEmpty()){
+                if(edit_nome.getText().toString().isEmpty()){
                     AvisoNome();
-                }else if(sel_telefone.isEmpty()){
+                }else if(edit_telefone.length()<9 || edit_telefone.length()>9){
                     AvisoTelefone();
-                }else if(sel_email.isEmpty()){
+                }else if(edit_email.getText().toString().isEmpty() || !isEmailValid(edit_email.getText().toString())){
                     AvisoEmail();
                 }else{
                     if(Globals.get_instance().getUser() == null) {
@@ -683,7 +701,19 @@ public class MenuEspecial_nos_especiais extends Activity {
     }
 
 
+    public static boolean isEmailValid(String email) {
+        boolean isValid = false;
 
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = true;
+        }
+        return isValid;
+    }
 
     public class SpinnerAdapterVitor extends ArrayAdapter<Horario_Especial>
     {
@@ -756,6 +786,14 @@ public class MenuEspecial_nos_especiais extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_especial, menu);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        mAdapter=null;
+        mListView=null;
+        finish();
+        overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
     }
 
     @Override
@@ -1154,8 +1192,6 @@ public class MenuEspecial_nos_especiais extends Activity {
                 //edt1.setText(time.toString());
             }
 
-
-
             public void onFinish() {
                 // TODO Auto-generated method stub
 
@@ -1226,7 +1262,6 @@ public class MenuEspecial_nos_especiais extends Activity {
 
         // contacts JSONArray
         JSONObject dataJsonArr = null;
-        JSONObject dataJsonRep = null;
 
 
         private MenuEspecial_nos_especiais delegate;
@@ -1238,12 +1273,7 @@ public class MenuEspecial_nos_especiais extends Activity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = new ProgressDialog(MenuEspecial_nos_especiais.this);
-            progressDialog.setCancelable(true);
-            progressDialog.setMessage("Loading...");
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setProgress(0);
-            progressDialog.show();
+            Loading();
         }
 
         @Override
@@ -1297,13 +1327,113 @@ public class MenuEspecial_nos_especiais extends Activity {
                 }
                 // get the array of users
 
-                dataJsonRep = jsonObj.getJSONObject("resp");
-                dataJsonArr = dataJsonRep.getJSONObject("res");
+               // dataJsonArr = jsonObj.getString("res");
+                res_reserva = jsonObj.getString("res");
+                msg_reserva = jsonObj.getString("msg");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg){  delegate.asyncCompleteReserva(true);  }
+
+    }
+
+
+
+    public void asyncCompleteReserva(boolean success) {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog1.dismiss();
+                dialog_hora.dismiss();
+                dialog_pes.dismiss();
+                dialog_obs.dismiss();
+                dialog_conf.dismiss();
+                dialog_loading.dismiss();
+                if(res_reserva.equals("sucesso")){
+                    final Dialog dialog_final = new Dialog(MenuEspecial_nos_especiais.this);
+                    dialog_final.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog_final.setContentView(R.layout.dialog_final);
+                    dialog_final.show();
+                }else{
+                    final Dialog dialog_final = new Dialog(MenuEspecial_nos_especiais.this);
+                    dialog_final.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog_final.setContentView(R.layout.dialog_final);
+                    dialog_final.show();
+                }
+            }
+        }, 7000);
+    }
+
+
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonNrpessoas extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_especial_dia_limite.php";
+
+        // contacts JSONArray
+        JSONObject dataJsonArr = null;
+        JSONObject dataJsonRep = null;
+
+        private MenuEspecial_nos_especiais delegate;
+
+        public AsyncTaskParseJsonNrpessoas (MenuEspecial_nos_especiais delegate){
+            this.delegate = delegate;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(MenuEspecial_nos_especiais.this);
+            progressDialog.setCancelable(true);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+                dict.put("id_pai",rest_cartao_id);
+                Log.v("ID PAI",rest_cartao_id);
+                Log.v("DATA",data_selec);
+                dict.put("data",data_selec);
 
 
 
 
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
 
+
+                // try parse the string to a JSON object
+                try {
+                    Log.v("Ver Json ","Ele retorna isto"+jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                // get the array of users
+
+                //dataJsonRep = jsonObj.getJSONObject("resp");
 
 
             } catch (JSONException e) {
@@ -1314,15 +1444,18 @@ public class MenuEspecial_nos_especiais extends Activity {
         }
 
         @Override
-        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncCompleteReserva(true);  }
+        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncCompleteNrPessoas(true);  }
 
     }
 
 
 
-    public void asyncCompleteReserva(boolean success) {
-
-    }
+    public void asyncCompleteNrPessoas(boolean success) {
 
 
     }
+
+
+
+
+}
