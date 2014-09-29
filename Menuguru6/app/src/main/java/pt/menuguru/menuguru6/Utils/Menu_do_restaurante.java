@@ -23,6 +23,16 @@ public class Menu_do_restaurante {
     public String imagem_rest;
     public String morada;
     public String descricao;
+    public String hora_minimo_antedencia_especial;
+
+
+    public String getHora_minimo_antedencia_especial() {
+        return hora_minimo_antedencia_especial;
+    }
+
+    public void setHora_minimo_antedencia_especial(String hora_minimo_antedencia_especial) {
+        this.hora_minimo_antedencia_especial = hora_minimo_antedencia_especial;
+    }
 
     public String getDescricao() {
         return descricao;
