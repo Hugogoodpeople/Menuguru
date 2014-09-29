@@ -137,6 +137,7 @@ public class Restaurante_main extends FragmentActivity {
         super.onResume();
         // tenho de chamar as estrelas de novo
         new AsyncTaskParseJsonEstrelas(this).execute();
+        new AsyncTaskParseJsonComentarios(this).execute();
     }
 
     @Override
@@ -621,11 +622,8 @@ public class Restaurante_main extends FragmentActivity {
                     comentario.setNome_user_com(c.getString("nome_user_com"));
                     comentario.setNome_rest_com(c.getString("nome_rest_com"));
 
-
                     comentarios.add(comentario);
                 }
-
-
 
 
             } catch (JSONException e) {
