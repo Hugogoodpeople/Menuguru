@@ -59,7 +59,10 @@ public class Avaliar_restaurante extends Activity
 
     }
 
-    private void avaliar_comentar(){ new AsyncTaskParseJsonAvaliar(this).execute();}
+    private void avaliar_comentar()
+    {
+        new AsyncTaskParseJsonAvaliar(this).execute();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -89,7 +92,8 @@ public class Avaliar_restaurante extends Activity
 
         private Avaliar_restaurante delegate;
 
-        public AsyncTaskParseJsonAvaliar (Avaliar_restaurante delegate){
+        public AsyncTaskParseJsonAvaliar (Avaliar_restaurante delegate)
+        {
             this.delegate = delegate;
         }
 

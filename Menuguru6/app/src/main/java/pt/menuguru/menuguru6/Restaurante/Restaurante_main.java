@@ -126,12 +126,18 @@ public class Restaurante_main extends FragmentActivity {
 
         setContentView(R.layout.activity_restaurante_main);
 
-
-        new AsyncTaskParseJsonEstrelas(this).execute();
+        new AsyncTaskParseJson1(this).execute();
+        // new AsyncTaskParseJsonEstrelas(this).execute();
     }
 
 
-
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        // tenho de chamar as estrelas de novo
+        new AsyncTaskParseJsonEstrelas(this).execute();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -179,6 +185,9 @@ public class Restaurante_main extends FragmentActivity {
 
     public void initialisePagin()
     {
+        TextView votos = (TextView) header2.findViewById(R.id.textView_avaliacoes);
+        votos.setText(votacoes +" "+ getString(R.string.votacoes));
+
         List<Fragment> fragments = new Vector<Fragment>();
 
         // tenho de fazer alterações para poder atribuir o numero de estrelas
@@ -665,7 +674,8 @@ public class Restaurante_main extends FragmentActivity {
 
     public void asyncCompleteEstrelas(boolean success)
     {
-        new AsyncTaskParseJson1(this).execute();
+        //new AsyncTaskParseJson1(this).execute();
+        initialisePagin();
     }
 
 
@@ -740,9 +750,10 @@ public class Restaurante_main extends FragmentActivity {
         TextView adress = (TextView) header2.findViewById(R.id.morada_rest);
         adress.setText(morada);
 
+        /*
         TextView votos = (TextView) header2.findViewById(R.id.textView_avaliacoes);
         votos.setText(votacoes +" "+ getString(R.string.votacoes));
-
+        */
 
 
         ImageButton buttonInfo = (ImageButton)header2.findViewById(R.id.button_info);
@@ -843,9 +854,11 @@ public class Restaurante_main extends FragmentActivity {
 
 
 
-        initialisePagin();
+        //initialisePagin();
+        new AsyncTaskParseJsonEstrelas(this).execute();
         new AsyncTaskParseJsonGaleria(this).execute();
         new AsyncTaskParseJsonComentarios(this).execute();
+
 
     }
 
