@@ -26,6 +26,8 @@
     <string name="sem_comentarios" translatable="false">Sem comentários</string>
     <string name="seja_o_primeiro_avaliar" translatable="false">Seja o primeiro a avaliar este resturante</string>
     <string name="enviar" translatable="false">Enviar</string>
+    <string name="comentarios" translatable="false">Comentários</string>
+    <string name="resposta" translatable="false">Resposta</string>
 
 
     <string name="inicio" translatable="false">Inicio</string>

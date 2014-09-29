@@ -29,6 +29,10 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Bom 3.5"
             android:id="@+id/text_rating_desc"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-10dp"
+            android:textSize="16dp"
+            android:textColor="@color/gray"
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RatingBar;
 
 import org.json.JSONArray;
@@ -26,6 +27,7 @@ public class Avaliar_restaurante extends Activity
 {
     private String rest_id;
     private RatingBar rating;
+    private EditText comentario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,7 @@ public class Avaliar_restaurante extends Activity
         Intent intent = this.getIntent();
         rest_id = intent.getStringExtra("restaurante");
 
-        String media_rating = intent.getStringExtra("rating");
+        final String media_rating = intent.getStringExtra("rating");
 
         actionBar.setTitle(getString(R.string.avaliar));
 
@@ -47,19 +49,42 @@ public class Avaliar_restaurante extends Activity
         rating = (RatingBar) findViewById(R.id.ratingBar_avaliar);
         rating.setRating(Float.parseFloat(media_rating));
 
+
+        comentario = (EditText) findViewById(R.id.editText_comentario);
+
         Button button_avaliar_comentar = (Button) findViewById(R.id.button_avaliar_comentar);
         button_avaliar_comentar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                avaliar_comentar();
+
+                comentar();
+
             }
         });
 
 
 
+
+
+
     }
 
-    private void avaliar_comentar(){ new AsyncTaskParseJsonAvaliar(this).execute();}
+    private void comentar()
+    {
+        if (comentario.getText().length() != 0)
+        {
+            new AsyncTaskParseJsonComentar(this).execute();
+        }
+        else
+        {
+            avaliar();
+        }
+    }
+
+    private void avaliar()
+    {
+        new AsyncTaskParseJsonAvaliar(this).execute();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -89,7 +114,8 @@ public class Avaliar_restaurante extends Activity
 
         private Avaliar_restaurante delegate;
 
-        public AsyncTaskParseJsonAvaliar (Avaliar_restaurante delegate){
+        public AsyncTaskParseJsonAvaliar (Avaliar_restaurante delegate)
+        {
             this.delegate = delegate;
         }
 
@@ -133,29 +159,10 @@ public class Avaliar_restaurante extends Activity
                 }
                 // get the array
 
-                dataJsonArr = jsonObj.getJSONArray("res");
+                //dataJsonArr = jsonObj.getJSONArray("res");
 
 
-/*
-                comentarios = new ArrayList<Comentario>();
 
-                for (int i = 0 ; i < dataJsonArr.length() ; i++ )
-                {
-                    JSONObject c = dataJsonArr.getJSONObject(i);
-
-                    Comentario comentario = new Comentario();
-                    comentario.setId_com(c.getString("id_com"));
-                    comentario.setComentario(c.getString("comentario"));
-                    comentario.setResp_com(c.getString("resp_com"));
-                    comentario.setData_com(c.getString("data_com"));
-                    comentario.setData_respest(c.getString("data_respest"));
-                    comentario.setNome_user_com(c.getString("nome_user_com"));
-                    comentario.setNome_rest_com(c.getString("nome_rest_com"));
-
-
-                    comentarios.add(comentario);
-                }
-*/
 
 
 
@@ -175,11 +182,96 @@ public class Avaliar_restaurante extends Activity
 
     }
 
+
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonComentar extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_criar_comentario.php";
+
+
+        // contacts JSONArray
+        JSONArray dataJsonArr = null;
+
+        private Avaliar_restaurante delegate;
+
+        public AsyncTaskParseJsonComentar (Avaliar_restaurante delegate)
+        {
+            this.delegate = delegate;
+        }
+
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+
+
+                dict.put("id_rest",rest_id);
+                dict.put("face_id", Globals.getInstance().getUser().getId_face());
+                dict.put("user_id", Globals.getInstance().getUser().getUserid());
+                dict.put("comentario", comentario.getText());
+
+
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                Log.v("jfgrhng", "resultado do comentario = " + jsonString);
+
+
+                // try parse the string to a JSON object
+                try {
+                    Log.v("Ver Json ","Ele retorna esto do comentario"+jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                // get the array
+
+                //dataJsonArr = jsonObj.getJSONArray("res");
+
+
+
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg)
+        {
+            //progressDialog.dismiss();
+            delegate.asyncCompleteComentar(true);
+        }
+
+    }
+
+
+    private void asyncCompleteComentar(boolean success)
+    {
+
+        avaliar();
+
+    }
+
+
     private void asyncCompleteAvaliar(boolean success)
     {
-        Intent resultIntent = new Intent();
-// TODO Add extras or a data URI to this intent as appropriate.
-        setResult(Activity.RESULT_OK, resultIntent);
+
         finish();
         overridePendingTransition( R.anim.abc_fade_in , R.anim.abc_slide_out_bottom);
 

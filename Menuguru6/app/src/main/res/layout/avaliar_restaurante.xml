@@ -21,7 +21,6 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/avalie_aqui"
-            android:id="@+id/textView"
             android:layout_marginTop="20dp" />
 
         <RatingBar
@@ -45,7 +44,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/seja_o_primeiro_avaliar"
-            android:id="@+id/textView3"
+            android:id="@+id/textView_coment_coment"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:textColor="@color/gray" />
@@ -53,14 +52,15 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
+            android:id="@+id/editText_comentario"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.15"
             android:editable="true"
             android:background="@drawable/border_black"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp" />
+            android:layout_marginRight="10dp"
+            android:gravity="start" />
 
     </LinearLayout>
 

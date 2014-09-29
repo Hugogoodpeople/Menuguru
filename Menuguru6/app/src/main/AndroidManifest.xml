@@ -102,6 +102,14 @@
         </activity>
 
         <activity
+            android:name=".Restaurante.Comentarios.Lista_comentarios"
+            android:label="Avaliar"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        Lista_comentarios
+
+        <activity
 
 
             android:name=".Restaurante.Restaurante_main"
