@@ -17,46 +17,40 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import pt.menuguru.menuguru6.BounceListView;
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.LoginMenuGuru;
 import pt.menuguru.menuguru6.MenuEspecial;
 import pt.menuguru.menuguru6.R;
 import pt.menuguru.menuguru6.Restaurante.Avaliar.Avaliar_restaurante;
+import pt.menuguru.menuguru6.Restaurante.Comentarios.Lista_comentarios;
 import pt.menuguru.menuguru6.Restaurante.Info.InfoRestaurante;
 import pt.menuguru.menuguru6.Utils.Comentario;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Menu_do_restaurante;
-import pt.menuguru.menuguru6.Utils.Restaurante;
 import pt.menuguru.menuguru6.Utils.Utils;
 
 /**
@@ -645,7 +639,7 @@ public class Restaurante_main extends FragmentActivity {
     public void asyncCompleteComentarios(boolean success)
     {
         // esta parte serve para os comentarios
-        TextView user_name = (TextView) header2.findViewById(R.id.textView_user_name);
+        TextView user_name = (TextView) header2.findViewById(R.id.textView_username);
         TextView data_coment = (TextView) header2.findViewById(R.id.textView_data_comentario);
         TextView comentario = (TextView) header2.findViewById(R.id.textView_Comentario);
         TextView ver_todos = (TextView) header2.findViewById(R.id.textView_ver_todos);
@@ -667,6 +661,19 @@ public class Restaurante_main extends FragmentActivity {
             //comentario.setTextColor(R.color.black);
             comentario.setText(comentarios.get(0).getComentario());
             ver_todos.setText(getString(R.string.ver_todos));
+
+            LinearLayout com = (LinearLayout) header2.findViewById(R.id.laout_comentario);
+            com.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Restaurante_main.this, Lista_comentarios.class);
+                    intent.putExtra("restaurante_id", rest_id);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.abc_slide_in_bottom, R.anim.abc_fade_out);
+                }
+            });
+
+            //view_comentario
         }
     }
 

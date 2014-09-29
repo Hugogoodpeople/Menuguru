@@ -336,14 +336,14 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center_horizontal"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+      >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="User name"
-                android:id="@+id/textView_user_name"
                 android:layout_marginTop="10dp"
                 android:textSize="18dp"
                 android:textStyle="bold" />
