@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,8 +16,10 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,6 +52,7 @@ public class Favoritos extends Activity
     private ArrayList<String> favs_selecionados = new ArrayList<String>();
     private boolean primeiravez = true;
     private ProgressDialog progressDialog;
+    private EditText nova_lista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,14 @@ public class Favoritos extends Activity
 
         new AsyncTaskParseJsonFavoritos(this).execute();
 
+    }
+
+    public boolean onEditorAction(TextView exampleView, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_NULL
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+            //match this behavior to your 'Send' (or Confirm) button
+        }
+        return true;
     }
 
     @Override
@@ -211,6 +223,22 @@ public class Favoritos extends Activity
         final LayoutInflater inflater = LayoutInflater.from(this);
 
         footer = (ViewGroup)  inflater.inflate(R.layout.footer_favoritos, listView, false);
+        nova_lista = (EditText) footer.findViewById(R.id.editText_adcionar_lista);
+
+        // codigo pedido emprestado do vitor
+        nova_lista.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    Log.v("CARREGOU","CONCLUIDO");
+
+                    new AsyncTaskParseJsonCriarLista(Favoritos.this).execute();
+                }
+                return false;
+            }
+        });
+
+
 
 
         mAdapter = new AdapterFavoritos(this, R.layout.row_favorito, some_list);
@@ -336,10 +364,6 @@ public class Favoritos extends Activity
 
         String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_apagar_restaurante_listanome.php";
 
-
-        // contacts JSONArray
-        JSONArray dataJsonArr = null;
-
         private Favoritos delegate;
 
         public AsyncTaskParseJsonAdicionarAsListas (Favoritos delegate)
@@ -347,20 +371,6 @@ public class Favoritos extends Activity
             this.delegate = delegate;
         }
 
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // não preciso desta parte porque ja tenho outro loading a correr
-/*
-            progressDialog = new ProgressDialog(Favoritos.this);
-            progressDialog.setCancelable(true);
-            progressDialog.setMessage("Loading...");
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.setProgress(0);
-            progressDialog.show();
-*/
-        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -380,14 +390,6 @@ public class Favoritos extends Activity
                 dict.put("user_id", Globals.getInstance().getUser().getUserid());
                 dict.put("idlista", new JSONArray(favs_selecionados.toString()));
 
-                /*
-                [0]	(null)	@"face_id" : @"780616725"
-                [1]	(null)	@"user_id" : @"0"
-                [2]	(null)	@"id_rest" : @"1050"
-                [3]	(null)	@"idlista" : @"2 objects"
-                    [0]	__NSCFString *	@"175"	0x7f1ceae0
-                    [1]	__NSCFString *	@"164"	0x7f1d7370
-                 */
 
 
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
@@ -410,8 +412,6 @@ public class Favoritos extends Activity
             delegate.asyncCompleteAdicionar_remover_favoritos(true);
         }
 
-
-
     }
 
     private void asyncCompleteAdicionar_remover_favoritos(boolean success)
@@ -421,5 +421,67 @@ public class Favoritos extends Activity
         overridePendingTransition( R.anim.abc_fade_in , R.anim.abc_slide_out_bottom);
     }
 
+
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonCriarLista extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_criar_listanomefav.php";
+
+        private Favoritos delegate;
+
+        public AsyncTaskParseJsonCriarLista (Favoritos delegate)
+        {
+            this.delegate = delegate;
+        }
+
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+
+                dict.put("face_id", Globals.getInstance().getUser().getId_face());
+                dict.put("user_id", Globals.getInstance().getUser().getUserid());
+                dict.put("nome", nova_lista.getText());
+
+
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                Log.v("jfgrhng", "resultado de adicionar aos favoritos = " + jsonString);
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg)
+        {
+            //progressDialog.dismiss();
+            delegate.asyncCompleteAdicionar_criar_lista(true);
+        }
+
+    }
+
+    private void asyncCompleteAdicionar_criar_lista(boolean success)
+    {
+        nova_lista.setText("");
+        new AsyncTaskParseJsonFavoritos(this).execute();
+    }
 
 }
