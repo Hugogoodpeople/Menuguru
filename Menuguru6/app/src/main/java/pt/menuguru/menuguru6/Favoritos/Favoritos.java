@@ -2,6 +2,7 @@ package pt.menuguru.menuguru6.Favoritos;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -47,6 +48,7 @@ public class Favoritos extends Activity
     private AdapterFavoritos mAdapter;
     private ArrayList<String> favs_selecionados = new ArrayList<String>();
     private boolean primeiravez = true;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -347,6 +349,20 @@ public class Favoritos extends Activity
 
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // não preciso desta parte porque ja tenho outro loading a correr
+/*
+            progressDialog = new ProgressDialog(Favoritos.this);
+            progressDialog.setCancelable(true);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+*/
+        }
+
+        @Override
         protected String doInBackground(String... arg0) {
 
             try {
@@ -378,35 +394,7 @@ public class Favoritos extends Activity
 
                 Log.v("jfgrhng", "resultado de adicionar aos favoritos = " + jsonString);
 
-/*
-                // try parse the string to a JSON object
-                try {
-                    Log.v("Ver Json ","Ele retorna esto dos comentarios"+jsonString);
-                    jsonObj = new JSONObject(jsonString);
-                } catch (JSONException e) {
-                    Log.e(TAG, "Error parsing data " + e.toString());
-                }
-                // get the array
 
-                dataJsonArr = jsonObj.getJSONArray("list");
-
-
-                some_list = new ArrayList<Favorito_item>();
-
-                for (int i = 0 ; i < dataJsonArr.length() ; i++ )
-                {
-                    JSONObject c = dataJsonArr.getJSONObject(i);
-
-                    Favorito_item fav = new Favorito_item();
-                    fav.setFav_id(c.getString("id"));
-                    fav.setFav_name(c.getString("nomelista"));
-                    fav.setFav_number(c.getString("count"));
-                    fav.setExiste(c.getString("existe"));
-
-                    some_list.add(fav);
-                }
-
-*/
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -428,7 +416,9 @@ public class Favoritos extends Activity
 
     private void asyncCompleteAdicionar_remover_favoritos(boolean success)
     {
-        new AsyncTaskParseJsonFavoritos(this).execute();
+        //new AsyncTaskParseJsonFavoritos(this).execute();
+        finish();
+        overridePendingTransition( R.anim.abc_fade_in , R.anim.abc_slide_out_bottom);
     }
 
 
