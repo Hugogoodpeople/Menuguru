@@ -67,7 +67,7 @@
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView_tem_fav"
             android:src="@drawable/line_limite"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"

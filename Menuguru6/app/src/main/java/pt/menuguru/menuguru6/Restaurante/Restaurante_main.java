@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.location.Location;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -70,8 +71,7 @@ public class Restaurante_main extends FragmentActivity {
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
      */
-    private ViewPager mPager;
-    private PagerAdapter mPagerAdapter;
+
 
     private ViewGroup header2;
 
@@ -92,6 +92,7 @@ public class Restaurante_main extends FragmentActivity {
     private String horarioAbertura;
     private String nome_rest;
     private String cidade_nome;
+    private boolean segue_rest = false;
 
 
     private String[] listEstrelas;
@@ -134,6 +135,8 @@ public class Restaurante_main extends FragmentActivity {
         // tenho de chamar as estrelas de novo
         new AsyncTaskParseJsonEstrelas(this).execute();
         new AsyncTaskParseJsonComentarios(this).execute();
+
+        new AsyncTaskParseJsonVerificaSeguir(this).execute();
     }
 
     @Override
@@ -143,17 +146,6 @@ public class Restaurante_main extends FragmentActivity {
         return true;
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mPager.getCurrentItem() == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed();
-        } else {
-            // Otherwise, select the previous step.
-            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-        }
-    }
 
 
     public void initializeGalery()
@@ -197,8 +189,8 @@ public class Restaurante_main extends FragmentActivity {
 
         fragments.add(fragmentAllStars);
 
-        mPager = (ViewPager) findViewById(R.id.pager_restaurante);
-        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragments);
+        ViewPager mPager = (ViewPager) findViewById(R.id.pager_restaurante);
+        PagerAdapter mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragments);
 
         mPager.setAdapter(mPagerAdapter);
 
@@ -889,7 +881,6 @@ public class Restaurante_main extends FragmentActivity {
         new AsyncTaskParseJsonGaleria(this).execute();
         new AsyncTaskParseJsonComentarios(this).execute();
 
-
     }
 
 
@@ -1009,4 +1000,98 @@ public class Restaurante_main extends FragmentActivity {
         }
 
     }
+
+    // para verificar se o utilizador segue o restaurante ou nao
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonVerificaSeguir extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_verifica_rest_fav_user.php";
+
+
+
+        private Restaurante_main delegate;
+
+        public AsyncTaskParseJsonVerificaSeguir (Restaurante_main delegate){
+            this.delegate = delegate;
+        }
+
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+                dict.put("rest_id", rest_id);
+                dict.put("face_id", Globals.getInstance().getUser().getId_face());
+                dict.put("user_id", Globals.getInstance().getUser().getUserid());
+
+                // tenho de enviar lat, long, data, hora, cidade, lang
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                Log.v("jfgrhng","resultado do seguir = "+ jsonString);
+
+
+                // try parse the string to a JSON object
+                try {
+                    Log.v("Ver Json ","Ele retorna galeria "+jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                // get the array of users
+
+                String seque;
+                seque = jsonObj.getString("resp");
+
+                if(seque.equalsIgnoreCase("nao"))
+                {
+                    segue_rest = false;
+                }else
+                {
+                    segue_rest = true;
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg)
+        {
+            // progressDialog.dismiss();
+            delegate.asyncCompleteVerificaSeguir(true);
+        }
+
+    }
+
+
+    private void asyncCompleteVerificaSeguir(boolean success)
+    {
+        ImageView imageSegue = (ImageView) header2.findViewById(R.id.texto_fav_nome);
+        // mudar a imagem do segui aqui
+        if (segue_rest)
+        {
+            imageSegue.setImageResource(R.drawable.b_2);
+        }
+        else
+        {
+            imageSegue.setImageResource(R.drawable.b);
+        }
+
+    }
+
 }
