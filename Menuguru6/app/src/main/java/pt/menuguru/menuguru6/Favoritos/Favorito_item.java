@@ -8,6 +8,7 @@ public class Favorito_item
     private String fav_id;
     private String fav_name;
     private String fav_number;
+    private String existe;
 
     public String getFav_id() {
         return fav_id;
@@ -33,4 +34,11 @@ public class Favorito_item
         this.fav_number = fav_number;
     }
 
+    public String getExiste() {
+        return existe;
+    }
+
+    public void setExiste(String existe) {
+        this.existe = existe;
+    }
 }

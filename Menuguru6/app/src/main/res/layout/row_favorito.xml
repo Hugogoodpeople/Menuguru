@@ -29,19 +29,18 @@
         android:gravity="center_vertical"
         android:layout_marginLeft="20dp"
         android:textSize="16dp"
-        android:layout_toLeftOf="@+id/imageView2"
-        android:layout_toStartOf="@+id/imageView2"
+        android:layout_toLeftOf="@+id/imageView_tem_fav"
+        android:layout_toStartOf="@+id/imageView_tem_fav"
         android:layout_alignParentTop="false" />
 
     <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView_tem_fav"
         android:layout_alignBottom="@+id/texto_fav_nome"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/ic_right_b"
         android:layout_margin="15dp" />
 
     <RelativeLayout
