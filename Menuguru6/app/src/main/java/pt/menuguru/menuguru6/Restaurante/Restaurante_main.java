@@ -70,8 +70,7 @@ public class Restaurante_main extends FragmentActivity {
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
      */
-    private ViewPager mPager;
-    private PagerAdapter mPagerAdapter;
+
 
     private ViewGroup header2;
 
@@ -143,17 +142,6 @@ public class Restaurante_main extends FragmentActivity {
         return true;
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mPager.getCurrentItem() == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed();
-        } else {
-            // Otherwise, select the previous step.
-            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-        }
-    }
 
 
     public void initializeGalery()
@@ -197,8 +185,8 @@ public class Restaurante_main extends FragmentActivity {
 
         fragments.add(fragmentAllStars);
 
-        mPager = (ViewPager) findViewById(R.id.pager_restaurante);
-        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragments);
+        ViewPager mPager = (ViewPager) findViewById(R.id.pager_restaurante);
+        PagerAdapter mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragments);
 
         mPager.setAdapter(mPagerAdapter);
 
