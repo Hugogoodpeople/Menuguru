@@ -89,6 +89,7 @@ public class MenuEspecial_nos_especiais extends Activity {
     public String hora_min_reserva;
 
     public Button bt_reserva;
+    public Button bt_voucher;
 
     CalendarView calendar;
 
@@ -116,13 +117,6 @@ public class MenuEspecial_nos_especiais extends Activity {
 
     String data_selec;
 
-    private CountDownTimer countDownTimer;
-    private boolean timerHasStarted = false;
-    private final long startTime = 30 * 1000;
-    private final long interval = 1 * 1000;
-
-
-    private CustomTimePickerDialog mTimePicker;
 
     Dialog dialog_loading;
     Dialog dialog_conf;
@@ -153,7 +147,7 @@ public class MenuEspecial_nos_especiais extends Activity {
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_menu_especial);
-        Intent intent = getIntent();
+
         rest_id = getIntent().getExtras().getString("rest_id");
         rest_cartao_id = getIntent().getExtras().getString("rest_cartao_id");
         lat = getIntent().getExtras().getString("lat");
@@ -167,8 +161,10 @@ public class MenuEspecial_nos_especiais extends Activity {
         mListView = (ListView)findViewById(R.id.list_esp);
 
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
-
+        //Log.v("RESERVA FEITA",some_list.get(0).getReserva_feita());
+        new AsyncTaskParseJson(this).execute();
         bt_reserva = (Button)findViewById(R.id.button_reservar);
+        bt_voucher = (Button)findViewById(R.id.bt_voucher);
 
         bt_reserva.setOnClickListener(new View.OnClickListener() {
 
@@ -348,7 +344,27 @@ public class MenuEspecial_nos_especiais extends Activity {
         });
 
 
-        new AsyncTaskParseJson(this).execute();
+        bt_voucher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String aux_pes;
+                if(sel_nr_pes.equals("1")){
+                    aux_pes = getString(R.string.pessoa);
+                }else{
+                    aux_pes = getString(R.string.pessoas);
+                }
+                Intent intent = new Intent(MenuEspecial_nos_especiais.this, Voucher.class);
+                intent.putExtra("data", reportDate);
+                intent.putExtra("hora", sel_hora+" "+sel_nr_pes+" "+aux_pes);
+                intent.putExtra("id_rest", rest_id);
+                intent.putExtra("id_especial", rest_cartao_id);
+                intent.putExtra("nome_rest", nome_rest);
+                intent.putExtra("id_pai", some_list.get(0).getId_pai());
+                intent.putExtra("desc", some_list.get(0).getDescricao());
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+            }
+        });
 
     }
 
@@ -526,7 +542,7 @@ public class MenuEspecial_nos_especiais extends Activity {
         SpinnerAdapterVitor dataAdapter = new SpinnerAdapterVitor(MenuEspecial_nos_especiais.this,
                 simple_list_item_1,aux_hora_list);
         list_hora.setAdapter(dataAdapter);
-
+        list_hora.setEmptyView(dialog_hora.findViewById(R.id.emty_view));
 
         // ListView Item Click Listener
         list_hora.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -598,6 +614,8 @@ public class MenuEspecial_nos_especiais extends Activity {
         AdapterVitor dataAdapter = new AdapterVitor(MenuEspecial_nos_especiais.this,
                 simple_list_item_1,aux_nr_pes_list);
         list_pes.setAdapter(dataAdapter);
+        list_pes.setEmptyView(dialog_pes.findViewById(R.id.emty_view));
+
 
         // ListView Item Click Listener
         list_pes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -832,8 +850,17 @@ public class MenuEspecial_nos_especiais extends Activity {
 
     @Override
     public void onBackPressed() {
+
         mAdapter=null;
         mListView=null;
+
+        //some_list = null ;
+        //desc_list = null ;
+       // hora_list = null ;
+        //aux_hora_list = null ;
+       // nr_pes_list = null ;
+       // aux_nr_pes_list = null ;
+
         finish();
         overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
     }
@@ -842,8 +869,15 @@ public class MenuEspecial_nos_especiais extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+
                 mAdapter=null;
                 mListView=null;
+                //some_list = null ;
+                //desc_list = null ;
+                //hora_list = null ;
+                //aux_hora_list = null ;
+                //nr_pes_list = null ;
+                //aux_nr_pes_list = null ;
                 finish();
                 overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
                 return false;
@@ -878,20 +912,20 @@ public class MenuEspecial_nos_especiais extends Activity {
             //return super.getView(position, convertView, parent);
 
             LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View row=inflater.inflate(R.layout.row_especial, parent, false);
+            convertView=inflater.inflate(R.layout.row_especial, parent, false);
             getActionBar().setTitle(some_list.get(0).getNome());
-            LinearLayout linear_ris = (LinearLayout)row.findViewById(R.id.linearLayout_risca);
-            LinearLayout linear_tit = (LinearLayout)row.findViewById(R.id.linear_tit);
+            LinearLayout linear_ris = (LinearLayout)convertView.findViewById(R.id.linearLayout_risca);
+            LinearLayout linear_tit = (LinearLayout)convertView.findViewById(R.id.linear_tit);
 
 
 
-            TextView label = (TextView)row.findViewById(R.id.text_titulo);
-            TextView text_preco_ant = (TextView)row.findViewById(R.id.text_preco_ant);
-            TextView text_preco_act = (TextView)row.findViewById(R.id.text_preco);
-            TextView text_nr_ofertas = (TextView)row.findViewById(R.id.text_rating_desc);
-            TextView text_desc = (TextView)row.findViewById(R.id.text_desc);
-            TextView text_desc2 = (TextView)row.findViewById(R.id.text_desc2);
-            TextView text_oferta = (TextView)row.findViewById(R.id.text_oferta);
+            TextView label = (TextView)convertView.findViewById(R.id.text_titulo);
+            TextView text_preco_ant = (TextView)convertView.findViewById(R.id.text_preco_ant);
+            TextView text_preco_act = (TextView)convertView.findViewById(R.id.text_preco);
+            TextView text_nr_ofertas = (TextView)convertView.findViewById(R.id.text_rating_desc);
+            TextView text_desc = (TextView)convertView.findViewById(R.id.text_desc);
+            TextView text_desc2 = (TextView)convertView.findViewById(R.id.text_desc2);
+            TextView text_oferta = (TextView)convertView.findViewById(R.id.text_oferta);
 
             String aux_tipo = some_list.get(0).getTipo();
 
@@ -943,7 +977,7 @@ public class MenuEspecial_nos_especiais extends Activity {
                 label.setText(desc_list.get(position).getTitulo());
                 text_desc2.setText(desc_list.get(position).getDescricao());
             }
-            return row;
+            return convertView;
         }
 
     }
@@ -989,27 +1023,35 @@ public class MenuEspecial_nos_especiais extends Activity {
 
                 // get json string from url
                 // tenho de criar um jsonobject e adicionar la as cenas
-                JSONObject dict = new JSONObject();
+                JSONObject dict2 = new JSONObject();
                 JSONObject jsonObj = new JSONObject();
 
-                dict.put("lang","pt");
-                dict.put("linguatel","pt");
+                dict2.put("lang","pt");
+                dict2.put("linguatel","pt");
 
-                dict.put("face_id", "0");
-                dict.put("user_id", "0");
+                if(Globals.getInstance().getUser().getTipoconta().equals("facebook")){
+                    dict2.put("face_id",Globals.get_instance().getUser().getId_face());
+                    dict2.put("user_id","0");
+                }else if(Globals.getInstance().getUser().getTipoconta().equals("guru")){
+                    dict2.put("face_id","0");
+                    dict2.put("user_id",Globals.get_instance().getUser().getUserid());
+                }else{
+                    dict2.put("face_id","0");
+                    dict2.put("user_id","0");
+                }
 
-                dict.put("horario_lang","pt");
-                dict.put("rest_id",rest_id);
-                dict.put("rest_cartao_id",rest_cartao_id);
+                dict2.put("horario_lang","pt");
+                dict2.put("rest_id",rest_id);
+                dict2.put("rest_cartao_id",rest_cartao_id);
 
 
 
-                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict2);
 
 
                 // try parse the string to a JSON object
                 try {
-                    Log.v("Ver Json ","Ele retorna isto"+jsonString);
+                    Log.v("Ver Json ","Ele retorna isto no especial"+jsonString);
                     jsonObj = new JSONObject(jsonString);
                 } catch (JSONException e) {
                     Log.e(TAG, "Error parsing data " + e.toString());
@@ -1240,12 +1282,7 @@ public class MenuEspecial_nos_especiais extends Activity {
             }
         }.start();
 
-
-
-
         if(some_list.get(0).getTipo().equals("fixo")){
-
-
             edt.setVisibility(View.GONE);
             edt1.setVisibility(View.GONE);
             edt2.setVisibility(View.GONE);
@@ -1264,6 +1301,16 @@ public class MenuEspecial_nos_especiais extends Activity {
         mListView.setAdapter(mAdapter);
 
         mAdapter.notifyDataSetChanged();
+
+        Log.v("RESERVA FEITA",some_list.get(0).getReserva_tem());
+
+        if(some_list.get(0).getReserva_tem().equals("1")){
+            bt_reserva.setVisibility(View.GONE);
+            bt_voucher.setVisibility(View.VISIBLE);
+        }else{
+            bt_reserva.setVisibility(View.VISIBLE);
+            bt_voucher.setVisibility(View.GONE);
+        }
 
     }
 
@@ -1301,9 +1348,6 @@ public class MenuEspecial_nos_especiais extends Activity {
 
 
         String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_reserva_especial_criar.php";
-
-        // contacts JSONArray
-        JSONObject dataJsonArr = null;
 
 
         private MenuEspecial_nos_especiais delegate;
@@ -1350,10 +1394,14 @@ public class MenuEspecial_nos_especiais extends Activity {
                 if(Globals.getInstance().getUser().getTipoconta().equals("facebook")){
                     dict.put("face_id",Globals.get_instance().getUser().getId_face());
                     dict.put("user_id","0");
-                }else{
+                }else if(Globals.getInstance().getUser().getTipoconta().equals("guru")){
                     dict.put("face_id","0");
                     dict.put("user_id",Globals.get_instance().getUser().getUserid());
+                }else{
+                    dict.put("face_id","0");
+                    dict.put("user_id","0");
                 }
+
 
 
 
@@ -1362,7 +1410,7 @@ public class MenuEspecial_nos_especiais extends Activity {
 
                 // try parse the string to a JSON object
                 try {
-                    Log.v("Ver Json ","Ele retorna isto"+jsonString);
+                    Log.v("Ver Json ","Ele retorna na reserva"+jsonString);
                     jsonObj = new JSONObject(jsonString);
                 } catch (JSONException e) {
                     Log.e(TAG, "Error parsing data " + e.toString());
@@ -1402,6 +1450,27 @@ public class MenuEspecial_nos_especiais extends Activity {
                     final Dialog dialog_final = new Dialog(MenuEspecial_nos_especiais.this);
                     dialog_final.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialog_final.setContentView(R.layout.dialog_final);
+                    TextView tx_fdata = (TextView) dialog_final.findViewById(R.id.tv_fdata);
+                    TextView tx_fhora= (TextView) dialog_final.findViewById(R.id.tv_fhora);
+                    TextView tx_fnome = (TextView) dialog_final.findViewById(R.id.tv_fnome);
+                    TextView tx_ftele = (TextView) dialog_final.findViewById(R.id.tv_ftelefone);
+                    TextView tx_femail = (TextView) dialog_final.findViewById(R.id.tv_femail);
+                    TextView tx_fobs = (TextView) dialog_final.findViewById(R.id.tv_fobs);
+
+                    tx_fdata.setText(reportDate);
+                    String aux_pes;
+                    if(sel_nr_pes.equals("1")){
+                        aux_pes = getString(R.string.pessoa);
+                    }else{
+                        aux_pes = getString(R.string.pessoas);
+                    }
+                    tx_fhora.setText(sel_hora+" "+sel_nr_pes+" "+aux_pes);
+                    tx_fnome.setText(sel_nome);
+                    tx_ftele.setText(sel_telefone);
+                    tx_femail.setText(sel_email);
+                    tx_fobs.setText(sel_obs);
+                    bt_reserva.setVisibility(View.GONE);
+                    bt_voucher.setVisibility(View.VISIBLE);
                     dialog_final.show();
                 }else{
                     final Dialog dialog_final = new Dialog(MenuEspecial_nos_especiais.this);
@@ -1424,7 +1493,6 @@ public class MenuEspecial_nos_especiais extends Activity {
 
         // contacts JSONArray
         JSONObject dataJsonArr = null;
-        JSONArray dataJsonRep = null;
 
         private MenuEspecial_nos_especiais delegate;
 

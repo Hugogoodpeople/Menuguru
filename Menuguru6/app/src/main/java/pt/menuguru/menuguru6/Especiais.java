@@ -184,15 +184,15 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
                 Log.v("clicou no resutaurante","abrir " + some_array[position].getNome());
                 Intent myIntent = new Intent(getActivity(), MenuEspecial_nos_especiais.class);
                 //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
-                myIntent.putExtra("rest_cartao_id", ""+some_array[position].getDb_id());
-                myIntent.putExtra("rest_id", ""+some_array[position].getId_rest());
-                myIntent.putExtra("restaurante", ""+some_array[position].getId_rest());
-                myIntent.putExtra("urlfoto", ""+some_array[position].getImagem_rest());
-                myIntent.putExtra("nome_rest", ""+some_array[position].getNome_rest());
-                myIntent.putExtra("lat", ""+some_array[position].getLat());
-                myIntent.putExtra("lon", ""+some_array[position].getLng());
-                myIntent.putExtra("morada", ""+some_array[position].getMorada());
-                myIntent.putExtra("hora_min_reserva", ""+some_array[position].getHora_minimo_antedencia_especial());
+                myIntent.putExtra("rest_cartao_id", some_array[position].getDb_id());
+                myIntent.putExtra("rest_id", some_array[position].getId_rest());
+                myIntent.putExtra("restaurante", some_array[position].getId_rest());
+                myIntent.putExtra("urlfoto", some_array[position].getImagem_rest());
+                myIntent.putExtra("nome_rest", some_array[position].getNome_rest());
+                myIntent.putExtra("lat", some_array[position].getLat());
+                myIntent.putExtra("lon", some_array[position].getLng());
+                myIntent.putExtra("morada", some_array[position].getMorada());
+                myIntent.putExtra("hora_min_reserva", some_array[position].getHora_minimo_antedencia_especial());
 
                 //myIntent.putExtra("rating", ""+some_array[position].getId_rest());
                 //myIntent.putExtra("votacoes", ""+some_array[position].getId_rest());

@@ -13,9 +13,103 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="feita"
-            android:id="@+id/textView"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:text="@string/conf_reserva"
+            android:id="@+id/textView3"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/tv_fdata"
+            android:layout_alignRight="@+id/textView3"
+            android:layout_alignEnd="@+id/textView3"
+            android:layout_below="@+id/textView3"
+            android:layout_alignLeft="@+id/textView3"
+            android:layout_alignStart="@+id/textView3"
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/tv_fhora"
+            android:layout_alignRight="@+id/tv_fdata"
+            android:layout_alignEnd="@+id/tv_fdata"
+            android:layout_below="@+id/tv_fdata"
+            android:layout_alignLeft="@+id/tv_fdata"
+            android:layout_alignStart="@+id/tv_fdata"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/tv_fnome"
+            android:layout_alignLeft="@+id/tv_fhora"
+            android:layout_alignStart="@+id/tv_fhora"
+            android:layout_below="@+id/tv_fhora"
+            android:layout_alignRight="@+id/tv_fhora"
+            android:layout_alignEnd="@+id/tv_fhora"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/tv_ftelefone"
+            android:layout_below="@+id/tv_fnome"
+            android:layout_alignLeft="@+id/tv_fnome"
+            android:layout_alignStart="@+id/tv_fnome"
+            android:layout_alignRight="@+id/tv_fnome"
+            android:layout_alignEnd="@+id/tv_fnome"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/tv_femail"
+            android:layout_alignRight="@+id/tv_ftelefone"
+            android:layout_alignEnd="@+id/tv_ftelefone"
+            android:layout_below="@+id/tv_ftelefone"
+            android:layout_alignLeft="@+id/tv_ftelefone"
+            android:layout_alignStart="@+id/tv_ftelefone"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/tv_fobs"
+            android:layout_alignRight="@+id/tv_femail"
+            android:layout_alignEnd="@+id/tv_femail"
+            android:layout_below="@+id/tv_femail"
+            android:layout_alignLeft="@+id/tv_femail"
+            android:layout_alignStart="@+id/tv_femail"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:gravity="center"
+            android:layout_marginTop="15dp" />
+
     </RelativeLayout>
 </LinearLayout>

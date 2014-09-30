@@ -12,7 +12,6 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.MyAppTheme" >
-
         <activity
             android:name="pt.menuguru.menuguru6.MainActivity"
             android:label="@string/app_name"
@@ -45,7 +44,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".LoginMenuGuru"
+            android:name="pt.menuguru.menuguru6.LoginMenuGuru"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -53,7 +52,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".EscolherLingua"
+            android:name="pt.menuguru.menuguru6.EscolherLingua"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -76,12 +75,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Restaurante.Restaurante_header"
+            android:name="pt.menuguru.menuguru6.Restaurante.Restaurante_header"
             android:label="Restaurante"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".MenuEspecial_nos_especiais"
+            android:name="pt.menuguru.menuguru6.MenuEspecial_nos_especiais"
             android:label="Especial"
             android:screenOrientation="portrait" >
         </activity>
@@ -91,39 +90,29 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Restaurante.Info.InfoRestReportarErro"
+            android:name="pt.menuguru.menuguru6.Restaurante.Info.InfoRestReportarErro"
             android:label="Reportar erro"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Restaurante.Avaliar.Avaliar_restaurante"
+            android:name="pt.menuguru.menuguru6.Restaurante.Avaliar.Avaliar_restaurante"
             android:label="Avaliar"
             android:screenOrientation="portrait" >
         </activity>
-
         <activity
-            android:name=".Restaurante.Comentarios.Lista_comentarios"
+            android:name="pt.menuguru.menuguru6.Restaurante.Comentarios.Lista_comentarios"
             android:label="Avaliar"
             android:screenOrientation="portrait" >
         </activity>
-
         <activity
-            android:name=".Favoritos.Favoritos"
+            android:name="pt.menuguru.menuguru6.Favoritos.Favoritos"
             android:label="Favoritos"
             android:screenOrientation="portrait" >
         </activity>
-
-
-
         <activity
-
-
-            android:name=".Restaurante.Restaurante_main"
-
-            android:screenOrientation="portrait"
-            android:label="Restaurante">
-
-
+            android:name="pt.menuguru.menuguru6.Restaurante.Restaurante_main"
+            android:label="Restaurante"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="pt.menuguru.menuguru6.ComoFunciona"
@@ -148,6 +137,10 @@
         <activity
             android:name="pt.menuguru.menuguru6.MenuEspecial"
             android:label="@string/title_activity_menu_especial" >
+        </activity>
+        <activity
+            android:name="pt.menuguru.menuguru6.Voucher"
+            android:label="@string/title_activity_voucher" >
         </activity>
     </application>
 

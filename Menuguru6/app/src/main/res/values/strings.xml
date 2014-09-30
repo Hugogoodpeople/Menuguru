@@ -2,8 +2,6 @@
 <resources>
 
     <string name="app_name">Menuguru</string>
-
-
     <string name="horrivel" translatable="false">Horrível</string>
     <string name="mau" translatable="false">Mau</string>
     <string name="bom" translatable="false">Bom</string>
@@ -28,8 +26,6 @@
     <string name="enviar" translatable="false">Enviar</string>
     <string name="comentarios" translatable="false">Comentários</string>
     <string name="resposta" translatable="false">Resposta</string>
-
-
     <string name="inicio" translatable="false">Inicio</string>
     <string name="votacoes" translatable="false">Avaliaçoes</string>
     <string name="reservas" translatable="false">Reservas</string>
@@ -221,9 +217,7 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="fav_tranf">Favoritos adicionados</string>
     <string name="title_activity_menu_especial">MenuEspecial</string>
     <string name="oferta_exp">OFERTA EXPIRA</string>
-
     <string name="qwert">qwert</string>
-
     <string name="dias">DIAS</string>
     <string name="dia">DIA</string>
     <string name="horas">HRS</string>
@@ -232,27 +226,28 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="mins">MIN</string>
     <string name="sec">SEC</string>
     <string name="secs">SEC</string>
-
     <string name="sel_hora">Selecione a hora</string>
     <string name="sel_pessoa">Selecione o numero de pessoas</string>
-
     <string name="seg">Seguinte</string>
     <string name="ant">Anterior</string>
     <string name="selobs">Observações</string>
     <string name="descobs">Quer fazer alguma recomendação ao restaurante? Escreva-a aqui.</string>
-
     <string name="erro_hora">Por favor selecione a hora pretendida.</string>
     <string name="erro_data_ant">Não é possivel efecturar uma reserva numa data anterior à actual.</string>
     <string name="erro_data_dep">Lamentamos mas não existe mesas disponíveis para este dia. Por favor tente numa nova data.</string>
     <string name="erro_pes">Por favor selecione o numero de pessoas pertendido.</string>
     <string name="conf">Confirme os dados para efectuarmos  a sua reserva.</string>
     <string name="guardar_agenda">Estamos a reservar a sua mesa na agenda do restaurante.</string>
-
+    <string name="conf_reserva">A sua reserva foi efectuada com sucesso.</string>
     <string name="reserva">Reserva para</string>
     <string name="pessoas">Pessoas</string>
     <string name="pessoa">Pessoa</string>
     <string name="inserir_nome">Por favor insira o seu nome.</string>
     <string name="inserir_telefone">Por favor insira o seu telefone.</string>
     <string name="inserir_email">Por favor insira o seu email.</string>
+    <string name="title_activity_voucher">Voucher</string>
+    <string name="solicitar">Solicite a validação no restaurante</string>
+    <string name="detalhes_reserva">Detalhes da reserva</string>
+    <string name="cod_invalido">Código inválido. Tente de novo</string>
 
 </resources>

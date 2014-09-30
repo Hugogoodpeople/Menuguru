@@ -190,7 +190,11 @@ public class MinhasReservas extends Fragment {
                                             case 0: {
                                                 posicao_apagar = position;
                                                 Log.v("Posicao",""+posicao_apagar);
-                                                new AsyncTaskParseJsonCancelar(MinhasReservas.this).execute();
+                                                if(some_array[position].getTipo().equals("especial")){
+                                                    new AsyncTaskParseJsonCancelarEsp(MinhasReservas.this).execute();
+                                                }else{
+                                                    new AsyncTaskParseJsonCancelar(MinhasReservas.this).execute();
+                                                }
                                                 break;
                                             }
                                             case 1: {
@@ -212,7 +216,11 @@ public class MinhasReservas extends Fragment {
                                             case 0: {
                                                 posicao_apagar = position;
                                                 Log.v("Posicao",""+posicao_apagar);
-                                                new AsyncTaskParseJsonCancelar(MinhasReservas.this).execute();
+                                                 if(some_array[position].getTipo().equals("especial")){
+                                                        new AsyncTaskParseJsonCancelarEsp(MinhasReservas.this).execute();
+                                                 }else{
+                                                        new AsyncTaskParseJsonCancelar(MinhasReservas.this).execute();
+                                                 }
                                                 break;
                                             }
                                             case 1: {
@@ -450,9 +458,9 @@ public class MinhasReservas extends Fragment {
                 } catch (JSONException e) {
                     Log.e(TAG, "Error parsing data " + e.toString());
                 }
-                // get the array of users
-                dataJsonArr = jsonObj.getJSONArray("resp");
-                some_array = new Reserva[dataJsonArr.length()];
+
+                String completo = jsonObj.getString("envio");
+                JSONObject outro =new JSONObject(completo);
 
 
 
@@ -471,6 +479,97 @@ public class MinhasReservas extends Fragment {
 
 
     public void asyncCompleteCancelar(boolean success){
+        new AsyncTaskParseJson(this).execute();
+    }
+
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonCancelarEsp extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_apagar_especial.php";
+
+        // contacts JSONArray
+        JSONArray dataJsonArr = null;
+
+        private MinhasReservas delegate;
+
+        public AsyncTaskParseJsonCancelarEsp (MinhasReservas delegate){
+            this.delegate = delegate;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setCancelable(true);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+                String tipo_conta = Globals.get_instance().getUser().getTipoconta();
+                if(tipo_conta.equals("facebook")){
+                    dict.put("face_id", Globals.get_instance().getUser().getId_face());
+                    dict.put("user_id", "0");
+                    dict.put("lang",Globals.get_instance().getLingua());
+                }else if(tipo_conta.equals("guru")){
+                    dict.put("face_id", "0");
+                    dict.put("user_id", Globals.get_instance().getUser().getUserid());
+                    dict.put("lang",Globals.get_instance().getLingua());
+                }
+
+                // para as opçoes adicionais
+                // agr os arrays, vou tentar usar arraylists para ser mais facil fazer o que quero
+                ArrayList<String> listOpc = new ArrayList<String>();
+                listOpc.add(some_array[posicao_apagar].getId_mesa());
+
+                dict.put("apagar", new JSONArray(listOpc.toString()));
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                try {
+                    Log.v("Ver Json ", "Ele retorna isto" + jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+
+                String completo = jsonObj.getString("envio");
+                JSONObject outro =new JSONObject(completo);
+
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg){ progressDialog.dismiss();delegate.asyncCompleteCancelarEsp(true);  }
+
+    }
+
+
+    public void asyncCompleteCancelarEsp(boolean success){
         new AsyncTaskParseJson(this).execute();
     }
 }
