@@ -2,8 +2,11 @@ package pt.menuguru.menuguru6.Favoritos;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -53,6 +56,8 @@ public class Favoritos extends Activity
     private boolean primeiravez = true;
     private ProgressDialog progressDialog;
     private EditText nova_lista;
+
+    private String lista_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -239,8 +244,6 @@ public class Favoritos extends Activity
         });
 
 
-
-
         mAdapter = new AdapterFavoritos(this, R.layout.row_favorito, some_list);
 
 
@@ -266,7 +269,43 @@ public class Favoritos extends Activity
             }
         });
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id)
+            {
 
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Favoritos.this);
+                alertDialogBuilder
+                        .setMessage("Deseja apagar esta lista?")
+                        .setCancelable(false)
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        })
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        lista_id = some_list.get(position).getFav_id();
+                        apagarLista();
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();
+
+                return false;
+            }
+        });
+
+
+    }
+
+    private void apagarLista()
+    {
+
+        new AsyncTaskParseJsonApagarLista(this).execute();
     }
 
     public class AdapterFavoritos extends ArrayAdapter<Favorito_item> {
@@ -481,6 +520,67 @@ public class Favoritos extends Activity
     private void asyncCompleteAdicionar_criar_lista(boolean success)
     {
         nova_lista.setText("");
+        new AsyncTaskParseJsonFavoritos(this).execute();
+    }
+
+
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonApagarLista extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_restapagar_listanomefav.php";
+
+        private Favoritos delegate;
+
+        public AsyncTaskParseJsonApagarLista (Favoritos delegate)
+        {
+            this.delegate = delegate;
+        }
+
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+
+
+                dict.put("face_id", Globals.getInstance().getUser().getId_face());
+                dict.put("user_id", Globals.getInstance().getUser().getUserid());
+                dict.put("idlista", lista_id);
+
+
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                Log.v("jfgrhng", "resultado de adicionar aos favoritos = " + jsonString);
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg)
+        {
+            //progressDialog.dismiss();
+            delegate.asyncCompleteAdicionar_apagarLista(true);
+        }
+
+    }
+
+    private void asyncCompleteAdicionar_apagarLista(boolean success)
+    {
         new AsyncTaskParseJsonFavoritos(this).execute();
     }
 
