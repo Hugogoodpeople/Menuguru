@@ -30,6 +30,7 @@ import com.facebook.Session;
 import java.io.InputStream;
 import java.net.URL;
 
+import pt.menuguru.menuguru6.Favoritos.Favoritos_gerir;
 import pt.menuguru.menuguru6.Utils.Globals;
 
 
@@ -306,6 +307,16 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
         {
             if(Globals.get_instance().getUser() != null){
                 Intent intent = new Intent(this.getActivity(), MinhaConta.class);
+                startActivity(intent);
+            }else{
+                Intent intent = new Intent(this.getActivity(), LoginMenuGuru.class);
+                startActivity(intent);
+            }
+            getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+        }if (position == 1)
+        {
+            if(Globals.get_instance().getUser() != null){
+                Intent intent = new Intent(this.getActivity(), Favoritos_gerir.class);
                 startActivity(intent);
             }else{
                 Intent intent = new Intent(this.getActivity(), LoginMenuGuru.class);

@@ -128,6 +128,8 @@ public class Resultado_inspiracao extends Activity {
                 myIntent.putExtra("lat",some_array[position].getLatitude());
                 myIntent.putExtra("lon",some_array[position].getLongitude());
                 myIntent.putExtra("morada",some_array[position].getMorada());
+                myIntent.putExtra("rating",some_array[position].getMediarating());
+                myIntent.putExtra("votacoes",some_array[position].getVotacoes());
                 myIntent.putExtra("cidade_nome", some_array[position].getCidade());
                 startActivity(myIntent);
 
@@ -228,11 +230,12 @@ public class Resultado_inspiracao extends Activity {
                     //rest.mediarating = c.getString("mediarating");
                     rest.cidade = c.getString("cidade");
                     rest.urlImagem = c.getString("imagem");
-                    //rest.votacoes = c.getString("votacoes");
+                    rest.votacoes = c.getString("votacoes");
                     rest.morada = c.getString("morada");
                     //rest.precoMedio = c.getString("precomedio");
 
                     rest.tipo = c.getString("tipo");
+                    rest.db_id = c.getString("id");
 
                     if (rest.tipo.equalsIgnoreCase("restaurante")) {
                         rest.latitude = c.getString("lat");

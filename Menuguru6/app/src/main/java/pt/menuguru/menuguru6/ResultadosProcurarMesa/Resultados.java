@@ -320,6 +320,7 @@ public class Resultados extends Activity
 
                 if (row == null)
                     row=inflater.inflate(R.layout.fragment_inicio, parent, false);
+
                 TextView label2=(TextView)row.findViewById(R.id.nomeMenu);
                 label2.setText(some_array[position].cosinhas);
 

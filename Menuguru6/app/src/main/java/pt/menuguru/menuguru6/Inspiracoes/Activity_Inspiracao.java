@@ -2,16 +2,27 @@ package pt.menuguru.menuguru6.Inspiracoes;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,12 +30,14 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.R;
+import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.Inspiracao;
 import pt.menuguru.menuguru6.Utils.InspiracaoItem;
 
@@ -35,9 +48,12 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
     List<Inspiracao> listDataHeader;
     HashMap<Inspiracao, List<InspiracaoItem>> listDataChild;
 
-
+    private Dialog dialog;
     public Inspiracao[] some_array;
 
+    private int dia_selecionado= -1;
+    private int ref_selecionado= -1;
+    private ImageButton locButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,21 +68,117 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
         Date d = new Date();
         String dayOfTheWeek = sdf.format(d);
 
+
+        Calendar cc = Calendar.getInstance();
+        cc.setTime(new Date());
+        dia_selecionado = cc.get(Calendar.DAY_OF_WEEK) -1;
+        int hora = cc.get(Calendar.HOUR_OF_DAY);
+
+        String refeicao;
+
+        if (hora >= 17)
+        {
+            refeicao =  getResources().getStringArray(R.array.refeicoes)[0];
+            ref_selecionado = 0;
+        }
+        else
+        {
+            refeicao =  getResources().getStringArray(R.array.refeicoes)[1];
+            ref_selecionado = 1;
+        }
+
+
+
         Button p1_button = (Button)findViewById(R.id.button_data);
-        p1_button.setText(dayOfTheWeek);
+        p1_button.setText(dayOfTheWeek + " " + refeicao);
 
 
-// get the listview
+
+
+
+        dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_inspiras);
+
+        ListView listDias = (ListView) dialog.findViewById(R.id.listView_dias);
+
+        AdapterStringDias adapterString = new AdapterStringDias(this, R.layout.list_spiner,  getResources().getStringArray(R.array.dias_semana));
+
+        listDias.setAdapter(adapterString);
+
+        listDias.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                for(int a = 0; a < parent.getChildCount(); a++)
+                {
+                    parent.getChildAt(a).setBackgroundColor(getResources().getColor(R.color.white) );
+                }
+                view.setBackgroundColor(getResources().getColor(R.color.dourado));
+                //sel_nr_pes = nr_pes_list.get(position).getNr();
+                dia_selecionado = position;
+            }
+        });
+
+
+        ListView listrefs = (ListView) dialog.findViewById(R.id.listView_refeicao);
+
+        AdapterStringRef adapterStringRef = new AdapterStringRef(this, R.layout.list_spiner,  getResources().getStringArray(R.array.refeicoes));
+
+        listrefs.setAdapter(adapterStringRef);
+
+        listrefs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                for(int a = 0; a < parent.getChildCount(); a++)
+                {
+                    parent.getChildAt(a).setBackgroundColor(getResources().getColor(R.color.white) );
+                }
+                view.setBackgroundColor(getResources().getColor(R.color.dourado));
+                //sel_nr_pes = nr_pes_list.get(position).getNr();
+                ref_selecionado = position;
+            }
+        });
+
+
+        Button buttonGravar = (Button) dialog.findViewById(R.id.button_gravar_inspiras);
+        buttonGravar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // tenho de colocar o selecionado na dialog no botao
+                Button p1_button = (Button)findViewById(R.id.button_data);
+                p1_button.setText( getResources().getStringArray(R.array.dias_semana)[dia_selecionado] + " " +  getResources().getStringArray(R.array.refeicoes)[ref_selecionado]);
+                locButton.startAnimation(AnimationUtils.loadAnimation(Activity_Inspiracao.this, R.anim.rodar));
+                chamarInspiras();
+                dialog.dismiss();
+            }
+        });
+
+
+        p1_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+            }
+        });
+
+
+
         expListView = (ExpandableListView) findViewById(R.id.lista_inspiracoes);
 
         expListView.setOnChildClickListener( this);
-        // preparing list data
-        //prepareListData();
 
-        new AsyncTaskParseJson(this).execute();
+        chamarInspiras();
+
     }
 
 
+
+    private void chamarInspiras()
+    {
+
+        new AsyncTaskParseJson(this).execute();
+    }
 
 
     @Override
@@ -100,10 +212,17 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
     }
 
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.inspiracao, menu);
+
+
+        locButton = (ImageButton) menu.findItem(R.id.action_actualizar_inspiras).getActionView();
+
+
+
         return true;
     }
 
@@ -118,6 +237,11 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
                 finish();
 
                 overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
+                return false;
+            case R.id.action_actualizar_inspiras:
+
+                new AsyncTaskParseJson(this).execute();
+
                 return false;
             default:
                 break;
@@ -162,11 +286,27 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
                 JSONObject dict = new JSONObject();
                 JSONObject jsonObj = new JSONObject();
 
+                // para a refeiçao escolhida
+                String refeicao;
+                if (ref_selecionado ==  0)
+                    refeicao = "almoco";
+                else
+                    refeicao = "jantar";
+
+                // para o dia da semana selecionado
+                int dia_semana;
+                if(dia_selecionado == 0) {
+                    dia_semana = 7;
+                }
+                else
+                {
+                    dia_semana = dia_selecionado;
+                }
 
 
-                dict.put("lang","pt");
-                dict.put("almajant","almoco");
-                dict.put("diasemana","4");
+                dict.put("lang", Globals.getInstance().getLingua());
+                dict.put("almajant",refeicao);
+                dict.put("diasemana",dia_semana);
 
 
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
@@ -250,6 +390,80 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
         {
             delegate.asyncComplete(true);
         }
+    }
+
+
+    public class AdapterStringDias extends ArrayAdapter<String> {
+
+        Context myContext;
+        public String[] some_list;
+
+        public AdapterStringDias(Context context, int textViewResourceId, String[] objects) {
+            super(context, textViewResourceId, objects);
+            myContext = context;
+            this.some_list = objects;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            //return super.getView(position, convertView, parent);
+
+            LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View row = convertView;
+
+            if (row == null)
+                row=inflater.inflate(R.layout.list_spiner, parent, false);
+
+            TextView textView = (TextView) row.findViewById(R.id.textSpiner);
+            textView.setText(some_list[position]);
+
+
+            if (position == dia_selecionado)
+                row.setBackgroundColor(getResources().getColor(R.color.dourado));
+            else
+                row.setBackgroundColor(getResources().getColor(R.color.white));
+
+
+            return row;
+        }
+
+    }
+
+
+    public class AdapterStringRef extends ArrayAdapter<String> {
+
+        Context myContext;
+        public String[] some_list;
+
+        public AdapterStringRef(Context context, int textViewResourceId, String[] objects) {
+            super(context, textViewResourceId, objects);
+            myContext = context;
+            this.some_list = objects;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            //return super.getView(position, convertView, parent);
+
+            LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View row = convertView;
+
+            if (row == null)
+                row=inflater.inflate(R.layout.list_spiner, parent, false);
+
+            TextView textView = (TextView) row.findViewById(R.id.textSpiner);
+            textView.setText(some_list[position]);
+
+
+            if (position == ref_selecionado)
+                row.setBackgroundColor(getResources().getColor(R.color.dourado));
+            else
+                row.setBackgroundColor(getResources().getColor(R.color.white));
+
+
+            return row;
+        }
+
     }
 
 }

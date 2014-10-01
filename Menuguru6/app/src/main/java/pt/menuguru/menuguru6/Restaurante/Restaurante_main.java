@@ -831,13 +831,14 @@ public class Restaurante_main extends FragmentActivity {
         new AsyncTaskParseJsonVerificaSeguir(this).execute();
     }
 
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_localizacao, menu);
         return true;
     }
-
+    */
 
 
     public void initializeGalery()
@@ -855,7 +856,6 @@ public class Restaurante_main extends FragmentActivity {
             Fragment fragment = new Imagem_galeria().create(fotos.get(i));
             fragments.add(fragment);
         }
-
 
         ViewPager galeria = (ViewPager) findViewById(R.id.galeria_imagens);
         PagerAdapter adapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragments);
@@ -885,7 +885,6 @@ public class Restaurante_main extends FragmentActivity {
         PagerAdapter mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragments);
 
         mPager.setAdapter(mPagerAdapter);
-
     }
 
 
@@ -1514,8 +1513,7 @@ public class Restaurante_main extends FragmentActivity {
                     Intent inten = new Intent(Restaurante_main.this, Favoritos.class);
                     //Intent inten = new Intent(Restaurante_main.this, EmptyListActivity.class);
                     inten.putExtra("restaurante", rest_id);
-                    inten.putExtra("rating",mediarating);
-                    //startActivityForResult(inten);
+
                     startActivity(inten);
                     overridePendingTransition(R.anim.abc_slide_in_bottom , R.anim.abc_fade_out);
                 }

@@ -48,6 +48,7 @@
         android:layout_height="0.5dp"
         android:layout_toEndOf="@+id/favoritos_number"
         android:background="@color/black"
-        android:layout_below="@+id/favoritos_number"
-        android:layout_toRightOf="@+id/favoritos_number"></RelativeLayout>
+        android:id="@+id/relativeLayout"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/favoritos_number" />
 </RelativeLayout>

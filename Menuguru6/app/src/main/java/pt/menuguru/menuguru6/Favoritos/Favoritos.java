@@ -227,29 +227,32 @@ public class Favoritos extends Activity
         listView = (ListView) findViewById(R.id.lista_favoritos);
         final LayoutInflater inflater = LayoutInflater.from(this);
 
-        footer = (ViewGroup)  inflater.inflate(R.layout.footer_favoritos, listView, false);
-        nova_lista = (EditText) footer.findViewById(R.id.editText_adcionar_lista);
-
-        // codigo pedido emprestado do vitor
-        nova_lista.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    Log.v("CARREGOU","CONCLUIDO");
-
-                    new AsyncTaskParseJsonCriarLista(Favoritos.this).execute();
-                }
-                return false;
-            }
-        });
+        footer = (ViewGroup) inflater.inflate(R.layout.footer_favoritos, listView, false);
 
 
-        mAdapter = new AdapterFavoritos(this, R.layout.row_favorito, some_list);
+
+        mAdapter = new AdapterFavoritos(this, R.layout.row_favorito_gerir, some_list);
 
 
         if (primeiravez) {
             listView.addFooterView(footer);
             primeiravez = false;
+
+            nova_lista = (EditText) footer.findViewById(R.id.editText_adcionar_lista);
+
+            // codigo pedido emprestado do vitor
+            nova_lista.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        Log.v("CARREGOU", "CONCLUIDO");
+
+                        new AsyncTaskParseJsonCriarLista(Favoritos.this).execute();
+                    }
+                    return false;
+                }
+            });
+
         }
         listView.setAdapter(mAdapter);
 
@@ -257,15 +260,16 @@ public class Favoritos extends Activity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                // tenho de fazer algumas verificaçoes antes de anvançar
-                if(favs_selecionados.contains(some_list.get(position).getFav_id()))
-                {
-                    favs_selecionados.remove(some_list.get(position).getFav_id());
-                }else {
-                    favs_selecionados.add(some_list.get(position).getFav_id());
-                }
 
-                mAdapter.notifyDataSetChanged();
+                    // tenho de fazer algumas verificaçoes antes de anvançar
+                    if (favs_selecionados.contains(some_list.get(position).getFav_id())) {
+                        favs_selecionados.remove(some_list.get(position).getFav_id());
+                    } else {
+                        favs_selecionados.add(some_list.get(position).getFav_id());
+                    }
+
+                    mAdapter.notifyDataSetChanged();
+
             }
         });
 
@@ -273,27 +277,28 @@ public class Favoritos extends Activity
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id)
             {
+                if (position != 0) {
 
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Favoritos.this);
-                alertDialogBuilder
-                        .setMessage("Deseja apagar esta lista?")
-                        .setCancelable(false)
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        })
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        lista_id = some_list.get(position).getFav_id();
-                        apagarLista();
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                // show it
-                alertDialog.show();
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Favoritos.this);
+                    alertDialogBuilder
+                            .setMessage("Deseja apagar esta lista?")
+                            .setCancelable(false)
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            })
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    lista_id = some_list.get(position).getFav_id();
+                                    apagarLista();
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    // show it
+                    alertDialog.show();
+                }
 
                 return false;
             }
