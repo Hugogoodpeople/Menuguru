@@ -139,13 +139,14 @@ public class Restaurante_main extends FragmentActivity {
         new AsyncTaskParseJsonVerificaSeguir(this).execute();
     }
 
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_localizacao, menu);
         return true;
     }
-
+    */
 
 
     public void initializeGalery()
@@ -163,7 +164,6 @@ public class Restaurante_main extends FragmentActivity {
             Fragment fragment = new Imagem_galeria().create(fotos.get(i));
             fragments.add(fragment);
         }
-
 
         ViewPager galeria = (ViewPager) findViewById(R.id.galeria_imagens);
         PagerAdapter adapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragments);
@@ -193,7 +193,6 @@ public class Restaurante_main extends FragmentActivity {
         PagerAdapter mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragments);
 
         mPager.setAdapter(mPagerAdapter);
-
     }
 
 

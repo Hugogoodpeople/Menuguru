@@ -64,6 +64,19 @@
         <item>Diga-nos o que pensa</item>
         <item>Classifique a App</item>
     </string-array>
+    <string-array name="dias_semana">
+        <item>Domingo</item>
+        <item>Segunda-feira</item>
+        <item>Terça-feira</item>
+        <item>Quarta-feira</item>
+        <item>Quinta-feira</item>
+        <item>Sexta-feira</item>
+        <item>Sábado</item>
+    </string-array>
+    <string-array name="refeicoes">
+        <item>Almoço</item>
+        <item>Jantar</item>
+    </string-array>
     <string-array name="pesquisa">
         <item>Filtros Avançados</item>
         <item>Inspiração</item>
