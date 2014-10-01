@@ -3,7 +3,6 @@ package pt.menuguru.menuguru6.Favoritos;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -42,17 +40,16 @@ import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 
 /**
- * Created by hugocosta on 29/09/14.
+ * Created by hugocosta on 01/10/14.
  */
-public class Favoritos extends Activity
-{
+public class Favoritos_gerir extends Activity {
     private ArrayList<Favorito_item> some_list;
 
     private ViewGroup footer;
     private ListView listView;
-    private String rest_id;
+    // private String rest_id;
     private AdapterFavoritos mAdapter;
-    private ArrayList<String> favs_selecionados = new ArrayList<String>();
+    // private ArrayList<String> favs_selecionados = new ArrayList<String>();
     private boolean primeiravez = true;
     private ProgressDialog progressDialog;
     private EditText nova_lista;
@@ -67,9 +64,10 @@ public class Favoritos extends Activity
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         setContentView(R.layout.favoritos);
+        /* // este nao recebe nada de lado nenhum
         Intent intent = this.getIntent();
         rest_id = intent.getStringExtra("restaurante");
-
+        */
 
 
         new AsyncTaskParseJsonFavoritos(this).execute();
@@ -84,9 +82,11 @@ public class Favoritos extends Activity
         return true;
     }
 
+    // não preceisa de menu aqui
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater=getMenuInflater();
+        MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.favoritos, menu);
 
 
@@ -94,15 +94,13 @@ public class Favoritos extends Activity
 
     }
 
+ */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                overridePendingTransition( R.anim.abc_fade_in , R.anim.abc_slide_out_bottom);
-                return false;
-            case R.id.clicar_menu_gravar_favoritos:
-                new AsyncTaskParseJsonAdicionarAsListas(this).execute();
+                overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
                 return false;
             default:
                 break;
@@ -110,6 +108,7 @@ public class Favoritos extends Activity
 
         return false;
     }
+
 
     // you can make this class as another java file so it will be separated from your main activity.
     public class AsyncTaskParseJsonFavoritos extends AsyncTask<String, String, String> {
@@ -123,10 +122,9 @@ public class Favoritos extends Activity
         // contacts JSONArray
         JSONArray dataJsonArr = null;
 
-        private Favoritos delegate;
+        private Favoritos_gerir delegate;
 
-        public AsyncTaskParseJsonFavoritos (Favoritos delegate)
-        {
+        public AsyncTaskParseJsonFavoritos(Favoritos_gerir delegate) {
             this.delegate = delegate;
         }
 
@@ -144,24 +142,21 @@ public class Favoritos extends Activity
 
 
                 dict.put("lang", Globals.getInstance().getLingua());
-                dict.put("id_rest", rest_id);
+                //dict.put("id_rest", rest_id);
                 dict.put("face_id", Globals.getInstance().getUser().getId_face());
                 dict.put("user_id", Globals.getInstance().getUser().getUserid());
 
-                /*
-                [dict setObject: [Globals user].faceId forKey:@"face_id"];
-        [dict setObject: [NSString stringWithFormat:@"%d", 0] forKey:@"user_id"];
-                 */
 
 
-                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl, dict);
 
                 Log.v("jfgrhng", "resultado dos comentarios = " + jsonString);
 
 
                 // try parse the string to a JSON object
                 try {
-                    Log.v("Ver Json ","Ele retorna esto dos comentarios"+jsonString);
+                    Log.v("Ver Json ", "Ele retorna esto dos comentarios" + jsonString);
                     jsonObj = new JSONObject(jsonString);
                 } catch (JSONException e) {
                     Log.e(TAG, "Error parsing data " + e.toString());
@@ -185,8 +180,7 @@ public class Favoritos extends Activity
 
                 some_list = new ArrayList<Favorito_item>();
 
-                for (int i = 0 ; i < dataJsonArr.length() ; i++ )
-                {
+                for (int i = 0; i < dataJsonArr.length(); i++) {
                     JSONObject c = dataJsonArr.getJSONObject(i);
 
                     Favorito_item fav = new Favorito_item();
@@ -195,14 +189,9 @@ public class Favoritos extends Activity
                     fav.setFav_number(c.getString("count"));
                     fav.setExiste(c.getString("existe"));
 
-                    if (fav.getExiste().equalsIgnoreCase("1"))
-                    {
-                       favs_selecionados.add(fav.getFav_id());
-                    }
 
                     some_list.add(fav);
                 }
-
 
 
             } catch (JSONException e) {
@@ -213,16 +202,14 @@ public class Favoritos extends Activity
         }
 
         @Override
-        protected void onPostExecute(String strFromDoInBg)
-        {
+        protected void onPostExecute(String strFromDoInBg) {
             //progressDialog.dismiss();
             delegate.asyncCompleteListaFavoritos(true);
         }
 
     }
 
-    private void asyncCompleteListaFavoritos(boolean success)
-    {
+    private void asyncCompleteListaFavoritos(boolean success) {
         // aqui tenhe de inicializar o novo adapter para ter a lista de comentarios
         listView = (ListView) findViewById(R.id.lista_favoritos);
         final LayoutInflater inflater = LayoutInflater.from(this);
@@ -247,7 +234,7 @@ public class Favoritos extends Activity
                     if (actionId == EditorInfo.IME_ACTION_DONE) {
                         Log.v("CARREGOU", "CONCLUIDO");
 
-                        new AsyncTaskParseJsonCriarLista(Favoritos.this).execute();
+                        new AsyncTaskParseJsonCriarLista(Favoritos_gerir.this).execute();
                     }
                     return false;
                 }
@@ -258,28 +245,20 @@ public class Favoritos extends Activity
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    // tenho de fazer algumas verificaçoes antes de anvançar
-                    if (favs_selecionados.contains(some_list.get(position).getFav_id())) {
-                        favs_selecionados.remove(some_list.get(position).getFav_id());
-                    } else {
-                        favs_selecionados.add(some_list.get(position).getFav_id());
-                    }
+                // aqui tenho de chamar a lista de restaurantes da lista selecionada
 
-                    mAdapter.notifyDataSetChanged();
 
             }
         });
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id)
-            {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 if (position != 0) {
 
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Favoritos.this);
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Favoritos_gerir.this);
                     alertDialogBuilder
                             .setMessage("Deseja apagar esta lista?")
                             .setCancelable(false)
@@ -307,8 +286,7 @@ public class Favoritos extends Activity
 
     }
 
-    private void apagarLista()
-    {
+    private void apagarLista() {
 
         new AsyncTaskParseJsonApagarLista(this).execute();
     }
@@ -317,13 +295,13 @@ public class Favoritos extends Activity
 
         Context myContext;
         public ImageLoader imageLoader;
-        HashMap<Integer,Integer> selectionValueMap = new HashMap<Integer,Integer>();
+        HashMap<Integer, Integer> selectionValueMap = new HashMap<Integer, Integer>();
 
         ArrayList<Favorito_item> DataValueList = new ArrayList<Favorito_item>();
 
         public AdapterFavoritos(Context context, int textViewResourceId, ArrayList<Favorito_item> objects) {
             super(context, textViewResourceId, objects);
-            imageLoader=new ImageLoader(getApplicationContext());
+            imageLoader = new ImageLoader(getApplicationContext());
             myContext = context;
             this.DataValueList = objects;
         }
@@ -336,22 +314,21 @@ public class Favoritos extends Activity
             // TODO Auto-generated method stub
             return 0;
         }
-        public void selectedItem(int postion ,int flag)
-        {
+
+        public void selectedItem(int postion, int flag) {
             selectionValueMap.put(postion, flag);
             notifyDataSetChanged();
         }
-        public void removeSelection(int position)
-        {
+
+        public void removeSelection(int position) {
             selectionValueMap.remove(position);
             notifyDataSetChanged();
         }
-        public void removeItem()
-        {
+
+        public void removeItem() {
             Set<Integer> mapKeySet = selectionValueMap.keySet();
             Iterator keyIterator = mapKeySet.iterator();
-            while(keyIterator.hasNext())
-            {
+            while (keyIterator.hasNext()) {
                 int key = (Integer) keyIterator.next();
                 Log.d("key", Integer.toString(key));
                 DataValueList.remove(key);
@@ -369,17 +346,17 @@ public class Favoritos extends Activity
         public View getView(final int position, View convertView, ViewGroup parent) {
             //return super.getView(position, convertView, parent);
 
-            LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View row = convertView;
 
             if (row == null)
-                row=inflater.inflate(R.layout.row_favorito, parent, false);
+                row = inflater.inflate(R.layout.row_favorito, parent, false);
 
             // para o comentario do utilizador
-            TextView label1=(TextView)row.findViewById(R.id.favoritos_number);
+            TextView label1 = (TextView) row.findViewById(R.id.favoritos_number);
             label1.setText(some_list.get(position).getFav_number());
 
-            TextView label2=(TextView)row.findViewById(R.id.texto_fav_nome);
+            TextView label2 = (TextView) row.findViewById(R.id.texto_fav_nome);
             label2.setText(some_list.get(position).getFav_name());
 
             ImageView selecionado = (ImageView) row.findViewById(R.id.imageView_tem_fav);
@@ -388,11 +365,6 @@ public class Favoritos extends Activity
             // aqui tem de ficar diferente do que está
             // sempre que clico eu removo e adiciono cenas ao array que depois precisa ser actualizado aqui
 
-            selecionado.setImageResource(0);
-
-            if(favs_selecionados.contains(some_list.get(position).getFav_id())) {
-                selecionado.setImageResource(R.drawable.ico_check);
-            }
 
             return row;
         }
@@ -400,69 +372,12 @@ public class Favoritos extends Activity
     }
 
 
-    // you can make this class as another java file so it will be separated from your main activity.
-    public class AsyncTaskParseJsonAdicionarAsListas extends AsyncTask<String, String, String> {
-
-        final String TAG = "AsyncTaskParseJson.java";
 
 
-        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_apagar_restaurante_listanome.php";
-
-        private Favoritos delegate;
-
-        public AsyncTaskParseJsonAdicionarAsListas (Favoritos delegate)
-        {
-            this.delegate = delegate;
-        }
-
-
-        @Override
-        protected String doInBackground(String... arg0) {
-
-            try {
-                JSONParser jParser = new JSONParser();
-
-                // get json string from url
-                // tenho de criar um jsonobject e adicionar la as cenas
-                JSONObject dict = new JSONObject();
-                JSONObject jsonObj = new JSONObject();
-
-
-                dict.put("lang", Globals.getInstance().getLingua());
-                dict.put("id_rest", rest_id);
-                dict.put("face_id", Globals.getInstance().getUser().getId_face());
-                dict.put("user_id", Globals.getInstance().getUser().getUserid());
-                dict.put("idlista", new JSONArray(favs_selecionados.toString()));
-
-
-
-                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
-
-                Log.v("jfgrhng", "resultado de adicionar aos favoritos = " + jsonString);
-
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String strFromDoInBg)
-        {
-            //progressDialog.dismiss();
-            delegate.asyncCompleteAdicionar_remover_favoritos(true);
-        }
-
-    }
-
-    private void asyncCompleteAdicionar_remover_favoritos(boolean success)
-    {
+    private void asyncCompleteAdicionar_remover_favoritos(boolean success) {
         //new AsyncTaskParseJsonFavoritos(this).execute();
         finish();
-        overridePendingTransition( R.anim.abc_fade_in , R.anim.abc_slide_out_bottom);
+        overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_slide_out_bottom);
     }
 
 
@@ -474,10 +389,9 @@ public class Favoritos extends Activity
 
         String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_criar_listanomefav.php";
 
-        private Favoritos delegate;
+        private Favoritos_gerir delegate;
 
-        public AsyncTaskParseJsonCriarLista (Favoritos delegate)
-        {
+        public AsyncTaskParseJsonCriarLista(Favoritos_gerir delegate) {
             this.delegate = delegate;
         }
 
@@ -499,11 +413,9 @@ public class Favoritos extends Activity
                 dict.put("nome", nova_lista.getText());
 
 
-
-                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl, dict);
 
                 Log.v("jfgrhng", "resultado de adicionar aos favoritos = " + jsonString);
-
 
 
             } catch (JSONException e) {
@@ -514,16 +426,14 @@ public class Favoritos extends Activity
         }
 
         @Override
-        protected void onPostExecute(String strFromDoInBg)
-        {
+        protected void onPostExecute(String strFromDoInBg) {
             //progressDialog.dismiss();
             delegate.asyncCompleteAdicionar_criar_lista(true);
         }
 
     }
 
-    private void asyncCompleteAdicionar_criar_lista(boolean success)
-    {
+    private void asyncCompleteAdicionar_criar_lista(boolean success) {
         nova_lista.setText("");
         new AsyncTaskParseJsonFavoritos(this).execute();
     }
@@ -534,19 +444,17 @@ public class Favoritos extends Activity
 
         final String TAG = "AsyncTaskParseJson.java";
 
-
         String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_restapagar_listanomefav.php";
 
-        private Favoritos delegate;
+        private Favoritos_gerir delegate;
 
-        public AsyncTaskParseJsonApagarLista (Favoritos delegate)
-        {
+        public AsyncTaskParseJsonApagarLista(Favoritos_gerir delegate) {
             this.delegate = delegate;
         }
 
-
         @Override
-        protected String doInBackground(String... arg0) {
+        protected String doInBackground(String... arg0)
+        {
 
             try {
                 JSONParser jParser = new JSONParser();
@@ -561,11 +469,9 @@ public class Favoritos extends Activity
                 dict.put("idlista", lista_id);
 
 
-
-                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl, dict);
 
                 Log.v("jfgrhng", "resultado de adicionar aos favoritos = " + jsonString);
-
 
 
             } catch (JSONException e) {
@@ -576,17 +482,14 @@ public class Favoritos extends Activity
         }
 
         @Override
-        protected void onPostExecute(String strFromDoInBg)
-        {
+        protected void onPostExecute(String strFromDoInBg) {
             //progressDialog.dismiss();
             delegate.asyncCompleteAdicionar_apagarLista(true);
         }
 
     }
 
-    private void asyncCompleteAdicionar_apagarLista(boolean success)
-    {
+    private void asyncCompleteAdicionar_apagarLista(boolean success) {
         new AsyncTaskParseJsonFavoritos(this).execute();
     }
-
 }

@@ -816,8 +816,7 @@ public class Restaurante_main extends FragmentActivity {
                     Intent inten = new Intent(Restaurante_main.this, Favoritos.class);
                     //Intent inten = new Intent(Restaurante_main.this, EmptyListActivity.class);
                     inten.putExtra("restaurante", rest_id);
-                    inten.putExtra("rating",mediarating);
-                    //startActivityForResult(inten);
+
                     startActivity(inten);
                     overridePendingTransition(R.anim.abc_slide_in_bottom , R.anim.abc_fade_out);
                 }

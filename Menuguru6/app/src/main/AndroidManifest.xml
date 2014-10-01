@@ -110,6 +110,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".Favoritos.Favoritos_gerir"
+            android:label="Favoritos"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="pt.menuguru.menuguru6.Restaurante.Restaurante_main"
             android:label="Restaurante"
             android:screenOrientation="portrait" >
