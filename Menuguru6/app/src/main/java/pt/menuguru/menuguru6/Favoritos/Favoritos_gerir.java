@@ -69,7 +69,12 @@ public class Favoritos_gerir extends Activity {
         rest_id = intent.getStringExtra("restaurante");
         */
 
+    }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
         new AsyncTaskParseJsonFavoritos(this).execute();
 
     }
@@ -248,7 +253,11 @@ public class Favoritos_gerir extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 // aqui tenho de chamar a lista de restaurantes da lista selecionada
-
+                Intent intent = new Intent(Favoritos_gerir.this, Favoritos_list_restaurantes.class);
+                intent.putExtra("idfav", some_list.get(position).getFav_id());
+                intent.putExtra("nome", some_list.get(position).getFav_name());
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
 
             }
         });
