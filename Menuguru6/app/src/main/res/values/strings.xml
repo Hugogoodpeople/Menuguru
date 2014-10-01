@@ -250,5 +250,6 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="solicitar">Solicite a validação no restaurante</string>
     <string name="detalhes_reserva">Detalhes da reserva</string>
     <string name="cod_invalido">Código inválido. Tente de novo</string>
+    <string name="confirmar">Confirmar</string>
 
 </resources>
