@@ -1,8 +1,11 @@
 package pt.menuguru.menuguru6.Restaurante;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -22,9 +25,15 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,9 +46,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 import pt.menuguru.menuguru6.Favoritos.Favoritos;
@@ -52,9 +69,17 @@ import pt.menuguru.menuguru6.Restaurante.Comentarios.Lista_comentarios;
 import pt.menuguru.menuguru6.Restaurante.Info.InfoRestaurante;
 import pt.menuguru.menuguru6.Utils.Comentario;
 import pt.menuguru.menuguru6.Utils.Globals;
+import pt.menuguru.menuguru6.Utils.Horario_Especial;
+import pt.menuguru.menuguru6.Utils.Horario_Mesa;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Menu_do_restaurante;
+import pt.menuguru.menuguru6.Utils.Nr_Pessoas_Especial;
+import pt.menuguru.menuguru6.Utils.Nr_pessoas_mesa;
+import pt.menuguru.menuguru6.Utils.Restaurante;
 import pt.menuguru.menuguru6.Utils.Utils;
+import pt.menuguru.menuguru6.gif.decoder.GifRun;
+
+import static android.R.layout.simple_list_item_1;
 
 /**
  * Created by hugocosta on 19/09/14.
@@ -77,7 +102,13 @@ public class Restaurante_main extends FragmentActivity {
 
     private static MyListAdapter mAdapter;
     private ArrayList<Menu_do_restaurante> some_list;
+    private ArrayList<Horario_Mesa> hora_list;
+    private ArrayList<Horario_Mesa> aux_hora_list;
+    private ArrayList<Nr_pessoas_mesa> nr_pes_list;
+
     private ArrayList<String> fotos;
+
+
     private ListView gridView;
     private ProgressDialog progressDialog;
     // informaçao que já vem de traz
@@ -94,9 +125,39 @@ public class Restaurante_main extends FragmentActivity {
     private String cidade_nome;
     private boolean segue_rest = false;
 
+    String data_selec;
+    String num_por_dia;
+    String sel_id_hora = "";
+    String sel_hora = "";
+    String sel_nr_pes = "";
+    String sel_obs = "";
+    String sel_nome = "";
+    String sel_telefone = "";
+    String sel_email = "" ;
+    String sel_dia_semana = "" ;
+    String num_por_hora = "" ;
+    String nr_voucher = "" ;
+
+    Dialog dialog_loading;
+    Dialog dialog_conf;
+    Dialog dialog_obs;
+    Dialog dialog_pes;
+    Dialog dialog_hora;
+    Dialog dialog1;
+
+    CalendarView calendar;
+
+    String hora_minimo_antedencia_mesa;
 
     private String[] listEstrelas;
     ArrayList<Comentario> comentarios;
+
+    String reportDate;
+
+    Button bt_reserva;
+
+    String res_reserva;
+    String msg_reserva;
 
     // se tiver destaque tem de aparecer um layout diferente
     private boolean destaque = false;
@@ -122,9 +183,640 @@ public class Restaurante_main extends FragmentActivity {
         actionBar.setTitle(nome_rest);
 
         setContentView(R.layout.activity_restaurante_main);
-
+        bt_reserva = (Button) findViewById(R.id.bt_reservar_mesa);
         new AsyncTaskParseJson1(this).execute();
+        new AsyncTaskParseJsonHorarioMesa(this).execute();
+
+        bt_reserva.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog1 = new Dialog(Restaurante_main.this);
+                dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog1.setContentView(R.layout.dialog_reserva);
+
+                Calendar c = Calendar.getInstance();
+                System.out.println("Current time => " + c.getTime());
+
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                data_selec = df.format(c.getTime());
+
+                Date data_act = null;
+                try {
+                    data_act = df.parse(data_selec);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                long data_A = data_act.getTime();
+                calendar = (CalendarView)dialog1.findViewById(R.id.calendarView2);
+                calendar.setSelectedWeekBackgroundColor(getResources().getColor(R.color.dourado_trans));
+                calendar.setFocusedMonthDateColor(getResources().getColor(R.color.black));
+                calendar.setUnfocusedMonthDateColor(getResources().getColor(R.color.silver));
+                calendar.setWeekSeparatorLineColor(getResources().getColor(R.color.transparent));
+                calendar.setSelectedDateVerticalBar(R.color.dourado);
+                calendar.setDate(data_A);
+                calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+
+                    @Override
+                    public void onSelectedDayChange(CalendarView view, int year, int month,
+                                                    int dayOfMonth) {
+                        month = month+1;
+                        Log.v("ANO",""+year);
+
+                        String auxmonth = ""+month;
+                        if(month<10){
+                            auxmonth = String.format("%02d", month);
+                        }
+                        Log.v("MES",""+auxmonth);
+
+                        String auxdayOfMonth = ""+dayOfMonth;
+                        if(dayOfMonth<10){
+                            auxdayOfMonth = String.format("%02d", dayOfMonth);
+                        }
+                        Log.v("DIA",""+auxdayOfMonth);
+                        data_selec = year+"-"+auxmonth+"-"+auxdayOfMonth;
+                    }
+                });
+
+                TextView bt_cancelar = (TextView) dialog1.findViewById(R.id.bt_cancelar);
+                TextView bt_segasd = (TextView) dialog1.findViewById(R.id.bt_seguuintw);
+
+                bt_segasd.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
+                        Calendar cc = Calendar.getInstance();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        String dataactual = sdf.format(cc.getTime());
+                        Date date1=null, date2=null;
+                        try {
+                            date1 = sdf.parse(data_selec);
+                            date2 = sdf.parse(dataactual);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        Log.v("data 1",""+date1);
+                        Log.v("data 2",""+date2);
+
+                        if(date1.compareTo(date2)>=0){
+
+                                cc.setTime(date1);
+                                int day = cc.get(Calendar.DAY_OF_WEEK);
+                                int dia_semana = 0;
+                                switch (day){
+                                    case 1:dia_semana=7;break;
+                                    case 2:dia_semana=1;break;
+                                    case 3:dia_semana=2;break;
+                                    case 4:dia_semana=3;break;
+                                    case 5:dia_semana=4;break;
+                                    case 6:dia_semana=5;break;
+                                    case 7:dia_semana=6;break;
+                                }
+
+                                aux_hora_list = new ArrayList<Horario_Mesa>();
+                                for (int i = 0; i < hora_list.size(); i++) {
+                                    Horario_Mesa hora = new Horario_Mesa();
+                                    int foo = Integer.parseInt(hora_list.get(i).getDia_id());
+
+                                    if(dia_semana==foo){
+
+                                        Calendar ccc = Calendar.getInstance();
+                                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd k:m:s");
+                                        String test2 = data_selec + " "+ hora_list.get(i).getHora_inicio()+":00";
+                                        String hora_actual = format.format(ccc.getTime());
+
+                                        Date teste2 = null, teste1 = null;
+                                        try {
+                                            teste1 = format.parse(hora_actual);
+                                            teste2 = format.parse(test2);
+                                        } catch (ParseException e) {
+                                            e.printStackTrace();
+                                        }
+                                        Log.v("TESTE 1",""+teste1);
+                                        Log.v("TESTE 2",""+teste2);
+                                        long aaa = getDateDiff(teste1, teste2, TimeUnit.HOURS);
+                                        Log.v("DIFERENCA "+i ,""+aaa);
+                                        Log.v("HORA MINIMO",hora_minimo_antedencia_mesa);
+                                        if(Long.parseLong(hora_minimo_antedencia_mesa)<aaa){
+                                            hora.setId(hora_list.get(i).getId());
+                                            hora.setDia_id(hora_list.get(i).getDia_id());
+                                            hora.setHora_inicio(hora_list.get(i).getHora_inicio());
+                                            hora.setN_pessoas_h(hora_list.get(i).getN_pessoas_h());
+                                            aux_hora_list.add(hora);
+                                        }
+                                    }
+                                }
+                            new AsyncTaskParseJsonDiaLimite(Restaurante_main.this).execute();
+                                SelecionaHora();
+
+                        }else if(date1.compareTo(date2)<0){
+                            AvisoData_ant();
+                        }
+
+
+
+                    }
+                });
+
+                bt_cancelar.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        dialog1.dismiss();
+                    }
+                });
+
+                dialog1.show();
+
+            }
+        });
+
         // new AsyncTaskParseJsonEstrelas(this).execute();
+    }
+
+    public void SelecionaHora(){
+        sel_hora = "";
+        sel_dia_semana = "";
+        sel_id_hora = "";
+        //, R.style.PauseDialog2);
+        dialog_hora = new Dialog(Restaurante_main.this);
+        dialog_hora.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_hora.setContentView(R.layout.dialog_hora);
+
+        TextView bt_ant = (TextView) dialog_hora.findViewById(R.id.bt_ant_cal);
+        TextView bt_seg = (TextView) dialog_hora.findViewById(R.id.bt_seg_nrp);
+
+        ListView list_hora = (ListView) dialog_hora.findViewById(R.id.list_hora);
+        SpinnerAdapterVitor dataAdapter = new SpinnerAdapterVitor(Restaurante_main.this,
+                simple_list_item_1,aux_hora_list);
+        list_hora.setAdapter(dataAdapter);
+        list_hora.setEmptyView(dialog_hora.findViewById(R.id.emty_view));
+
+        // ListView Item Click Listener
+        list_hora.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                for(int a = 0; a < parent.getChildCount(); a++)
+                {
+                    parent.getChildAt(a).setBackgroundColor(getResources().getColor(R.color.white) );
+                }
+                view.setBackgroundColor(getResources().getColor(R.color.dourado));
+                sel_id_hora = aux_hora_list.get(position).getId();
+                sel_hora = aux_hora_list.get(position).getHora_inicio();
+                sel_dia_semana = aux_hora_list.get(position).getDia_id();
+                num_por_hora = aux_hora_list.get(position).getN_pessoas_h();
+
+            }
+
+        });
+        bt_ant.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog_hora.dismiss();
+            }
+        });
+
+        bt_seg.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                if(!sel_hora.equals("")){
+                    Log.v("NUM POR HORA",""+num_por_hora);
+                    Log.v("NUM POR DIA",""+num_por_dia);
+                    Log.v("NR POSSOAS POSSIVEL",""+nr_voucher);
+                    int local;
+                    if (Integer.parseInt(num_por_hora) < Integer.parseInt(num_por_dia))
+                        local = Integer.parseInt(num_por_hora);
+                    else
+                        local = Integer.parseInt(num_por_dia);
+                    if(local < Integer.parseInt(nr_voucher))
+                        local = local;
+                    else
+                        local = Integer.parseInt(num_por_dia);
+
+                    Log.v("O NUMERO MENOR",""+local);
+                    nr_pes_list = new ArrayList<Nr_pessoas_mesa>();
+                    for (int i = 0; i < local; i++) {
+                        Nr_pessoas_mesa nr_pes = new Nr_pessoas_mesa();
+                            StringBuilder sb = new StringBuilder();
+                            sb.append("");
+                            sb.append(i+1);
+                            String strI = sb.toString();
+                            nr_pes.setNr(strI);
+                            nr_pes_list.add(nr_pes);
+                    }
+
+                    SelecionaNrPessoas();
+
+                    Log.v("ID_HORA",sel_id_hora);
+                    Log.v("DIA SEMANA",sel_dia_semana);
+                }else {
+                    AvisoHora();
+                }
+            }
+        });
+        dialog_hora.show();
+    }
+
+
+    public void SelecionaNrPessoas(){
+        sel_nr_pes = "";
+        //, R.style.PauseDialog2);
+        dialog_pes = new Dialog(Restaurante_main.this);
+        dialog_pes.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_pes.setContentView(R.layout.dialog_pessoas);
+
+        TextView bt_ant_hora = (TextView) dialog_pes.findViewById(R.id.bt_ant_hora);
+        TextView bt_seg_obs = (TextView) dialog_pes.findViewById(R.id.bt_seg_obs);
+
+        ListView list_pes = (ListView) dialog_pes.findViewById(R.id.list_nr_pessoa);
+        AdapterVitor dataAdapter = new AdapterVitor(Restaurante_main.this,
+                simple_list_item_1,nr_pes_list);
+        list_pes.setAdapter(dataAdapter);
+        list_pes.setEmptyView(dialog_pes.findViewById(R.id.emty_view));
+
+
+        // ListView Item Click Listener
+        list_pes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                for(int a = 0; a < parent.getChildCount(); a++)
+                {
+                    parent.getChildAt(a).setBackgroundColor(getResources().getColor(R.color.white) );
+                }
+                view.setBackgroundColor(getResources().getColor(R.color.dourado));
+                sel_nr_pes = nr_pes_list.get(position).getNr();
+
+            }
+
+        });
+
+        bt_ant_hora.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog_pes.dismiss();
+            }
+        });
+
+        bt_seg_obs.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(!sel_nr_pes.equals("")){
+                    SelecionaObs();
+                }else {
+                    AvisoPessoas();
+                }
+            }
+        });
+        dialog_pes.show();
+    }
+
+    public void SelecionaObs(){
+        //, R.style.PauseDialog2);
+        dialog_obs = new Dialog(Restaurante_main.this);
+        dialog_obs.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_obs.setContentView(R.layout.dialog_obs);
+
+        TextView bt_ant_pes = (TextView) dialog_obs.findViewById(R.id.bt_ant_pes);
+        TextView bt_seg_dados = (TextView) dialog_obs.findViewById(R.id.bt_seg_dados);
+        bt_ant_pes.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog_obs.dismiss();
+            }
+        });
+
+        bt_seg_dados.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                EditText text = (EditText) dialog_obs.findViewById(R.id.editText_obs);
+                sel_obs = text.getText().toString();
+                SelecionaConfDados();
+            }
+        });
+        dialog_obs.show();
+    }
+
+    public void SelecionaConfDados() {
+        //, R.style.PauseDialog2);
+        dialog_conf = new Dialog(Restaurante_main.this);
+        dialog_conf.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_conf.setContentView(R.layout.dialog_conf_dados);
+
+        TextView bt_ant_obs = (TextView) dialog_conf.findViewById(R.id.bt_ant_obs);
+        TextView bt_conf = (TextView) dialog_conf.findViewById(R.id.bt_conf);
+        TextView textView2 = (TextView) dialog_conf.findViewById(R.id.textView_data);
+        textView2.setText(sel_obs);
+        final EditText edit_nome = (EditText) dialog_conf.findViewById(R.id.edit_nome);
+        final EditText edit_telefone = (EditText) dialog_conf.findViewById(R.id.edit_telefone);
+        final EditText edit_email = (EditText) dialog_conf.findViewById(R.id.edit_email);
+        final TextView textView_data = (TextView) dialog_conf.findViewById(R.id.textView_data);
+        final TextView textView_hora = (TextView) dialog_conf.findViewById(R.id.textView_hora);
+
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = format.parse(data_selec);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        DateFormat df = new SimpleDateFormat("EEEE dd MMMM yyyy");
+
+        reportDate = df.format(date);
+        textView_data.setText(""+reportDate);
+        String aux_pes;
+        if(sel_nr_pes.equals("1")){
+            aux_pes = getString(R.string.pessoa);
+        }else{
+            aux_pes = getString(R.string.pessoas);
+        }
+        textView_hora.setText(sel_hora+" "+sel_nr_pes+" "+aux_pes);
+
+        if(Globals.getInstance().getUser()!=null) {
+            edit_nome.setText(Globals.get_instance().getUser().getPnome()+" "+Globals.get_instance().getUser().getSnome());
+            edit_telefone.setText(Globals.get_instance().getUser().getTelefone_user());
+            edit_email.setText(Globals.get_instance().getUser().getEmail());
+        }
+
+
+        bt_ant_obs.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog_conf.dismiss();
+            }
+        });
+
+        bt_conf.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(edit_nome.getText().toString().isEmpty()){
+                    AvisoNome();
+                }else if(edit_telefone.length()<9 || edit_telefone.length()>9){
+                    AvisoTelefone();
+                }else if(edit_email.getText().toString().isEmpty() || !isEmailValid(edit_email.getText().toString())){
+                    AvisoEmail();
+                }else{
+                    if(Globals.get_instance().getUser() == null) {
+                        Intent myIntent = new Intent(Restaurante_main.this, LoginMenuGuru.class);
+                        startActivity(myIntent);
+                    }
+                    sel_nome =  edit_nome.getText().toString();
+                    sel_telefone =  edit_telefone.getText().toString();
+                    sel_email =  edit_email.getText().toString();
+                    new AsyncTaskParseJsonReserva(Restaurante_main.this).execute();
+                }
+            }
+        });
+        dialog_conf.show();
+    }
+
+
+
+    public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+        long diffInMillies = date2.getTime() - date1.getTime();
+        return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+    }
+
+    public static boolean isEmailValid(String email) {
+        boolean isValid = false;
+
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = true;
+        }
+        return isValid;
+    }
+
+    public class SpinnerAdapterVitor extends ArrayAdapter<Horario_Mesa>
+    {
+        private ArrayList<Horario_Mesa> hro;
+
+        public SpinnerAdapterVitor(Context context, int resource, ArrayList<Horario_Mesa> lista)
+        {
+            super(context, resource, lista);
+            hro = lista;
+        }
+
+        @Override
+        public View getDropDownView(int position, View cnvtView, ViewGroup prnt)
+        {
+            return getCustomView(position, cnvtView, prnt);
+        }
+
+        @Override public View getView(int pos, View cnvtView, ViewGroup prnt)
+        {
+            return getCustomView(pos, cnvtView, prnt);
+        }
+
+        public View getCustomView(int position, View convertView, ViewGroup parent)
+        {
+            LayoutInflater inflater = getLayoutInflater();
+            View mySpinner = inflater.inflate(R.layout.list_spiner, parent, false);
+
+            TextView tx_hora = (TextView) mySpinner.findViewById(R.id.textSpiner);
+            tx_hora.setText(hro.get(position).getHora_inicio());
+            return mySpinner;
+        }
+    }
+
+
+    public class AdapterVitor extends ArrayAdapter<Nr_pessoas_mesa>
+    {
+        private ArrayList<Nr_pessoas_mesa> pes;
+
+        public AdapterVitor(Context context, int resource, ArrayList<Nr_pessoas_mesa> lista)
+        {
+            super(context, resource, lista);
+            pes = lista;
+        }
+
+        @Override
+        public View getDropDownView(int position, View cnvtView, ViewGroup prnt)
+        {
+            return getCustomView(position, cnvtView, prnt);
+        }
+
+        @Override public View getView(int pos, View cnvtView, ViewGroup prnt)
+        {
+            return getCustomView(pos, cnvtView, prnt);
+        }
+
+        public View getCustomView(int position, View convertView, ViewGroup parent)
+        {
+            LayoutInflater inflater = getLayoutInflater();
+            View mySpinner = inflater.inflate(R.layout.list_spiner, parent, false);
+
+            TextView tx_hora = (TextView) mySpinner.findViewById(R.id.textSpiner);
+            tx_hora.setText(pes.get(position).getNr());
+            return mySpinner;
+        }
+    }
+
+
+    public void AvisoData_ant(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Restaurante_main.this);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.erro_data_ant)
+                .setCancelable(false)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
+
+    public void AvisoHora(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Restaurante_main.this);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.erro_hora)
+                .setCancelable(false)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
+
+    public void AvisoData_dep(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Restaurante_main.this);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.erro_data_dep)
+                .setCancelable(false)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
+
+    public void AvisoPessoas(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Restaurante_main.this);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.erro_pes)
+                .setCancelable(false)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
+
+    public void AvisoNome(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Restaurante_main.this);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.inserir_nome)
+                .setCancelable(false)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
+
+    public void AvisoEmail(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Restaurante_main.this);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.inserir_email)
+                .setCancelable(false)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
+
+    public void AvisoTelefone(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(Restaurante_main.this);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.inserir_telefone)
+                .setCancelable(false)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+    }
+
+    public void Loading(){
+        dialog_loading = new Dialog(Restaurante_main.this);
+        dialog_loading.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_loading.setContentView(R.layout.dialog_loading);
+        TextView tx_data = (TextView) dialog_loading.findViewById(R.id.tv_data);
+        TextView tx_hora= (TextView) dialog_loading.findViewById(R.id.tv_hora);
+        TextView tx_nome = (TextView) dialog_loading.findViewById(R.id.tv_nome);
+        TextView tx_tele = (TextView) dialog_loading.findViewById(R.id.tv_telefone);
+        TextView tx_email = (TextView) dialog_loading.findViewById(R.id.tv_email);
+        TextView tx_obs = (TextView) dialog_loading.findViewById(R.id.tv_obs);
+        SurfaceView v = (SurfaceView) dialog_pes.findViewById(R.id.surfaceView_loading);
+        GifRun w = new  GifRun();
+        w.LoadGiff(v, this, R.drawable.loading2);
+        tx_data.setText(reportDate);
+        String aux_pes;
+        if(sel_nr_pes.equals("1")){
+            aux_pes = getString(R.string.pessoa);
+        }else{
+            aux_pes = getString(R.string.pessoas);
+        }
+        tx_hora.setText(sel_hora+" "+sel_nr_pes+" "+aux_pes);
+        tx_nome.setText(sel_nome);
+        tx_tele.setText(sel_telefone);
+        tx_email.setText(sel_email);
+        tx_obs.setText(sel_obs);
+
+
+        dialog_loading.show();
     }
 
 
@@ -314,7 +1006,11 @@ public class Restaurante_main extends FragmentActivity {
                 JSONObject horario = jsonObj.getJSONObject("horario");
                 abertoFechado = horario.getString("aberto");
                 horarioAbertura = horario.getString("horario");
+                hora_minimo_antedencia_mesa = jsonObj.getString("hora_minimo_antedencia_mesa");
 
+                String completo = jsonObj.getString("envio");
+                JSONObject outro =new JSONObject(completo);
+                nr_voucher = outro.getString("num_pessoas");
 
                 some_list = new ArrayList<Menu_do_restaurante>();
                 for (int i = 0; i < dataJsonArr.length(); i++) {
@@ -329,7 +1025,6 @@ public class Restaurante_main extends FragmentActivity {
                     menu.setDestaque(c.getString("destaque"));
                     menu.setDescricao(c.getString("descricao"));
                     menu.setHora_minimo_antedencia_especial(jsonObj.getString("hora_minimo_antedencia_especial"));
-                    //menu.setHora_minimo_antedencia_especial(c.getString("hora_minimo_antedencia_especial"));
                     if (menu.getDestaque().equalsIgnoreCase("1"))
                         destaque = true;
 
@@ -1096,6 +1791,300 @@ public class Restaurante_main extends FragmentActivity {
             imageSegue.setImageResource(R.drawable.b);
         }
 
+    }
+
+
+
+
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonDiaLimite extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_mesa_dia_limite.php";
+
+        // contacts JSONArray
+        JSONArray dataJsonArr = null;
+
+        private Restaurante_main delegate;
+
+        public AsyncTaskParseJsonDiaLimite (Restaurante_main delegate){
+            this.delegate = delegate;
+        }
+
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+                dict.put("id_rest", rest_id);
+                dict.put("data", data_selec);
+                Log.v("REST_id", rest_id);
+                Log.v("DATA",data_selec);
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                // try parse the string to a JSON object
+                try {
+                    Log.v("Ver Json ","Ele retorna galeria "+jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                String completo = jsonObj.getString("res");
+                JSONObject outro =new JSONObject(completo);
+                num_por_dia = outro.getString("num");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg)
+        {
+            // progressDialog.dismiss();
+            delegate.asyncCompletediaLimite(true);
+        }
+
+    }
+
+
+    private void asyncCompletediaLimite(boolean success)
+    {
+
+
+    }
+
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonHorarioMesa extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_horario_reserva_mesa.php";
+
+        // contacts JSONArray
+        JSONArray dataJsonArr = null;
+        JSONObject dataJsonRep = null;
+
+        private Restaurante_main delegate;
+
+        public AsyncTaskParseJsonHorarioMesa (Restaurante_main delegate){
+            this.delegate = delegate;
+        }
+
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+                dict.put("lang", Globals.get_instance().getLingua());
+                dict.put("rest_id", rest_id);
+                Log.v("LANG", Globals.get_instance().getLingua());
+                Log.v("REST_ID",rest_id);
+
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                // try parse the string to a JSON object
+                try {
+                    Log.v("Ver Json ","Ele retorna HORARIO "+jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                // get the array of users
+                dataJsonRep = jsonObj.getJSONObject("res");
+
+                dataJsonArr = dataJsonRep.getJSONArray("h_esp");
+                hora_list = new ArrayList<Horario_Mesa>();
+
+                for (int i = 0; i < dataJsonArr.length(); i++) {
+                    JSONObject a = dataJsonArr.getJSONObject(i);
+
+                    Horario_Mesa hora = new Horario_Mesa();
+                    hora.setId(a.getString("id"));
+                    hora.setHora_inicio(a.getString("hora_inicio"));
+                    hora.setN_pessoas_h(a.getString("n_pessoas_h"));
+                    hora.setDia_id(a.getString("dia_id"));
+                    hora.setN_pessoas_min(a.getString("n_pessoas_min"));
+                    hora_list.add(hora);
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg)
+        {
+            // progressDialog.dismiss();
+            delegate.asyncCompletediaHorario(true);
+        }
+
+    }
+
+
+    private void asyncCompletediaHorario(boolean success)
+    {
+
+
+    }
+
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonReserva extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_reserva_mesa_criar.php";
+
+
+        private Restaurante_main delegate;
+
+        public AsyncTaskParseJsonReserva (Restaurante_main delegate){
+            this.delegate = delegate;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Loading();
+        }
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+                dict.put("rest_id",rest_id);
+                dict.put("lang",Globals.get_instance().getLingua());
+                dict.put("nome_cartao",some_list.get(0).getNome());
+                dict.put("email_user",sel_email);
+                dict.put("telefone",sel_telefone);
+                dict.put("h_id",sel_id_hora);
+                dict.put("hora",sel_hora);
+                dict.put("num_pes_reserva",sel_nr_pes);
+                if(sel_obs.isEmpty()){
+                    dict.put("escrito"," ");
+                }else{
+                    dict.put("escrito",sel_obs);
+                }
+                dict.put("dia",sel_dia_semana);
+                dict.put("data", data_selec);
+                dict.put("rest_id", rest_id);
+                dict.put("user_nome",sel_nome);
+                if(Globals.getInstance().getUser().getTipoconta().equals("facebook")){
+                    dict.put("face_id",Globals.get_instance().getUser().getId_face());
+                    dict.put("user_id","0");
+                }else if(Globals.getInstance().getUser().getTipoconta().equals("guru")){
+                    dict.put("face_id","0");
+                    dict.put("user_id",Globals.get_instance().getUser().getUserid());
+                }else{
+                    dict.put("face_id","0");
+                    dict.put("user_id","0");
+                }
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+
+                // try parse the string to a JSON object
+                try {
+                    Log.v("Ver Json ","Ele retorna na reserva"+jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                // get the array of users
+
+                // dataJsonArr = jsonObj.getString("res");
+//                res_reserva = jsonObj.getString("res");
+                //msg_reserva = jsonObj.getString("msg");
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg){  delegate.asyncCompleteReserva(true);  }
+
+    }
+
+
+
+    public void asyncCompleteReserva(boolean success) {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog1.dismiss();
+                dialog_hora.dismiss();
+                dialog_pes.dismiss();
+                dialog_obs.dismiss();
+                dialog_conf.dismiss();
+                dialog_loading.dismiss();
+                    final Dialog dialog_final = new Dialog(Restaurante_main.this);
+                    dialog_final.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog_final.setContentView(R.layout.dialog_final);
+                    TextView tx_fdata = (TextView) dialog_final.findViewById(R.id.tv_fdata);
+                    TextView tx_fhora= (TextView) dialog_final.findViewById(R.id.tv_fhora);
+                    TextView tx_fnome = (TextView) dialog_final.findViewById(R.id.tv_fnome);
+                    TextView tx_ftele = (TextView) dialog_final.findViewById(R.id.tv_ftelefone);
+                    TextView tx_femail = (TextView) dialog_final.findViewById(R.id.tv_femail);
+                    TextView tx_fobs = (TextView) dialog_final.findViewById(R.id.tv_fobs);
+
+                    tx_fdata.setText(reportDate);
+                    String aux_pes;
+                    if(sel_nr_pes.equals("1")){
+                        aux_pes = getString(R.string.pessoa);
+                    }else{
+                        aux_pes = getString(R.string.pessoas);
+                    }
+                    tx_fhora.setText(sel_hora+" "+sel_nr_pes+" "+aux_pes);
+                    tx_fnome.setText(sel_nome);
+                    tx_ftele.setText(sel_telefone);
+                    tx_femail.setText(sel_email);
+                    tx_fobs.setText(sel_obs);
+                    //bt_reserva.setVisibility(View.GONE);
+                    //bt_voucher.setVisibility(View.VISIBLE);
+                    dialog_final.show();
+
+            }
+        }, 7000);
     }
 
 }

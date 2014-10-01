@@ -10,10 +10,10 @@ android:layout_height="match_parent">
         android:id="@+id/searchView"
         android:layout_gravity="center_horizontal" />
 
-    <pt.menuguru.menuguru6.BounceListView
+    <pt.menuguru.menuguru6.Utils.BounceListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/listV_localizacao"
         android:choiceMode="singleChoice">
-    </pt.menuguru.menuguru6.BounceListView>
+    </pt.menuguru.menuguru6.Utils.BounceListView>
 </LinearLayout>
