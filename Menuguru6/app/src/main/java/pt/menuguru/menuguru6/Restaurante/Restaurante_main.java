@@ -328,7 +328,8 @@ public class Restaurante_main extends FragmentActivity {
                     menu.setId_rest(rest_id);
                     menu.setDestaque(c.getString("destaque"));
                     menu.setDescricao(c.getString("descricao"));
-
+                    menu.setHora_minimo_antedencia_especial(jsonObj.getString("hora_minimo_antedencia_especial"));
+                    //menu.setHora_minimo_antedencia_especial(c.getString("hora_minimo_antedencia_especial"));
                     if (menu.getDestaque().equalsIgnoreCase("1"))
                         destaque = true;
 
@@ -338,6 +339,8 @@ public class Restaurante_main extends FragmentActivity {
                         menu.setPrecoAntigo(c.getString("precoespant"));
                         menu.setEspecialFita(c.getString("especial_um_fita"));
                         menu.setDesconto(c.getString("desconto"));
+
+
                     }
 
                     some_list.add(menu);
@@ -925,6 +928,7 @@ public class Restaurante_main extends FragmentActivity {
                     //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
                     myIntent.putExtra("rest_cartao_id", "" + some_list.get(position*2).getDb_id());
                     myIntent.putExtra("rest_id", ""+some_list.get(position*2).getId_rest());
+                    myIntent.putExtra("hora_min_reserva", some_list.get(position*2).getHora_minimo_antedencia_especial());
 
                     startActivity(myIntent);
 
