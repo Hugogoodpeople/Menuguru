@@ -18,6 +18,15 @@ public class Restaurante  implements Parcelable {
     public String mediarating= "0";
     public String cidade= "0";
     public String cosinhas = "";
+    public String hora_minimo_antedencia_mesa = "";
+
+    public String getHora_minimo_antedencia_mesa() {
+        return hora_minimo_antedencia_mesa;
+    }
+
+    public void setHora_minimo_antedencia_mesa(String hora_minimo_antedencia_mesa) {
+        this.hora_minimo_antedencia_mesa = hora_minimo_antedencia_mesa;
+    }
 
     public String getPrecoMedio() {
         return precoMedio;

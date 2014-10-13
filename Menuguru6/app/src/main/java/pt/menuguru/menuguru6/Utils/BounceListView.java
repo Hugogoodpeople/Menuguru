@@ -1,4 +1,4 @@
-package pt.menuguru.menuguru6;
+package pt.menuguru.menuguru6.Utils;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -7,7 +7,7 @@ import android.widget.ListView;
 
 public class BounceListView extends ListView
 {
-    public static final int MAX_Y_OVERSCROLL_DISTANCE = 100;
+    public static final int MAX_Y_OVERSCROLL_DISTANCE = 50;
 
     private Context mContext;
     private int mMaxYOverscrollDistance;

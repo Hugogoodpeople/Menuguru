@@ -4,7 +4,10 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,11 +18,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -58,6 +63,7 @@ import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.Horario_Especial;
 import pt.menuguru.menuguru6.Utils.Menu_Especial;
 import pt.menuguru.menuguru6.Utils.Nr_Pessoas_Especial;
+import pt.menuguru.menuguru6.gif.decoder.GifRun;
 
 import static android.R.layout.simple_list_item_1;
 
@@ -507,7 +513,9 @@ public class MenuEspecial_nos_especiais extends Activity {
         TextView tx_tele = (TextView) dialog_loading.findViewById(R.id.tv_telefone);
         TextView tx_email = (TextView) dialog_loading.findViewById(R.id.tv_email);
         TextView tx_obs = (TextView) dialog_loading.findViewById(R.id.tv_obs);
-
+        SurfaceView v = (SurfaceView) dialog_pes.findViewById(R.id.surfaceView_loading);
+        GifRun w = new  GifRun();
+        w.LoadGiff(v, this, R.drawable.loading2);
         tx_data.setText(reportDate);
         String aux_pes;
         if(sel_nr_pes.equals("1")){
