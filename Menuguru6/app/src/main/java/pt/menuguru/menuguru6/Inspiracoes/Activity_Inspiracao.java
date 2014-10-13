@@ -197,7 +197,6 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
         return false;
     }
 
-
     /*
      * Preparing the list data
      */

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Menuguru</string>
+    <string name="T_recuperar_pass">Retrieve password</string>
+    <string name="aberto">Open now</string>
+    <string name="adicionar_lista">Add list</string>
+    <string name="ambiente">Décor</string>
+    <string name="ant">Previous</string>
+    <string name="avaliar">Evaluate</string>
+    <string name="avalie_aqui" translatable="false">Evaluate their visit here</string>
+    <string name="bom">Good</string>
+    <string name="bt_face">Log in with Facebook</string>
+    <string name="bt_iniciar">Log in</string>
+    <string name="cancelar">Cancel</string>
+    <string name="cod_invalido">Invalid code. Try again</string>
+    <string name="comentarios">Comments</string>
+    <string name="como">How\nit works?</string>
+    <string name="conf">Confirm the data to carry your reservation</string>
+    <string name="conf_email">Please check your email to confirm your registration.</string>
+    <string name="confirmar">Confirm</string>
+    <string name="cozinha">Cuisine</string>
+    <string name="definicao" translatable="false">Settings</string>
+    <string name="desc_criar_registo">By clicking sign up, you agree to our Menu Guru Terms and that you have read our Privacy Policy.</string>
+    <string name="desc_erro_mail">Please check your email, validate the activation link or retrieve your password.</string>
+    <string name="descobs">Would you like to make a recommendation to the restaurant? Write it up here.</string>
+    <string name="destaque">Highlights</string>
+    <string name="detalhes_reserva">Booking details</string>
+    <string name="dia" translatable="false"></string>
+    <string name="dias">DAYS</string>
+    <string name="ementa_desactualizada">Outdated menu</string>
+    <string name="enviar">Send</string>
+    <string name="erro_data_ant">It is not possible to make a reservation at a date prior to the current.</string>
+    <string name="erro_data_dep">We're sorry but there are no tables available for this day, please try a new date.</string>
+    <string name="erro_email">Invalid email address</string>
+    <string name="erro_hora">Select an hour</string>
+    <string name="erro_pes">How many people are coming?</string>
+    <string name="escreva_baixo">Write down your opinion</string>
+    <string name="esq_pass">Forgot password?</string>
+    <string name="excelente">Excellent</string>
+    <string name="fechado">Closed</string>
+    <string name="filtrosavancados">Advanced Filters</string>
+    <string name="gravar">Save</string>
+    <string name="guardar_agenda">We are just booking your table in the restaurant's agenda.</string>
+    <string name="horas">HR</string>
+    <string name="horrivel" translatable="false">Horrible</string>
+    <string name="idealpara">Ideal for</string>
+    <string name="idioma">Language</string>
+    <string name="incorrecto">Invalid email address or password.</string>
+    <string name="info_rest">Useful information</string>
+    <string name="inicio">Home</string>
+    <string name="inserir_email">Please enter your email address.</string>
+    <string name="inserir_nome">To make a reservation, please enter your name</string>
+    <string name="inserir_telefone">To make a reservation, please enter your phone</string>
+    <string name="limpar">Delete</string>
+    <string name="listas">Lists</string>
+    <string name="mau" translatable="false">Bad</string>
+    <string name="min"></string>
+    <string name="min_pass">Password must be at least 6 characters.</string>
+    <string name="morada_errada">Wrong address</string>
+    <string name="muito_bom" translatable="false">Very good</string>
+    <string name="n_exite_email">Do you want to create it now?</string>
+    <string name="nao">No</string>
+    <string name="nao_encontrado">There are no results for this search.</string>
+    <string name="o_que_esta_errado" translatable="false">What's wrong?</string>
+    <string name="o_que_pretende_pesquisar">What do you want to search?</string>
+    <string name="oferta_exp">Offer expires</string>
+    <string name="ola">Hello</string>
+    <string name="oops_favoritos">There are no results for this search.</string>
+    <string name="opcoes">options</string>
+    <string name="ordenar">Order</string>
+    <string name="ou">Or</string>
+    <string name="outros_detalhes">Other details (Optional)</string>
+    <string name="partilhar">Share</string>
+    <string name="pesquisa">Search</string>
+    <string name="pessoa">person</string>
+    <string name="pessoas">People</string>
+    <string name="prato">Dish</string>
+    <string name="preco">Price</string>
+    <string name="precos">prices</string>
+    <string name="preencher">Fill in the data to access your account.</string>
+    <string name="prencher_campos">You must complete all fields.</string>
+    <string name="procurar">Search</string>
+    <string name="registo">Sign up for Menu Guru</string>
+    <string name="reportar_erro">Report error</string>
+    <string name="reserva">Table booking for</string>
+    <string name="reservas">Bookings</string>
+    <string name="restaurante">Restaurant</string>
+    <string name="sec">SEC</string>
+    <string name="secs">SEC</string>
+</resources>
