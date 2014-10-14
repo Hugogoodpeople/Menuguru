@@ -128,5 +128,23 @@
     </string-array>
     <string name="para_quando">Wann möchten Sie einen Tisch reservieren?</string>
 
+    <string-array name="defenicoes_array">
+        <item>Mein Konto</item>
+        <item>Favoriten</item>
+        <item>Sprache</item>
+        <item>Über Menü-Guru</item>
+        <item>Bedingungen und Konditionen</item>
+        <item>Datenschutz</item>
+        <item>Teilen</item>
+        <item>Sagen Sie uns, was Sie denken</item>
+        <item>Bewerten Sie unsere Anwendung</item>
+    </string-array>
+
+    <string-array name="headersdefenicoes">
+        <item>Profil</item>
+        <item>Info</item>
+        <item>Rückkopplung</item>
+    </string-array>
+
 
 </resources>

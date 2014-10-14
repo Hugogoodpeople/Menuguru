@@ -128,4 +128,22 @@
     </string-array>
     <string name="para_quando">Vorrei prenotare un tavolo?</string>
 
+    <string-array name="defenicoes_array">
+        <item>Il mio conto</item>
+        <item>Preferiti</item>
+        <item>Lingua</item>
+        <item>A proposito di Guru Menu</item>
+        <item>Termini e Condizioni</item>
+        <item>Informativa sulla Privacy</item>
+        <item>Promuovere</item>
+        <item>Dicci cosa ne pensi</item>
+        <item>Vota la nostra applicazione</item>
+    </string-array>
+
+    <string-array name="headersdefenicoes">
+        <item>Profilo</item>
+        <item>Info</item>
+        <item>Feedback</item>
+    </string-array>
+
 </resources>

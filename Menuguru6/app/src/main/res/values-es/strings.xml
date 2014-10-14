@@ -128,4 +128,22 @@
     </string-array>
     <string name="para_quando">¿Cuándo quieres reservar una mesa?</string>
 
+    <string-array name="defenicoes_array">
+        <item>Mi cuenta</item>
+        <item>Favoritos</item>
+        <item>Idioma</item>
+        <item>Quién es Menu Guru</item>
+        <item>Terminos y Condiciones</item>
+        <item>Politica de Privacidad</item>
+        <item>Que corra la voz</item>
+        <item>Dinos lo que piensas</item>
+        <item>Classifica a App</item>
+    </string-array>
+
+    <string-array name="headersdefenicoes">
+        <item>Perfil</item>
+        <item>Info</item>
+        <item>Feedback</item>
+    </string-array>
+
 </resources>

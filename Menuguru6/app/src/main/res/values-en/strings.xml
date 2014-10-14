@@ -130,4 +130,23 @@
     <string name="para_quando">When would you like to book a table?</string>
     <string name="perto_de_mim">Near me now</string>
 
+
+    <string-array name="defenicoes_array">
+        <item>My account</item>
+        <item>Favourites</item>
+        <item>Language</item>
+        <item>About Menu Guru</item>
+        <item>Terms and Conditions</item>
+        <item>Privacy Policy</item>
+        <item>Spread the word</item>
+        <item>Tell us what you think about us</item>
+        <item>Rate our App</item>
+    </string-array>
+
+    <string-array name="headersdefenicoes">
+        <item>Profile</item>
+        <item>Info</item>
+        <item>Feedback</item>
+    </string-array>
+
 </resources>

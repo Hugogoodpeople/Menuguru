@@ -129,4 +129,22 @@
     </string-array>
     <string name="para_quando">Souhaitez-vous réserver une table?</string>
 
+    <string-array name="defenicoes_array">
+        <item>Mon compte</item>
+        <item>Favoris</item>
+        <item>Langue</item>
+        <item>Qui est Menu Guru</item>
+        <item>Térmes et Conditions</item>
+        <item>Politique de Privacité</item>
+        <item>Faites passer le mot</item>
+        <item>Dites-nous ce que vous pensez</item>
+        <item>Evaluez la App</item>
+    </string-array>
+
+    <string-array name="headersdefenicoes">
+        <item>Profil</item>
+        <item>Info</item>
+        <item>Feedback</item>
+    </string-array>
+
 </resources>
