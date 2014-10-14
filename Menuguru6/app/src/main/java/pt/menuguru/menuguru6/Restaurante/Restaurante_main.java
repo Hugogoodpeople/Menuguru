@@ -76,6 +76,7 @@ import pt.menuguru.menuguru6.Utils.Menu_do_restaurante;
 import pt.menuguru.menuguru6.Utils.Nr_Pessoas_Especial;
 import pt.menuguru.menuguru6.Utils.Nr_pessoas_mesa;
 import pt.menuguru.menuguru6.Utils.Restaurante;
+import pt.menuguru.menuguru6.Utils.User;
 import pt.menuguru.menuguru6.Utils.Utils;
 import pt.menuguru.menuguru6.gif.decoder.GifRun;
 
@@ -1728,9 +1729,24 @@ public class Restaurante_main extends FragmentActivity {
                 JSONObject dict = new JSONObject();
                 JSONObject jsonObj = new JSONObject();
 
+                User utilizador = Globals.getInstance().getUser();
+
+                String id_face = "";
+                String UserId = "";
+
+                if (utilizador != null)
+                {
+                    id_face = utilizador.getId_face();
+                    UserId = utilizador.getUserid();
+                }else
+                {
+                    id_face = "0";
+                    UserId = "0";
+                }
+
                 dict.put("rest_id", rest_id);
-                dict.put("face_id", Globals.getInstance().getUser().getId_face());
-                dict.put("user_id", Globals.getInstance().getUser().getUserid());
+                dict.put("face_id", id_face);
+                dict.put("user_id", UserId);
 
                 // tenho de enviar lat, long, data, hora, cidade, lang
 

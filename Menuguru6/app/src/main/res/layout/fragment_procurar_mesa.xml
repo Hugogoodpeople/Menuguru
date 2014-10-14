@@ -43,7 +43,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Para quando gostaria de reservar mesa?"
+            android:text="@string/para_quando"
             android:id="@+id/nomeRestaurante"
             android:layout_marginTop="20dp"
             android:layout_alignParentTop="true"
@@ -84,7 +84,7 @@
             android:layout_alignStart="@+id/button_data"
             android:layout_alignRight="@+id/nomeRestaurante"
             android:layout_alignEnd="@+id/nomeRestaurante"
-            android:text="Agora"
+            android:text="@string/agora"
             android:textColor="@color/white" />
 
         <RelativeLayout
@@ -148,7 +148,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sem data especifica"
+                android:text="@string/sem_data_especifica"
                 android:id="@+id/edit_criar_sexo"
                 android:layout_marginTop="20dp"
                 android:layout_below="@+id/numero_pessoas"
@@ -160,7 +160,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Encontrar mesa"
+                android:text="@string/encontrar_mesa"
                 android:id="@+id/button8"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="20dp"

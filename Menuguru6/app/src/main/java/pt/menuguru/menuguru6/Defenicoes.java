@@ -7,10 +7,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,6 +31,7 @@ import com.facebook.Session;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Locale;
 
 import pt.menuguru.menuguru6.Favoritos.Favoritos_gerir;
 import pt.menuguru.menuguru6.Utils.Globals;
@@ -247,6 +250,7 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
         mAdapter =myListAdapter;
 
         //mAdapter = new ArrayAdapter<String>( getActivity(), android.R.layout.simple_list_item_1,android.R.id.text1 ,some_array);
+
 
     }
 

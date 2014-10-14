@@ -39,7 +39,7 @@
     <string name="fechado">Cerrado</string>
     <string name="filtrosavancados">Filtros avanzados</string>
     <string name="gravar">Salvar</string>
-    <string name="guardar_agenda">Estamos reservando tu mesa en l'agenda del restaurante.</string>
+    <string name="guardar_agenda">Estamos reservando tu mesa en l\'agenda del restaurante.</string>
     <string name="horas">HRS</string>
     <string name="horrivel" translatable="false">Horrible</string>
     <string name="idealpara">Ideal para</string>
@@ -85,4 +85,47 @@
     <string name="restaurante">Restaurante</string>
     <string name="sec">SEG</string>
     <string name="secs">SEG</string>
+    <string name="seg">Siguiente</string>
+    <string name="seja_o_primeiro_avaliar">Sea usted el primero en calificar este restaurante</string>
+    <string name="seja_o_primeiro_c">Sea usted el primero en calificar este restaurante</string>
+    <string name="sel_hora">Seleccionar la hora</string>
+    <string name="sel_pessoa">Seleccione el número de personas</string>
+    <string name="selobs">Comentarios</string>
+    <string name="sem_comentarios">Sin comentarios</string>
+    <string name="sem_coments">Sin comentarios</string>
+    <string name="sim">Si</string>
+    <string name="solicitar">Obtener código de validación en el restaurante</string>
+    <string name="t_exite_email">Correo electrónico no registrada</string>
+    <string name="terminar_sessao">¿Estás seguro de que quieres cerrar la sesión?</string>
+    <string name="texto_recuperar">Por favor ingresa tu email.</string>
+    <string name="tit_email">Correo electrónico registrado</string>
+    <string name="title_activity_criar_user">Registrate</string>
+    <string name="title_activity_voucher">Voucher</string>
+    <string name="todos">Todos</string>
+    <string name="tranf_favoritos">¿Quieres descargar los favoritos de una cuenta de Facebook a tu cuenta Menu Guru?</string>
+    <string name="ver_todos">Ver todos</string>
+    <string name="votacoes">Evaluaciones</string>
+    <string name="Especias" translatable="false">Especiales</string>
+    <string name="Reservas">Reserva</string>
+    <string name="sugestoes">Sugerencias</string>
+    <string name="agora">Ahora</string>
+    <string name="sem_data_especifica">Sin fecha específica</string>
+    <string name="encontrar_mesa">Encontrar mesa</string>
+    <string name="menus">Menús</string>
+    <string name="perto_de_mim">Cerca de mí</string>
+
+
+    <string-array name="pesquisa">
+        <item>Filtros avanzados</item>
+        <item>Inspiración</item>
+        <item>Cancelar</item>
+    </string-array>
+    <string name="title_activity_inspiracao">Inspiración</string>
+
+    <string-array name="refeicoes">
+        <item>Almuerzo</item>
+        <item>Cena</item>
+    </string-array>
+    <string name="para_quando">¿Cuándo quieres reservar una mesa?</string>
+
 </resources>

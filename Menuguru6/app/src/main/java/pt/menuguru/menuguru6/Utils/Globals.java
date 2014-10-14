@@ -1,15 +1,19 @@
 package pt.menuguru.menuguru6.Utils;
 
+import android.content.res.Resources;
+
+import pt.menuguru.menuguru6.R;
+
 /**
  * Created by hugocosta on 13/08/14.
  */
 public class Globals
 {
-    private static Globals   _instance;
+    private static Globals _instance;
     public String latitude = "0";
     public String longitude = "0";
     public String cidedade_id = "0";
-    public String cidadeÇ_nome = "Perto de min";
+    public String cidadeÇ_nome = "Perto de mim" ;
     public User user ;
     public String lingua = "pt";
     public TopTitulosFiltros[] filtros;
@@ -28,9 +32,7 @@ public class Globals
         return lingua;
     }
 
-    public void setLingua(String lingua) {
-        this.lingua = lingua;
-    }
+    public void setLingua(String lingua) { this.lingua = lingua; }
 
     public User getUser() {
         return user;

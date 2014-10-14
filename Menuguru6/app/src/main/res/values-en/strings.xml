@@ -30,7 +30,7 @@
     <string name="ementa_desactualizada">Outdated menu</string>
     <string name="enviar">Send</string>
     <string name="erro_data_ant">It is not possible to make a reservation at a date prior to the current.</string>
-    <string name="erro_data_dep">We're sorry but there are no tables available for this day, please try a new date.</string>
+    <string name="erro_data_dep">We\'re sorry but there are no tables available for this day, please try a new date.</string>
     <string name="erro_email">Invalid email address</string>
     <string name="erro_hora">Select an hour</string>
     <string name="erro_pes">How many people are coming?</string>
@@ -40,7 +40,7 @@
     <string name="fechado">Closed</string>
     <string name="filtrosavancados">Advanced Filters</string>
     <string name="gravar">Save</string>
-    <string name="guardar_agenda">We are just booking your table in the restaurant's agenda.</string>
+    <string name="guardar_agenda">We are just booking your table in the restaurant\'s agenda.</string>
     <string name="horas">HR</string>
     <string name="horrivel" translatable="false">Horrible</string>
     <string name="idealpara">Ideal for</string>
@@ -61,7 +61,7 @@
     <string name="n_exite_email">Do you want to create it now?</string>
     <string name="nao">No</string>
     <string name="nao_encontrado">There are no results for this search.</string>
-    <string name="o_que_esta_errado" translatable="false">What's wrong?</string>
+    <string name="o_que_esta_errado" translatable="false">What\'s wrong?</string>
     <string name="o_que_pretende_pesquisar">What do you want to search?</string>
     <string name="oferta_exp">Offer expires</string>
     <string name="ola">Hello</string>
@@ -87,4 +87,47 @@
     <string name="restaurante">Restaurant</string>
     <string name="sec">SEC</string>
     <string name="secs">SEC</string>
+    <string name="seg">Next</string>
+    <string name="seja_o_primeiro_avaliar">Be the first to rate this restaurant</string>
+    <string name="seja_o_primeiro_c">Be the first to rate this restaurant</string>
+    <string name="sel_hora">Select an hour</string>
+    <string name="sel_pessoa">How many people are coming?</string>
+    <string name="selobs">Comments</string>
+    <string name="sem_comentarios">No comment</string>
+    <string name="sem_coments">No comment</string>
+    <string name="sim">Yes</string>
+    <string name="solicitar">Get code from restaurant to redeem</string>
+    <string name="t_exite_email">Email not registered</string>
+    <string name="terminar_sessao">Are you sure you want to log out?</string>
+    <string name="texto_recuperar">Please enter your email.</string>
+    <string name="tit_email">Email already registered</string>
+    <string name="title_activity_criar_user">Sign up</string>
+    <string name="title_activity_voucher">Voucher</string>
+    <string name="todos">All</string>
+    <string name="tranf_favoritos">Would you like to add the Favorites of a Facebook account to your Menu Guru account?</string>
+    <string name="ver_todos" translatable="false">View all</string>
+    <string name="votacoes">Evaluations</string>
+    <string name="Especias" translatable="false">Special</string>
+    <string name="Reservas">Booking</string>
+    <string name="sugestoes">Suggestions</string>
+    <string name="agora">Now</string>
+    <string name="sem_data_especifica">Without specific date</string>
+    <string name="encontrar_mesa">Find a table</string>
+    <string name="menus">Menus</string>
+
+
+    <string-array name="pesquisa">
+        <item>Advanced Filters</item>
+        <item>Inspiration</item>
+        <item>Cancel</item>
+    </string-array>
+    <string name="title_activity_inspiracao">Inspiration</string>
+
+    <string-array name="refeicoes">
+        <item>Lunch</item>
+        <item>Dinner</item>
+    </string-array>
+    <string name="para_quando">When would you like to book a table?</string>
+    <string name="perto_de_mim">Near me now</string>
+
 </resources>

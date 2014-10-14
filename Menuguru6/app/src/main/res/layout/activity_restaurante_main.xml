@@ -22,7 +22,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Reservar"
+        android:text="@string/Reservas"
         android:id="@+id/bt_reservar_mesa"
         android:background="@color/dourado"
         android:textColor="@color/white"

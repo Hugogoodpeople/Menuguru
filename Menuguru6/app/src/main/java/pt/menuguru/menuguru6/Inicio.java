@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -299,7 +300,14 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         setHasOptionsMenu(true);
 
         ActionBar ab = getActivity().getActionBar();
-        ab.setTitle(Globals.getInstance().getCidadeÇ_nome());
+
+        String cidade = Globals.getInstance().getCidadeÇ_nome();
+        String cidade_id = Globals.getInstance().getCidedade_id();
+        if(cidade_id.equalsIgnoreCase("0")) {
+            cidade = getString(R.string.perto_de_mim);
+        }
+
+        ab.setTitle(cidade);
        // ab.setSubtitle("sub-title");
 
     }

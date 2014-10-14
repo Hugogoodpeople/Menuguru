@@ -85,4 +85,48 @@
     <string name="restaurante">Restaurant</string>
     <string name="sec">SEK</string>
     <string name="secs">SEK</string>
+    <string name="seg">Nächste</string>
+    <string name="seja_o_primeiro_avaliar">Die erste sein, um dieses Restaurant zu bewerten</string>
+    <string name="seja_o_primeiro_c" translatable="false">Die erste sein, um dieses Restaurant zu bewerten</string>
+    <string name="sel_hora">Wählen Sie eine Stunde</string>
+    <string name="sel_pessoa">Wählen Sie die Anzahl der Personen</string>
+    <string name="selobs">Kommentare</string>
+    <string name="sem_comentarios">Kein Kommentar</string>
+    <string name="sem_coments" translatable="false">Kein Kommentar</string>
+    <string name="sim">Ja</string>
+    <string name="solicitar">Ottenere il codice dal ristorante di riscattare</string>
+    <string name="t_exite_email">E-Mail nicht registriert</string>
+    <string name="terminar_sessao">Bist du sicher, dass du dich abmelden möchtest?</string>
+    <string name="texto_recuperar">Bitte geben Sie Ihre e-Mail.</string>
+    <string name="tit_email">E-Mail bereits registriert</string>
+    <string name="title_activity_criar_user">Registrieren</string>
+    <string name="title_activity_voucher">Voucher</string>
+    <string name="todos">Alle</string>
+    <string name="tranf_favoritos">Die Favoriten von einem Facebook-Konto auf Ihr Konto im Menü Guru herunterladen?</string>
+    <string name="ver_todos">Alle anzeigen</string>
+    <string name="votacoes">Auswertungen</string>
+    <string name="Especias">Spezielle</string>
+    <string name="Reservas">Reservieren</string>
+    <string name="sugestoes">Vorschläge</string>
+    <string name="agora">Jetzt</string>
+    <string name="sem_data_especifica">Ohne bestimmtes Datum</string>
+    <string name="encontrar_mesa">Finden eine Tish</string>
+    <string name="menus">Menüs</string>
+    <string name="perto_de_mim">In der Nähe von mir</string>
+
+
+    <string-array name="pesquisa">
+        <item>Erweiterte Filter</item>
+        <item>Inspiration</item>
+        <item>Abbrechen</item>
+    </string-array>
+    <string name="title_activity_inspiracao">Inspiration</string>
+
+    <string-array name="refeicoes">
+        <item>Mittagessen</item>
+        <item>Abendessen</item>
+    </string-array>
+    <string name="para_quando">Wann möchten Sie einen Tisch reservieren?</string>
+
+
 </resources>

@@ -6,6 +6,7 @@ package pt.menuguru.menuguru6.Utils;
 public class User {
 
     public String userid = "0";
+    public String id_face = "0";
     public String email = "";
     public String pnome = "";
     public String snome = "";
@@ -15,7 +16,7 @@ public class User {
     public String pass = "";
     public String tipoconta = "";
     public Boolean news = true;
-    public String id_face = "0";
+
 
     public String getId_face() { return id_face;  }
 

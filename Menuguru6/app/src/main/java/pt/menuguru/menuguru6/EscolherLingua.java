@@ -107,6 +107,10 @@ public class EscolherLingua extends Activity
 
     }
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -209,6 +213,7 @@ public class EscolherLingua extends Activity
 
     public void fechar()
     {
+
         finish();
         this.overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
 
@@ -224,10 +229,14 @@ public class EscolherLingua extends Activity
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
         // esta parte serve para refrescar a propria actividade criando uma nova
+
+
         /*
-        Intent refresh = new Intent(this, LanguageMenu.class);
+        finish();
+        Intent refresh = new Intent(this, EscolherLingua.class);
         startActivity(refresh);
         */
+
 
         Globals.getInstance().setLingua(lang);
 
@@ -236,7 +245,14 @@ public class EscolherLingua extends Activity
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("lingua", lang);
         editor.commit();
+
+
+        Intent i = getBaseContext().getPackageManager()
+                .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
     }
+
 
 
 

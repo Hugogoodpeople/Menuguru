@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -16,12 +18,15 @@ import android.support.v4.app.FragmentActivity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.User;
@@ -101,6 +106,10 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
         }
 
+        setLocale(lingua);
+        //Globals.getInstance().setCidadeÇ_nome(getString(R.string.perto_de_mim));
+
+
         setContentView(R.layout.activity_main);
 
 
@@ -150,6 +159,33 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
             Toast toast = Toast.makeText(this, "Active a geolocalização", duration);
             toast.show();
         }
+
+
+    }
+
+    public void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        // esta parte serve para refrescar a propria actividade criando uma nova
+
+        /*
+        finish();
+        Intent refresh = new Intent(this, MainActivity.class);
+        startActivity(refresh);
+        */
+
+        Globals.getInstance().setLingua(lang);
+
+/*
+        preferences = this.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("lingua", lang);
+        editor.commit();
+        */
     }
 
 

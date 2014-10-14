@@ -5,8 +5,10 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -22,6 +24,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+import java.util.Locale;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.Globals;
@@ -71,6 +75,14 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Resources res = this.getResources();
+        // Change locale settings in the app.
+        DisplayMetrics dm = res.getDisplayMetrics();
+        android.content.res.Configuration conf = res.getConfiguration();
+        conf.locale = new Locale(Globals.get_instance().getLingua());
+        res.updateConfiguration(conf, dm);
+
         setContentView(R.layout.activity_localizacao);
 
         mSearchView=(SearchView) findViewById(R.id.searchView);
@@ -82,6 +94,7 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setTitle(Globals.getInstance().getCidadeÇ_nome());
         new AsyncTaskParseJson(this).execute();
+
 
     }
 
@@ -199,7 +212,7 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
 
                     Locais locall = new Locais();
                     if(i==-1){
-                    locall.nome = "Perto de mim";
+                    locall.nome = getString(R.string.perto_de_mim);
                     locall.db_id = "0";
                     local[0] = locall;
                     }else{

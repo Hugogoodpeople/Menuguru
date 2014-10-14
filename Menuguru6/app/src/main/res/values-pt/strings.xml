@@ -19,7 +19,7 @@
     <string name="confirmar">Confirmar</string>
     <string name="cozinha">Cozinha</string>
     <string name="definicao" translatable="false">Definições</string>
-    <string name="desc_criar_registo">Ao registar a sua conta está a concordar com os nossos Termos & Condições e com a nossa Política de Privacidade.</string>
+    <string name="desc_criar_registo">Ao registar a sua conta está a concordar com os nossos Termos e Condições e com a nossa Política de Privacidade.</string>
     <string name="desc_erro_mail">Por favor verifique a sua caixa de email e valide-o ou recupere a password.</string>
     <string name="descobs">Quer fazer alguma recomendação ao restaurante? Escreva-a aqui.</string>
     <string name="destaque" translatable="false">Destaques</string>
@@ -100,10 +100,10 @@
     <string name="sec">SEC</string>
     <string name="secs">SEC</string>
     <string name="seg">Seguinte</string>
-    <string name="seja_o_primeiro_avaliar" translatable="false">Seja o primeiro a avaliar este resturante</string>
+    <string name="seja_o_primeiro_avaliar" translatable="false">Seja o primeiro a avaliar este restaurante</string>
     <string name="seja_o_primeiro_c" translatable="false">Seja o primeiro a avaliar este restaurante</string>
     <string name="sel_hora">Selecione a hora</string>
-    <string name="sel_pessoa">Selecione o numero de pessoas</string>
+    <string name="sel_pessoa">Selecione o número de pessoas</string>
     <string name="selobs">Observações</string>
     <string name="sem_comentarios" translatable="false">Sem comentários</string>
     <string name="sem_coments" translatable="false">Sem comentários</string>
@@ -112,9 +112,9 @@
     <string name="t_exite_email">Email sem registo</string>
     <string name="terminar_sessao">Tem a certeza que quer terminar sessão?</string>
     <string name="texto_recuperar">Por favor introduza o seu email.</string>
-    <string name="tit_email">Email já registado.</string>
+    <string name="tit_email">Email já registado</string>
     <string name="title_activity_criar_user">Criar Registo</string>
-    <string name="title_activity_inspiracao" translatable="false">Inspiracao</string>
+    <string name="title_activity_inspiracao" translatable="false">Inspiração</string>
     <string name="title_activity_localizacao" translatable="false">Localizacao</string>
     <string name="title_activity_menu_especial">MenuEspecial</string>
     <string name="title_activity_pesquisa_avancada" translatable="false">Pesquisa_avancada</string>
@@ -128,4 +128,20 @@
     <string name="ver_todos" translatable="false">Ver todos</string>
     <string name="ant">Anterior</string>
     <string name="bt_face">Entrar com Facebook</string>
+    <string name="votacoes">Avaliações</string>
+    <string name="Especias">Especias</string>
+    <string name="Reservas" translatable="false">Reservar</string>
+    <string name="sugestoes">Sugestões</string>
+    <string name="agora">Agora</string>
+    <string name="sem_data_especifica">Sem data específica</string>
+    <string name="encontrar_mesa">Encontrar </string>
+    <string name="menus">Menus</string>
+    <string name="perto_de_mim">Perto de mim</string>
+
+    <string-array name="pesquisa">
+        <item>Filtros Avançados</item>
+        <item>Inspiração</item>
+        <item>Cancelar</item>
+    </string-array>
+    <string name="para_quando">Para quando gostaria de reservar mesa?</string>
 </resources>

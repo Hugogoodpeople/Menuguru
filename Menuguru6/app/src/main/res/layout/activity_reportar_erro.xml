@@ -165,7 +165,7 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:text="Enviar"
+        android:text="@string/enviar"
         android:id="@+id/button_enviar_erros"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"

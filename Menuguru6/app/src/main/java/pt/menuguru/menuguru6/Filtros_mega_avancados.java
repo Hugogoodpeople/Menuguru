@@ -5,9 +5,11 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,6 +30,8 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Locale;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.AvancadosObject;
@@ -363,7 +367,7 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
             JSONObject dict = new JSONObject();
             JSONObject jsonObj = new JSONObject();
 
-            dict.put("lang","pt");
+            dict.put("lang",Globals.getInstance().getLingua());
 
             String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
 

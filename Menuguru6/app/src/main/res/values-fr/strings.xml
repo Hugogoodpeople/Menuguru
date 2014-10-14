@@ -21,18 +21,18 @@
     <string name="confirmar">Confirmer</string>
     <string name="cozinha">Cuisine</string>
     <string name="definicao">Définitions</string>
-    <string name="desc_criar_registo">En cliquant sur s'inscrire, vous acceptez nos Conditions d'utilisation du Menu Guru et reconnaissez avoir pris connaissance de notre Politique de Confidentialité.</string>
-    <string name="desc_erro_mail">Veuillez consulter votre courrier électronique, valider le lien d'activation ou récupérer votre mot de passe.</string>
+    <string name="desc_criar_registo">En cliquant sur s\'inscrire, vous acceptez nos Conditions d\'utilisation du Menu Guru et reconnaissez avoir pris connaissance de notre Politique de Confidentialité.</string>
+    <string name="desc_erro_mail">Veuillez consulter votre courrier électronique, valider le lien d\'activation ou récupérer votre mot de passe.</string>
     <string name="descobs">Souhaitez-vous faire une recommandation au restaurant ? Ecrivez-le ici.</string>
     <string name="destaque">Rehauts</string>
     <string name="detalhes_reserva">Détails de la réservation</string>
     <string name="dias">JOURS</string>
     <string name="ementa_desactualizada">Menu obsolète</string>
     <string name="enviar">Envoyer</string>
-    <string name="erro_data_ant">Il n'est pas possible d'effectuer une réservation à une date antérieure à l'actuel.</string>
-    <string name="erro_data_dep">Nous sommes désolés mais il n'y a pas de tables disponibles pour cette journée, veuillez essayer une nouvelle date.</string>
+    <string name="erro_data_ant">Il n\'est pas possible d\'effectuer une réservation à une date antérieure à l\'actuel.</string>
+    <string name="erro_data_dep">Nous sommes désolés mais il n\'y a pas de tables disponibles pour cette journée, veuillez essayer une nouvelle date.</string>
     <string name="erro_email">Adresse email invalide</string>
-    <string name="erro_hora">Sélectionnez l'heure</string>
+    <string name="erro_hora">Sélectionnez l\'heure</string>
     <string name="erro_pes">Sélectionnez le nombre de personnes</string>
     <string name="escreva_baixo">Écrivez votre opinion</string>
     <string name="esq_pass">Mot de passe oublié?</string>
@@ -54,17 +54,17 @@
     <string name="listas">Listes</string>
     <string name="limpar">Nettoyer</string>
     <string name="mau">Mauvais</string>
-    <string name="min_pass">Le mot de passe doit être d'au moins 6 caractères.</string>
+    <string name="min_pass">Le mot de passe doit être d\'au moins 6 caractères.</string>
     <string name="morada_errada">Adresse erronée</string>
     <string name="muito_bom">Très bien</string>
-    <string name="n_exite_email">Vous voulez l'enregistrer maintenant ?</string>
+    <string name="n_exite_email">Vous voulez l\'enregistrer maintenant ?</string>
     <string name="nao">Nom</string>
-    <string name="nao_encontrado">Il n'y a aucun résultat pour cette recherche.</string>
-    <string name="o_que_esta_errado">Qu'est-ce qui ne va pas?</string>
+    <string name="nao_encontrado">Il n\'y a aucun résultat pour cette recherche.</string>
+    <string name="o_que_esta_errado">Qu\'est-ce qui ne va pas?</string>
     <string name="o_que_pretende_pesquisar">Ce que vous souhaitez rechercher?</string>
     <string name="oferta_exp">Offre expire</string>
     <string name="ola">Salut</string>
-    <string name="oops_favoritos">Il n'y a aucun résultat pour cette recherche.</string>
+    <string name="oops_favoritos">Il n\'y a aucun résultat pour cette recherche.</string>
     <string name="opcoes">options</string>
     <string name="ordenar">Ordre</string>
     <string name="ou">ou</string>
@@ -79,11 +79,54 @@
     <string name="preencher">Remplir les données pour accéder à votre compte.</string>
     <string name="prencher_campos">Vous devez compléter tous les champs.</string>
     <string name="procurar">Rechercher</string>
-    <string name="registo">S'inscrire sur Menu Guru.</string>
+    <string name="registo">S\'inscrire sur Menu Guru.</string>
     <string name="reportar_erro">Signaler une erreur</string>
     <string name="reserva">Réservation de table pour</string>
     <string name="reservas">Réservations</string>
     <string name="restaurante">Restaurant</string>
     <string name="sec">SEC</string>
     <string name="secs">SEC</string>
+    <string name="seg">Prochaine</string>
+    <string name="seja_o_primeiro_avaliar">Soyez le premier à noter ce restaurant</string>
+    <string name="seja_o_primeiro_c">Soyez le premier à noter ce restaurant</string>
+    <string name="sel_hora">Sélectionnez l\'heure</string>
+    <string name="sel_pessoa">Sélectionnez le nombre de personnes</string>
+    <string name="selobs">Commentaires</string>
+    <string name="sem_comentarios">Aucun commentaire</string>
+    <string name="sem_coments">Aucun commentaire</string>
+    <string name="sim">Oui</string>
+    <string name="solicitar">Obtener código de validación en el restaurante</string>
+    <string name="t_exite_email">Courriel non enregistré.</string>
+    <string name="terminar_sessao">Souhaitez-vous vraiment vous déconnecter?</string>
+    <string name="texto_recuperar">Veuillez entrer votre adresse email.</string>
+    <string name="tit_email">E-mail enregistrée</string>
+    <string name="title_activity_criar_user">Inscription</string>
+    <string name="title_activity_voucher">Voucher</string>
+    <string name="todos">Tout</string>
+    <string name="tranf_favoritos">Voulez vous ajouter les favoris d\'un compte Facebook à votre compte Menu Guru?</string>
+    <string name="ver_todos">Voir tous</string>
+    <string name="votacoes">Évaluations</string>
+    <string name="Especias" translatable="false">Spéciaux</string>
+    <string name="Reservas">Réservation</string>
+    <string name="sugestoes">Suggestions</string>
+    <string name="agora">Maintenant</string>
+    <string name="sem_data_especifica">Sans date précise</string>
+    <string name="encontrar_mesa">Trouver une table</string>
+    <string name="menus">Menus</string>
+    <string name="perto_de_mim">Autour de moi</string>
+
+
+    <string-array name="pesquisa">
+        <item>Filtres avancés</item>
+        <item>Inspiration</item>
+        <item>Annuler</item>
+    </string-array>
+    <string name="title_activity_inspiracao">Inspiration</string>
+
+    <string-array name="refeicoes">
+        <item>Déjeuner</item>
+        <item>Dîner</item>
+    </string-array>
+    <string name="para_quando">Souhaitez-vous réserver une table?</string>
+
 </resources>

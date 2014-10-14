@@ -2,6 +2,15 @@
 <resources>
 
     <string name="app_name">Menuguru</string>
+    <string name="para_quando">Para quando gostaria de reservar mesa?</string>
+    <string name="agora">Agora</string>
+    <string name="sem_data_especifica">Sem data especifica</string>
+    <string name="encontrar_mesa">Encontrar mesa</string>
+    <string name="perto_de_mim">Perto de mim</string>
+    <string name="menus">Menus</string>
+    <string name="sugestoes">Sugestões</string>
+    <string name="Especias">Especias</string>
+    <string name="Reservas">Reservar</string>
     <string name="horrivel">Horrível</string>
     <string name="mau">Mau</string>
     <string name="bom">Bom</string>
@@ -22,12 +31,12 @@
     <string name="outros_detalhes">Outros detalhes (Opcional)</string>
     <string name="avalie_aqui">Avalie aqui a sua visita</string>
     <string name="sem_comentarios">Sem comentários</string>
-    <string name="seja_o_primeiro_avaliar">Seja o primeiro a avaliar este resturante</string>
+    <string name="seja_o_primeiro_avaliar">Seja o primeiro a avaliar este restaurante</string>
     <string name="enviar">Enviar</string>
     <string name="comentarios">Comentários</string>
     <string name="resposta" translatable="false">Resposta</string>
     <string name="inicio">Início</string>
-    <string name="votacoes">Avaliaçoes</string>
+    <string name="votacoes">Avaliações</string>
     <string name="reservas">Reservas</string>
     <string name="definicao">Definições</string>
     <string name="destaque">Destaques</string>
@@ -74,7 +83,7 @@
         <item>Sábado</item>
     </string-array>
     <string-array name="refeicoes">
-        <item>Almoço</item>
+        <item>para_quando</item>
         <item>Jantar</item>
     </string-array>
     <string-array name="pesquisa">
@@ -89,7 +98,7 @@
     </string-array>
 
     <string name="title_activity_pesquisa_avancada">Pesquisa_avancada</string>
-    <string name="title_activity_inspiracao">Inspiracao</string>
+    <string name="title_activity_inspiracao">Inspiração</string>
     <string name="sobre_menuguru" translatable="false">"O QUE É A MENU GURU?
 
 É uma plataforma online que lhe permite encontrar uma diversidade de restaurantes, consultar as ementas, ter acesso a campanhas especiais únicas e reservar mesas online.
@@ -174,7 +183,7 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     </string-array>
 
     <string name="ordenar">Ordenar</string>
-    <string name="todostipo">Todos Tipo de</string>
+    <string name="todostipo" translatable="false">Todos Tipo de</string>
     <string name="todos">Todos</string>
     <string name="precos">preços</string>
     <string name="oops" translatable="false">Oops!</string>
@@ -195,11 +204,11 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="prencher_campos">Deve preencher todos os campos.</string>
     <string name="min_pass">A password tem de ter no mínimo 6 carateres.</string>
     <string name="erro_email">Email inválido</string>
-    <string name="tit_email">Email já registado.</string>
+    <string name="tit_email">Email já registado</string>
     <string name="desc_erro_mail">Por favor verifique a sua caixa de email e valide-o ou recupere a password.</string>
     <string name="conf_email">Por favor confirme o seu registo através do email que lhe enviamos.</string>
-    <string name="title_activity_teste_facebook">TesteFacebook</string>
-    <string name="title_activity_recuperar_pass">Recuperar_pass</string>
+    <string name="title_activity_teste_facebook" translatable="false">TesteFacebook</string>
+    <string name="title_activity_recuperar_pass" translatable="false">Recuperar_pass</string>
     <string name="T_recuperar_pass">Recuperar password</string>
     <string name="texto_recuperar">Por favor introduza o seu email.</string>
     <string name="t_exite_email">Email sem registo</string>
@@ -214,7 +223,7 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="nao">Não</string>
     <string name="idioma">Idioma</string>
     <string name="nao_encontramos" translatable="false">Não encontramos nenhum destaque.</string>
-    <string name="title_activity_resultado_festivais">Resultado_festivais</string>
+    <string name="title_activity_resultado_festivais" translatable="false">Resultado_festivais</string>
     <string name="oops_favoritos">Não encontrámos nenhum resultado para esta pesquisa.</string>
 
     <string-array name="apagar_reserva">
@@ -230,7 +239,7 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
 
     <string name="tranf_favoritos">Deseja transferir os favoritos de uma conta do Facebook para a sua conta Menu Guru?</string>
     <string name="fav_tranf" translatable="false">Favoritos adicionados</string>
-    <string name="title_activity_menu_especial">MenuEspecial</string>
+    <string name="title_activity_menu_especial" translatable="false">MenuEspecial</string>
     <string name="oferta_exp">Oferta expira</string>
     <string name="qwert" translatable="false">qwert</string>
     <string name="dias">DIAS</string>
@@ -242,7 +251,7 @@ Pedimos que, antes de nos fornecer qualquer informação pessoal, leia com aten�
     <string name="sec">SEC</string>
     <string name="secs">SEC</string>
     <string name="sel_hora">Selecione a hora</string>
-    <string name="sel_pessoa">Selecione o numero de pessoas</string>
+    <string name="sel_pessoa">Selecione o número de pessoas</string>
     <string name="seg">Seguinte</string>
     <string name="ant">Anterior</string>
     <string name="selobs">Observações</string>

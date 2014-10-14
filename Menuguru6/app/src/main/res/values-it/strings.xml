@@ -31,7 +31,7 @@
     <string name="erro_data_ant">Non e possibile prenotare prima della data attuale</string>
     <string name="erro_data_dep">Siamo spiacenti ma non ci sono tabelle disponibili per questo giorno. Per favore scegliete una nuova data.</string>
     <string name="erro_email">Indirizzo email non valido</string>
-    <string name="erro_hora">Seleziona un'ora</string>
+    <string name="erro_hora">Seleziona un\'ora</string>
     <string name="erro_pes">Seleziona il numero di persone</string>
     <string name="escreva_baixo">Scrivete il vostro parere</string>
     <string name="esq_pass">Hai dimenticato la password?</string>
@@ -39,7 +39,7 @@
     <string name="fechado">Chiuso</string>
     <string name="filtrosavancados">Filtri avanzati</string>
     <string name="gravar">Salvare</string>
-    <string name="guardar_agenda">Stiamo prenotando il tavolo nell'agenda del ristorante.</string>
+    <string name="guardar_agenda">Stiamo prenotando il tavolo nell\'agenda del ristorante.</string>
     <string name="horas">ORE</string>
     <string name="horrivel">Orribile</string>
     <string name="idealpara">Ideale per</string>
@@ -59,7 +59,7 @@
     <string name="n_exite_email">Si desidera crearla ora?</string>
     <string name="nao">No</string>
     <string name="nao_encontrado">Non ci sono risultati per questa ricerca.</string>
-    <string name="o_que_esta_errado">Cosa c'è che non va?</string>
+    <string name="o_que_esta_errado">Cosa c\'è che non va?</string>
     <string name="o_que_pretende_pesquisar">Che cosa si desidera cercare?</string>
     <string name="oferta_exp">Offerta scade</string>
     <string name="ola">Ciao</string>
@@ -75,7 +75,7 @@
     <string name="prato">Piatto</string>
     <string name="preco">Prezzo</string>
     <string name="precos">prezzi</string>
-    <string name="preencher">Inserire i dati per accedere all'account.</string>
+    <string name="preencher">Inserire i dati per accedere all\'account.</string>
     <string name="prencher_campos">È necessario compilare tutti i campi.</string>
     <string name="procurar">Ricerca</string>
     <string name="registo">Registrati su Menu Guru</string>
@@ -85,4 +85,47 @@
     <string name="restaurante">Ristorante</string>
     <string name="sec">SEC</string>
     <string name="secs">SEC</string>
+    <string name="seg">Prossimo</string>
+    <string name="seja_o_primeiro_avaliar">Essere il primo a votare questo ristorante</string>
+    <string name="seja_o_primeiro_c">Essere il primo a votare questo ristorante</string>
+    <string name="sel_hora">Seleziona un\'ora</string>
+    <string name="sel_pessoa">Seleziona il numero di persone</string>
+    <string name="selobs">Comentarios</string>
+    <string name="sem_comentarios">Nessun commento</string>
+    <string name="sem_coments">Nessun commento</string>
+    <string name="sim">Sì</string>
+    <string name="solicitar">Obtenir le code du restaurant pour racheter</string>
+    <string name="t_exite_email">E-mail non registrata</string>
+    <string name="terminar_sessao">Confermi di voler uscire?</string>
+    <string name="texto_recuperar">Per favore inserisci la tua email.</string>
+    <string name="tit_email">E-mail già registrato</string>
+    <string name="title_activity_criar_user">Registrazione</string>
+    <string name="title_activity_voucher">Voucher</string>
+    <string name="todos">Tutti</string>
+    <string name="tranf_favoritos">Vuoi scaricare i favoriti di un account Facebook al tuo account Menu Guru?</string>
+    <string name="ver_todos">les Mostra tutti</string>
+    <string name="votacoes">Évaluations</string>
+    <string name="Especias">Speciali</string>
+    <string name="Reservas">Prenotazione</string>
+    <string name="sugestoes">Suggerimenti</string>
+    <string name="agora">Ora</string>
+    <string name="sem_data_especifica">Senza data specifica</string>
+    <string name="encontrar_mesa">Trovare un tavolo</string>
+    <string name="menus">Menu</string>
+    <string name="perto_de_mim">Vicino a me</string>
+
+
+    <string-array name="pesquisa">
+        <item>Filtri avanzati</item>
+        <item>Ispirazione</item>
+        <item>Annulla</item>
+    </string-array>
+    <string name="title_activity_inspiracao">Ispirazione</string>
+
+    <string-array name="refeicoes">
+        <item>Pranzo</item>
+        <item>Cena</item>
+    </string-array>
+    <string name="para_quando">Vorrei prenotare un tavolo?</string>
+
 </resources>
