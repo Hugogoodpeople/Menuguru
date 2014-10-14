@@ -80,12 +80,12 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
                 alertDialogBuilder
                         .setMessage(R.string.terminar_sessao)
                         .setCancelable(false)
-                        .setNegativeButton("Nao",new DialogInterface.OnClickListener() {
+                        .setNegativeButton(getString(R.string.nao),new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 dialog.cancel();
                             }
                         })
-                        .setPositiveButton("Sim",new DialogInterface.OnClickListener() {
+                        .setPositiveButton(getString(R.string.sim),new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 Globals.get_instance().setUser(null);
                                 // para ir guardar as preferencias de utilizador
