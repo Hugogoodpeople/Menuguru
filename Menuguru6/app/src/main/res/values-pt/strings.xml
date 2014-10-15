@@ -162,5 +162,6 @@
         <item>Info</item>
         <item>Feedback</item>
     </string-array>
+    <string name="favoritos">Favoritos</string>
 
 </resources>

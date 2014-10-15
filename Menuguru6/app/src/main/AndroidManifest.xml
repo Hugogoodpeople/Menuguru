@@ -106,17 +106,17 @@
         </activity>
         <activity
             android:name="pt.menuguru.menuguru6.Favoritos.Favoritos"
-            android:label="Favoritos"
+            android:label="@string/favoritos"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".Favoritos.Favoritos_gerir"
-            android:label="Favoritos"
+            android:label="@string/favoritos"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".Favoritos.Favoritos_list_restaurantes"
-            android:label="Favoritos"
+            android:label="@string/favoritos"
             android:screenOrientation="portrait" >
         </activity>
 

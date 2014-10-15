@@ -145,5 +145,6 @@
         <item>Info</item>
         <item>Feedback</item>
     </string-array>
+    <string name="favoritos">Preferiti</string>
 
 </resources>

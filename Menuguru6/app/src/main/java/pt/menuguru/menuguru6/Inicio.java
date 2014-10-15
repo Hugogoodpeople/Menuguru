@@ -94,6 +94,16 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
     }
 
+    private void scrollMyListViewToBottom() {
+        mListView.post(new Runnable() {
+            @Override
+            public void run() {
+                // Select the last row so it will scroll into view...
+                mListView.setSelection(anterior - 2);
+            }
+        });
+    }
+
     public void asyncComplete(boolean success){
 
 
@@ -102,12 +112,15 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
         //if (actual == 9)
 
-        mAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
+        //mAdapter.notifyDataSetChanged();
+
+
         mListView.setAdapter(mAdapter);
 
-        mListView.smoothScrollToPosition(anterior-1);
+        scrollMyListViewToBottom();
 
 
+        //mListView.smoothScrollToPosition(anterior-1);
 
 
 
@@ -551,6 +564,8 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                 Log.v("sdffgddvsdsv","objecto especial = "+ jsonObj);
 
                 loading = false;
+
+                mAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
 
 
             } catch (JSONException e) {

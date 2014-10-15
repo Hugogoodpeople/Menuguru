@@ -145,6 +145,7 @@
         <item>Info</item>
         <item>Rückkopplung</item>
     </string-array>
+    <string name="favoritos">Favoriten</string>
 
 
 </resources>
