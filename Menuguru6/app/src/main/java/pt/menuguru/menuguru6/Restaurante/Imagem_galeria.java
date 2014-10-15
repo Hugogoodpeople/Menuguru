@@ -41,6 +41,9 @@ public class Imagem_galeria extends Fragment
         //imageView.setImageResource(src);
         imageLoader.DisplayImage("http://menuguru.pt/" + src, imageView);
 
+
+
+
         return rootView;
     }
 

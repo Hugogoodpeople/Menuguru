@@ -1449,6 +1449,10 @@ public class Restaurante_main extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Restaurante_main.this, Mapa.class);
+                intent.putExtra("latitude", latitude);
+                intent.putExtra("longitude", longitude);
+                intent.putExtra("nome", nome_rest);
+                intent.putExtra("foto", url_foto);
                 startActivity(intent);
                 overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
             }

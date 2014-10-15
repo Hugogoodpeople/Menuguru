@@ -5,19 +5,49 @@ package pt.menuguru.menuguru6.Mapa;
  */
 
 import android.app.ActionBar;
-import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.MenuItem;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
+import android.widget.ImageView;
 
+
+import com.facebook.android.Util;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.InputStream;
 
 import pt.menuguru.menuguru6.R;
+import pt.menuguru.menuguru6.Utils.Globals;
+import pt.menuguru.menuguru6.Utils.Utils;
 
 public class Mapa extends FragmentActivity {
 
-    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    GoogleMap mMap;
+    LatLng coordenadas;
+    String rest_name;
+
+    String latitude;
+    String longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,13 +60,39 @@ public class Mapa extends FragmentActivity {
         getActionBar().setHomeButtonEnabled(true);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+        mMap = ((SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map)).getMap();
 
-        mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-        mMap.setMyLocationEnabled(true);
+        // tenho de ir buscar as coordenadas ao intent
+        Intent intent = getIntent();
+        latitude = intent.getStringExtra("latitude");
+        longitude= intent.getStringExtra("longitude");
+        rest_name = intent.getStringExtra("nome");
+        String url_foto = "http://www.menuguru.pt" + intent.getStringExtra("foto");
 
-        if (mMap != null) {
-            mMap.setMyLocationEnabled(true);
-        }
+        CameraUpdate center=
+                CameraUpdateFactory.newLatLng(new LatLng( Double.parseDouble(latitude),
+                        Double.parseDouble(longitude)));
+        CameraUpdate zoom=CameraUpdateFactory.zoomTo(15);
+
+        mMap.moveCamera(center);
+        mMap.animateCamera(zoom);
+
+        coordenadas = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+
+
+
+        // tenho de meter esta mascara
+
+
+
+        new DownloadImageTask(this)
+                .execute(url_foto);
+
+
+
+
+
     }
 
     @Override
@@ -53,5 +109,79 @@ public class Mapa extends FragmentActivity {
 
         return false;
     }
+
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+
+        Mapa delegado;
+
+        public DownloadImageTask(Mapa contexto) {
+            delegado = contexto;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error carregamento da imagem", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+           // bmImage.setImageBitmap(result);
+
+
+            Canvas canvas = new Canvas();
+            Bitmap mainImage = Utils.getResizedBitmap( result, 300, 290 ); //get original image
+
+            //Bitmap mainImage = BitmapFactory.decodeResource(delegado.getResources(), R.drawable.sem_foto);
+            Bitmap maskImage = BitmapFactory.decodeResource(delegado.getResources(), R.drawable.pin_map); //get mask image
+            Bitmap resultado = Bitmap.createBitmap(310, 310, Bitmap.Config.ARGB_8888);
+
+            canvas.setBitmap(resultado);
+            Paint paint = new Paint();
+            paint.setFilterBitmap(false);
+
+            canvas.drawBitmap(mainImage, 0, 0, paint);
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+            canvas.drawBitmap(maskImage, 0, 0, paint);
+            paint.setXfermode(null);
+
+            resultado = Utils.addShadow(resultado, resultado.getHeight(), resultado.getWidth(), Color.BLACK, 4, 1, 5);
+
+            Marker marker = mMap.addMarker(new MarkerOptions()
+                    .position(coordenadas)
+                    .title(rest_name)
+                    .icon(BitmapDescriptorFactory.fromBitmap(resultado)));
+
+           mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+               @Override
+               public boolean onMarkerClick(Marker marker) {
+
+                   /*
+                   Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                           Uri.parse("http://maps.google.com/maps?saddr="+ latitude +","+ longitude +
+                                   "&daddr="+ Globals.getInstance().getLatitude()+","+Globals.getInstance().getLongitude()));
+                   startActivity(intent);
+                    */
+
+
+                   Intent nav = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?daddr=" + latitude + " , " + longitude + ""));
+                   startActivity(nav);
+              
+
+                   return false;
+               }
+           });
+
+        }
+    }
+
+
 
 }
