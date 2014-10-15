@@ -62,6 +62,7 @@ import java.util.regex.Pattern;
 import pt.menuguru.menuguru6.Favoritos.Favoritos;
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.LoginMenuGuru;
+import pt.menuguru.menuguru6.Mapa.Mapa;
 import pt.menuguru.menuguru6.MenuEspecial;
 import pt.menuguru.menuguru6.R;
 import pt.menuguru.menuguru6.Restaurante.Avaliar.Avaliar_restaurante;
@@ -1443,6 +1444,16 @@ public class Restaurante_main extends FragmentActivity {
         }
         TextView dist = (TextView) header2.findViewById(R.id.distancia_restaurante_header);
         dist.setText(Utils.getDistance(locationPhone, locationRest));
+
+        dist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Restaurante_main.this, Mapa.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+            }
+        });
+
 
         TextView adress = (TextView) header2.findViewById(R.id.morada_rest);
         adress.setText(morada);

@@ -106,23 +106,9 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
     public void asyncComplete(boolean success){
 
-
-       // mCallbacks.onButtonClicked();
-
-
-        //if (actual == 9)
-
-        //mAdapter.notifyDataSetChanged();
-
-
         mListView.setAdapter(mAdapter);
 
         scrollMyListViewToBottom();
-
-
-        //mListView.smoothScrollToPosition(anterior-1);
-
-
 
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
