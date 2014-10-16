@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.net.Uri;
@@ -19,15 +20,18 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Display;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
 
 import com.facebook.android.Util;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -55,6 +59,8 @@ public class Mapa extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+
+
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
@@ -69,6 +75,9 @@ public class Mapa extends FragmentActivity {
         longitude= intent.getStringExtra("longitude");
         rest_name = intent.getStringExtra("nome");
         String url_foto = "http://www.menuguru.pt" + intent.getStringExtra("foto");
+
+
+        MapsInitializer.initialize(this);
 
         CameraUpdate center=
                 CameraUpdateFactory.newLatLng(new LatLng( Double.parseDouble(latitude),
@@ -136,19 +145,28 @@ public class Mapa extends FragmentActivity {
            // bmImage.setImageBitmap(result);
 
 
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int width = size.x;
+            int height = size.y;
+
+            int tamanhoCerto = width/3;
+
             Canvas canvas = new Canvas();
-            Bitmap mainImage = Utils.getResizedBitmap( result, 300, 290 ); //get original image
+            Bitmap mainImage = Utils.getResizedBitmap( result, tamanhoCerto, tamanhoCerto ); //get original image
 
             //Bitmap mainImage = BitmapFactory.decodeResource(delegado.getResources(), R.drawable.sem_foto);
             Bitmap maskImage = BitmapFactory.decodeResource(delegado.getResources(), R.drawable.pin_map); //get mask image
-            Bitmap resultado = Bitmap.createBitmap(310, 310, Bitmap.Config.ARGB_8888);
+            maskImage = Utils.getResizedBitmap( maskImage, tamanhoCerto, tamanhoCerto );
+            Bitmap resultado = Bitmap.createBitmap(tamanhoCerto, tamanhoCerto, Bitmap.Config.ARGB_8888);
 
             canvas.setBitmap(resultado);
             Paint paint = new Paint();
             paint.setFilterBitmap(false);
 
             canvas.drawBitmap(mainImage, 0, 0, paint);
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_ATOP));
             canvas.drawBitmap(maskImage, 0, 0, paint);
             paint.setXfermode(null);
 
