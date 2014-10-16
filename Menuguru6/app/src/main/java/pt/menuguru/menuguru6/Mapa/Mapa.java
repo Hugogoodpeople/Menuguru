@@ -170,10 +170,9 @@ public class Mapa extends FragmentActivity {
                    startActivity(intent);
                     */
 
-
                    Intent nav = new Intent(Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?daddr=" + latitude + " , " + longitude + ""));
                    startActivity(nav);
-              
+
 
                    return false;
                }

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -25,6 +26,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
@@ -35,7 +38,7 @@ import pt.menuguru.menuguru6.Utils.Locais;
 public class Localizacao extends Activity implements SearchView.OnQueryTextListener{
     ListView listView;
 
-    Locais[] local = null;
+    ArrayList<Locais>  local = null;
 
     public String value;
 
@@ -47,16 +50,56 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
 
     private static MyListAdapter mAdapter;
 
+    private List<Locais> mOrigionalValues;
+    private List<Locais> mObjects;
+
 
     public class MyListAdapter extends ArrayAdapter<Locais> {
+
+
+        private Filter mFilter;
 
         Context myContext;
 
         public MyListAdapter(Context context, int textViewResourceId,
-                             Locais[] objects) {
+                             ArrayList<Locais> objects) {
             super(context, textViewResourceId, objects);
             myContext = context;
+            mOrigionalValues = objects;
+            mObjects = objects;
         }
+
+
+        public void add(Locais object) {
+            mOrigionalValues.add(object);
+            this.notifyDataSetChanged();
+        }
+
+
+        @Override
+        public int getCount() {
+            return mObjects.size();
+        }
+
+        @Override
+        public Locais getItem(int position) {
+            return mObjects.get(position);
+        }
+
+
+        public Filter getFilter() {
+            if (mFilter == null) {
+                mFilter = new CustomFilter();
+            }
+            return mFilter;
+        }
+
+
+        @Override
+        public void notifyDataSetChanged() {
+            super.notifyDataSetChanged();
+        }
+
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -65,10 +108,51 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
             LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View row=inflater.inflate(R.layout.row_defenicoes, parent, false);
             TextView label=(TextView)row.findViewById(R.id.month);
-            label.setText(local[position].nome);
+            label.setText(mObjects.get(position).nome);
 
             return row;
         }
+
+
+
+        private class CustomFilter extends Filter {
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                FilterResults results = new FilterResults();
+
+                if(constraint == null || constraint.length() == 0) {
+                    ArrayList<Locais> list = new ArrayList<Locais>(mOrigionalValues);
+                    results.values = list;
+                    results.count = list.size();
+                } else {
+                    ArrayList<Locais> newValues = new ArrayList<Locais>();
+                    for(int i = 0; i < mOrigionalValues.size(); i++) {
+                        Locais item = mOrigionalValues.get(i);
+                        if(item.getNome().toLowerCase().contains(constraint)) {
+                            newValues.add(item);
+                        }
+                    }
+                    results.values = newValues;
+                    results.count = newValues.size();
+                }
+
+                return results;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint,
+                                          FilterResults results) {
+                mObjects = (List<Locais>) results.values;
+                Log.d("CustomArrayAdapter", String.valueOf(results.values));
+                Log.d("CustomArrayAdapter", String.valueOf(results.count));
+                notifyDataSetChanged();
+            }
+
+        }
+
+
 
     }
 
@@ -123,7 +207,7 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
                 int itemPosition = position;
 
                 // ListView Clicked item value
-                Locais itemValue = local[position];
+                Locais itemValue = mObjects.get(position);
                 Log.v("Clicou",itemValue.db_id);
                 Globals.getInstance().setCidedade_id(itemValue.db_id);
                 Globals.getInstance().setCidadeÇ_nome(itemValue.nome);
@@ -201,7 +285,7 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
                 Log.v("JsonObject","objecto = "+ jsonObj);
                 // loop through all users
                 Log.v("JsonObject","objecto = "+ jsonObj);
-                local = new Locais[dataJsonArr.length()+1];
+                local = new ArrayList<Locais>();
                                 //local[0] = "Perto de mim";
                 //Locais localli = new Locais();
                 //localli.nome = "Perto de mim";
@@ -214,7 +298,7 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
                     if(i==-1){
                     locall.nome = getString(R.string.perto_de_mim);
                     locall.db_id = "0";
-                    local[0] = locall;
+                    local.add(locall);
                     }else{
                     JSONObject c = dataJsonArr.getJSONObject(i);
                     //Locais locall = new Locais();
@@ -223,7 +307,7 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
                     locall.longitude = c.getString("lon");
                     locall.latitude = c.getString("lat");
                     Log.v("Nome","objecto = "+ c.getString("nome"));
-                    local[i+1] = locall;
+                    local.add(locall);
                     }
                     //
 
@@ -266,13 +350,16 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
         mSearchView.setQueryHint("Search Here");
     }
     @Override
-    public boolean onQueryTextSubmit(String query) {
+    public boolean onQueryTextSubmit(String query)
+    {
         return false;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
         listView.setFilterText(newText.toString());
+
+        mAdapter.getFilter().filter(newText.toLowerCase());
 
         return true;
     }
@@ -282,5 +369,8 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
         super.onBackPressed();
         this.overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
     }
+
+
+
 
 }
