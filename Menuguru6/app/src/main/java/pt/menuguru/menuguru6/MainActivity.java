@@ -106,7 +106,14 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
         }
 
-        setLocale(lingua);
+        if(!lingua.equalsIgnoreCase(""))
+        {
+            setLocale(lingua);
+        }
+        else
+        {
+            setLocale("pt");
+        }
         //Globals.getInstance().setCidadeÇ_nome(getString(R.string.perto_de_mim));
 
 

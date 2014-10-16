@@ -89,7 +89,7 @@ public class InfoRestaurante extends Activity
         final String TAG = "AsyncTaskParseJson.java";
 
 
-        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_info_restaurante.php";
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_info_restuarante_android.php";
 
 
         // contacts JSONArray

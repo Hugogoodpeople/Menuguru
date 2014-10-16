@@ -68,6 +68,10 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".lista_festival_em_sugestoes.lista_festivais_sugestoes"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="pt.menuguru.menuguru6.EscolherLingua"
             android:screenOrientation="portrait" >
         </activity>

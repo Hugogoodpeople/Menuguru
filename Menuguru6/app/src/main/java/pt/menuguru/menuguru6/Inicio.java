@@ -47,6 +47,7 @@ import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Restaurante;
 import pt.menuguru.menuguru6.Utils.Utils;
+import pt.menuguru.menuguru6.lista_festival_em_sugestoes.lista_festivais_sugestoes;
 
 
 public class Inicio extends Fragment implements AbsListView.OnItemClickListener {
@@ -259,21 +260,34 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id)
             {
-                Log.v("clicou no resutaurante","abrir " + some_array[position].getNome());
-                Intent myIntent = new Intent(getActivity(), Restaurante_main.class);
-                myIntent.putExtra("restaurante", some_array[position].getDb_id()); //Optional parameters
-                myIntent.putExtra("urlfoto", some_array[position].getUrlImagem());
-                myIntent.putExtra("nome_rest",some_array[position].getNome());
-                myIntent.putExtra("lat",some_array[position].getLatitude());
-                myIntent.putExtra("lon",some_array[position].getLongitude());
-                myIntent.putExtra("morada",some_array[position].getMorada());
-                myIntent.putExtra("rating",some_array[position].getMediarating());
-                myIntent.putExtra("votacoes",some_array[position].getVotacoes());
-                myIntent.putExtra("cidade_nome", some_array[position].getCidade());
+                if (some_array[position].tipo.equalsIgnoreCase("restaurante"))  {
+                    Log.v("clicou no resutaurante","abrir " + some_array[position].getNome());
+                    Intent myIntent = new Intent(getActivity(), Restaurante_main.class);
+                    myIntent.putExtra("restaurante", some_array[position].getDb_id()); //Optional parameters
+                    myIntent.putExtra("urlfoto", some_array[position].getUrlImagem());
+                    myIntent.putExtra("nome_rest",some_array[position].getNome());
+                    myIntent.putExtra("lat",some_array[position].getLatitude());
+                    myIntent.putExtra("lon",some_array[position].getLongitude());
+                    myIntent.putExtra("morada",some_array[position].getMorada());
+                    myIntent.putExtra("rating",some_array[position].getMediarating());
+                    myIntent.putExtra("votacoes",some_array[position].getVotacoes());
+                    myIntent.putExtra("cidade_nome", some_array[position].getCidade());
 
-                getActivity().startActivity(myIntent);
+                    getActivity().startActivity(myIntent);
 
-                getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+                    getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+
+                }else if(some_array[position].tipo.equalsIgnoreCase("colecao"))
+                {
+                    Log.v("clicou na noticia", "abrir" + some_array[position].getNome());
+                    Intent myIntent = new Intent(getActivity(), lista_festivais_sugestoes.class);
+                    myIntent.putExtra("id_colecao", some_array[position].getDb_id());
+                    myIntent.putExtra("colecao_nome", some_array[position].getNome());
+
+                    getActivity().startActivity(myIntent);
+
+                    getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+                }
 
             }
 
@@ -432,15 +446,29 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
 
                 dict.put("inicio",actual);
-                dict.put("not","pt");
-                dict.put("lang","pt");
+                //dict.put("not","pt");
+                dict.put("lang",Globals.getInstance().getLingua());
                 dict.put("cidade_id", Globals.getInstance().cidedade_id);
                 dict.put("lon", Globals.getInstance().getLongitude());
-                //dict.put("ordem","relevancia");
-                dict.put("ordem","distancia");
+                dict.put("ordem","relevancia");
+                //dict.put("ordem","distancia");
                 dict.put("user_id","0");
                 dict.put("lat",Globals.getInstance().getLatitude());
                 dict.put("face_id","0");
+
+                int contagem = 0;
+                if(some_array != null)
+                {
+                    for (Restaurante item : some_array)
+                    {
+                        if (!item.tipo.equalsIgnoreCase("restaurante"))
+                        {
+                            contagem++;
+                        }
+                    }
+                }
+
+                dict.put("not",contagem);
 
 
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
@@ -489,7 +517,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                     String firstname = c.getString("nome");
 
                     // show the values in our logcat
-                    Log.v(TAG, "firstname: " + firstname + " votos = " + c.getString("votacoes"));
+                    //Log.v(TAG, "firstname: " + firstname + " votos = " + c.getString("votacoes"));
 
 
                     Restaurante rest = new Restaurante();
@@ -499,18 +527,20 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                     //rest.mediarating = c.getString("mediarating");
                     rest.cidade = c.getString("cidade");
                     rest.urlImagem = c.getString("imagem");
-                    rest.votacoes = c.getString("votacoes");
+
                     rest.morada = c.getString("morada");
                     //rest.precoMedio = c.getString("precomedio");
+                    rest.db_id = c.getString("id");
 
                     rest.tipo = c.getString("tipo");
 
                     if (rest.tipo.equalsIgnoreCase("restaurante")) {
+                        rest.votacoes = c.getString("votacoes");
                         rest.latitude = c.getString("lat");
                         rest.longitude = c.getString("lon");
                         rest.mediarating = c.getString("mediarating");
                         rest.precoMedio = c.getString("precomedio");
-                        rest.db_id = c.getString("id");
+
 
                         JSONArray cozinhas = c.getJSONArray("cozinhas");
 
