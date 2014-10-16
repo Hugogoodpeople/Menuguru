@@ -46,6 +46,7 @@ import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Restaurante;
 import pt.menuguru.menuguru6.Utils.Utils;
+import pt.menuguru.menuguru6.os_tres_tipos.Noticia;
 import pt.menuguru.menuguru6.os_tres_tipos.lista_festivais_sugestoes;
 import pt.menuguru.menuguru6.os_tres_tipos.video;
 
@@ -293,7 +294,15 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                     videoPlaybackActivity.putExtra("id_rest", some_array[position].getDb_id());
 
                     startActivity(videoPlaybackActivity);
+                }else if(some_array[position].tipo.equalsIgnoreCase("noticia"))
+                {
+                    Intent videoPlaybackActivity = new Intent(getActivity(), Noticia.class);
+                    videoPlaybackActivity.putExtra("id_noticia", some_array[position].getDb_id());
+
+                    startActivity(videoPlaybackActivity);
+                    getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
                 }
+
 
             }
 

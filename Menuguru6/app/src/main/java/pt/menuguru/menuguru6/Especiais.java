@@ -91,7 +91,6 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
             label2.setText(some_array[position].getNome());
 
 
-
             ImageView imagem=(ImageView)row.findViewById(R.id.capa);
             ImageView icon = (ImageView)row.findViewById(R.id.imagemTipo);
 
