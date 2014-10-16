@@ -1,11 +1,10 @@
-package pt.menuguru.menuguru6.lista_festival_em_sugestoes;
+package pt.menuguru.menuguru6.os_tres_tipos;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;

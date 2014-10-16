@@ -56,6 +56,13 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".os_tres_tipos.video"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:screenOrientation="landscape"
+            >
+        </activity>
+        <activity
             android:name="pt.menuguru.menuguru6.Inspiracoes.Resultado_inspiracao"
             android:screenOrientation="portrait" >
         </activity>
@@ -68,7 +75,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".lista_festival_em_sugestoes.lista_festivais_sugestoes"
+            android:name=".os_tres_tipos.lista_festivais_sugestoes"
             android:screenOrientation="portrait" >
         </activity>
         <activity

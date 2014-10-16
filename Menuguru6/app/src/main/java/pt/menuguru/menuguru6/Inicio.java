@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.location.Location;
 import android.os.AsyncTask;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -47,7 +46,8 @@ import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Restaurante;
 import pt.menuguru.menuguru6.Utils.Utils;
-import pt.menuguru.menuguru6.lista_festival_em_sugestoes.lista_festivais_sugestoes;
+import pt.menuguru.menuguru6.os_tres_tipos.lista_festivais_sugestoes;
+import pt.menuguru.menuguru6.os_tres_tipos.video;
 
 
 public class Inicio extends Fragment implements AbsListView.OnItemClickListener {
@@ -287,6 +287,12 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                     getActivity().startActivity(myIntent);
 
                     getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+                }else if(some_array[position].tipo.equalsIgnoreCase("video"))
+                {
+                    Intent videoPlaybackActivity = new Intent(getActivity(), video.class);
+                    videoPlaybackActivity.putExtra("id_rest", some_array[position].getDb_id());
+
+                    startActivity(videoPlaybackActivity);
                 }
 
             }
