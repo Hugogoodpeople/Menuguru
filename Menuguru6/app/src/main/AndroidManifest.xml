@@ -67,6 +67,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".Diarias.Menu_ementa"
+            android:screenOrientation="portrait" >
+        </activity>
+
+
+        <activity
             android:name=".os_tres_tipos.Noticia"
             android:screenOrientation="portrait" >
         </activity>

@@ -70,8 +70,6 @@ public class Favoritos extends Activity
         Intent intent = this.getIntent();
         rest_id = intent.getStringExtra("restaurante");
 
-
-
         new AsyncTaskParseJsonFavoritos(this).execute();
 
     }
@@ -150,7 +148,7 @@ public class Favoritos extends Activity
 
                 /*
                 [dict setObject: [Globals user].faceId forKey:@"face_id"];
-        [dict setObject: [NSString stringWithFormat:@"%d", 0] forKey:@"user_id"];
+                [dict setObject: [NSString stringWithFormat:@"%d", 0] forKey:@"user_id"];
                  */
 
 

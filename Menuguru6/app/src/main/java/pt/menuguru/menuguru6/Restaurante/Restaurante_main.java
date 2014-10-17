@@ -59,6 +59,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
+import pt.menuguru.menuguru6.Diarias.Menu_ementa;
 import pt.menuguru.menuguru6.Favoritos.Favoritos;
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.LoginMenuGuru;
@@ -1644,15 +1645,31 @@ public class Restaurante_main extends FragmentActivity {
             icon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent myIntent = new Intent(Restaurante_main.this, MenuEspecial.class);
-                    //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
-                    myIntent.putExtra("rest_cartao_id", "" + some_list.get(position*2).getDb_id());
-                    myIntent.putExtra("rest_id", ""+some_list.get(position*2).getId_rest());
-                    myIntent.putExtra("hora_min_reserva", some_list.get(position*2).getHora_minimo_antedencia_especial());
+                    // ok aqui tenho de ver qual é o tipo selecionada
 
-                    startActivity(myIntent);
 
-                    overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+                    if(some_list.get(position*2).tipo.equalsIgnoreCase("menu_especial")) {
+
+                        Intent myIntent = new Intent(Restaurante_main.this, MenuEspecial.class);
+                        //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
+                        myIntent.putExtra("rest_cartao_id", "" + some_list.get(position * 2).getDb_id());
+                        myIntent.putExtra("rest_id", "" + some_list.get(position * 2).getId_rest());
+                        myIntent.putExtra("hora_min_reserva", some_list.get(position * 2).getHora_minimo_antedencia_especial());
+
+                        startActivity(myIntent);
+
+                        overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+                    }else if(some_list.get(position*2).tipo.equalsIgnoreCase("menu_ementa"))
+                    {
+                        Intent myIntent = new Intent(Restaurante_main.this, Menu_ementa.class);
+                        //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
+                        myIntent.putExtra("nome_cat_em", "" + some_list.get(position * 2).getNome());
+                        myIntent.putExtra("rest_id", "" + rest_id);
+                        myIntent.putExtra("url_foto", some_list.get(position).getUrlImage());
+
+                        startActivity(myIntent);
+
+                    }
                 }
             });
 
@@ -1672,15 +1689,30 @@ public class Restaurante_main extends FragmentActivity {
                 icon2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent myIntent = new Intent(Restaurante_main.this, MenuEspecial.class);
-                        //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
-                        myIntent.putExtra("rest_cartao_id", "" + some_list.get(position*2 +1).getDb_id());
-                        myIntent.putExtra("rest_id", "" + some_list.get(position*2 +1).getId_rest());
-                        myIntent.putExtra("vem_de_especias", false);
+                        // ok aqui tenho de ver qual é o tipo selecionada
 
-                        startActivity(myIntent);
+                        if(some_list.get(position*2 +1 ).tipo.equalsIgnoreCase("menu_especial"))
+                        {
+                            Intent myIntent = new Intent(Restaurante_main.this, MenuEspecial.class);
+                            //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
+                            myIntent.putExtra("rest_cartao_id", "" + some_list.get(position * 2 + 1).getDb_id());
+                            myIntent.putExtra("rest_id", "" + some_list.get(position * 2 + 1).getId_rest());
+                            myIntent.putExtra("vem_de_especias", false);
 
-                        overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+                            startActivity(myIntent);
+
+                            overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+                        }else if(some_list.get(position*2 +1).tipo.equalsIgnoreCase("menu_ementa"))
+                        {
+                            Intent myIntent = new Intent(Restaurante_main.this, Menu_ementa.class);
+                            //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
+                            myIntent.putExtra("nome_cat_em", "" + some_list.get(position * 2+1).getNome());
+                            myIntent.putExtra("rest_id", "" + rest_id);
+                            myIntent.putExtra("url_foto", some_list.get(position).getUrlImage());
+
+                            startActivity(myIntent);
+
+                        }
                     }
                 });
 
