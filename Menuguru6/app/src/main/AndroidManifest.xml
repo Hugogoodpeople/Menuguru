@@ -67,11 +67,15 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Diarias.Menu_ementa"
+            android:name=".menus.Menu_ementa"
             android:screenOrientation="portrait" >
         </activity>
 
-
+        <activity
+            android:name=".menus.Menu_diaria"
+            android:screenOrientation="portrait" >
+        </activity>
+        Menu_diaria
         <activity
             android:name=".os_tres_tipos.Noticia"
             android:screenOrientation="portrait" >

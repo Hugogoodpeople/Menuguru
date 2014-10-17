@@ -1,4 +1,4 @@
-package pt.menuguru.menuguru6.Diarias;
+package pt.menuguru.menuguru6.menus;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -34,7 +33,7 @@ import pt.menuguru.menuguru6.Utils.ImageLoader;
  */
 
 
-public class Menu_ementa extends Activity
+public class Menu_diaria extends Activity
 {
 
     private ProgressDialog progressDialog;
@@ -56,7 +55,6 @@ public class Menu_ementa extends Activity
         setContentView(R.layout.activity_ementa);
         Intent intent = this.getIntent();
         rest_id = intent.getStringExtra("rest_id");
-        nome_cat_em = intent.getStringExtra("nome_cat_em");
         url_imagem = intent.getStringExtra("url_foto");
 
         actionBar.setTitle(nome_cat_em);
@@ -108,13 +106,13 @@ public class Menu_ementa extends Activity
             //return super.getView(position, convertView, parent);
 
             LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View row=inflater.inflate(R.layout.row_ementa, parent, false);
+            View row=inflater.inflate(R.layout.row_menu_diaria, parent, false);
 
-            TextView label=(TextView)row.findViewById(R.id.textview_conteudo);
+            TextView label=(TextView)row.findViewById(R.id.textview_conteudo_diaria);
             label.setText(mObjects.get(position).getTexto());
 
 
-            TextView label2 = (TextView)row.findViewById(R.id.textView_oreco);
+            TextView label2 = (TextView)row.findViewById(R.id.titulo);
             label2.setText(mObjects.get(position).getPreco());
 
             return row;
@@ -129,21 +127,21 @@ public class Menu_ementa extends Activity
         final String TAG = "AsyncTaskParseJson.java";
 
 
-        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/json_menu_melhores.php";
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/json_menu_dia.php";
 
         // contacts JSONArray
         JSONArray dataJsonArr = null;
 
-        private Menu_ementa delegate;
+        private Menu_diaria delegate;
 
-        public AsyncTaskParseJson (Menu_ementa delegate){
+        public AsyncTaskParseJson (Menu_diaria delegate){
             this.delegate = delegate;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressDialog = new ProgressDialog(Menu_ementa.this);
+            progressDialog = new ProgressDialog(Menu_diaria.this);
             progressDialog.setCancelable(true);
             progressDialog.setMessage("Loading...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -162,7 +160,7 @@ public class Menu_ementa extends Activity
                 JSONObject jsonObj = new JSONObject();
 
                 dict.put("lang","");
-                dict.put("nome_cat_em", nome_cat_em);
+                dict.put("dummy", "nao");
                 dict.put("rest_id",rest_id);
 
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
@@ -187,30 +185,35 @@ public class Menu_ementa extends Activity
                     JSONObject c = dataJsonArr.getJSONObject(i);
                     Ementa_object ementa_object = new Ementa_object();
 
-                    ementa_object.setTexto(c.getString("prato_menu"));
-                    ementa_object.setPreco( c.getString("preco") + "  " );
+                     ementa_object.setTexto("");
+                    // aqui tenho um array de strings ou seja não é directo
+                    for (int z = 0; z < c.getJSONArray("nome_prato").length(); z++)
+                    {
+                        if (ementa_object.getTexto().length() == 0)
+                        {
+                            String cont = c.getJSONArray("nome_prato").get(z).toString();
+                            ementa_object.setTexto(cont);
+                        }else
+                        {
+                            String cont = c.getJSONArray("nome_prato").get(z).toString();
+                            ementa_object.setTexto(ementa_object.getTexto() + "\n"  + cont);
+                        }
+
+                    }
+
+
+                    ementa_object.setPreco(c.getString("nome_cat") + "  " );
 
                     ementa_objects.add(ementa_object);
 
                 }
 
+               JSONObject coiso = jsonObj.getJSONObject("res");
 
-                dataJsonArr = jsonObj.getJSONArray("res");
-
-                Log.v("JsonObject","objecto = "+ jsonObj);
-
-                //ementa_objects = new ArrayList<Ementa_object>();
-
-                // percorrer o loop para preencher o array com os itens
-                for (int i = 0; i < dataJsonArr.length(); i++)
-                {
-                    JSONObject c = dataJsonArr.getJSONObject(i);
-                    descricao_ementa = c.getString("descricao");
+                Log.v("JsonObject","descricao cenas = "+ jsonObj);
 
 
-                }
-
-
+                descricao_ementa = coiso.getString("descricao");
 
 
             } catch (JSONException e) {
@@ -230,7 +233,7 @@ public class Menu_ementa extends Activity
 
         ListView listView = (ListView) findViewById(R.id.listView_menu_diaria_normal);
 
-        MyListAdapter mAdapter = new MyListAdapter(this, R.layout.row_ementa, ementa_objects);
+        MyListAdapter mAdapter = new MyListAdapter(this, R.layout.row_menu_diaria, ementa_objects);
 
         final LayoutInflater inflater = LayoutInflater.from(this);
         ViewGroup header = (ViewGroup) inflater.inflate(R.layout.header_menu_ementa, listView, false);

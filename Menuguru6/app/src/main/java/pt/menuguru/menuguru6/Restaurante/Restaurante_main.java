@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.location.Location;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,8 +21,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SurfaceView;
 import android.view.View;
@@ -59,7 +56,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-import pt.menuguru.menuguru6.Diarias.Menu_ementa;
+import pt.menuguru.menuguru6.menus.Menu_diaria;
+import pt.menuguru.menuguru6.menus.Menu_ementa;
 import pt.menuguru.menuguru6.Favoritos.Favoritos;
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.LoginMenuGuru;
@@ -71,13 +69,10 @@ import pt.menuguru.menuguru6.Restaurante.Comentarios.Lista_comentarios;
 import pt.menuguru.menuguru6.Restaurante.Info.InfoRestaurante;
 import pt.menuguru.menuguru6.Utils.Comentario;
 import pt.menuguru.menuguru6.Utils.Globals;
-import pt.menuguru.menuguru6.Utils.Horario_Especial;
 import pt.menuguru.menuguru6.Utils.Horario_Mesa;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Menu_do_restaurante;
-import pt.menuguru.menuguru6.Utils.Nr_Pessoas_Especial;
 import pt.menuguru.menuguru6.Utils.Nr_pessoas_mesa;
-import pt.menuguru.menuguru6.Utils.Restaurante;
 import pt.menuguru.menuguru6.Utils.User;
 import pt.menuguru.menuguru6.Utils.Utils;
 import pt.menuguru.menuguru6.gif.decoder.GifRun;
@@ -1670,6 +1665,16 @@ public class Restaurante_main extends FragmentActivity {
                         startActivity(myIntent);
                         overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
 
+                    }else if(some_list.get(position*2).tipo.equalsIgnoreCase("menu_dia"))
+                    {
+                        Intent myIntent = new Intent(Restaurante_main.this, Menu_diaria.class);
+                        //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
+                        myIntent.putExtra("rest_id", "" + rest_id);
+                        myIntent.putExtra("url_foto", some_list.get(position *2).getUrlImage());
+
+                        startActivity(myIntent);
+                        overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+
                     }
                 }
             });
@@ -1713,6 +1718,16 @@ public class Restaurante_main extends FragmentActivity {
 
                             startActivity(myIntent);
                             overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+                        }else if(some_list.get(position*2+1).tipo.equalsIgnoreCase("menu_dia"))
+                        {
+                            Intent myIntent = new Intent(Restaurante_main.this, Menu_diaria.class);
+                            //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
+                            myIntent.putExtra("rest_id", "" + rest_id);
+                            myIntent.putExtra("url_foto", some_list.get(position *2+1).getUrlImage());
+
+                            startActivity(myIntent);
+                            overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+
                         }
                     }
                 });
