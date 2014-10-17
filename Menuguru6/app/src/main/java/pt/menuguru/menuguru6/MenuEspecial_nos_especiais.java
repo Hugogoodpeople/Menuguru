@@ -1037,10 +1037,10 @@ public class MenuEspecial_nos_especiais extends Activity {
                 dict2.put("lang","pt");
                 dict2.put("linguatel","pt");
 
-                if(Globals.getInstance().getUser().getTipoconta().equals("facebook")){
+                if(Globals.getInstance().getUser()!=null && Globals.getInstance().getUser().getTipoconta().equals("facebook")){
                     dict2.put("face_id",Globals.get_instance().getUser().getId_face());
                     dict2.put("user_id","0");
-                }else if(Globals.getInstance().getUser().getTipoconta().equals("guru")){
+                }else if(Globals.getInstance().getUser()!=null && Globals.getInstance().getUser().getTipoconta().equals("guru")){
                     dict2.put("face_id","0");
                     dict2.put("user_id",Globals.get_instance().getUser().getUserid());
                 }else{

@@ -1563,6 +1563,14 @@ public class Restaurante_main extends FragmentActivity {
             abc.setBackgroundColor(Color.parseColor("#669900"));
         }
 
+        ImageButton partilhar = (ImageButton) header2.findViewById(R.id.imageButton3);
+        partilhar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                partilharRestaurante();
+            }
+        });
+
 
         gridView.addHeaderView(aberto_fechado, null, false);
         gridView.addHeaderView(header2, null, false);
@@ -2114,6 +2122,18 @@ public class Restaurante_main extends FragmentActivity {
 
             }
         }, 7000);
+    }
+
+
+    public void partilharRestaurante()
+    {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+
+
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.o_que_pretende_pesquisar)));
     }
 
 }
