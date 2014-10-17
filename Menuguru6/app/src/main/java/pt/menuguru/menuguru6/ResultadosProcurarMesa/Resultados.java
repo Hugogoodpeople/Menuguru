@@ -141,6 +141,7 @@ public class Resultados extends Activity
                 myIntent.putExtra("rating",some_array[position].getMediarating());
                 myIntent.putExtra("votacoes",some_array[position].getVotacoes());
                 myIntent.putExtra("cidade_nome", some_array[position].getCidade());
+                myIntent.putExtra("telefone",some_array[position].getTelefone());
 
                 startActivity(myIntent);
 
@@ -260,6 +261,7 @@ public class Resultados extends Activity
                     rest.longitude = c.getString("lon");
                     rest.mediarating = c.getString("mediarating");
                     rest.precoMedio = c.getString("precomedio");
+                    rest.telefone = c.getString("telefone");
 
                     JSONArray cozinhas = c.getJSONArray("cozinhas");
 

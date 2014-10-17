@@ -20,6 +20,24 @@ public class Restaurante  implements Parcelable {
     public String cosinhas = "";
     public String hora_minimo_antedencia_mesa = "";
 
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCosinhas() {
+        return cosinhas;
+    }
+
+    public void setCosinhas(String cosinhas) {
+        this.cosinhas = cosinhas;
+    }
+
+    public String telefone = "";
+
     public String getHora_minimo_antedencia_mesa() {
         return hora_minimo_antedencia_mesa;
     }

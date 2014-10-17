@@ -340,6 +340,7 @@ public class Resultados_filtros_avancados extends Activity
                         rest.mediarating = c.getString("mediarating");
                         rest.precoMedio = c.getString("precomedio");
                         rest.db_id = c.getString("id");
+                        rest.telefone = c.getString("telefone");
 
                         JSONArray cozinhas = c.getJSONArray("cozinhas");
 
@@ -402,6 +403,10 @@ public class Resultados_filtros_avancados extends Activity
                 myIntent.putExtra("lat",some_array[position].getLatitude());
                 myIntent.putExtra("lon",some_array[position].getLongitude());
                 myIntent.putExtra("morada",some_array[position].getMorada());
+                myIntent.putExtra("rating",some_array[position].getMediarating());
+                myIntent.putExtra("votacoes",some_array[position].getVotacoes());
+                myIntent.putExtra("cidade_nome", some_array[position].getCidade());
+                myIntent.putExtra("telefone",some_array[position].getTelefone());
 
                 startActivity(myIntent);
 

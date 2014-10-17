@@ -125,6 +125,7 @@ public class Restaurante_main extends FragmentActivity {
     private String horarioAbertura;
     private String nome_rest;
     private String cidade_nome;
+    private String telefone;
     private boolean segue_rest = false;
 
     String data_selec;
@@ -181,6 +182,7 @@ public class Restaurante_main extends FragmentActivity {
         morada = intent.getStringExtra("morada");
         nome_rest = intent.getStringExtra("nome_rest");
         cidade_nome = intent.getStringExtra("cidade_nome");
+        telefone = intent.getStringExtra("telefone");
 
         actionBar.setTitle(nome_rest);
 
@@ -2066,8 +2068,8 @@ public class Restaurante_main extends FragmentActivity {
                 // get the array of users
 
                 // dataJsonArr = jsonObj.getString("res");
-//                res_reserva = jsonObj.getString("res");
-                //msg_reserva = jsonObj.getString("msg");
+                // res_reserva = jsonObj.getString("res");
+                // msg_reserva = jsonObj.getString("msg");
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -2127,13 +2129,20 @@ public class Restaurante_main extends FragmentActivity {
 
     public void partilharRestaurante()
     {
+        String nomeRest_formatado = nome_rest.replace(" ","_");
+        String sharing_message = nomeRest_formatado +"\n"+ morada + "\n" + telefone +"\nwww.menuguru.pt/restaurante_"+ rest_id + "/" + nome_rest ;
+
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
 
+        // tenho de colocar o nome do restaurante a morada e o telefone seguido do url da menu guru
+        sendIntent.putExtra(Intent.EXTRA_TEXT, sharing_message);
 
         sendIntent.setType("text/plain");
         startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.o_que_pretende_pesquisar)));
+
+
+
     }
 
 }

@@ -382,7 +382,7 @@ public class Defenicoes extends Fragment implements AbsListView.OnItemClickListe
 
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.email_espalhe_palavra));
+            sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.email_espalhe_palavra) +"\nwww.menuguru.net");
             sendIntent.setType("text/plain");
             startActivity(sendIntent);
         }else if(position == 7)
