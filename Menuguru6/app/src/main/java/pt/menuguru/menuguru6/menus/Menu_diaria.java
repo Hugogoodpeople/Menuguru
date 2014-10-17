@@ -21,7 +21,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.R;
@@ -236,7 +238,7 @@ public class Menu_diaria extends Activity
         MyListAdapter mAdapter = new MyListAdapter(this, R.layout.row_menu_diaria, ementa_objects);
 
         final LayoutInflater inflater = LayoutInflater.from(this);
-        ViewGroup header = (ViewGroup) inflater.inflate(R.layout.header_menu_ementa, listView, false);
+        ViewGroup header = (ViewGroup) inflater.inflate(R.layout.header_menu_diaria, listView, false);
 
         ImageView imagem = (ImageView)header.findViewById(R.id.image_capa);
         ImageLoader imageLoaderEspecial=new ImageLoader(getApplicationContext());
@@ -244,6 +246,18 @@ public class Menu_diaria extends Activity
 
         TextView descricao = (TextView)header.findViewById(R.id.textView11);
         descricao.setText(descricao_ementa);
+
+        // para o cenas
+        SimpleDateFormat input = new SimpleDateFormat("dd LLLL yy");
+
+        TextView data = (TextView)header.findViewById(R.id.data_diaria);
+        data.setText(input.format(new Date()));
+
+        // para o coiso
+        SimpleDateFormat input2 = new SimpleDateFormat("EEEE");
+
+        TextView data2 = (TextView)header.findViewById(R.id.dia_semana_diaria);
+        data2.setText(input2.format(new Date()));
 
 
         listView.addHeaderView(header);
