@@ -44,6 +44,7 @@ public class Menu_ementa extends Activity
     private String rest_id;
     private String nome_cat_em;
     private String url_imagem;
+    private String descricao_ementa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,9 @@ public class Menu_ementa extends Activity
         nome_cat_em = intent.getStringExtra("nome_cat_em");
         url_imagem = intent.getStringExtra("url_foto");
 
+        actionBar.setTitle(nome_cat_em);
+
+
         new AsyncTaskParseJson(this).execute();
 
     }
@@ -67,7 +71,7 @@ public class Menu_ementa extends Activity
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                overridePendingTransition( R.anim.abc_fade_in , R.anim.abc_slide_out_bottom);
+                overridePendingTransition( R.anim.pop_view1 , R.anim.pop_view2);
                 return false;
             default:
                 break;
@@ -157,7 +161,7 @@ public class Menu_ementa extends Activity
                 JSONObject dict = new JSONObject();
                 JSONObject jsonObj = new JSONObject();
 
-                dict.put("lang","pt");
+                dict.put("lang","");
                 dict.put("nome_cat_em", nome_cat_em);
                 dict.put("rest_id",rest_id);
 
@@ -184,11 +188,30 @@ public class Menu_ementa extends Activity
                     Ementa_object ementa_object = new Ementa_object();
 
                     ementa_object.setTexto(c.getString("prato_menu"));
-                    ementa_object.setPreco( c.getString("preco") );
+                    ementa_object.setPreco( c.getString("preco") + "  " );
 
                     ementa_objects.add(ementa_object);
 
                 }
+
+
+                dataJsonArr = jsonObj.getJSONArray("res");
+
+                Log.v("JsonObject","objecto = "+ jsonObj);
+
+                //ementa_objects = new ArrayList<Ementa_object>();
+
+                // percorrer o loop para preencher o array com os itens
+                for (int i = 0; i < dataJsonArr.length(); i++)
+                {
+                    JSONObject c = dataJsonArr.getJSONObject(i);
+                    descricao_ementa = c.getString("descricao");
+
+
+                }
+
+
+
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -215,6 +238,10 @@ public class Menu_ementa extends Activity
         ImageView imagem = (ImageView)header.findViewById(R.id.image_capa);
         ImageLoader imageLoaderEspecial=new ImageLoader(getApplicationContext());
         imageLoaderEspecial.DisplayImage("http://menuguru.pt/"+ url_imagem, imagem);
+
+        TextView descricao = (TextView)header.findViewById(R.id.textView11);
+        descricao.setText(descricao_ementa);
+
 
         listView.addHeaderView(header);
 

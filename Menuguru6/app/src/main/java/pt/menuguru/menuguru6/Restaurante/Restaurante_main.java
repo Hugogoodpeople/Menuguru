@@ -1665,9 +1665,10 @@ public class Restaurante_main extends FragmentActivity {
                         //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
                         myIntent.putExtra("nome_cat_em", "" + some_list.get(position * 2).getNome());
                         myIntent.putExtra("rest_id", "" + rest_id);
-                        myIntent.putExtra("url_foto", some_list.get(position).getUrlImage());
+                        myIntent.putExtra("url_foto", some_list.get(position *2).getUrlImage());
 
                         startActivity(myIntent);
+                        overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
 
                     }
                 }
@@ -1708,10 +1709,10 @@ public class Restaurante_main extends FragmentActivity {
                             //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
                             myIntent.putExtra("nome_cat_em", "" + some_list.get(position * 2+1).getNome());
                             myIntent.putExtra("rest_id", "" + rest_id);
-                            myIntent.putExtra("url_foto", some_list.get(position).getUrlImage());
+                            myIntent.putExtra("url_foto", some_list.get(position *2 +1).getUrlImage());
 
                             startActivity(myIntent);
-
+                            overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
                         }
                     }
                 });

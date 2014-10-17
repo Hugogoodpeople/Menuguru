@@ -158,7 +158,7 @@ public class MenuEspecial extends Activity {
         imagem_rest = getIntent().getExtras().getString("urlfoto");
         morada = getIntent().getExtras().getString("morada");
         hora_min_reserva = getIntent().getExtras().getString("hora_min_reserva");
-        Log.v("HORA MIN RESERVA",hora_min_reserva);
+//        Log.v("HORA MIN RESERVA",hora_min_reserva);
         // Set the adapter
         mListView = (ListView)findViewById(R.id.list_esp);
 
