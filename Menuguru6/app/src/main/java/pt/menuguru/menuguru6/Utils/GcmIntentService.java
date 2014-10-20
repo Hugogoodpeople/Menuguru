@@ -6,6 +6,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
@@ -89,6 +92,7 @@ public class GcmIntentService extends IntentService {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
+
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, MainActivity.class), 0);
 
@@ -101,6 +105,17 @@ public class GcmIntentService extends IntentService {
                         .setContentText(msg.getString("message"));
 
         mBuilder.setContentIntent(contentIntent);
+
+        //mBuilder.setContentIntent(contentIntent);
+        mBuilder.setAutoCancel(true);
+        mBuilder.setLights(Color.YELLOW, 500, 500);
+        long[] pattern = {0,500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500};
+        mBuilder.setVibrate(pattern);
+        mBuilder.setStyle(new NotificationCompat.InboxStyle());
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        mBuilder.setSound(alarmSound);
+
+
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 
