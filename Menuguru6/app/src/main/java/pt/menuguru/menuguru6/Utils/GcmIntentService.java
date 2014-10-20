@@ -111,7 +111,7 @@ public class GcmIntentService extends IntentService {
         mBuilder.setLights(Color.YELLOW, 500, 500);
         long[] pattern = {0,500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500};
         mBuilder.setVibrate(pattern);
-        mBuilder.setStyle(new NotificationCompat.InboxStyle());
+        //mBuilder.setStyle(new NotificationCompat.InboxStyle());
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         mBuilder.setSound(alarmSound);
 
