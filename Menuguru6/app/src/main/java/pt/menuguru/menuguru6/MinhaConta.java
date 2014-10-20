@@ -87,6 +87,8 @@ public class MinhaConta extends Activity {
     String msgbox;
 
 
+    private Switch switchNotificacoes;
+
 
     private ProgressDialog progressDialog;
 
@@ -210,8 +212,24 @@ public class MinhaConta extends Activity {
             }
         });
 
+        switchNotificacoes = (Switch) findViewById(R.id.not);
+        switchNotificacoes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editar_notificacoes();
+            }
+        });
+
+        new AsyncTaskVerificaNotificacao(this).execute();
+
 
     }
+
+    public void editar_notificacoes()
+    {
+        new AsyncTaskEditarNotificacoes(this).execute();
+    }
+
     private Session.StatusCallback statusCallback = new Session.StatusCallback() {
         @Override
         public void call(Session session, SessionState state,
@@ -223,6 +241,7 @@ public class MinhaConta extends Activity {
             }
         }
     };
+
 
     @Override
     public void onResume() {
@@ -574,4 +593,149 @@ public class MinhaConta extends Activity {
         }
 
     }
+
+    public class AsyncTaskVerificaNotificacao extends AsyncTask<String, String, String> {
+        private MinhaConta delegate;
+
+
+        // este webservice precisa de ser trocado por um novo destinado a android
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/json_divice_activo_android.php";
+
+        public AsyncTaskVerificaNotificacao (MinhaConta delegate){
+            if(delegate != null)
+                this.delegate = delegate;
+        }
+
+        @Override
+        protected String doInBackground(String... arg0)
+        {
+            try
+            {
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+                String id_dispositivo = Globals.getInstance().getDeviceID();
+
+                dict.put("id_dispositivo", id_dispositivo);
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                try {
+                    jsonObj = new JSONObject(jsonString.substring(jsonString.indexOf("{"), jsonString.lastIndexOf("}") + 1));
+                } catch (JSONException e) {
+                    Log.e("JSON Parser", "Error parsing data [" + e.getMessage()+"] "+jsonString);
+                }
+
+                Log.v("JsonObject","resultado do device_id = "+ jsonObj);
+
+                String activo = jsonObj.getString("activo");
+
+
+                return activo;
+
+            } catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg){
+            if(delegate != null)
+                delegate.asysnkCompleteDispositovoActivo(strFromDoInBg);
+        }
+    }
+
+    public void asysnkCompleteDispositovoActivo(String activo)
+    {
+        // tenho de mudar o estado do botao aqui
+
+        Switch sw =(Switch) findViewById(R.id.not);
+        if(activo.equalsIgnoreCase("1"))
+            sw.setChecked(true);
+        else
+            sw.setChecked(false);
+
+    }
+
+
+    public class AsyncTaskEditarNotificacoes extends AsyncTask<String, String, String> {
+        private MinhaConta delegate;
+
+
+        // este webservice precisa de ser trocado por um novo destinado a android
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/json_add_remove_android_device.php";
+
+        public AsyncTaskEditarNotificacoes (MinhaConta delegate){
+            if(delegate != null)
+                this.delegate = delegate;
+        }
+
+        @Override
+        protected String doInBackground(String... arg0)
+        {
+            try
+            {
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+                String id_dispositivo = Globals.getInstance().getDeviceID();
+
+                String activar;
+                if(switchNotificacoes.isChecked())
+                    activar = "1";
+                else
+                    activar = "0";
+
+
+                dict.put("id_dispositivo", id_dispositivo);
+                dict.put("activar", activar);
+
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                try {
+                    jsonObj = new JSONObject(jsonString.substring(jsonString.indexOf("{"), jsonString.lastIndexOf("}") + 1));
+                } catch (JSONException e) {
+                    Log.e("JSON Parser", "Error parsing data [" + e.getMessage()+"] "+jsonString);
+                }
+
+                Log.v("JsonObject","resultado do device_id = "+ jsonObj);
+
+                //String activo = jsonObj.getString("activo");
+
+
+                return null;
+
+            } catch (JSONException e)
+            {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg){
+            if(delegate != null)
+                delegate.asysnkCompleteNotificacoesAlteradas();
+        }
+    }
+
+
+    public void asysnkCompleteNotificacoesAlteradas()
+    {
+        // new AsyncTaskVerificaNotificacao(this).execute();
+    }
+
 }

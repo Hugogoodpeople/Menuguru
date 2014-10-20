@@ -226,6 +226,9 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
             gcm = GoogleCloudMessaging.getInstance(this);
             regid = getRegistrationId(context);
 
+            Globals.getInstance().setDeviceID(regid);
+
+
             if (regid.isEmpty()) {
                 registerInBackground();
             }
@@ -333,6 +336,8 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
                 }
                 regid = gcm.register(SENDER_ID);
                 msg = "Device registered, registration ID=" + regid;
+
+                Globals.getInstance().setDeviceID(regid);
 
                 // You should send the registration ID to your server over HTTP,
                 // so it can use GCM/HTTP or CCS to send messages to your app.

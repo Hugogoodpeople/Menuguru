@@ -54,12 +54,14 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
 
 
         // mCallbacks.onButtonClicked();
+        if (getActivity() != null) {
 
-        mAdapter = new MyListAdapterEspeciais(getActivity(), R.layout.row_defenicoes, some_array);
-        // Assign adapter to ListView
-        mListView.setAdapter(mAdapter);
+            mAdapter = new MyListAdapterEspeciais(getActivity(), R.layout.row_defenicoes, some_array);
+            // Assign adapter to ListView
+            mListView.setAdapter(mAdapter);
 
-        mAdapter.notifyDataSetChanged();
+            mAdapter.notifyDataSetChanged();
+        }
 
     }
 
@@ -71,7 +73,8 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
         public ImageLoader imageLoader;
 
         public MyListAdapterEspeciais(Context context, int textViewResourceId,
-                                      Menu_do_restaurante[] objects) {
+                                      Menu_do_restaurante[] objects)
+        {
             super(context, textViewResourceId, objects);
             imageLoader=new ImageLoader(getActivity().getApplicationContext());
             myContext = context;

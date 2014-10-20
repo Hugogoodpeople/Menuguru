@@ -19,6 +19,7 @@ public class Globals
     public TopTitulosFiltros[] filtros;
     public ComoFunc[] cfunc;
     public Festival[] festival;
+    public String deviceID;
 
     public TopTitulosFiltros[] getFiltros() {
         return filtros;
@@ -105,5 +106,14 @@ public class Globals
             _instance = new Globals();
         }
         return _instance;
+    }
+
+    public void setDeviceID(String deviceID) {
+        this.deviceID = deviceID;
+    }
+
+    public String getDeviceID()
+    {
+        return this.deviceID;
     }
 }
