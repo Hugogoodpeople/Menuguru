@@ -32,7 +32,9 @@ public class Globals
         return lingua;
     }
 
-    public void setLingua(String lingua) { this.lingua = lingua; }
+    public void setLingua(String lingua) {
+        this.lingua = lingua;
+    }
 
     public User getUser() {
         return user;

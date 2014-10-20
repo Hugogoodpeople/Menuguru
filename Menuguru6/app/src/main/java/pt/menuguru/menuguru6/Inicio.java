@@ -610,7 +610,9 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         @Override
         protected void onPostExecute(String strFromDoInBg)
         {
-            progressDialog.dismiss();delegate.asyncComplete(true);
+            progressDialog.dismiss();
+            if(delegate != null)
+                delegate.asyncComplete(true);
         }
     }
 
@@ -700,7 +702,9 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         }
 
         @Override
-        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncCompleteComo(true);  }
+        protected void onPostExecute(String strFromDoInBg){
+            progressDialog.dismiss();delegate.asyncCompleteComo(true);
+        }
 
     }
 
@@ -796,7 +800,9 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         }
 
         @Override
-        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncCompleteDestaque(true);  }
+        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();
+            if(delegate != null)
+            delegate.asyncCompleteDestaque(true);  }
 
     }
 

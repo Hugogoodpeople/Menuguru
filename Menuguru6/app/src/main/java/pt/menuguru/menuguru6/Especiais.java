@@ -246,7 +246,6 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
                 dict.put("city_id", Globals.getInstance().getCidedade_id());
 
 
-
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
 
                 // try parse the string to a JSON object
@@ -318,7 +317,8 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
         @Override
         protected void onPostExecute(String strFromDoInBg)
         {
-            delegate.asyncComplete(true);
+            if(delegate != null)
+                delegate.asyncComplete(true);
         }
     }
 

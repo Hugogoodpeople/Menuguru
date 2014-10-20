@@ -432,7 +432,8 @@ public class Procurar_mesa extends Fragment {
         @Override
         protected void onPostExecute(String strFromDoInBg)
         {
-           delegate.asyncComplete(true);
+            if(delegate != null)
+                delegate.asyncComplete(true);
         }
     }
     public void asyncComplete(boolean success){

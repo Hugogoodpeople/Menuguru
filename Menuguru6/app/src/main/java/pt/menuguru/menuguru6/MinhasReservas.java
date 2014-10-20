@@ -87,34 +87,34 @@ public class MinhasReservas extends Fragment {
             mListView.setEmptyView(view.findViewById(R.id.emty_view_reserva));
 
             imagem = (ImageView) view.findViewById(R.id.imageView_sem_r);
-            if(Globals.getInstance().getLingua()=="pt"){
+            if(Globals.getInstance().getLingua().equalsIgnoreCase("pt")){
                 imagem.setImageResource(R.drawable.reserva_pt);
-            }else if(Globals.getInstance().getLingua()=="en"){
+            }else if(Globals.getInstance().getLingua().equalsIgnoreCase("en")){
                 imagem.setImageResource(R.drawable.reserva_en);
-            }else if(Globals.getInstance().getLingua()=="fr"){
+            }else if(Globals.getInstance().getLingua().equalsIgnoreCase("fr")){
                 imagem.setImageResource(R.drawable.reserva_fr);
-            }else if(Globals.getInstance().getLingua()=="it"){
+            }else if(Globals.getInstance().getLingua().equalsIgnoreCase("it")){
                 imagem.setImageResource(R.drawable.reserva_fr);
-            }else if(Globals.getInstance().getLingua()=="de"){
+            }else if(Globals.getInstance().getLingua().equalsIgnoreCase("de")){
                 imagem.setImageResource(R.drawable.reserva_de);
-            }else if(Globals.getInstance().getLingua()=="es"){
+            }else if(Globals.getInstance().getLingua().equalsIgnoreCase("es")){
                 imagem.setImageResource(R.drawable.reserva_es);
             }
 
         }else{
             view = inflater.inflate(R.layout.fragment_sem_reservas, container, false);
             imagem = (ImageView) view.findViewById(R.id.imageView_sem);
-            if(Globals.getInstance().getLingua()=="pt"){
+            if(Globals.getInstance().getLingua().equalsIgnoreCase("pt")){
                 imagem.setImageResource(R.drawable.reserva_pt);
-            }else if(Globals.getInstance().getLingua()=="en"){
+            }else if(Globals.getInstance().getLingua().equalsIgnoreCase("en")){
                 imagem.setImageResource(R.drawable.reserva_en);
-            }else if(Globals.getInstance().getLingua()=="fr"){
+            }else if(Globals.getInstance().getLingua().equalsIgnoreCase("fr")){
                 imagem.setImageResource(R.drawable.reserva_fr);
-            }else if(Globals.getInstance().getLingua()=="it"){
+            }else if(Globals.getInstance().getLingua().equalsIgnoreCase("it")){
                 imagem.setImageResource(R.drawable.reserva_fr);
-            }else if(Globals.getInstance().getLingua()=="de"){
+            }else if(Globals.getInstance().getLingua().equalsIgnoreCase("de")){
                 imagem.setImageResource(R.drawable.reserva_de);
-            }else if(Globals.getInstance().getLingua()=="es"){
+            }else if(Globals.getInstance().getLingua().equalsIgnoreCase("es")){
                 imagem.setImageResource(R.drawable.reserva_es);
             }
         }
@@ -378,7 +378,9 @@ public class MinhasReservas extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(String strFromDoInBg){ progressDialog.dismiss();delegate.asyncComplete(true);  }
+        protected void onPostExecute(String strFromDoInBg){ progressDialog.dismiss();
+            if(delegate != null)
+            delegate.asyncComplete(true);  }
 
     }
 

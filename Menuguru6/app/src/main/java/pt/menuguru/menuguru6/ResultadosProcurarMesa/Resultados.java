@@ -294,7 +294,9 @@ public class Resultados extends Activity
 
         @Override
         protected void onPostExecute(String strFromDoInBg){
-            progressDialog.dismiss();delegate.asyncComplete(true);  }
+            progressDialog.dismiss();
+            if(delegate != null)
+                delegate.asyncComplete(true);  }
 
     }
 

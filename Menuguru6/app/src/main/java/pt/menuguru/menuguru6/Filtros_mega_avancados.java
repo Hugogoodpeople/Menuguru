@@ -699,7 +699,9 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
     }
 
     @Override
-    protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncComplete(true);  }
+    protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();
+        if(delegate != null)
+            delegate.asyncComplete(true);  }
 
 }
 

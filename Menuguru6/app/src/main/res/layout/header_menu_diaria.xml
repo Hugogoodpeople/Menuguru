@@ -36,7 +36,7 @@
                 android:text="Large Text"
                 android:id="@+id/data_diaria"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="40dp"
                 android:textSize="16dp"
                 android:textColor="@color/white" />
 
@@ -47,7 +47,7 @@
                 android:id="@+id/dia_semana_diaria"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/white"
-                android:layout_marginLeft="60dp" />
+                android:layout_marginLeft="40dp" />
         </LinearLayout>
     </RelativeLayout>
 

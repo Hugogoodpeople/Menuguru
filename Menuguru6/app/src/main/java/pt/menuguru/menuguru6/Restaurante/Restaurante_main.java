@@ -1051,7 +1051,8 @@ public class Restaurante_main extends FragmentActivity {
         protected void onPostExecute(String strFromDoInBg)
         {
             progressDialog.dismiss();
-            delegate.asyncCompleteMenus(true);
+            if(delegate != null)
+                delegate.asyncCompleteMenus(true);
         }
 
     }
@@ -1145,7 +1146,8 @@ public class Restaurante_main extends FragmentActivity {
         protected void onPostExecute(String strFromDoInBg)
         {
            // progressDialog.dismiss();
-            delegate.asyncCompleteFotos(true);
+            if(delegate != null)
+                delegate.asyncCompleteFotos(true);
         }
 
     }
@@ -1232,7 +1234,8 @@ public class Restaurante_main extends FragmentActivity {
         protected void onPostExecute(String strFromDoInBg)
         {
             //progressDialog.dismiss();
-            delegate.asyncCompleteEstrelas(true);
+            if(delegate != null)
+                delegate.asyncCompleteEstrelas(true);
         }
 
     }
@@ -1323,7 +1326,8 @@ public class Restaurante_main extends FragmentActivity {
         protected void onPostExecute(String strFromDoInBg)
         {
             //progressDialog.dismiss();
-            delegate.asyncCompleteComentarios(true);
+            if(delegate != null)
+                delegate.asyncCompleteComentarios(true);
         }
 
     }
@@ -1859,7 +1863,8 @@ public class Restaurante_main extends FragmentActivity {
         protected void onPostExecute(String strFromDoInBg)
         {
             // progressDialog.dismiss();
-            delegate.asyncCompleteVerificaSeguir(true);
+            if(delegate != null)
+                delegate.asyncCompleteVerificaSeguir(true);
         }
 
     }
@@ -1942,7 +1947,8 @@ public class Restaurante_main extends FragmentActivity {
         protected void onPostExecute(String strFromDoInBg)
         {
             // progressDialog.dismiss();
-            delegate.asyncCompletediaLimite(true);
+            if(delegate != null)
+                delegate.asyncCompletediaLimite(true);
         }
 
     }
@@ -2030,7 +2036,8 @@ public class Restaurante_main extends FragmentActivity {
         protected void onPostExecute(String strFromDoInBg)
         {
             // progressDialog.dismiss();
-            delegate.asyncCompletediaHorario(true);
+            if(delegate != null)
+                delegate.asyncCompletediaHorario(true);
         }
 
     }
@@ -2127,7 +2134,9 @@ public class Restaurante_main extends FragmentActivity {
         }
 
         @Override
-        protected void onPostExecute(String strFromDoInBg){  delegate.asyncCompleteReserva(true);  }
+        protected void onPostExecute(String strFromDoInBg){
+            if(delegate != null)
+                delegate.asyncCompleteReserva(true);  }
 
     }
 
