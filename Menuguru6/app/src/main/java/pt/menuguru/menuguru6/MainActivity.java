@@ -377,7 +377,7 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
 
 
         // este webservice precisa de ser trocado por um novo destinado a android
-        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/json_search_cities.php";
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/json_add_android_device.php";
 
         public AsyncTaskRegistarDispositivo (MainActivity delegate){
             if(delegate != null)
@@ -394,11 +394,19 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
                 // get json string from url
                 // tenho de criar um jsonobject e adicionar la as cenas
                 JSONObject dict = new JSONObject();
-                //JSONObject jsonObj = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
 
                 dict.put("id_dispositivo", regid);
 
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                try {
+                    jsonObj = new JSONObject(jsonString.substring(jsonString.indexOf("{"), jsonString.lastIndexOf("}") + 1));
+                } catch (JSONException e) {
+                    Log.e("JSON Parser", "Error parsing data [" + e.getMessage()+"] "+jsonString);
+                }
+
+                Log.v("JsonObject","resultado do registo do dispositovo = "+ jsonObj);
             } catch (JSONException e)
             {
                 e.printStackTrace();
