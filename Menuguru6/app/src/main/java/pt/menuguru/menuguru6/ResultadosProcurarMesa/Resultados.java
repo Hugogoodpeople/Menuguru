@@ -122,6 +122,9 @@ public class Resultados extends Activity
         // Assign adapter to ListView
         mListView.setAdapter(mAdapter);
 
+        // para colocar quando esta vazia
+        mListView.setEmptyView(findViewById(R.id.emty_view));
+
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 

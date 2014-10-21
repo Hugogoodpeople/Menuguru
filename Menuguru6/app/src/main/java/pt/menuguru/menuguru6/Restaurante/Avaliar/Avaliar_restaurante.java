@@ -134,8 +134,16 @@ public class Avaliar_restaurante extends Activity
 
 
                 dict.put("id_rest",rest_id);
-                dict.put("face_id", Globals.getInstance().getUser().getId_face());
-                dict.put("user_id", Globals.getInstance().getUser().getUserid());
+                if(Globals.getInstance().getUser().getTipoconta().equals("facebook")){
+                    dict.put("face_id",Globals.get_instance().getUser().getId_face());
+                    dict.put("user_id","0");
+                }else if(Globals.getInstance().getUser().getTipoconta().equals("guru")){
+                    dict.put("face_id","0");
+                    dict.put("user_id",Globals.get_instance().getUser().getUserid());
+                }else{
+                    dict.put("face_id","0");
+                    dict.put("user_id","0");
+                }
                 dict.put("rating", Float.toString(rating.getRating()));
 
                 /*
@@ -217,8 +225,16 @@ public class Avaliar_restaurante extends Activity
 
 
                 dict.put("id_rest",rest_id);
-                dict.put("face_id", Globals.getInstance().getUser().getId_face());
-                dict.put("user_id", Globals.getInstance().getUser().getUserid());
+                if(Globals.getInstance().getUser().getTipoconta().equals("facebook")){
+                    dict.put("face_id",Globals.get_instance().getUser().getId_face());
+                    dict.put("user_id","0");
+                }else if(Globals.getInstance().getUser().getTipoconta().equals("guru")){
+                    dict.put("face_id","0");
+                    dict.put("user_id",Globals.get_instance().getUser().getUserid());
+                }else{
+                    dict.put("face_id","0");
+                    dict.put("user_id","0");
+                }
                 dict.put("comentario", comentario.getText());
 
 

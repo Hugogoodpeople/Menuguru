@@ -151,7 +151,7 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
                 // tenho de colocar o selecionado na dialog no botao
                 Button p1_button = (Button)findViewById(R.id.button_data);
                 p1_button.setText( getResources().getStringArray(R.array.dias_semana)[dia_selecionado] + " " +  getResources().getStringArray(R.array.refeicoes)[ref_selecionado]);
-                locButton.startAnimation(AnimationUtils.loadAnimation(Activity_Inspiracao.this, R.anim.rodar));
+                //locButton.startAnimation(AnimationUtils.loadAnimation(Activity_Inspiracao.this, R.anim.rodar));
                 chamarInspiras();
                 dialog.dismiss();
             }
@@ -177,8 +177,6 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
 
     }
 
-
-
     private void chamarInspiras()
     {
 
@@ -201,10 +199,6 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
 
         return false;
     }
-
-    /*
-     * Preparing the list data
-     */
 
 
     public void asyncComplete(boolean success){

@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <permission android:name="pt.menuguru.menuguru6.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
@@ -31,6 +32,8 @@
         android:theme="@style/Theme.MyAppTheme" >
 
 
+
+
         <receiver
             android:name=".Utils.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
@@ -42,6 +45,26 @@
         <service android:name=".Utils.GcmIntentService" />
 
 
+        <!-- Splash screen -->
+        <activity
+            android:name=".SplashScreen.SplashScreen"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Main activity -->
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+
+
 
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -49,6 +72,7 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBWp0x8GGWgvJMzAQx8rZfeIt8AnlhAL2s"/>
 
+        <!--
         <activity
             android:name="pt.menuguru.menuguru6.MainActivity"
             android:label="@string/app_name"
@@ -59,6 +83,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        -->
         <activity
             android:name="pt.menuguru.menuguru6.MinhaConta"
             android:screenOrientation="portrait" />

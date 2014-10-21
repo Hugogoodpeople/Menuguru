@@ -115,10 +115,7 @@ public class GcmIntentService extends IntentService {
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         mBuilder.setSound(alarmSound);
 
-
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
-
-
 
 }
