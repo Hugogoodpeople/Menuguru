@@ -61,7 +61,8 @@
         <!-- Main activity -->
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
         </activity>
 
 
@@ -149,7 +150,8 @@
         </activity>
         <activity
             android:name="pt.menuguru.menuguru6.CriarUser"
-            android:label="@string/title_activity_criar_user" >
+            android:label="@string/title_activity_criar_user"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="pt.menuguru.menuguru6.Filtros_mega_avancados"
@@ -239,11 +241,13 @@
         </activity>
         <activity
             android:name="pt.menuguru.menuguru6.MenuEspecial"
-            android:label="@string/title_activity_menu_especial" >
+            android:label="@string/title_activity_menu_especial"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="pt.menuguru.menuguru6.Voucher"
-            android:label="@string/title_activity_voucher" >
+            android:label="@string/title_activity_voucher"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

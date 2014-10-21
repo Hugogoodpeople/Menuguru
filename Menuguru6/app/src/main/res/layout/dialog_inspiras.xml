@@ -10,11 +10,12 @@
         android:layout_height="fill_parent"
         android:id="@+id/listView_dias"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="0dp"
+        android:layout_marginLeft="5dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp"
-        android:layout_above="@+id/button"
-        android:layout_margin="5dp" />
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_above="@+id/button_gravar_inspiras"
+        android:layout_marginBottom="5dp" />
 
     <ListView
         android:layout_width="fill_parent"
@@ -23,10 +24,10 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/listView_dias"
         android:layout_toEndOf="@+id/listView_dias"
-        android:layout_above="@+id/button"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="10dp"
+        android:layout_above="@+id/button_gravar_inspiras"
+        android:layout_marginBottom="5dp" />
 
     <Button
         android:layout_width="wrap_content"

@@ -137,13 +137,14 @@
     <string name="encontrar_mesa">Encontrar </string>
     <string name="menus">Menus</string>
     <string name="perto_de_mim">Perto de mim</string>
+    <string name="para_quando">Para quando gostaria de reservar mesa?</string>
 
     <string-array name="pesquisa">
         <item>Filtros Avançados</item>
         <item>Inspiração</item>
         <item>Cancelar</item>
     </string-array>
-    <string name="para_quando">Para quando gostaria de reservar mesa?</string>
+
 
     <string-array name="defenicoes_array">
         <item>A minha Conta</item>

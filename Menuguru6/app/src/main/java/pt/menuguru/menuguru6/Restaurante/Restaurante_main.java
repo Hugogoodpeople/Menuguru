@@ -857,8 +857,9 @@ public class Restaurante_main extends FragmentActivity {
             fragments.add(fragment);
         }
 
-        ViewPager galeria = (ViewPager) findViewById(R.id.galeria_imagens);
+        ViewPager galeria = (ViewPager) findViewById(R.id.galeria_imagens_slider);
         PagerAdapter adapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragments);
+
 
         galeria.setAdapter(adapter);
 

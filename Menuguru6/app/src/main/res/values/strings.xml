@@ -84,7 +84,7 @@
         <item>Sábado</item>
     </string-array>
     <string-array name="refeicoes">
-        <item>para_quando</item>
+        <item>Almoço</item>
         <item>Jantar</item>
     </string-array>
     <string-array name="pesquisa">

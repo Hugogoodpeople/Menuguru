@@ -151,15 +151,10 @@ public class Favoritos_list_restaurantes extends Activity
 
                 // loop through all users
 
-
-
-
                 some_list = new ArrayList<Restaurante>();
                 for (int i = 0; i < dataJsonArr.length(); i++) {
 
                     JSONObject c = dataJsonArr.getJSONObject(i);
-
-
 
                     // Storing each json item in variable
                     String firstname = c.getString("nome");

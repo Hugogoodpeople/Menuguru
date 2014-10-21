@@ -1,6 +1,6 @@
 <RelativeLayout
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView
@@ -26,7 +26,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="10dp"
         style="@style/CustomRatingBar"
-        android:layout_alignBottom="@+id/capa" />
+        android:layout_alignBottom="@+id/capa"
+        android:layout_marginBottom="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,7 +41,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -66,7 +68,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="10dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="0dp"
         android:layout_alignRight="@+id/imagemTipo"
         android:layout_alignEnd="@+id/imagemTipo" />
 
@@ -76,10 +78,11 @@
         android:id="@+id/imagemTipo"
         android:src="@drawable/i_map"
         android:layout_gravity="right"
-        android:layout_marginRight="24dp"
         android:layout_alignTop="@+id/ratingBar_avaliar"
         android:layout_alignRight="@+id/nomeRestaurante"
-        android:layout_alignEnd="@+id/nomeRestaurante" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="10dp" />
 
     <TextView
         android:layout_width="50dp"
@@ -118,6 +121,7 @@
         android:shadowDx="2"
         android:shadowDy="2"
         android:shadowRadius="2"
-        android:layout_marginRight="4dp" />
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="5dp" />
 
 </RelativeLayout>
