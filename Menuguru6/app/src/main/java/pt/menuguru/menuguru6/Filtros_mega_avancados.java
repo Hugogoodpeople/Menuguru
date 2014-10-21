@@ -17,6 +17,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -72,6 +74,8 @@ public class Filtros_mega_avancados extends Activity
     private SearchView procura;
     private String prato = "";
     private String tipo = "1";
+
+    Animation hyperspaceJumpAnimation;
 
 
     @Override
@@ -715,11 +719,19 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
     public void preencherTabelas(final int selecionado)
     {
 
+
+
+
+
+
         // mCallbacks.onButtonClicked();
         selected = selecionado;
 
         mListView = (ListView) findViewById(R.id.lista_avancada);
         //adapter = new ArrayAdapter<Locais>(this,android.R.layout.simple_list_item_1, android.R.id.text1, local);
+
+
+
 
         switch (selecionado)
         {
@@ -773,8 +785,6 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
         // Assign adapter to ListView
         mListView.setAdapter(mAdapter);
 
-
-
         // ListView Item Click Listener
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -824,6 +834,31 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
 
         });
 
+        // tenho de por aqui as animações
+        hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.abc_slide_out_top);
+        mListView.startAnimation(hyperspaceJumpAnimation);
+
+        hyperspaceJumpAnimation.setAnimationListener(new Animation.AnimationListener() {
+            public void onAnimationStart(Animation animation) {}
+            public void onAnimationRepeat(Animation animation) {}
+            public void onAnimationEnd(Animation animation) {
+               fazerOutraAnim();
+            }
+        });
+
+
+
+
+
+
+
+    }
+
+    public void fazerOutraAnim()
+    {
+        // tenho de por aqui as animações
+        hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.abc_slide_in_bottom);
+        mListView.startAnimation(hyperspaceJumpAnimation);
     }
 
 

@@ -1166,7 +1166,7 @@ public class Restaurante_main extends FragmentActivity {
     public class AsyncTaskParseJsonEstrelas extends AsyncTask<String, String, String> {
 
         final String TAG = "AsyncTaskParseJson.java";
-        private volatile boolean running = true;
+
 
         String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_listar_rating.php";
 
@@ -1181,68 +1181,61 @@ public class Restaurante_main extends FragmentActivity {
 
 
         @Override
-        protected void onCancelled() {
-            running = false;
-        }
-
-
-
-        @Override
         protected String doInBackground(String... arg0) {
-            while (running) {
+
+            try {
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+                dict.put("lang",Globals.getInstance().getLingua());
+
+                dict.put("id_rest",rest_id);
+
+                // tenho de enviar lat, long, data, hora, cidade, lang
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                Log.v("jfgrhng","resultado das estrelas = "+ jsonString);
+
+
+                // try parse the string to a JSON object
                 try {
-                    // instantiate our json parser
-                    JSONParser jParser = new JSONParser();
-
-                    // get json string from url
-                    // tenho de criar um jsonobject e adicionar la as cenas
-                    JSONObject dict = new JSONObject();
-                    JSONObject jsonObj = new JSONObject();
-
-                    dict.put("lang", Globals.getInstance().getLingua());
-
-                    dict.put("id_rest", rest_id);
-
-                    // tenho de enviar lat, long, data, hora, cidade, lang
-
-                    String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl, dict);
-
-                    Log.v("jfgrhng", "resultado das estrelas = " + jsonString);
-
-
-                    // try parse the string to a JSON object
-                    try {
-                        Log.v("Ver Json ", "Ele retorna para as estrelas" + jsonString);
-                        jsonObj = new JSONObject(jsonString);
-                    } catch (JSONException e) {
-                        Log.e(TAG, "Error parsing data " + e.toString());
-                    }
-                    // get the array of users
-
-                    String completo = jsonObj.getString("res");
-                    JSONObject outro = new JSONObject(completo);
-
-
-                    // loop through all users
-
-
-                    votacoes = outro.getString("contagem");
-                    mediarating = outro.getString("media");
-
-                    listEstrelas = new String[5];
-                    listEstrelas[0] = outro.getString("umaestrela");
-                    listEstrelas[1] = outro.getString("duasestrela");
-                    listEstrelas[2] = outro.getString("tresestrela");
-                    listEstrelas[3] = outro.getString("quatroestrela");
-                    listEstrelas[4] = outro.getString("cincoestrela");
-
-
-                    Log.v("werqwe", "numero de votações " + votacoes);
-
+                    Log.v("Ver Json ","Ele retorna para as estrelas"+jsonString);
+                    jsonObj = new JSONObject(jsonString);
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Error parsing data " + e.toString());
                 }
+                // get the array of users
+
+                String completo = jsonObj.getString("res");
+                JSONObject outro =new JSONObject(completo);
+
+
+                // loop through all users
+
+
+                votacoes = outro.getString("contagem");
+                mediarating = outro.getString("media");
+
+                listEstrelas = new String[5];
+                listEstrelas[0] = outro.getString("umaestrela");
+                listEstrelas[1] = outro.getString("duasestrela");
+                listEstrelas[2] = outro.getString("tresestrela");
+                listEstrelas[3] = outro.getString("quatroestrela");
+                listEstrelas[4] = outro.getString("cincoestrela");
+
+
+                Log.v("werqwe", "numero de votações " + votacoes);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+
             return null;
         }
 
@@ -1611,6 +1604,8 @@ public class Restaurante_main extends FragmentActivity {
                 gridView.smoothScrollToPosition(0);
             }
         }, 1000);
+
+
 
         //initialisePagin();
         new AsyncTaskParseJsonEstrelas(this).execute();

@@ -1163,8 +1163,11 @@ public class MenuEspecial_nos_especiais extends Activity {
         ViewGroup footer = (ViewGroup) inflater.inflate(R.layout.footer_menuespcial, mListView, false);
         ViewGroup header = (ViewGroup) inflater.inflate(R.layout.header_menuespecial, mListView, false);
 
-        mListView.addFooterView(footer, null, false);
-        mListView.addHeaderView(header, null, false);
+        if (mListView != null) {
+
+            mListView.addFooterView(footer, null, false);
+            mListView.addHeaderView(header, null, false);
+        }
 
         LinearLayout forward = (LinearLayout) footer.findViewById(R.id.linear_footer);
         forward.setOnClickListener(new View.OnClickListener() {
