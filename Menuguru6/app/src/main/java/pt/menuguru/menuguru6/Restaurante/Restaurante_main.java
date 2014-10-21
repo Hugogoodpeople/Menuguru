@@ -88,7 +88,7 @@ public class Restaurante_main extends FragmentActivity {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    private static final int NUM_PAGES = Globals.get_instance().getCfunc().length;
+   // private static final int NUM_PAGES = Globals.getInstance().getCfunc().length;
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -865,6 +865,13 @@ public class Restaurante_main extends FragmentActivity {
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
+    }
+
     public void initialisePagin()
     {
         TextView votos = (TextView) header2.findViewById(R.id.textView_avaliacoes);
@@ -885,7 +892,8 @@ public class Restaurante_main extends FragmentActivity {
         ViewPager mPager = (ViewPager) findViewById(R.id.pager_restaurante);
         PagerAdapter mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragments);
 
-        mPager.setAdapter(mPagerAdapter);
+        if(mPagerAdapter != null)
+            mPager.setAdapter(mPagerAdapter);
     }
 
 
@@ -917,7 +925,8 @@ public class Restaurante_main extends FragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        switch (item.getItemId())
+        {
             case android.R.id.home:
                 finish();
                 overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
@@ -925,7 +934,6 @@ public class Restaurante_main extends FragmentActivity {
             default:
                 break;
         }
-
         return false;
     }
 
@@ -1158,7 +1166,7 @@ public class Restaurante_main extends FragmentActivity {
     public class AsyncTaskParseJsonEstrelas extends AsyncTask<String, String, String> {
 
         final String TAG = "AsyncTaskParseJson.java";
-
+        private volatile boolean running = true;
 
         String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_listar_rating.php";
 
@@ -1173,61 +1181,68 @@ public class Restaurante_main extends FragmentActivity {
 
 
         @Override
+        protected void onCancelled() {
+            running = false;
+        }
+
+
+
+        @Override
         protected String doInBackground(String... arg0) {
-
-            try {
-                // instantiate our json parser
-                JSONParser jParser = new JSONParser();
-
-                // get json string from url
-                // tenho de criar um jsonobject e adicionar la as cenas
-                JSONObject dict = new JSONObject();
-                JSONObject jsonObj = new JSONObject();
-
-                dict.put("lang",Globals.getInstance().getLingua());
-
-                dict.put("id_rest",rest_id);
-
-                // tenho de enviar lat, long, data, hora, cidade, lang
-
-                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
-
-                Log.v("jfgrhng","resultado das estrelas = "+ jsonString);
-
-
-                // try parse the string to a JSON object
+            while (running) {
                 try {
-                    Log.v("Ver Json ","Ele retorna para as estrelas"+jsonString);
-                    jsonObj = new JSONObject(jsonString);
+                    // instantiate our json parser
+                    JSONParser jParser = new JSONParser();
+
+                    // get json string from url
+                    // tenho de criar um jsonobject e adicionar la as cenas
+                    JSONObject dict = new JSONObject();
+                    JSONObject jsonObj = new JSONObject();
+
+                    dict.put("lang", Globals.getInstance().getLingua());
+
+                    dict.put("id_rest", rest_id);
+
+                    // tenho de enviar lat, long, data, hora, cidade, lang
+
+                    String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl, dict);
+
+                    Log.v("jfgrhng", "resultado das estrelas = " + jsonString);
+
+
+                    // try parse the string to a JSON object
+                    try {
+                        Log.v("Ver Json ", "Ele retorna para as estrelas" + jsonString);
+                        jsonObj = new JSONObject(jsonString);
+                    } catch (JSONException e) {
+                        Log.e(TAG, "Error parsing data " + e.toString());
+                    }
+                    // get the array of users
+
+                    String completo = jsonObj.getString("res");
+                    JSONObject outro = new JSONObject(completo);
+
+
+                    // loop through all users
+
+
+                    votacoes = outro.getString("contagem");
+                    mediarating = outro.getString("media");
+
+                    listEstrelas = new String[5];
+                    listEstrelas[0] = outro.getString("umaestrela");
+                    listEstrelas[1] = outro.getString("duasestrela");
+                    listEstrelas[2] = outro.getString("tresestrela");
+                    listEstrelas[3] = outro.getString("quatroestrela");
+                    listEstrelas[4] = outro.getString("cincoestrela");
+
+
+                    Log.v("werqwe", "numero de votações " + votacoes);
+
                 } catch (JSONException e) {
-                    Log.e(TAG, "Error parsing data " + e.toString());
+                    e.printStackTrace();
                 }
-                // get the array of users
-
-                String completo = jsonObj.getString("res");
-                JSONObject outro =new JSONObject(completo);
-
-
-                // loop through all users
-
-
-                votacoes = outro.getString("contagem");
-                mediarating = outro.getString("media");
-
-                listEstrelas = new String[5];
-                listEstrelas[0] = outro.getString("umaestrela");
-                listEstrelas[1] = outro.getString("duasestrela");
-                listEstrelas[2] = outro.getString("tresestrela");
-                listEstrelas[3] = outro.getString("quatroestrela");
-                listEstrelas[4] = outro.getString("cincoestrela");
-
-
-                Log.v("werqwe", "numero de votações " + votacoes);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
-
             return null;
         }
 
@@ -1596,8 +1611,6 @@ public class Restaurante_main extends FragmentActivity {
                 gridView.smoothScrollToPosition(0);
             }
         }, 1000);
-
-
 
         //initialisePagin();
         new AsyncTaskParseJsonEstrelas(this).execute();
