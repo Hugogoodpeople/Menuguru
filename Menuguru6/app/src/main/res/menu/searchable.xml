@@ -12,6 +12,10 @@
         android:showAsAction="collapseActionView|ifRoom"
         android:actionViewClass="android.widget.SearchView"
         android:layout_width="match_parent"
+
         />
+
+
+
 
 </menu>

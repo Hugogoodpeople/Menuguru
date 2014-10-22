@@ -7,11 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +30,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -76,6 +80,9 @@ public class Filtros_mega_avancados extends Activity
     private SearchView procura;
     private String prato = "";
     private String tipo = "1";
+
+    private RelativeLayout relativ_tipo;
+
 
     Animation hyperspaceJumpAnimation;
 
@@ -182,6 +189,32 @@ public class Filtros_mega_avancados extends Activity
 
         highlightButton(1);
 
+        relativ_tipo = (RelativeLayout) findViewById(R.id.tipo_pesquisa_RP);
+
+        Button tipo_restaurante = (Button) relativ_tipo.findViewById(R.id.click_restaurante);
+        Button tipo_prato = (Button) relativ_tipo.findViewById(R.id.click_prato);
+
+        final ImageView imagem_rest = (ImageView) relativ_tipo.findViewById(R.id.check_restaurante);
+        final ImageView imagem_prato = (ImageView) relativ_tipo.findViewById(R.id.check_prato);
+
+        tipo_restaurante.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tipo = "1";
+                imagem_rest.setImageResource(R.drawable.check);
+                imagem_prato.setImageResource(R.drawable.uncheck);
+            }
+        });
+
+        tipo_prato.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tipo = "0";
+                imagem_prato.setImageResource(R.drawable.check);
+                imagem_rest.setImageResource(R.drawable.uncheck);
+            }
+        });
+
 
         new AsyncTaskParseJson(this).execute();
 
@@ -247,6 +280,8 @@ public class Filtros_mega_avancados extends Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+
+
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.searchable, menu);
@@ -254,9 +289,12 @@ public class Filtros_mega_avancados extends Activity
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setQueryHint(getString(R.string.procurar));
 
+
+/*
          // este codigo fica em standby ate encontrar algo melhor
-        menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.restaurante)).setIcon(R.drawable.ic_delet_b);
-        menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.prato)).setIcon(R.drawable.ic_delet_b);
+        menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.restaurante)).setIcon(R.drawable.check);
+        menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.prato)).setIcon(R.drawable.uncheck);
+*/
 
 
 
@@ -279,9 +317,11 @@ public class Filtros_mega_avancados extends Activity
 
 
 
+
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 Log.v("fazcoisas","clicou no botao de pesquisa");
+                relativ_tipo.setAlpha(0.8f);
             } });
 
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
@@ -289,14 +329,26 @@ public class Filtros_mega_avancados extends Activity
             @Override
             public boolean onClose() {
                 Log.v("cenasfechar","clicou para fechar");
+                relativ_tipo.setAlpha(0);
                 return false;
             }
         });
+
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                relativ_tipo.setAlpha(0);
+            }
+        });
+
+
 
 
         return true;
 
     }
+
+
 
 
 
