@@ -888,7 +888,8 @@ public class MenuEspecial extends Activity {
             case R.id.partilhar:
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+                // aqui tenho de alterar a partilha
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "http://menuguru.pt/especial_"+ rest_cartao_id + "/"+ nome_rest);
 
 
                 sendIntent.setType("text/plain");

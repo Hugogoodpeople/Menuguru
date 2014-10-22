@@ -880,27 +880,6 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
         }, hyperspaceJumpAnimation.getDuration());
         mListView.startAnimation(hyperspaceJumpAnimation);
 
-
-
-        /*
-        hyperspaceJumpAnimation.setAnimationListener(new Animation.AnimationListener() {
-            public void onAnimationStart(Animation animation) {}
-            public void onAnimationRepeat(Animation animation) {}
-            public void onAnimationEnd(Animation animation)
-            {
-                mListView.clearAnimation();
-                if(selected > preSelected)
-                {
-                    animacaoParaCima();
-                }
-                else
-                {
-                    animacaoParaBaixo();
-                }
-            }
-        });
-        */
-
         mListView.startAnimation(hyperspaceJumpAnimation);
 
 
@@ -909,13 +888,6 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
 
     public void animacaoParaBaixo()
     {
-        /*
-        // tenho de por aqui as animações
-        mListView.clearAnimation();
-        hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.abc_slide_in_top);
-        mAdapter.notifyDataSetChanged();
-        mListView.startAnimation(hyperspaceJumpAnimation);
-        */
 
         hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.int_from_top);
        // hyperspaceJumpAnimation.setDuration(2000);
@@ -937,13 +909,6 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
 
     public void animacaoParaCima()
     {
-        /*
-        // tenho de por aqui as animações
-        mListView.clearAnimation();
-        hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.abc_slide_in_bottom);
-        mAdapter.notifyDataSetChanged();
-        mListView.startAnimation(hyperspaceJumpAnimation);
-        */
 
         hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.in_from_bot);
        // hyperspaceJumpAnimation.setDuration(2000);
@@ -968,7 +933,8 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
         public ImageLoader imageLoader;
 
         public MyListAdapter(Context context, int textViewResourceId,
-                             AvancadosObject[] objects) {
+                             AvancadosObject[] objects)
+        {
             super(context, textViewResourceId, objects);
             imageLoader=new ImageLoader(context);
             myContext = context;
@@ -1205,7 +1171,6 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
         arrayTopTitulos[index].getArrayObjectos()[0].setSelecionado(false);
     }
 
-
     public void limparTudo()
     {
         for(int i = 0; i< arrayTopTitulos.length ; i++)
@@ -1226,4 +1191,3 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
     }
 
 }
-
