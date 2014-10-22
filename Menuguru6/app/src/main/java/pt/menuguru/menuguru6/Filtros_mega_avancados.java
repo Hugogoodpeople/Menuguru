@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Locale;
+
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.Utils.AvancadosObject;
@@ -61,6 +62,7 @@ public class Filtros_mega_avancados extends Activity
 
 
     int selected = 1;
+    int preSelected = 1;
 
 
     private ImageButton button1;
@@ -737,7 +739,9 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
         {
             case 1:
             {
+
                 mAdapter = new MyListAdapter(this, R.layout.row_defenicoes, arrayTopTitulos[selecionado-1].getArrayObjectos());
+                mListView.setAdapter(mAdapter);
                 break;
             }
             case 2:
@@ -782,8 +786,12 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
 
         }
 
+
+        mAdapter.notifyDataSetChanged();
+        /*
         // Assign adapter to ListView
         mListView.setAdapter(mAdapter);
+        */
 
         // ListView Item Click Listener
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -823,9 +831,7 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
                         descelecionar(5);
                 }
 
-
                 selecionar(position);
-
 
                 mAdapter.notifyDataSetChanged();
 
@@ -835,30 +841,124 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
         });
 
         // tenho de por aqui as animações
-        hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.abc_slide_out_top);
+        // ja faz as animaçoes
+        // tenho de verificar se for a primeira para nao fazer a animação
+        // tambem tenho de ver se moveu para cima ou para baixo para ter animações diferentes
+
+        if(selected > preSelected) {
+            hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.out_from_bot);
+        }
+        else
+        {
+            hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.out_from_top);
+        }
+
+
+       // hyperspaceJumpAnimation.setDuration(2000);
+
+        hyperspaceJumpAnimation.setFillAfter(true);
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                mListView.clearAnimation();
+                //Extra work goes here
+                // mAdapter.notifyDataSetChanged();
+                if(selected > preSelected) {
+                    animacaoParaCima();
+                    // Assign adapter to ListView
+                    mAdapter.notifyDataSetChanged();
+                    mListView.setAdapter(mAdapter);
+                }
+                else
+                {
+                    animacaoParaBaixo();
+                    // Assign adapter to ListView
+                    mAdapter.notifyDataSetChanged();
+                    mListView.setAdapter(mAdapter);
+
+                }
+            }
+        }, hyperspaceJumpAnimation.getDuration());
         mListView.startAnimation(hyperspaceJumpAnimation);
 
+
+
+        /*
         hyperspaceJumpAnimation.setAnimationListener(new Animation.AnimationListener() {
             public void onAnimationStart(Animation animation) {}
             public void onAnimationRepeat(Animation animation) {}
-            public void onAnimationEnd(Animation animation) {
-               fazerOutraAnim();
+            public void onAnimationEnd(Animation animation)
+            {
+                mListView.clearAnimation();
+                if(selected > preSelected)
+                {
+                    animacaoParaCima();
+                }
+                else
+                {
+                    animacaoParaBaixo();
+                }
             }
         });
+        */
 
-
-
-
+        mListView.startAnimation(hyperspaceJumpAnimation);
 
 
 
     }
 
-    public void fazerOutraAnim()
+    public void animacaoParaBaixo()
     {
+        /*
         // tenho de por aqui as animações
-        hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.abc_slide_in_bottom);
+        mListView.clearAnimation();
+        hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.abc_slide_in_top);
+        mAdapter.notifyDataSetChanged();
         mListView.startAnimation(hyperspaceJumpAnimation);
+        */
+
+        hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.int_from_top);
+       // hyperspaceJumpAnimation.setDuration(2000);
+        hyperspaceJumpAnimation.setFillAfter(true);
+
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                mListView.clearAnimation();
+                //Extra work goes here
+
+
+            }
+        }, hyperspaceJumpAnimation.getDuration());
+        mListView.startAnimation(hyperspaceJumpAnimation);
+        mAdapter.notifyDataSetChanged();
+
+        preSelected = selected;
+    }
+
+    public void animacaoParaCima()
+    {
+        /*
+        // tenho de por aqui as animações
+        mListView.clearAnimation();
+        hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.abc_slide_in_bottom);
+        mAdapter.notifyDataSetChanged();
+        mListView.startAnimation(hyperspaceJumpAnimation);
+        */
+
+        hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.in_from_bot);
+       // hyperspaceJumpAnimation.setDuration(2000);
+        hyperspaceJumpAnimation.setFillAfter(true);
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                mListView.clearAnimation();
+                //Extra work goes here
+
+            }
+        }, hyperspaceJumpAnimation.getDuration());
+        mListView.startAnimation(hyperspaceJumpAnimation);
+        mAdapter.notifyDataSetChanged();
+
+        preSelected = selected;
     }
 
 
