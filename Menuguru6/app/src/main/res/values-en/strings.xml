@@ -159,5 +159,6 @@
         <item>Friday</item>
         <item>Saturday</item>
     </string-array>
+    <string name="seleciona_data_reserva_oferta">Select the date to book the table and take advantage of the offer</string>
 
 </resources>

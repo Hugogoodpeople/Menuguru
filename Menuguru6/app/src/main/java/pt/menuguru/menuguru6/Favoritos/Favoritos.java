@@ -97,7 +97,7 @@ public class Favoritos extends Activity
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                overridePendingTransition( R.anim.abc_fade_in , R.anim.abc_slide_out_bottom);
+                overridePendingTransition( R.anim.abc_fade_in , R.anim.out_from_top);
                 return false;
             case R.id.clicar_menu_gravar_favoritos:
                 new AsyncTaskParseJsonAdicionarAsListas(this).execute();
@@ -460,7 +460,7 @@ public class Favoritos extends Activity
     {
         //new AsyncTaskParseJsonFavoritos(this).execute();
         finish();
-        overridePendingTransition( R.anim.abc_fade_in , R.anim.abc_slide_out_bottom);
+        overridePendingTransition( R.anim.abc_fade_in , R.anim.out_from_top);
     }
 
 

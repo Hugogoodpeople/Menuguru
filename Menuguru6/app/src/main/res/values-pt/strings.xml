@@ -175,5 +175,6 @@
         <item>Sexta-feira</item>
         <item>Sábado</item>
     </string-array>
+    <string name="seleciona_data_reserva_oferta">Selecione a data para reservar a\nmesa e usufruir da oferta</string>
 
 </resources>

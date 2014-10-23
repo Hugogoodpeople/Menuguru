@@ -157,5 +157,6 @@
         <item>Vendredi</item>
         <item>Samedi</item>
     </string-array>
+    <string name="seleciona_data_reserva_oferta">Sélectionnez la date à réserver la table et profitez de l\'offre.</string>
 
 </resources>

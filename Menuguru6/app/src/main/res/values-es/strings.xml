@@ -156,5 +156,6 @@
         <item>Viernes</item>
         <item>Sábado</item>
     </string-array>
+    <string name="seleciona_data_reserva_oferta">Seleccione la fecha para reservar la mesa y tomar ventaja de la oferta</string>
 
 </resources>

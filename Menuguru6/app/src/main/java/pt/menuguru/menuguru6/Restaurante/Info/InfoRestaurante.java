@@ -74,7 +74,7 @@ public class InfoRestaurante extends Activity
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                overridePendingTransition(0, R.anim.abc_slide_out_bottom);
+                overridePendingTransition( R.anim.abc_fade_in , R.anim.out_from_top);
                 return false;
             default:
                 break;

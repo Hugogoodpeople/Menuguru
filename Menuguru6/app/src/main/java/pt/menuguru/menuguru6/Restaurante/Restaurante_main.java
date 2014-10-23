@@ -1404,6 +1404,7 @@ public class Restaurante_main extends FragmentActivity {
         {
             Button bt_reservar_mesa = (Button) findViewById(R.id.bt_reservar_mesa);
             bt_reservar_mesa.setAlpha(0);
+            bt_reservar_mesa.setEnabled(false);
         }
 
 

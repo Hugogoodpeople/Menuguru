@@ -454,7 +454,6 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setProgress(0);
             progressDialog.show();
-
         }
 
 
@@ -735,7 +734,8 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         @Override
         protected void onPostExecute(String strFromDoInBg){
             progressDialog.dismiss();delegate.asyncCompleteComo(true);
-        }
+
+  }
 
     }
 

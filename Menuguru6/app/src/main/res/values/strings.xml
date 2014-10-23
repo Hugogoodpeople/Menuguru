@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">Menuguru</string>
+    <string name="seleciona_data_reserva_oferta">Selecione a data para reservar a\nmesa e usufruir da oferta</string>
     <string name="para_quando">Para quando gostaria de reservar mesa?</string>
     <string name="agora">Agora</string>
     <string name="sem_data_especifica">Sem data especifica</string>

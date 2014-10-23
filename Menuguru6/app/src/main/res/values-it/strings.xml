@@ -156,5 +156,6 @@
         <item>Venerdì</item>
         <item>Sabato</item>
     </string-array>
+    <string name="seleciona_data_reserva_oferta">Scegliete la data della prenotazione del tavolo, per approffitare dell\'offerta</string>
 
 </resources>

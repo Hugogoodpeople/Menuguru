@@ -156,6 +156,7 @@
         <item>SFreitag</item>
         <item>Samstag</item>
     </string-array>
+    <string name="seleciona_data_reserva_oferta">Wählen Sie das Datum für die Tischreserviereung aus, um vom Angebot zu profitieren</string>
 
 
 </resources>

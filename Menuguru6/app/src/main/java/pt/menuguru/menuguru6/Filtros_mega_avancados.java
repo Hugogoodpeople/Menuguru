@@ -178,6 +178,7 @@ public class Filtros_mega_avancados extends Activity
                 //AbrirPesquisa();
 
                 finish();
+                overridePendingTransition( R.anim.abc_fade_in , R.anim.out_from_top);
 
             }
         });
@@ -247,6 +248,7 @@ public class Filtros_mega_avancados extends Activity
         //AbrirPesquisa();
 
         finish();
+        overridePendingTransition( R.anim.abc_fade_in , R.anim.out_from_top);
     }
 
     private void highlightButton(int selectedButton)
@@ -387,7 +389,7 @@ public class Filtros_mega_avancados extends Activity
                 //Intent myIntent = new Intent(Inspiracao.this, MainActivity.class);
                 //startActivity(myIntent);
                 finish();
-
+                overridePendingTransition( R.anim.abc_fade_in , R.anim.out_from_top);
                 return false;
 
             case 0:
@@ -932,7 +934,7 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
         }
 
 
-       // hyperspaceJumpAnimation.setDuration(2000);
+        hyperspaceJumpAnimation.setDuration(250);
 
         hyperspaceJumpAnimation.setFillAfter(true);
         new Handler().postDelayed(new Runnable() {
@@ -968,7 +970,7 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
     {
 
         hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.int_from_top);
-       // hyperspaceJumpAnimation.setDuration(2000);
+        hyperspaceJumpAnimation.setDuration(250);
         hyperspaceJumpAnimation.setFillAfter(true);
 
         new Handler().postDelayed(new Runnable() {
@@ -989,7 +991,7 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
     {
 
         hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.in_from_bot);
-       // hyperspaceJumpAnimation.setDuration(2000);
+        hyperspaceJumpAnimation.setDuration(250);
         hyperspaceJumpAnimation.setFillAfter(true);
         new Handler().postDelayed(new Runnable() {
             public void run() {

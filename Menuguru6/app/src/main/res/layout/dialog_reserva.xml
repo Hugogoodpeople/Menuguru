@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Selecione a data para reservar a mesa e usurfuir da oferta"
+            android:text="@string/seleciona_data_reserva_oferta"
             android:id="@+id/textSpiner"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
