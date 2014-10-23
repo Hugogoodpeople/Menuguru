@@ -3,6 +3,7 @@ package pt.menuguru.menuguru6.Inspiracoes;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -54,9 +55,12 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
     private Dialog dialog;
     public Inspiracao[] some_array;
 
+    private ProgressDialog progressDialog;
+
     private int dia_selecionado= -1;
     private int ref_selecionado= -1;
     private ImageButton locButton;
+    private ListView listDias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +71,19 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
         getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 
 
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE"/*, Locale.FRANCE */);
+        // este codigo funciona apenas para quando a lingua do
+        // dispositivo é igual a lingua escolhida pelo utilizador
+
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        /*
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
         Date d = new Date();
         String dayOfTheWeek = sdf.format(d);
+        */
 
+        String dayOfTheWeek = getResources().getStringArray(R.array.dias_semana)[day - 1];
 
         Calendar cc = Calendar.getInstance();
         cc.setTime(new Date());
@@ -90,20 +103,14 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
             ref_selecionado = 1;
         }
 
-
-
         Button p1_button = (Button)findViewById(R.id.button_data);
         p1_button.setText(dayOfTheWeek + " " + refeicao);
-
-
-
-
 
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_inspiras);
 
-        ListView listDias = (ListView) dialog.findViewById(R.id.listView_dias);
+        listDias = (ListView) dialog.findViewById(R.id.listView_dias);
 
         AdapterStringDias adapterString = new AdapterStringDias(this, R.layout.list_spiner,  getResources().getStringArray(R.array.dias_semana));
 
@@ -160,21 +167,33 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
 
         p1_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 dialog.show();
+                fazerScroll();
             }
         });
 
 
 
         expListView = (ExpandableListView) findViewById(R.id.lista_inspiracoes);
-
         expListView.setOnChildClickListener( this);
 
         chamarInspiras();
 
+    }
+
+    public void fazerScroll()
+    {
 
 
+        listDias.post(new Runnable() {
+            @Override
+            public void run() {
+                // Select the last row so it will scroll into view...
+                listDias.setSelection(dia_selecionado-1);
+            }
+        });
     }
 
     private void chamarInspiras()
@@ -215,12 +234,7 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.inspiracao, menu);
-
-
         locButton = (ImageButton) menu.findItem(R.id.action_actualizar_inspiras).getActionView();
-
-
-
         return true;
     }
 
@@ -263,13 +277,22 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
         // contacts JSONArray
         JSONArray dataJsonArr = null;
 
-        public AsyncTaskParseJson (Activity_Inspiracao delegate){
+        public AsyncTaskParseJson (Activity_Inspiracao delegate)
+        {
             this.delegate = delegate;
         }
 
 
         @Override
-        protected void onPreExecute() {}
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(delegate);
+            progressDialog.setCancelable(false);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+        }
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -350,8 +373,6 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
                     // Adding child data
                     List<InspiracaoItem> top250 = new ArrayList<InspiracaoItem>();
 
-
-
                     // tenho de fazer um ciclo
 
                     JSONArray items = c.getJSONArray("subtitulos");
@@ -364,15 +385,11 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
                         ii.setNome(item.getString("subtitulo"));
                         ii.setDb_id(item.getString("subtituloid"));
 
-
                         top250.add(ii);
-
                     }
 
                     listDataChild.put(listDataHeader.get(i), top250); // Header, Child data
                 }
-
-
 
                 //Log.v("sdffgddvsdsv","objecto = "+ json);
 
@@ -386,6 +403,7 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
         @Override
         protected void onPostExecute(String strFromDoInBg)
         {
+            progressDialog.dismiss();
             delegate.asyncComplete(true);
         }
     }

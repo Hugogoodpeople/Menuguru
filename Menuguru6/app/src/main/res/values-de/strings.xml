@@ -147,5 +147,15 @@
     </string-array>
     <string name="favoritos">Favoriten</string>
 
+    <string-array name="dias_semana">
+        <item>Sonntag</item>
+        <item>Montag</item>
+        <item>Dienstag</item>
+        <item>Mittwoch</item>
+        <item>Donnerstag</item>
+        <item>SFreitag</item>
+        <item>Samstag</item>
+    </string-array>
+
 
 </resources>

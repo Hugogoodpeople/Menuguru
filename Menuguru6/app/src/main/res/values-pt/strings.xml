@@ -165,4 +165,15 @@
     </string-array>
     <string name="favoritos">Favoritos</string>
 
+
+    <string-array name="dias_semana">
+        <item>Domingo</item>
+        <item>Segunda-feira</item>
+        <item>Terça-feira</item>
+        <item>Quarta-feira</item>
+        <item>Quinta-feira</item>
+        <item>Sexta-feira</item>
+        <item>Sábado</item>
+    </string-array>
+
 </resources>
