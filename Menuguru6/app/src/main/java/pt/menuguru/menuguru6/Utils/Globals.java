@@ -16,10 +16,37 @@ public class Globals
     public String cidadeÇ_nome = "Perto de mim" ;
     public User user ;
     public String lingua = "pt";
+    public String textoPesquisado = "";
+    public String tipoRestPrat = "1";
     public TopTitulosFiltros[] filtros;
+    public boolean hasFilters = false;
     public ComoFunc[] cfunc;
     public Festival[] festival;
     public String deviceID;
+
+    public boolean isHasFilters() {
+        return hasFilters;
+    }
+
+    public void setHasFilters(boolean hasFilters) {
+        this.hasFilters = hasFilters;
+    }
+
+    public String getTextoPesquisado() {
+        return textoPesquisado;
+    }
+
+    public void setTextoPesquisado(String textoPesquisado) {
+        this.textoPesquisado = textoPesquisado;
+    }
+
+    public String getTipoRestPrat() {
+        return tipoRestPrat;
+    }
+
+    public void setTipoRestPrat(String tipoRestPrat) {
+        this.tipoRestPrat = tipoRestPrat;
+    }
 
     public TopTitulosFiltros[] getFiltros() {
         return filtros;

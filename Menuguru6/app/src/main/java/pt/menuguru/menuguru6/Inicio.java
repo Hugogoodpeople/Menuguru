@@ -27,6 +27,7 @@ import android.widget.ImageView;
 
 
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -45,6 +46,7 @@ import pt.menuguru.menuguru6.Utils.Festival;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Restaurante;
+import pt.menuguru.menuguru6.Utils.TopTitulosFiltros;
 import pt.menuguru.menuguru6.Utils.Utils;
 import pt.menuguru.menuguru6.os_tres_tipos.Noticia;
 import pt.menuguru.menuguru6.os_tres_tipos.lista_festivais_sugestoes;
@@ -170,6 +172,11 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
             super(context, textViewResourceId, objects);
             imageLoader=new ImageLoader(getActivity().getApplicationContext());
             myContext = context;
+        }
+
+        @Override
+        public int getCount(){
+            return some_array.length;
         }
 
         @Override
@@ -312,14 +319,28 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
         //--READ data
 
-// we will using AsyncTask during parsing
-        new AsyncTaskParseJson(this).execute();
+// tenho de verificar se os filtros estao preenchidos
+        // se sim tem fazer outra querie
+
 
         new AsyncTaskParseJsonComo(this).execute();
 
         new AsyncTaskParseJsonDestaque(this).execute();
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        if(Globals.getInstance().hasFilters == false) {
+            new AsyncTaskParseJson(this).execute();
+        }
+        else {
+            actual = 0;
+            new AsyncTaskParseJsonFiltros(this).execute();
+        }
+
     }
 
 
@@ -473,10 +494,19 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                 dict.put("face_id","0");
 
                 int contagem = 0;
+
+                if(actual == 0)
+                {
+                    some_array = null;
+                }
+
                 if(some_array != null)
                 {
-                    for (Restaurante item : some_array)
+                    //for (Restaurante item : some_array)
+                    for(int i = 0 ; i<some_array.length ; i++)
                     {
+                        Restaurante item = some_array[i];
+
                         if (!item.tipo.equalsIgnoreCase("restaurante"))
                         {
                             contagem++;
@@ -634,9 +664,9 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         }
 
         @Override
-        protected void onPreExecute() {
+        protected void onPreExecute()
+        {
             super.onPreExecute();
-
         }
 
         @Override
@@ -808,6 +838,347 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
 
     public void asyncCompleteDestaque(boolean success){
+
+    }
+
+
+
+
+
+
+
+    public void asyncCompleteResultadosFiltros(boolean success){
+
+
+       // mListView = (ListView) findViewById(R.id.listViewResultadoInspiras);
+
+
+       // mListView.setEmptyView(findViewById(R.id.emty_view));
+/*
+        mAdapter = new MyListAdapter(getActivity(), R.layout.row_defenicoes, some_array);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id)
+            {
+                Log.v("clicou no resutaurante","abrir " + some_array[position].getNome());
+                Intent myIntent = new Intent(getActivity(), Restaurante_main.class);
+                myIntent.putExtra("restaurante", some_array[position].getDb_id()); //Optional parameters
+                myIntent.putExtra("urlfoto", some_array[position].getUrlImagem());
+                myIntent.putExtra("nome_rest",some_array[position].getNome());
+                myIntent.putExtra("lat",some_array[position].getLatitude());
+                myIntent.putExtra("lon",some_array[position].getLongitude());
+                myIntent.putExtra("morada",some_array[position].getMorada());
+                myIntent.putExtra("rating",some_array[position].getMediarating());
+                myIntent.putExtra("votacoes",some_array[position].getVotacoes());
+                myIntent.putExtra("cidade_nome", some_array[position].getCidade());
+                myIntent.putExtra("telefone",some_array[position].getTelefone());
+
+                startActivity(myIntent);
+
+                getActivity().overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+
+            }
+
+        });
+
+        // Assign adapter to ListView
+
+
+        mListView.setAdapter(mAdapter);
+
+*/
+        mAdapter.notifyDataSetChanged();
+        Globals.getInstance().setHasFilters(false);
+
+    }
+
+
+
+    // you can make this class as another java file so it will be separated from your main activity.
+    public class AsyncTaskParseJsonFiltros extends AsyncTask<String, String, String> {
+
+        final String TAG = "AsyncTaskParseJson.java";
+
+
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_pertomim_relevancia.php";
+
+        // contacts JSONArray
+        JSONArray dataJsonArr = null;
+
+        private Inicio delegate;
+
+        public AsyncTaskParseJsonFiltros (Inicio delegate)
+        {
+            this.delegate = delegate;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setCancelable(true);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... arg0) {
+
+            try {
+
+                // instantiate our json parser
+                JSONParser jParser = new JSONParser();
+
+                // get json string from url
+                // tenho de criar um jsonobject e adicionar la as cenas
+                JSONObject dict = new JSONObject();
+                JSONObject jsonObj = new JSONObject();
+
+                dict.put("lang","pt");
+                dict.put("lon", Globals.getInstance().getLongitude());
+                dict.put("lat",Globals.getInstance().getLatitude());
+
+                // ok aqui começa a festa... são 17 chaves de informaçao que tenho de enviar
+
+                dict.put("cidade_id",Globals.getInstance().getCidedade_id());
+                dict.put("aberto","0");
+                dict.put("take","0");
+                dict.put("pagina","0");
+                dict.put("prato",Globals.getInstance().getTextoPesquisado());
+                dict.put("tipo_pesquisa", Globals.getInstance().getTipoRestPrat());
+
+
+                // primeira informaçao vinda de array
+                TopTitulosFiltros[] filtros = Globals.getInstance().getFiltros();
+                // na primeira posição posição é onde temos a informação relativa a ordem pretendida
+
+                int indexSelecionado = 0;
+                for(int i = 0 ; i<filtros[0].getArrayObjectos().length ; i++)
+                {
+                    if (filtros[0].getArrayObjectos()[i].getSelecionado())
+                    {
+                        indexSelecionado = i;
+                    }
+
+                }
+
+                String ordem = "relevancia";
+
+                // $body['ordem'];//"relevancia";//"popularidade";//"distancia";//"ofertas";
+                switch (indexSelecionado) {
+                    case 0:{
+                        ordem ="relevancia";
+                        break;
+                    }
+                    case 1:{
+                        ordem ="popularidade";
+                        break;
+                    }
+                    case 2:{
+                        ordem ="distancia";
+                        break;
+                    }
+                    case 3:{
+                        ordem ="ofertas";
+                        break;
+                    }
+                    default:
+                        break;
+                }
+
+
+                dict.put("ordem",ordem);
+
+                // para as cozinhas selecinadas agora
+                // agr os arrays, vou tentar usar arraylists para ser mais facil fazer o que quero
+                ArrayList<String> list = new ArrayList<String>();
+                for (int i = 1 ; i < filtros[1].getArrayObjectos().length ; i++)
+                {
+                    if (filtros[1].getArrayObjectos()[i].getSelecionado() != null && filtros[1].getArrayObjectos()[i].getSelecionado())
+                        list.add(filtros[1].getArrayObjectos()[i].getId_sub_titulo());
+
+                }
+
+
+                dict.put("cozinha", new JSONArray(list.toString()));
+
+
+                // para o preço almoço recebe uma string simples
+
+                String preco_alm = "";
+                for(int i = 1 ; i < filtros[2].getArrayObjectos().length ; i++)
+                {
+                    if (filtros[2].getArrayObjectos()[i].getSelecionado())
+                    {
+                        preco_alm = filtros[2].getArrayObjectos()[i].getId_sub_titulo();
+                    }
+                }
+
+                dict.put("preco_alm", preco_alm);
+
+
+                // para o preço jantar recebe uma string simples
+
+                String preco_jantar = "";
+                for(int i = 0 ; i < filtros[3].getArrayObjectos().length ; i++)
+                {
+                    if (filtros[3].getArrayObjectos()[i].getSelecionado())
+                    {
+                        preco_alm = filtros[3].getArrayObjectos()[i].getId_sub_titulo();
+                    }
+                }
+
+                dict.put("preco_jant", preco_alm);
+
+                // para as opçoes adicionais
+                ArrayList<String> listAdd = new ArrayList<String>();
+                for (int i = 1 ; i < filtros[4].getArrayObjectos().length ; i++)
+                {
+                    if (filtros[4].getArrayObjectos()[i].getSelecionado() != null && filtros[4].getArrayObjectos()[i].getSelecionado())
+                        listAdd.add(filtros[4].getArrayObjectos()[i].getId_sub_titulo());
+
+                }
+
+
+                dict.put("opc_add", new JSONArray(listAdd.toString()));
+
+                // para as opçoes adicionais
+                // agr os arrays, vou tentar usar arraylists para ser mais facil fazer o que quero
+                ArrayList<String> listOpc = new ArrayList<String>();
+                for (int i = 0 ; i < filtros[5].getArrayObjectos().length ; i++)
+                {
+                    if (filtros[5].getArrayObjectos()[i].getSelecionado() != null && filtros[5].getArrayObjectos()[i].getSelecionado())
+                        listOpc.add(filtros[5].getArrayObjectos()[i].getId_sub_titulo());
+
+                }
+
+                dict.put("opc_pag", new JSONArray(listOpc.toString()));
+
+
+                // para ambiente
+                // agr os arrays, vou tentar usar arraylists para ser mais facil fazer o que quero
+                ArrayList<String> listIdeal = new ArrayList<String>();
+                for (int i = 1 ; i < filtros[6].getArrayObjectos().length ; i++)
+                {
+                    if (filtros[6].getArrayObjectos()[i].getSelecionado() != null && filtros[6].getArrayObjectos()[i].getSelecionado())
+                        listIdeal.add(filtros[6].getArrayObjectos()[i].getId_sub_titulo());
+
+                }
+
+                dict.put("ideal", new JSONArray(listIdeal.toString()));
+
+
+
+                // para ambiente
+                // agr os arrays, vou tentar usar arraylists para ser mais facil fazer o que quero
+                ArrayList<String> listAmbiente = new ArrayList<String>();
+                for (int i = 1 ; i < filtros[7].getArrayObjectos().length ; i++)
+                {
+                    if (filtros[7].getArrayObjectos()[i].getSelecionado() != null && filtros[7].getArrayObjectos()[i].getSelecionado())
+                        listAmbiente.add(filtros[7].getArrayObjectos()[i].getId_sub_titulo());
+
+                }
+
+
+                dict.put("ambiente", new JSONArray(listAmbiente.toString()));
+
+
+
+                String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
+
+                // try parse the string to a JSON object
+                try {
+                    Log.v("Ver Json ", "Ele retorna isto" + jsonString);
+                    jsonObj = new JSONObject(jsonString);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error parsing data " + e.toString());
+                }
+                // get the array of users
+
+                dataJsonArr = jsonObj.getJSONArray("res");
+
+                // loop through all users
+
+
+                some_array = new Restaurante[dataJsonArr.length()];
+                for (int i = 0; i < dataJsonArr.length(); i++) {
+
+                    JSONObject c = dataJsonArr.getJSONObject(i);
+
+
+
+                    // Storing each json item in variable
+                    String firstname = c.getString("nome");
+
+                    // show the values in our logcat
+                    Log.v(TAG, "firstname: " + firstname);
+
+
+                    Restaurante rest = new Restaurante();
+                    rest.setNome(firstname);
+
+                    rest.morada = c.getString("morada");
+                    rest.mediarating = c.getString("mediarating");
+                    //rest.cidade = c.getString("cidade");
+                    rest.urlImagem = c.getString("imagem");
+                    rest.votacoes = c.getString("votacoes");
+                    //rest.morada = c.getString("morada");
+                    //rest.precoMedio = c.getString("precomedio");
+
+                    rest.tipo = "restaurante";
+
+                   // if (rest.tipo.equalsIgnoreCase("restaurante"))
+                    {
+                        rest.latitude = c.getString("lat");
+                        rest.longitude = c.getString("lon");
+                        rest.mediarating = c.getString("mediarating");
+                        rest.precoMedio = c.getString("precomedio");
+                        rest.db_id = c.getString("id");
+                        rest.telefone = c.getString("telefone");
+
+                        JSONArray cozinhas = c.getJSONArray("cozinhas");
+
+                        for (int z = 0; z < cozinhas.length(); z++)
+                        {
+                            JSONObject cozinha = cozinhas.getJSONObject(z);
+                            if (cozinhas.length() - 1 > z)
+                            {
+
+                                rest.cosinhas = rest.cosinhas + cozinha.getString("cozinhas_nome") + ", ";
+
+                            }
+                            else
+                            {
+
+                                rest.cosinhas = rest.cosinhas + "" + cozinha.getString("cozinhas_nome");
+
+                            }
+                        }
+                        //rest.cosinhas = rest.cosinhas.substring(0, rest.cosinhas.length() - 1);
+                    }
+
+                    some_array[i] = rest;
+
+                }
+                //some_array = getResources().getStringArray(R.array.defenicoes_array);
+
+
+                Log.v("sdffgddvsdsv","objecto especial = "+ jsonObj);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncCompleteResultadosFiltros(true);  }
 
     }
 

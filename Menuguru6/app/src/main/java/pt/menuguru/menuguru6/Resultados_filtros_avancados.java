@@ -78,7 +78,7 @@ public class Resultados_filtros_avancados extends Activity
             getActionBar().setTitle(getString(R.string.filtrosavancados));
 
 
-        new AsyncTaskParseJson(this).execute();
+        new AsyncTaskParseJsonFiltros(this).execute();
     }
 
     @Override
@@ -97,10 +97,8 @@ public class Resultados_filtros_avancados extends Activity
         return false;
     }
 
-
-
     // you can make this class as another java file so it will be separated from your main activity.
-    public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
+    public class AsyncTaskParseJsonFiltros extends AsyncTask<String, String, String> {
 
         final String TAG = "AsyncTaskParseJson.java";
 
@@ -112,7 +110,8 @@ public class Resultados_filtros_avancados extends Activity
 
         private Resultados_filtros_avancados delegate;
 
-        public AsyncTaskParseJson (Resultados_filtros_avancados delegate){
+        public AsyncTaskParseJsonFiltros (Resultados_filtros_avancados delegate)
+        {
             this.delegate = delegate;
         }
 
@@ -317,8 +316,7 @@ public class Resultados_filtros_avancados extends Activity
                     String firstname = c.getString("nome");
 
                     // show the values in our logcat
-                    Log.v(TAG, "firstname: " + firstname
-                    );
+                    Log.v(TAG, "firstname: " + firstname);
 
 
                     Restaurante rest = new Restaurante();
@@ -334,7 +332,8 @@ public class Resultados_filtros_avancados extends Activity
 
                     rest.tipo = c.getString("tipo");
 
-                    if (rest.tipo.equalsIgnoreCase("restaurante")) {
+                    if (rest.tipo.equalsIgnoreCase("restaurante"))
+                    {
                         rest.latitude = c.getString("lat");
                         rest.longitude = c.getString("lon");
                         rest.mediarating = c.getString("mediarating");
@@ -344,12 +343,21 @@ public class Resultados_filtros_avancados extends Activity
 
                         JSONArray cozinhas = c.getJSONArray("cozinhas");
 
-                        for (int z = 0; z < cozinhas.length(); z++) {
+                        for (int z = 0; z < cozinhas.length(); z++)
+                        {
                             JSONObject cozinha = cozinhas.getJSONObject(z);
                             if (cozinhas.length() - 1 > z)
+                            {
+
                                 rest.cosinhas = rest.cosinhas + cozinha.getString("cozinhas_nome") + ", ";
+
+                            }
                             else
+                            {
+
                                 rest.cosinhas = rest.cosinhas + "" + cozinha.getString("cozinhas_nome");
+
+                            }
                         }
                         //rest.cosinhas = rest.cosinhas.substring(0, rest.cosinhas.length() - 1);
                     }
@@ -357,9 +365,7 @@ public class Resultados_filtros_avancados extends Activity
                     some_array[i] = rest;
 
                 }
-
                 //some_array = getResources().getStringArray(R.array.defenicoes_array);
-
 
 
                 Log.v("sdffgddvsdsv","objecto especial = "+ jsonObj);
@@ -372,11 +378,11 @@ public class Resultados_filtros_avancados extends Activity
         }
 
         @Override
-        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncComplete(true);  }
+        protected void onPostExecute(String strFromDoInBg){  progressDialog.dismiss();delegate.asyncCompleteResultadosFiltros(true);  }
 
     }
 
-    public void asyncComplete(boolean success){
+    public void asyncCompleteResultadosFiltros(boolean success){
 
 
         // mCallbacks.onButtonClicked();

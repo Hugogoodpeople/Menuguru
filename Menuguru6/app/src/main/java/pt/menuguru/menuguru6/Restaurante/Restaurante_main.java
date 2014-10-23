@@ -95,7 +95,6 @@ public class Restaurante_main extends FragmentActivity {
      * and next wizard steps.
      */
 
-
     private ViewGroup header2;
 
     private static MyListAdapter mAdapter;
@@ -105,7 +104,6 @@ public class Restaurante_main extends FragmentActivity {
     private ArrayList<Nr_pessoas_mesa> nr_pes_list;
 
     private ArrayList<String> fotos;
-
 
     private ListView gridView;
     private ProgressDialog progressDialog;

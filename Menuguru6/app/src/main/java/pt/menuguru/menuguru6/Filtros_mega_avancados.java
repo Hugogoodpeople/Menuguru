@@ -82,7 +82,8 @@ public class Filtros_mega_avancados extends Activity
     private String tipo = "1";
 
     private RelativeLayout relativ_tipo;
-
+    private Button tipo_restaurante;
+    private Button tipo_prato;
 
     Animation hyperspaceJumpAnimation;
 
@@ -170,8 +171,13 @@ public class Filtros_mega_avancados extends Activity
 
                 Globals.getInstance().setFiltros(arrayTopTitulos);
                 // depois tenho de lançar a pesquisa :)
-                AbrirPesquisa();
+                Globals.getInstance().setHasFilters(true);
+                Globals.getInstance().setTextoPesquisado(prato);
+                Globals.getInstance().setTipoRestPrat(tipo);
 
+                //AbrirPesquisa();
+
+                finish();
 
             }
         });
@@ -182,7 +188,7 @@ public class Filtros_mega_avancados extends Activity
             public void onClick(View v) {
                 Log.v("filtros","click Button limpar");
                 limparTudo();
-
+                Globals.getInstance().setHasFilters(false);
 
             }
         });
@@ -191,8 +197,10 @@ public class Filtros_mega_avancados extends Activity
 
         relativ_tipo = (RelativeLayout) findViewById(R.id.tipo_pesquisa_RP);
 
-        Button tipo_restaurante = (Button) relativ_tipo.findViewById(R.id.click_restaurante);
-        Button tipo_prato = (Button) relativ_tipo.findViewById(R.id.click_prato);
+        tipo_restaurante = (Button) relativ_tipo.findViewById(R.id.click_restaurante);
+        tipo_prato = (Button) relativ_tipo.findViewById(R.id.click_prato);
+
+        enableButtonsTipo(false);
 
         final ImageView imagem_rest = (ImageView) relativ_tipo.findViewById(R.id.check_restaurante);
         final ImageView imagem_prato = (ImageView) relativ_tipo.findViewById(R.id.check_prato);
@@ -216,18 +224,29 @@ public class Filtros_mega_avancados extends Activity
         });
 
 
+
         new AsyncTaskParseJson(this).execute();
 
     }
 
     private void AbrirPesquisa()
     {
+        /*
         Intent pesquisa = new Intent(this, Resultados_filtros_avancados.class);
         pesquisa.putExtra("prato",prato);
         pesquisa.putExtra("tipo",tipo);
 
         startActivity(pesquisa);
         overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+        */
+
+        Globals.getInstance().setHasFilters(true);
+        Globals.getInstance().setTextoPesquisado(prato);
+        Globals.getInstance().setTipoRestPrat(tipo);
+
+        //AbrirPesquisa();
+
+        finish();
     }
 
     private void highlightButton(int selectedButton)
@@ -322,6 +341,7 @@ public class Filtros_mega_avancados extends Activity
             @Override public void onClick(View v) {
                 Log.v("fazcoisas","clicou no botao de pesquisa");
                 relativ_tipo.setAlpha(0.8f);
+                enableButtonsTipo(true);
             } });
 
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
@@ -330,6 +350,7 @@ public class Filtros_mega_avancados extends Activity
             public boolean onClose() {
                 Log.v("cenasfechar","clicou para fechar");
                 relativ_tipo.setAlpha(0);
+                enableButtonsTipo(false);
                 return false;
             }
         });
@@ -338,16 +359,21 @@ public class Filtros_mega_avancados extends Activity
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 relativ_tipo.setAlpha(0);
+                enableButtonsTipo(false);
             }
         });
-
-
 
 
         return true;
 
     }
 
+
+    public void enableButtonsTipo(Boolean humm)
+    {
+        tipo_restaurante.setClickable(humm);
+        tipo_prato.setClickable(humm);
+    }
 
 
 
