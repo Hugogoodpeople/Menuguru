@@ -123,6 +123,7 @@ public class Restaurante_main extends FragmentActivity {
     private String cidade_nome;
     private String telefone;
     private boolean segue_rest = false;
+    private String pode_reservar;
 
     String data_selec;
     String num_por_dia;
@@ -1016,6 +1017,10 @@ public class Restaurante_main extends FragmentActivity {
                 horarioAbertura = horario.getString("horario");
                 hora_minimo_antedencia_mesa = jsonObj.getString("hora_minimo_antedencia_mesa");
 
+                // para remover o botão de reserva caso nao possa reservar
+                pode_reservar = jsonObj.getString("reserva_mesa");
+
+
                 String completo = jsonObj.getString("envio");
                 JSONObject outro =new JSONObject(completo);
                 nr_voucher = outro.getString("num_pessoas");
@@ -1396,8 +1401,13 @@ public class Restaurante_main extends FragmentActivity {
 
     public void asyncCompleteMenus(boolean success){
 
-        //mAdapter.notifyDataSetChanged();
-        //mAdapter = new MyListAdapter(getApplicationContext(), R.layout.row_defenicoes, some_array);
+
+        if(pode_reservar.equalsIgnoreCase("0"))
+        {
+            Button bt_reservar_mesa = (Button) findViewById(R.id.bt_reservar_mesa);
+            bt_reservar_mesa.setAlpha(0);
+        }
+
 
         gridView = (ListView) findViewById(R.id.morada_rest);
         //adapter = new ArrayAdapter<Locais>(this,android.R.layout.simple_list_item_1, android.R.id.text1, local);
@@ -1585,6 +1595,10 @@ public class Restaurante_main extends FragmentActivity {
 
         gridView.addHeaderView(aberto_fechado, null, false);
         gridView.addHeaderView(header2, null, false);
+
+        View v = getLayoutInflater().inflate(R.layout.footer_menu, null);
+        gridView.addFooterView(v);
+
 
 
         // Assign adapter to ListView
