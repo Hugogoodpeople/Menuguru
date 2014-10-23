@@ -111,31 +111,26 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
     public void asyncComplete(boolean success){
 
         mListView.setAdapter(mAdapter);
-
         scrollMyListViewToBottom();
+
 
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-
             }
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
                 // threshold being indicator if bottom of list is hit
-                if (firstVisibleItem  == actual - 2  && loading == false && anterior != actual) {
-
+                if (firstVisibleItem  == actual - 2  && loading == false && anterior != actual)
+                {
                     Log.v("lermais","carregar mais items para aparecer");
                     loading = true;
                     pullMoreData();
-
                 }
-
             }
         });
-
-
     }
 
     private void pullMoreData() {
@@ -227,7 +222,6 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                 locationPhone.setLongitude(Double.parseDouble(Globals.getInstance().getLongitude()));
 
                 label4.setText(Utils.getDistance(locationPhone,locationRest));
-
 
                 imageLoader.DisplayImage("http://menuguru.pt/"+some_array[position].getUrlImagem(), icon);
 
@@ -448,7 +442,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
             super.onPreExecute();
 
             progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setCancelable(true);
+            progressDialog.setCancelable(false);
             progressDialog.setMessage("Loading...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setProgress(0);
@@ -919,7 +913,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setCancelable(true);
+            progressDialog.setCancelable(false);
             progressDialog.setMessage("Loading...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setProgress(0);

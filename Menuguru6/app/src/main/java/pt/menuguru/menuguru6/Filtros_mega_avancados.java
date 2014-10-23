@@ -200,7 +200,7 @@ public class Filtros_mega_avancados extends Activity
         tipo_restaurante = (Button) relativ_tipo.findViewById(R.id.click_restaurante);
         tipo_prato = (Button) relativ_tipo.findViewById(R.id.click_prato);
 
-        enableButtonsTipo(false);
+
 
         final ImageView imagem_rest = (ImageView) relativ_tipo.findViewById(R.id.check_restaurante);
         final ImageView imagem_prato = (ImageView) relativ_tipo.findViewById(R.id.check_prato);
@@ -223,7 +223,7 @@ public class Filtros_mega_avancados extends Activity
             }
         });
 
-
+        enableButtonsTipo(false);
 
         new AsyncTaskParseJson(this).execute();
 
@@ -431,7 +431,7 @@ public class AsyncTaskParseJson extends AsyncTask<String, String, String> {
     protected void onPreExecute() {
         super.onPreExecute();
         progressDialog = new ProgressDialog(Filtros_mega_avancados.this);
-        progressDialog.setCancelable(true);
+        progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setProgress(0);

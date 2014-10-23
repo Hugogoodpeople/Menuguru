@@ -119,7 +119,7 @@ public class Resultados_filtros_avancados extends Activity
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = new ProgressDialog(Resultados_filtros_avancados.this);
-            progressDialog.setCancelable(true);
+            progressDialog.setCancelable(false);
             progressDialog.setMessage("Loading...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setProgress(0);
