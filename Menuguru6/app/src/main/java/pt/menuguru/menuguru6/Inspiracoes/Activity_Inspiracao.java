@@ -26,6 +26,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +45,7 @@ import pt.menuguru.menuguru6.R;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.Inspiracao;
 import pt.menuguru.menuguru6.Utils.InspiracaoItem;
+import pt.menuguru.menuguru6.Utils.Utils;
 
 public class Activity_Inspiracao extends Activity implements ExpandableListView.OnChildClickListener {
 
@@ -175,10 +177,15 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
         });
 
 
-
         expListView = (ExpandableListView) findViewById(R.id.lista_inspiracoes);
         expListView.setOnChildClickListener( this);
 
+
+        if(!Utils.isOnline(this)) {
+            Toast.makeText(this, "No Internet connection", Toast.LENGTH_LONG).show();
+            finish(); //Calling this method to close this activity when internet is not available.
+        }
+        else
         chamarInspiras();
 
     }
@@ -198,7 +205,6 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
 
     private void chamarInspiras()
     {
-
         new AsyncTaskParseJson(this).execute();
     }
 

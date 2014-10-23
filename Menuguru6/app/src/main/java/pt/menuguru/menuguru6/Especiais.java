@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +30,7 @@ import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.ImageLoader;
 import pt.menuguru.menuguru6.Utils.Menu_do_restaurante;
 import pt.menuguru.menuguru6.Utils.Restaurante;
+import pt.menuguru.menuguru6.Utils.Utils;
 
 
 public class Especiais extends Fragment implements AbsListView.OnItemClickListener{
@@ -155,7 +157,12 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        new AsyncTaskParseJson(this).execute();
+        if(!Utils.isOnline(getActivity())) {
+            Toast.makeText(getActivity(), "No Internet connection", Toast.LENGTH_LONG).show();
+            getActivity().finish(); //Calling this method to close this activity when internet is not available.
+        }
+        else
+            new AsyncTaskParseJson(this).execute();
 
     }
 

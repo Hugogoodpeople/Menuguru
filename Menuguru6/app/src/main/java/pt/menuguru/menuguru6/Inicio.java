@@ -30,6 +30,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -171,6 +172,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
         @Override
         public int getCount(){
+
             return some_array.length;
         }
 
@@ -353,6 +355,11 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
         ab.setTitle(cidade);
        // ab.setSubtitle("sub-title");
+
+        if(!Utils.isOnline(getActivity())) {
+            Toast.makeText(getActivity(), "No Internet connection", Toast.LENGTH_LONG).show();
+            getActivity().finish(); //Calling this method to close this activity when internet is not available.
+        }
 
     }
 
