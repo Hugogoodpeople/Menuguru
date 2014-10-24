@@ -2,6 +2,7 @@ package pt.menuguru.menuguru6.Restaurante.Avaliar;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,6 +29,8 @@ public class Avaliar_restaurante extends Activity
     private String rest_id;
     private RatingBar rating;
     private EditText comentario;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +122,18 @@ public class Avaliar_restaurante extends Activity
             this.delegate = delegate;
         }
 
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(Avaliar_restaurante.this);
+            progressDialog.setCancelable(false);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+        }
+
 
         @Override
         protected String doInBackground(String... arg0) {
@@ -184,7 +199,7 @@ public class Avaliar_restaurante extends Activity
         @Override
         protected void onPostExecute(String strFromDoInBg)
         {
-            //progressDialog.dismiss();
+            progressDialog.dismiss();
             delegate.asyncCompleteAvaliar(true);
         }
 
@@ -208,6 +223,18 @@ public class Avaliar_restaurante extends Activity
         public AsyncTaskParseJsonComentar (Avaliar_restaurante delegate)
         {
             this.delegate = delegate;
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(Avaliar_restaurante.this);
+            progressDialog.setCancelable(false);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
         }
 
 
@@ -270,28 +297,22 @@ public class Avaliar_restaurante extends Activity
         @Override
         protected void onPostExecute(String strFromDoInBg)
         {
-            //progressDialog.dismiss();
+            progressDialog.dismiss();
             delegate.asyncCompleteComentar(true);
         }
-
     }
 
 
     private void asyncCompleteComentar(boolean success)
     {
-
         avaliar();
-
     }
 
 
     private void asyncCompleteAvaliar(boolean success)
     {
-
         finish();
         overridePendingTransition( R.anim.abc_fade_in , R.anim.abc_slide_out_bottom);
-
-
     }
 
 }

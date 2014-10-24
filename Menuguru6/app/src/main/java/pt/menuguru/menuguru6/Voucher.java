@@ -139,7 +139,7 @@ public class Voucher extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = new ProgressDialog(Voucher.this);
-            progressDialog.setCancelable(true);
+            progressDialog.setCancelable(false);
             progressDialog.setMessage("Loading...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setProgress(0);
@@ -169,10 +169,7 @@ public class Voucher extends Activity {
                     dict.put("user_id",Globals.get_instance().getUser().getUserid());
                 }
 
-
-
                 String jsonString = jParser.getJSONFromUrl(yourJsonStringUrl,dict);
-
 
                 // try parse the string to a JSON object
                 try {

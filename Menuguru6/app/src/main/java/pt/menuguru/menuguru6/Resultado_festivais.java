@@ -170,7 +170,7 @@ public class Resultado_festivais extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = new ProgressDialog(Resultado_festivais.this);
-            progressDialog.setCancelable(true);
+            progressDialog.setCancelable(false);
             progressDialog.setMessage("Loading...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setProgress(0);

@@ -123,6 +123,8 @@ public class Restaurante_main extends FragmentActivity {
     private boolean segue_rest = false;
     private String pode_reservar;
 
+    private Restaurante_main delegado_principal;
+
     String data_selec;
     String num_por_dia;
     String sel_id_hora = "";
@@ -165,6 +167,8 @@ public class Restaurante_main extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        delegado_principal = this;
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -826,7 +830,6 @@ public class Restaurante_main extends FragmentActivity {
         // tenho de chamar as estrelas de novo
         new AsyncTaskParseJsonEstrelas(this).execute();
         new AsyncTaskParseJsonComentarios(this).execute();
-
         new AsyncTaskParseJsonVerificaSeguir(this).execute();
     }
 
@@ -866,8 +869,11 @@ public class Restaurante_main extends FragmentActivity {
 
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
+        delegado_principal = null;
         finish();
+
         overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
     }
 
@@ -891,8 +897,9 @@ public class Restaurante_main extends FragmentActivity {
         ViewPager mPager = (ViewPager) findViewById(R.id.pager_restaurante);
         PagerAdapter mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), fragments);
 
-        if(mPagerAdapter != null)
+        if(delegado_principal != null)
             mPager.setAdapter(mPagerAdapter);
+
     }
 
 
@@ -927,7 +934,9 @@ public class Restaurante_main extends FragmentActivity {
         switch (item.getItemId())
         {
             case android.R.id.home:
+                delegado_principal = null;
                 finish();
+
                 overridePendingTransition(R.anim.pop_view1, R.anim.pop_view2);
                 return false;
             default:
@@ -1387,6 +1396,7 @@ public class Restaurante_main extends FragmentActivity {
     public void asyncCompleteEstrelas(boolean success)
     {
         //new AsyncTaskParseJson1(this).execute();
+
         initialisePagin();
     }
 

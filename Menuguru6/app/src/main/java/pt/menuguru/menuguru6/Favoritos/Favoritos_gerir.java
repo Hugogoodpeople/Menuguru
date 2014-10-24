@@ -135,6 +135,18 @@ public class Favoritos_gerir extends Activity {
 
 
         @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(Favoritos_gerir.this);
+            progressDialog.setCancelable(false);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
+        }
+
+        @Override
         protected String doInBackground(String... arg0) {
 
             try {
@@ -208,7 +220,7 @@ public class Favoritos_gerir extends Activity {
 
         @Override
         protected void onPostExecute(String strFromDoInBg) {
-            //progressDialog.dismiss();
+            progressDialog.dismiss();
             delegate.asyncCompleteListaFavoritos(true);
         }
 

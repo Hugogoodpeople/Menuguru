@@ -2,6 +2,7 @@ package pt.menuguru.menuguru6.Restaurante.Info;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -46,6 +47,8 @@ public class InfoRestaurante extends Activity
 
     private String nome_rest;
     private String cidade_nome;
+
+    private ProgressDialog progressDialog;
 
 
     @Override
@@ -99,6 +102,18 @@ public class InfoRestaurante extends Activity
 
         public AsyncTaskParseJsonComentarios (InfoRestaurante delegate){
             this.delegate = delegate;
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(InfoRestaurante.this);
+            progressDialog.setCancelable(false);
+            progressDialog.setMessage("Loading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setProgress(0);
+            progressDialog.show();
         }
 
 
@@ -165,7 +180,7 @@ public class InfoRestaurante extends Activity
         @Override
         protected void onPostExecute(String strFromDoInBg)
         {
-            //progressDialog.dismiss();
+            progressDialog.dismiss();
             delegate.asyncCompleteInfo(true);
         }
 

@@ -10,8 +10,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +33,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -181,11 +187,12 @@ public class LoginMenuGuru extends Activity
                 }
             }
         });
+
         /*
+
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
-                    "pt.menuguru.menuguru6",
-                    PackageManager.GET_SIGNATURES);
+                    "pt.menuguru.menuguru6", PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
@@ -196,7 +203,8 @@ public class LoginMenuGuru extends Activity
 
         } catch (NoSuchAlgorithmException e) {
 
-        }*/
+        }
+        */
 
     }
 
@@ -308,7 +316,7 @@ public class LoginMenuGuru extends Activity
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = new ProgressDialog(LoginMenuGuru.this);
-            progressDialog.setCancelable(true);
+            progressDialog.setCancelable(false);
             progressDialog.setMessage("Loading...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setProgress(0);

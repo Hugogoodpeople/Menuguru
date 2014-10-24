@@ -296,7 +296,7 @@ public class MinhasReservas extends Fragment {
             super.onPreExecute();
 
             progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setCancelable(true);
+            progressDialog.setCancelable(false);
             progressDialog.setMessage("Loading...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setProgress(0);
@@ -415,7 +415,7 @@ public class MinhasReservas extends Fragment {
             super.onPreExecute();
 
             progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setCancelable(true);
+            progressDialog.setCancelable(false);
             progressDialog.setMessage("Loading...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setProgress(0);
@@ -506,7 +506,7 @@ public class MinhasReservas extends Fragment {
             super.onPreExecute();
 
             progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setCancelable(true);
+            progressDialog.setCancelable(false);
             progressDialog.setMessage("Loading...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setProgress(0);

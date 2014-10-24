@@ -363,7 +363,7 @@ public class MinhaConta extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = new ProgressDialog(MinhaConta.this);
-            progressDialog.setCancelable(true);
+            progressDialog.setCancelable(false);
             progressDialog.setMessage("Loading...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setProgress(0);
@@ -501,7 +501,7 @@ public class MinhaConta extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             progressDialog = new ProgressDialog(MinhaConta.this);
-            progressDialog.setCancelable(true);
+            progressDialog.setCancelable(false);
             progressDialog.setMessage("Loading...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setProgress(0);
