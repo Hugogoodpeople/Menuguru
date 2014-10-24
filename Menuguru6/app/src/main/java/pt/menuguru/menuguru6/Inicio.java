@@ -68,6 +68,8 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
     //private OnFragmentInteractionListener mListener;
 
 
+    private boolean ja_abriu_uma_vez = true;
+
     private static String url = "http://10.0.2.2/JSON/";
     //JSON Node Names
     private static final String TAG_USER = "user";
@@ -115,6 +117,11 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         scrollMyListViewToBottom();
 
 
+        associarScollUpdate();
+    }
+
+    private void associarScollUpdate()
+    {
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -323,18 +330,26 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
         new AsyncTaskParseJsonDestaque(this).execute();
 
+
+
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();  // Always call the superclass method first
-        if(Globals.getInstance().hasFilters == false) {
+        if(Globals.getInstance().hasFilters == false && ja_abriu_uma_vez == false)
+        {
             new AsyncTaskParseJson(this).execute();
+            ja_abriu_uma_vez = true;
         }
-        else {
+        else  if(Globals.getInstance().hasFilters == true){
             actual = 0;
             new AsyncTaskParseJsonFiltros(this).execute();
+        }else
+        {
+            //new AsyncTaskParseJson(this).execute();
+            associarScollUpdate();
         }
 
     }
@@ -360,6 +375,8 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
             Toast.makeText(getActivity(), "No Internet connection", Toast.LENGTH_LONG).show();
             getActivity().finish(); //Calling this method to close this activity when internet is not available.
         }
+
+        new AsyncTaskParseJson(this).execute();
 
     }
 
@@ -389,7 +406,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
 
                                         Intent myIntent = new Intent(getActivity(), Filtros_mega_avancados.class);
                                         startActivity(myIntent);
-
+                                        ja_abriu_uma_vez = false;
                                         break;
                                     }
                                     case 1: {
