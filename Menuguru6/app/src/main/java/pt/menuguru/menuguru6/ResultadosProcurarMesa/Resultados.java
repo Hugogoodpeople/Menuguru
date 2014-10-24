@@ -18,14 +18,20 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
 import pt.menuguru.menuguru6.R;
@@ -71,7 +77,44 @@ public class Resultados extends Activity
         pessoas = intent.getStringExtra("pessoas");
 
 
+        String dtStart = data;
+        String data_formatada = "";
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = format.parse(dtStart);
+            System.out.println(date);
+            SimpleDateFormat format2 = new SimpleDateFormat("dd/MM");
 
+
+
+            data_formatada = format2.format(date);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        Button button_dia_hora = (Button) findViewById(R.id.buttao_dia_hora);
+        RelativeLayout procura_lay = (RelativeLayout) findViewById(R.id.procura_tem_data);
+
+
+        if(data.equalsIgnoreCase("0"))
+        {
+
+            button_dia_hora.setText(getString(R.string.sem_data_especifica));
+            procura_lay.setAlpha(0);
+
+        }else
+        {
+            TextView procura_data = (TextView) findViewById(R.id.procura_data);
+            procura_data.setText(data_formatada);
+
+            TextView procura_hora = (TextView) findViewById(R.id.procura_hora);
+            procura_hora.setText(hora);
+
+            TextView procura_pax = (TextView) findViewById(R.id.procura_num_pax);
+            procura_pax.setText(pessoas + " pax");
+
+        }
 
 
 

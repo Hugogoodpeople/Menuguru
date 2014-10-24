@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/solicitar"
-        android:id="@+id/textView3"
+        android:id="@+id/procura_num_pax"
         android:layout_below="@+id/tv_desc"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
@@ -57,10 +57,10 @@
         android:gravity="center"
         android:textColor="@color/gray"
         android:layout_below="@+id/imageView"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_alignStart="@+id/textView3"
-        android:layout_alignRight="@+id/textView3"
-        android:layout_alignEnd="@+id/textView3"
+        android:layout_alignLeft="@+id/procura_num_pax"
+        android:layout_alignStart="@+id/procura_num_pax"
+        android:layout_alignRight="@+id/procura_num_pax"
+        android:layout_alignEnd="@+id/procura_num_pax"
         android:layout_marginTop="40dp" />
 
     <TextView
@@ -126,7 +126,7 @@
         android:id="@+id/imageView"
         android:src="@drawable/cadeado"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/textView3"
+        android:layout_below="@+id/procura_num_pax"
         android:layout_centerHorizontal="true" />
 
     <EditText
