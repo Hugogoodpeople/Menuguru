@@ -52,6 +52,7 @@ import pt.menuguru.menuguru6.Utils.Utils;
 import pt.menuguru.menuguru6.os_tres_tipos.Noticia;
 import pt.menuguru.menuguru6.os_tres_tipos.lista_festivais_sugestoes;
 import pt.menuguru.menuguru6.os_tres_tipos.video;
+import pt.menuguru.menuguru6.testes.Teste_expandable;
 
 
 public class Inicio extends Fragment implements AbsListView.OnItemClickListener {
@@ -410,7 +411,7 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
                                         break;
                                     }
                                     case 1: {
-                                        Intent myIntent2 = new Intent(getActivity(), Activity_Inspiracao.class);
+                                        Intent myIntent2 = new Intent(getActivity(), Teste_expandable.class);
                                         startActivity(myIntent2);
                                         break;
                                     }
