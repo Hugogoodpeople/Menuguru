@@ -128,7 +128,6 @@ public class NavigationDrawerFragment extends Fragment {
         some_list.add(item3);
         some_list.add(item4);
         some_list.add(item5);
-
     }
 
 

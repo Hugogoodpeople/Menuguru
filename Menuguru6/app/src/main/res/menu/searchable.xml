@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <item
         android:id="@+id/pesquisa_prato"
         android:title="Search"
@@ -12,10 +10,6 @@
         android:showAsAction="collapseActionView|ifRoom"
         android:actionViewClass="android.widget.SearchView"
         android:layout_width="match_parent"
-
         />
-
-
-
 
 </menu>
