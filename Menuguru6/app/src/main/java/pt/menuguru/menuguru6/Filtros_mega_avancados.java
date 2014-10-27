@@ -310,6 +310,12 @@ public class Filtros_mega_avancados extends Activity
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setQueryHint(getString(R.string.procurar));
 
+        /*
+        int searchImgId = getResources().getIdentifier("android:id/search_button", null, null);
+        ImageView v = (ImageView) searchView.findViewById(searchImgId);
+        v.setImageResource(R.drawable.ic_find_b);
+        */
+
 
 /*
          // este codigo fica em standby ate encontrar algo melhor

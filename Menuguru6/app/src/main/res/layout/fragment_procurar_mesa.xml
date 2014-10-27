@@ -181,7 +181,8 @@
                 android:layout_alignTop="@+id/pessoas_menos"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:src="@drawable/ic_user_w" />
+                android:src="@drawable/ic_user_w"
+                android:scaleType="centerInside" />
 
             <TextView
                 android:layout_width="wrap_content"

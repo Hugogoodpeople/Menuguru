@@ -8,7 +8,7 @@
     <item
         android:id="@+id/pesquisa_prato"
         android:title="Search"
-        android:icon="@android:drawable/ic_menu_search"
+        android:icon="@drawable/ic_find_b"
         android:showAsAction="collapseActionView|ifRoom"
         android:actionViewClass="android.widget.SearchView"
         android:layout_width="match_parent"
