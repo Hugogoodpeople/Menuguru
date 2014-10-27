@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <ScrollView
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:layout_height="match_parent"
         android:id="@+id/scrollView"
         android:background="@color/darkGray"
@@ -23,96 +23,125 @@
 
             <ImageButton
                 android:layout_width="fill_parent"
-                android:layout_height="100dp"
+                android:layout_height="77.5dp"
                 android:id="@+id/buttonfiltros1"
-                android:scaleType="fitStart"
-                android:src="@drawable/ico_ordem_1"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_ordem"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="0dp"
-                android:background="@drawable/border_line_bot" />
+                android:background="@drawable/border_line_bot"
+                android:paddingTop="10dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingBottom="30dp"
+                />
 
             <ImageButton
                 android:layout_width="fill_parent"
-                android:layout_height="100dp"
+                android:layout_height="77.5dp"
                 android:id="@+id/bt_transfFav"
-                android:scaleType="fitStart"
-                android:src="@drawable/ico_cozinha"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_cozinha"
                 android:layout_below="@+id/buttonfiltros1"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:background="@drawable/border_line_bot" />
+                android:background="@drawable/border_line_bot"
+                android:paddingTop="10dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingBottom="30dp"
+                />
 
             <ImageButton
                 android:layout_width="fill_parent"
-                android:layout_height="100dp"
+                android:layout_height="77.5dp"
                 android:id="@+id/buttonfiltros3"
-                android:scaleType="fitStart"
-                android:src="@drawable/ico_preco"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_preco"
                 android:layout_below="@+id/bt_transfFav"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="0dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="200dp"
-                android:background="@drawable/border_line_bot" />
+                android:background="@drawable/border_line_bot"
+                android:layout_marginTop="155dp"
+                android:paddingTop="10dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingBottom="30dp"
+                />
 
             <ImageButton
                 android:layout_width="fill_parent"
-                android:layout_height="100dp"
+                android:layout_height="77.5dp"
                 android:id="@+id/buttonfiltros4"
-                android:scaleType="fitStart"
-                android:src="@drawable/ico_opcoes"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_opcoes"
                 android:layout_below="@+id/buttonfiltros3"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="0dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="300dp"
-                android:background="@drawable/border_line_bot" />
+                android:layout_marginTop="232.5dp"
+                android:background="@drawable/border_line_bot"
+                android:paddingTop="10dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingBottom="30dp"
+                />
 
             <ImageButton
                 android:layout_width="fill_parent"
-                android:layout_height="100dp"
+                android:layout_height="77.5dp"
                 android:id="@+id/buttonfiltros5"
-                android:scaleType="fitStart"
-                android:src="@drawable/ico_ideal"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_ideal"
                 android:layout_below="@+id/buttonfiltros4"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="0dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="400dp"
-                android:background="@drawable/border_line_bot" />
+                android:layout_marginTop="312.5dp"
+                android:background="@drawable/border_line_bot"
+                android:paddingTop="10dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingBottom="30dp"
+                />
 
             <ImageButton
                 android:layout_width="fill_parent"
-                android:layout_height="100dp"
+                android:layout_height="74dp"
                 android:id="@+id/buttonfiltros6"
-                android:scaleType="fitStart"
-                android:src="@drawable/ico_ambiente"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_ambiente"
                 android:layout_below="@+id/buttonfiltros5"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="0dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="500dp"
-                android:background="@drawable/border_line_bot" />
+                android:layout_marginTop="390dp"
+                android:background="@drawable/border_line_bot"
+                android:paddingTop="11dp"
+                android:paddingLeft="23dp"
+                android:paddingRight="23dp"
+                android:paddingBottom="30dp"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/ordenar"
-
                 android:id="@+id/textView_avaliacoes"
-
                 android:layout_above="@+id/bt_transfFav"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/white"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:textSize="12dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -123,7 +152,8 @@
                 android:layout_alignBottom="@+id/bt_transfFav"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/white"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:textSize="12dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -134,7 +164,8 @@
                 android:layout_alignBottom="@+id/buttonfiltros3"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/white"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:textSize="12dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -145,7 +176,8 @@
                 android:layout_alignBottom="@+id/buttonfiltros4"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/white"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:textSize="12dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -156,7 +188,8 @@
                 android:layout_alignBottom="@+id/buttonfiltros5"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/white"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:textSize="12dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -164,10 +197,11 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/ambiente"
                 android:id="@+id/text_preco"
-                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/white"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="8dp"
+                android:textSize="12dp"
+                android:layout_alignBottom="@+id/buttonfiltros6" />
         </RelativeLayout>
     </ScrollView>
 

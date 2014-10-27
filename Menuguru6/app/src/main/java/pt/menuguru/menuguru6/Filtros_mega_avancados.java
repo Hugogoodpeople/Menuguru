@@ -254,44 +254,44 @@ public class Filtros_mega_avancados extends Activity
     private void highlightButton(int selectedButton)
     {
 
-        button1.setImageResource(R.drawable.ico_ordem_1);
-        button2.setImageResource(R.drawable.ico_cozinha);
-        button3.setImageResource(R.drawable.ico_preco);
-        button4.setImageResource(R.drawable.ico_opcoes);
-        button5.setImageResource(R.drawable.ico_ideal);
-        button6.setImageResource(R.drawable.ico_ambiente);
+        button1.setImageResource(R.drawable.ic_ordem);
+        button2.setImageResource(R.drawable.ic_cozinha);
+        button3.setImageResource(R.drawable.ic_preco);
+        button4.setImageResource(R.drawable.ic_opcoes);
+        button5.setImageResource(R.drawable.ic_ideal);
+        button6.setImageResource(R.drawable.ic_ambiente);
 
 
         switch (selectedButton)
         {
             case 1:
             {
-                button1.setImageResource(R.drawable.ico_ordem_2);
+                button1.setImageResource(R.drawable.ic_ordem_a);
                 break;
             }
             case 2:
             {
-                button2.setImageResource(R.drawable.ico_cozinha_2);
+                button2.setImageResource(R.drawable.ic_cozinha_a);
                 break;
             }
             case 3:
             {
-                button3.setImageResource(R.drawable.ico_preco_2);
+                button3.setImageResource(R.drawable.ic_preco_a);
                 break;
             }
             case 4:
             {
-                button4.setImageResource(R.drawable.ico_opcoes_2);
+                button4.setImageResource(R.drawable.ic_opcoes_a);
                 break;
             }
             case 5:
             {
-                button5.setImageResource(R.drawable.ico_ideal_2);
+                button5.setImageResource(R.drawable.ic_ideal_a);
                 break;
             }
             case 6:
             {
-                button6.setImageResource(R.drawable.ico_ambiente_2);
+                button6.setImageResource(R.drawable.ic_ambiente_a);
                 break;
             }
         }
