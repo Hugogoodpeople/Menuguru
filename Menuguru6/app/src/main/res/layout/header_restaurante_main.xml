@@ -93,7 +93,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:background="@color/transparent"
-                android:src="@drawable/b" />
+                android:src="@drawable/ic_lista" />
 
             <ImageButton
                 android:layout_width="50dp"
@@ -102,7 +102,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/d" />
+                android:src="@drawable/ic_coment"
+                android:background="@color/transparent" />
 
             <ImageButton
                 android:layout_width="50dp"
@@ -111,7 +112,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/ic_share_b" />
+                android:background="@color/transparent"
+                android:src="@drawable/ic_share" />
 
             <ImageButton
                 android:layout_width="50dp"
@@ -120,7 +122,8 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/ic_info_b" />
+                android:background="@color/transparent"
+                android:src="@drawable/ic_info" />
         </TableRow>
 
         <TableRow

@@ -1908,11 +1908,11 @@ public class Restaurante_main extends FragmentActivity {
         // mudar a imagem do segui aqui
         if (segue_rest)
         {
-            imageSegue.setImageResource(R.drawable.b_2);
+            imageSegue.setImageResource(R.drawable.ic_emlista);
         }
         else
         {
-            imageSegue.setImageResource(R.drawable.b);
+            imageSegue.setImageResource(R.drawable.ic_lista);
         }
 
     }

@@ -104,7 +104,7 @@ public class NavigationDrawerFragment extends Fragment {
     {
         Refugio_item item1 = new Refugio_item();
         item1.setTexto(getString(R.string.inicio));
-        item1.setImg(R.drawable.ico_home);
+        item1.setImg(R.drawable.ic_home);
 
         Refugio_item item2 = new Refugio_item();
         item2.setTexto(getString(R.string.reservas));
@@ -112,11 +112,11 @@ public class NavigationDrawerFragment extends Fragment {
 
         Refugio_item item3 = new Refugio_item();
         item3.setTexto(getString(R.string.definicao));
-        item3.setImg(R.drawable.ico_defenicoes);
+        item3.setImg(R.drawable.ic_defenicao);
 
         Refugio_item item4 = new Refugio_item();
         item4.setTexto(getString(R.string.destaque));
-        item4.setImg(R.drawable.ico_destaque);
+        item4.setImg(R.drawable.ic_reservas);
 
         Refugio_item item5 = new Refugio_item();
         item5.setTexto(getString(R.string.como));
@@ -128,6 +128,7 @@ public class NavigationDrawerFragment extends Fragment {
         some_list.add(item3);
         some_list.add(item4);
         some_list.add(item5);
+
     }
 
 

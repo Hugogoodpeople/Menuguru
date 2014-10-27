@@ -73,6 +73,14 @@
         <item name="android:maxHeight">40dip</item>
     </style>
 
+    <style name="CustomRatingBarGrande" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/custom_ratingbargrande</item>
+        <item name="android:minHeight">50dip</item>
+        <item name="android:maxHeight">300dip</item>
+    </style>
+
+
+
     <style name="Theme.Transparent" parent="android:Theme">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>

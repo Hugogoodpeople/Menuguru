@@ -11,7 +11,7 @@
         android:id="@+id/morada_rest"
 
         android:layout_margin="10dp"
-        android:background="@drawable/all_stars" />
+        android:background="@drawable/ic_topstars" />
 
     <LinearLayout
         android:orientation="vertical"
