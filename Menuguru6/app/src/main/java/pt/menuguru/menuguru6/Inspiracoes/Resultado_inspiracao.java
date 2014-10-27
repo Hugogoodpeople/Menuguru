@@ -75,7 +75,7 @@ public class Resultado_inspiracao extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resultado_inspiracao);
+        setContentView(R.layout.activity_resultado_festivais);
         Intent intent = getIntent();
         value = intent.getStringExtra("local");
         //setTitle(value);

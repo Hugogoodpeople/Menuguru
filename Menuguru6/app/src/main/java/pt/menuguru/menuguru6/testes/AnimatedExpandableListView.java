@@ -320,7 +320,8 @@ public class AnimatedExpandableListView extends ExpandableListView {
          * Override {@link #getRealChildTypeCount()} instead.
          */
         @Override
-        public final int getChildTypeCount() {
+        public final int getChildTypeCount()
+        {
             // Return 1 more than the childTypeCount to account for DummyView
             return getRealChildTypeCount() + 1;
         }
@@ -381,7 +382,8 @@ public class AnimatedExpandableListView extends ExpandableListView {
                 int clipHeight = parent.getHeight();
 
                 final int len = getRealChildrenCount(groupPosition);
-                for (int i = info.firstChildPosition; i < len; i++) {
+                for (int i = info.firstChildPosition; i < len; i++)
+                {
                     View childView = getRealChildView(groupPosition, i, (i == len - 1), null, parent);
                     childView.measure(measureSpecW, measureSpecH);
                     totalHeight += childView.getMeasuredHeight();
@@ -455,7 +457,8 @@ public class AnimatedExpandableListView extends ExpandableListView {
                 }
 
                 return convertView;
-            } else {
+            } else
+            {
                 return getRealChildView(groupPosition, childPosition, isLastChild, convertView, parent);
             }
         }
@@ -478,7 +481,8 @@ public class AnimatedExpandableListView extends ExpandableListView {
         private int dividerWidth;
         private int dividerHeight;
 
-        public DummyView(Context context) {
+        public DummyView(Context context)
+        {
             super(context);
         }
 
@@ -537,7 +541,8 @@ public class AnimatedExpandableListView extends ExpandableListView {
         }
     }
 
-    private static class ExpandAnimation extends Animation {
+    private static class ExpandAnimation extends Animation
+    {
         private int baseHeight;
         private int delta;
         private View view;

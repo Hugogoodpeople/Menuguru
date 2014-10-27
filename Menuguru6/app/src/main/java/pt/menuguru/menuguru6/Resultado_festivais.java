@@ -48,7 +48,7 @@ public class Resultado_festivais extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resultado_inspiracao);
+        setContentView(R.layout.activity_resultado_festivais);
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
