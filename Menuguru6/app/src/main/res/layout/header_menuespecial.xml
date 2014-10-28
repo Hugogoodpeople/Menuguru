@@ -34,7 +34,13 @@
         android:layout_alignBottom="@+id/image_capa"
         android:layout_alignLeft="@+id/image_capa"
         android:layout_alignStart="@+id/image_capa"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/ic_calendar"
+        android:scaleType="fitXY"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="6dp"
+        android:paddingTop="4dp" />
 
     <TextView
         android:layout_width="70dp"
@@ -46,9 +52,9 @@
         android:layout_alignBottom="@+id/image_capa"
         android:layout_toRightOf="@+id/icon_err3"
         android:layout_alignTop="@+id/icon_err3"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="5dp"
         android:textColor="@color/white"
-        android:gravity="center" />
+        android:gravity="center|start" />
 
     <TextView
         android:layout_width="17dp"

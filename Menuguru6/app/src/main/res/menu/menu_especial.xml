@@ -1,8 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="pt.menuguru.menuguru6.MenuEspecial" >
+    xmlns:tools="http://schemas.android.com/tools" tools:context="pt.menuguru.menuguru6.MenuEspecial" >
     <item android:id="@+id/partilhar"
-        android:title="@string/action_settings"
-        android:icon="@drawable/ic_share_b"
-        android:showAsAction="always" />
+        android:title="@string/partilhar"
+        android:icon="@drawable/ic_share"
+        android:showAsAction="withText|ifRoom" />
 </menu>

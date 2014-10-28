@@ -20,39 +20,48 @@
 
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="258dp"
-            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/progressbar"
+            android:layout_width="250dp"
+            android:layout_height="2dp"
             android:id="@+id/progressBar1"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="18dp"
             android:max="100" />
 
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="258dp"
-            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/progressbar"
+            android:layout_width="250dp"
+            android:layout_height="2dp"
             android:id="@+id/progressBar2"
-            android:max="100" />
+            android:max="100"
+            android:layout_marginTop="12.5dp" />
 
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="258dp"
-            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/progressbar"
+            android:layout_width="250dp"
+            android:layout_height="2dp"
             android:id="@+id/progressBar3"
-            android:max="100" />
+            android:max="100"
+            android:layout_marginTop="12.5dp" />
 
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="258dp"
-            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/progressbar"
+            android:layout_width="250dp"
+            android:layout_height="2dp"
             android:id="@+id/progressBar4"
-            android:max="100" />
+            android:max="100"
+            android:layout_marginTop="12.5dp" />
 
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="258dp"
-            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/progressbar"
+            android:layout_width="250dp"
+            android:layout_height="2dp"
             android:id="@+id/progressBar5"
-            android:max="100" />
+            android:max="100"
+            android:layout_marginTop="12.5dp" />
 
     </LinearLayout>
 </LinearLayout>

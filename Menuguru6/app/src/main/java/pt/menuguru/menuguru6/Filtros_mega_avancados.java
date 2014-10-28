@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.os.AsyncTask;
@@ -310,18 +311,17 @@ public class Filtros_mega_avancados extends Activity
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setQueryHint(getString(R.string.procurar));
 
-        /*
-        int searchImgId = getResources().getIdentifier("android:id/search_button", null, null);
-        ImageView v = (ImageView) searchView.findViewById(searchImgId);
-        v.setImageResource(R.drawable.ic_find_b);
-        */
-
-
-/*
-         // este codigo fica em standby ate encontrar algo melhor
-        menu.add(Menu.NONE, 0, Menu.NONE, getString(R.string.restaurante)).setIcon(R.drawable.check);
-        menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.prato)).setIcon(R.drawable.uncheck);
-*/
+        int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
+        View searchPlate = searchView.findViewById(searchPlateId);
+        if (searchPlate!=null) {
+            searchPlate.setBackgroundColor(Color.LTGRAY);
+            int searchTextId = searchPlate.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+            TextView searchText = (TextView) searchPlate.findViewById(searchTextId);
+            if (searchText!=null) {
+                //searchText.setTextColor(Color.WHITE);
+                //searchText.setHintTextColor(Color.WHITE);
+            }
+        }
 
 
 

@@ -150,9 +150,13 @@ public class MenuEspecial_nos_especiais extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_menu_especial);
+
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_menu_especial);
+
+
 
         rest_id = getIntent().getExtras().getString("rest_id");
         rest_cartao_id = getIntent().getExtras().getString("rest_cartao_id");
@@ -921,7 +925,7 @@ public class MenuEspecial_nos_especiais extends Activity {
 
             LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView=inflater.inflate(R.layout.row_especial, parent, false);
-            getActionBar().setTitle(some_list.get(0).getNome());
+            // getActionBar().setTitle(some_list.get(0).getNome());
             LinearLayout linear_ris = (LinearLayout)convertView.findViewById(R.id.linearLayout_risca);
             LinearLayout linear_tit = (LinearLayout)convertView.findViewById(R.id.linear_tit);
 
@@ -1322,6 +1326,8 @@ public class MenuEspecial_nos_especiais extends Activity {
             bt_reserva.setVisibility(View.VISIBLE);
             bt_voucher.setVisibility(View.GONE);
         }
+
+        getActionBar().setTitle(some_list.get(0).getNome());
 
     }
 

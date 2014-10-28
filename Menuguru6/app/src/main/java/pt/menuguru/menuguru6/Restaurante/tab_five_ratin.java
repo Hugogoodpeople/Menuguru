@@ -53,11 +53,13 @@ public class tab_five_ratin extends Fragment {
         progressBar5.setProgress((int)(Float.parseFloat(lista[0]) / Float.parseFloat(contagem) * 100));
 
 
+        /*
         progressBar1.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.DST_IN);
-        progressBar2.getProgressDrawable().setColorFilter(R.color.dourado, PorterDuff.Mode.SRC_IN);
+        progressBar2.getProgressDrawable().setColorFilter(R.color.dourado, PorterDuff.Mode.DST_IN);
         progressBar3.getProgressDrawable().setColorFilter(R.color.dourado, PorterDuff.Mode.SRC_IN);
         progressBar4.getProgressDrawable().setColorFilter(R.color.dourado, PorterDuff.Mode.SRC_IN);
         progressBar5.getProgressDrawable().setColorFilter(R.color.dourado, PorterDuff.Mode.SRC_IN);
+        */
 
         return rootView;
     }
