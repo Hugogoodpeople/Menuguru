@@ -12,5 +12,7 @@
         android:layout_gravity="center_horizontal"
         android:choiceMode="singleChoice"
         android:background="@color/silver"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
         />
 </LinearLayout>

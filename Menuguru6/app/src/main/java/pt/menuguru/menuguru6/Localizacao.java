@@ -6,11 +6,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -169,7 +172,7 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
 
         setContentView(R.layout.activity_localizacao);
 
-        mSearchView=(SearchView) findViewById(R.id.searchView);
+
 
 
         ActionBar actionBar = getActionBar();
@@ -177,6 +180,8 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
         getActionBar().setHomeButtonEnabled(true);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setTitle(Globals.getInstance().getCidadeÇ_nome());
+
+
         new AsyncTaskParseJson(this).execute();
 
 
@@ -347,7 +352,7 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
         mSearchView.setIconifiedByDefault(false);
         mSearchView.setOnQueryTextListener(this);
         mSearchView.setSubmitButtonEnabled(true);
-        mSearchView.setQueryHint("Search Here");
+        mSearchView.setQueryHint(getString(R.string.procurar));
     }
     @Override
     public boolean onQueryTextSubmit(String query)
@@ -361,7 +366,7 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
 
         mAdapter.getFilter().filter(newText.toLowerCase());
 
-        return true;
+        return false;
     }
 
     @Override
@@ -371,6 +376,83 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.searchable, menu);
+        MenuItem menuItem = menu.findItem(R.id.pesquisa_prato);
+        mSearchView = (SearchView) menuItem.getActionView();
+        mSearchView.setQueryHint(getString(R.string.procurar));
+
+        int searchPlateId = mSearchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
+        View searchPlate = mSearchView.findViewById(searchPlateId);
+        if (searchPlate!=null) {
+            searchPlate.setBackgroundColor(Color.LTGRAY);
+            int searchTextId = searchPlate.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+            TextView searchText = (TextView) searchPlate.findViewById(searchTextId);
+            if (searchText!=null) {
+                //searchText.setTextColor(Color.WHITE);
+                //searchText.setHintTextColor(Color.WHITE);
+            }
+        }
+
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.v("algo", "Escreveu " + query);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                listView.setFilterText(newText.toString());
+
+                mAdapter.getFilter().filter(newText.toLowerCase());
+
+                return false;
+            }
+
+        });
+
+
+
+
+        mSearchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                Log.v("fazcoisas","clicou no botao de pesquisa");
+
+            } });
+
+        mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
+
+            @Override
+            public boolean onClose() {
+                Log.v("cenasfechar","clicou para fechar");
+
+                return false;
+            }
+        });
+
+        mSearchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+            }
+        });
+
+
+        return true;
+
+
+
+
+
+
+    }
 
 
 }

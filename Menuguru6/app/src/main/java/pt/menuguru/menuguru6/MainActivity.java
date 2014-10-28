@@ -94,7 +94,8 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
     String regid;
 
 
-    public void ReloadoTabs() {
+    public void ReloadoTabs()
+    {
            // android.support.v4.app.Fragment currentFragment = getSupportFragmentManager().findFragmentByTag("pagina_principal");
             android.support.v4.app.FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
             fragTransaction.detach(framgmentoPrincipal);

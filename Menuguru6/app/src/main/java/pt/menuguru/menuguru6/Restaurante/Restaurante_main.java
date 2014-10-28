@@ -13,12 +13,14 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -1463,9 +1465,25 @@ public class Restaurante_main extends FragmentActivity {
                     ImageLoader imageLoaderEspecial=new ImageLoader(getApplicationContext());
                     imageLoaderEspecial.DisplayImage("http://menuguru.pt/"+ menu.getUrlImage(), imagemEspecial);
 
+
+                    final int especial = i;
+
+                    RelativeLayout destaqueView = (RelativeLayout) header2.findViewById(R.id.view_destaques);
+                    destaqueView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            abrirRestaurante(especial);
+
+                        }
+                    });
+
                 }
 
             }
+
+
+
 
         }
         else
@@ -1577,6 +1595,9 @@ public class Restaurante_main extends FragmentActivity {
         // toast para saber se esta aberto ou fechado
         // encontrei uma alternativa... podemos adicionar varios headers a lista... adicionamos se esta aberto ou fechado
         // depois so temos de meter este texto em baixo nessa view
+
+
+
         if (abertoFechado.equalsIgnoreCase("nao"))
         {
             //display in short period of time
@@ -1596,7 +1617,8 @@ public class Restaurante_main extends FragmentActivity {
         ImageButton partilhar = (ImageButton) header2.findViewById(R.id.imageButton3);
         partilhar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 partilharRestaurante();
             }
         });
@@ -1616,6 +1638,10 @@ public class Restaurante_main extends FragmentActivity {
         gridView.setAdapter(mAdapter);
 
 
+        //final int altura = gridView.getChildAt(0).getHeight();
+        DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
+
+        final int altura = (int)displayMetrics.heightPixels/17;
 
         gridView.setSelection(1);
 
@@ -1624,10 +1650,28 @@ public class Restaurante_main extends FragmentActivity {
             @Override
             public void run() {
                 //Do something after 100ms
-                gridView.smoothScrollToPosition(0);
+
+                //gridView.smoothScrollToPosition(0);
+                Log.v("handler","primeiro scroll automatico");
+
+                gridView.smoothScrollBy(-altura,
+                        500);
             }
         }, 1000);
 
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 100ms
+
+                //gridView.smoothScrollToPosition(1);
+                Log.v("handler", "segundo scroll automatico");
+
+                gridView.smoothScrollBy(altura,
+                        500);
+            }
+        }, 3000);
 
 
         //initialisePagin();
@@ -1636,6 +1680,20 @@ public class Restaurante_main extends FragmentActivity {
         new AsyncTaskParseJsonComentarios(this).execute();
 
     }
+
+    public void abrirRestaurante(int index)
+    {
+        Intent myIntent = new Intent(Restaurante_main.this, MenuEspecial.class);
+        //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
+        myIntent.putExtra("rest_cartao_id", "" + some_list.get(index).getDb_id());
+        myIntent.putExtra("rest_id", "" + some_list.get(index).getId_rest());
+        myIntent.putExtra("hora_min_reserva", some_list.get(index).getHora_minimo_antedencia_especial());
+
+        startActivity(myIntent);
+
+        overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
+    }
+
 
 
     public class MyListAdapter extends ArrayAdapter<Menu_do_restaurante> {

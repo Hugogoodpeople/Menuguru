@@ -1,8 +1,5 @@
 package pt.menuguru.menuguru6;
 
-
-
-
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TabWidget;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -69,6 +67,9 @@ public class TabsAdapterHugo extends FragmentPagerAdapter implements TabHost.OnT
         mTabHost.setOnTabChangedListener(this);
         mViewPager.setAdapter(this);
         mViewPager.setOnPageChangeListener(this);
+
+
+
     }
 
     public void addTab(TabHost.TabSpec tabSpec, Class<?> clss, Bundle args)
@@ -99,12 +100,52 @@ public class TabsAdapterHugo extends FragmentPagerAdapter implements TabHost.OnT
 
     }
 
-    public void onTabChanged(String tabId)
-    {
+    public void onTabChanged(String tabId) {
+
         int position = mTabHost.getCurrentTab();
         mViewPager.setCurrentItem(position);
 
+
+
+
+
+        if (mTabHost.getTabWidget().getTabCount() == 3)
+        {
+            ViewGroup vg;
+            TextView tv;
+            for (int i = 0; i < mTabHost.getTabWidget().getTabCount(); i++) {
+                vg = (ViewGroup) mTabHost.getTabWidget().getChildAt(i);
+                tv = (TextView) vg.getChildAt(1);
+                //tv.setTypeface(font);
+                if (i == position) {
+                    tv.setTextColor(Color.parseColor("#ffffff"));
+                    // Currentab = 0;
+                } else {
+                    tv.setTextColor(Color.parseColor("#000000"));
+                }
+            }
+
+
+
+            if (tabId.equals("Inicio")) {
+                mTabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.tabselectedcolor_centro);
+                mTabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.rgb(229, 229, 229));
+                mTabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.rgb(229, 229, 229));
+            } else if (tabId.equals("Verde")) {
+                mTabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.drawable.tabselectedcolor_centro);
+                mTabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.rgb(229, 229, 229));
+                mTabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.rgb(229, 229, 229));
+            } else if (tabId.equals("Vermelha")) {
+                mTabHost.getTabWidget().getChildAt(2).setBackgroundResource(R.drawable.tabselectedcolor_centro);
+                mTabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.rgb(229, 229, 229));
+                mTabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.rgb(229, 229, 229));
+            }
+        }
+
+
     }
+
+
 
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
     {

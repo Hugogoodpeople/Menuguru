@@ -182,7 +182,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:src="@drawable/ic_user_w"
-                android:scaleType="centerInside" />
+                android:scaleType="centerInside"
+                android:layout_marginLeft="5dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -194,8 +195,11 @@
                 android:layout_alignTop="@+id/mais_pessoas"
                 android:layout_toRightOf="@+id/mais_pessoas"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
-                android:textColor="@color/white" />
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/white"
+                android:textSize="22dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
 
             <ImageView
@@ -209,7 +213,8 @@
                 android:layout_alignRight="@+id/mais_pessoas"
                 android:layout_alignEnd="@+id/mais_pessoas"
                 android:src="@drawable/ic_more_w"
-                android:scaleType="centerInside" />
+                android:scaleType="fitXY"
+                android:padding="15dp" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -223,7 +228,8 @@
                 android:layout_above="@+id/edit_criar_sexo"
                 android:layout_toLeftOf="@+id/numero_pessoas"
                 android:layout_alignTop="@+id/pessoas_menos"
-                android:scaleType="centerInside" />
+                android:scaleType="fitXY"
+                android:padding="15dp" />
 
         </RelativeLayout>
     </RelativeLayout>

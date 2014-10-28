@@ -4,11 +4,7 @@
 android:orientation="vertical" android:layout_width="match_parent"
 android:layout_height="match_parent">
 
-    <SearchView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/searchView"
-        android:layout_gravity="center_horizontal" />
+
 
     <pt.menuguru.menuguru6.Utils.BounceListView
         android:layout_width="match_parent"

@@ -124,4 +124,14 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="5dp" />
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#75000000"
+        android:id="@+id/linearLayout"
+        android:layout_below="@+id/desconto"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

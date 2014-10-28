@@ -65,7 +65,7 @@ public class EscolherLingua extends Activity
             LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View row;
             if (convertView == null)
-                row=inflater.inflate(R.layout.row_defenicoes, parent, false);
+                row=inflater.inflate(R.layout.row_lingua, parent, false);
             else
                 row= convertView;
 
@@ -134,7 +134,7 @@ public class EscolherLingua extends Activity
 
         // Assign adapter to ListView
         //listView.setAdapter(adapter);
-        mAdapter = new MyListAdapter(this, R.layout.row_defenicoes, some_array);
+        mAdapter = new MyListAdapter(this, R.layout.row_lingua, some_array);
         listView.setAdapter(mAdapter);
 
         // ListView Item Click Listener

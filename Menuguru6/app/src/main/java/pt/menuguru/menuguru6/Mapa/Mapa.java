@@ -151,7 +151,7 @@ public class Mapa extends FragmentActivity {
             int width = size.x;
             int height = size.y;
 
-            int tamanhoCerto = width/3;
+            int tamanhoCerto = width/4;
 
             Canvas canvas = new Canvas();
             Bitmap mainImage = Utils.getResizedBitmap( result, tamanhoCerto, tamanhoCerto ); //get original image
