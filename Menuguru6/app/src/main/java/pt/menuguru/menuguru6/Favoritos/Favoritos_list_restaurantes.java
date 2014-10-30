@@ -21,6 +21,8 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,6 +45,24 @@ public class Favoritos_list_restaurantes extends Activity
     private String idFav;
     private ArrayList<Restaurante> some_list;
     private ProgressDialog progressDialog;
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        //Get an Analytics tracker to report app starts & uncaught exceptions etc.
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        //Stop the analytics tracking
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

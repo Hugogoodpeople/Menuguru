@@ -144,7 +144,8 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
 

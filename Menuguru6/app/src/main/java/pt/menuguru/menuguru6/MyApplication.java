@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class MyApplication extends Application {
 
     // The following line should be changed to include the correct property id.
-    private static final String PROPERTY_ID = "UA-56260131-1";
+    private static final String PROPERTY_ID = "UA-56059571-2";
 
     //Logging TAG
     private static final String TAG = "MinhaApp";
@@ -32,7 +32,7 @@ public class MyApplication extends Application {
         super();
     }
 
-    synchronized Tracker getTracker(TrackerName trackerId) {
+    public synchronized Tracker getTracker(TrackerName trackerId) {
         if (!mTrackers.containsKey(trackerId)) {
 
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);

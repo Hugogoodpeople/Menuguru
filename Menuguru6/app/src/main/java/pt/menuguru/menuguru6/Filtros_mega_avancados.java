@@ -36,6 +36,8 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -90,21 +92,6 @@ public class Filtros_mega_avancados extends Activity
 
     Animation hyperspaceJumpAnimation;
 
-    @Override
-    public void onStart()
-    {
-        super.onStart();
-        //Get an Analytics tracker to report app starts & uncaught exceptions etc.
-        GoogleAnalytics.getInstance(this).reportActivityStart(this);
-    }
-
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-        //Stop the analytics tracking
-        GoogleAnalytics.getInstance(this).reportActivityStop(this);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +119,8 @@ public class Filtros_mega_avancados extends Activity
                 Log.v("filtros","click Button 1");
                 preencherTabelas(1);
                 highlightButton(1);
+
+                enviarParaAnalytics();
             }
         });
 
@@ -142,6 +131,8 @@ public class Filtros_mega_avancados extends Activity
                 Log.v("filtros","click Button 2");
                 preencherTabelas(2);
                 highlightButton(2);
+
+                enviarParaAnalytics();
             }
         });
 
@@ -152,6 +143,8 @@ public class Filtros_mega_avancados extends Activity
                 Log.v("filtros","click Button 3");
                 preencherTabelas(3);
                 highlightButton(3);
+
+                enviarParaAnalytics();
             }
         });
 
@@ -162,6 +155,8 @@ public class Filtros_mega_avancados extends Activity
                 Log.v("filtros","click Button 4");
                 preencherTabelas(4);
                 highlightButton(4);
+
+                enviarParaAnalytics();
             }
         });
 
@@ -172,6 +167,8 @@ public class Filtros_mega_avancados extends Activity
                 Log.v("filtros","click Button 5");
                 preencherTabelas(5);
                 highlightButton(5);
+
+                enviarParaAnalytics();
             }
         });
 
@@ -182,6 +179,8 @@ public class Filtros_mega_avancados extends Activity
                 Log.v("filtros","click Button 6");
                 preencherTabelas(6);
                 highlightButton(6);
+
+                enviarParaAnalytics();
             }
         });
 
@@ -212,6 +211,7 @@ public class Filtros_mega_avancados extends Activity
                 Log.v("filtros","click Button limpar");
                 limparTudo();
                 Globals.getInstance().setHasFilters(false);
+
 
             }
         });
@@ -250,6 +250,16 @@ public class Filtros_mega_avancados extends Activity
 
         new AsyncTaskParseJson(this).execute();
 
+    }
+
+    public void enviarParaAnalytics()
+    {
+        Tracker tracker = ((MyApplication)getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Category")
+                .setAction("Action")
+                .setLabel("Label")
+                .build());
     }
 
     private void AbrirPesquisa()
