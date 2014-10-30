@@ -30,6 +30,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import pt.menuguru.menuguru6.Json_parser.JSONParser;
+import pt.menuguru.menuguru6.MyApplication;
 import pt.menuguru.menuguru6.R;
 import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.Locais;
@@ -54,6 +55,9 @@ public class InfoRestaurante extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Get a Tracker (should auto-report)
+        ((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
