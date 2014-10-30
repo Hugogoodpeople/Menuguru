@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+
 import java.util.ArrayList;
 
 import pt.menuguru.menuguru6.Utils.ComoFunc;
@@ -47,8 +49,29 @@ public class Destaques extends FragmentActivity {
     private PagerAdapter mPagerAdapter;
 
     @Override
+    public void onStart()
+    {
+        super.onStart();
+        //Get an Analytics tracker to report app starts & uncaught exceptions etc.
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        //Stop the analytics tracking
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+    }
+
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Get a Tracker (should auto-report)
+        ((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
         //new AsyncTaskParseJson(this).execute();
         if(Globals.get_instance().getFestival().length<=0){
             setContentView(R.layout.fragment_destaques_vazia);
