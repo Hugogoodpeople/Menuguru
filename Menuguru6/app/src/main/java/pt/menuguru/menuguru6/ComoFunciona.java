@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,8 +56,29 @@ public class ComoFunciona extends FragmentActivity {
     private PagerAdapter mPagerAdapter;
 
     @Override
+    public void onStart()
+    {
+        super.onStart();
+        //Get an Analytics tracker to report app starts & uncaught exceptions etc.
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        //Stop the analytics tracking
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+    }
+
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Get a Tracker (should auto-report)
+        ((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
         //new AsyncTaskParseJson(this).execute();
         setContentView(R.layout.fragment_como_funciona);
 

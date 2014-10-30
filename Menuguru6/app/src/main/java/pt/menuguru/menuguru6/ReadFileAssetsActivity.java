@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+
 /**
  * @author Paresh N. Mayani
  * @Website http://www.technotalkative.com
@@ -22,7 +24,29 @@ public class ReadFileAssetsActivity extends Activity {
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onStart()
+    {
+        super.onStart();
+        //Get an Analytics tracker to report app starts & uncaught exceptions etc.
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        //Stop the analytics tracking
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+    }
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        //Get a Tracker (should auto-report)
+        ((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
 
         super.onCreate(savedInstanceState);
 
