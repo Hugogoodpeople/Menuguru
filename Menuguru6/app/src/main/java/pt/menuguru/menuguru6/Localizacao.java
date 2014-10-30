@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -38,7 +39,7 @@ import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.Locais;
 
 
-public class Localizacao extends Activity implements SearchView.OnQueryTextListener{
+public class Localizacao extends Activity{
     ListView listView;
 
     ArrayList<Locais>  local = null;
@@ -176,10 +177,13 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
 
 
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setTitle(Globals.getInstance().getCidadeÇ_nome());
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
+
+        actionBar.setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+
+
+        getActionBar().setIcon(R.drawable.ic_close_b);
 
 
         new AsyncTaskParseJson(this).execute();
@@ -201,7 +205,7 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
         mAdapter = new MyListAdapter(this, R.layout.row_defenicoes, local);
         listView.setAdapter(mAdapter);
         // ListView Item Click Listener
-        setupSearchView();
+        //setupSearchView();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -350,16 +354,20 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
     private void setupSearchView()
     {
         mSearchView.setIconifiedByDefault(false);
-        mSearchView.setOnQueryTextListener(this);
+        //mSearchView.setOnQueryTextListener(this);
         mSearchView.setSubmitButtonEnabled(true);
         mSearchView.setQueryHint(getString(R.string.procurar));
     }
+
+    /*
     @Override
     public boolean onQueryTextSubmit(String query)
     {
         return false;
     }
+    */
 
+    /*
     @Override
     public boolean onQueryTextChange(String newText) {
         listView.setFilterText(newText.toString());
@@ -368,6 +376,7 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
 
         return false;
     }
+    */
 
     @Override
     public void onBackPressed() {
@@ -379,15 +388,17 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+
+
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.searchable, menu);
         MenuItem menuItem = menu.findItem(R.id.pesquisa_prato);
-        mSearchView = (SearchView) menuItem.getActionView();
-        mSearchView.setQueryHint(getString(R.string.procurar));
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint(getString(R.string.procurar));
 
-        int searchPlateId = mSearchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
-        View searchPlate = mSearchView.findViewById(searchPlateId);
+        int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
+        View searchPlate = searchView.findViewById(searchPlateId);
         if (searchPlate!=null) {
             searchPlate.setBackgroundColor(Color.LTGRAY);
             int searchTextId = searchPlate.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
@@ -399,10 +410,15 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
         }
 
 
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Log.v("algo", "Escreveu " + query);
+
+                listView.setFilterText(query.toString());
+
+                mAdapter.getFilter().filter(query.toLowerCase());
 
                 return false;
             }
@@ -421,13 +437,13 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
 
 
 
-        mSearchView.setOnSearchClickListener(new View.OnClickListener() {
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 Log.v("fazcoisas","clicou no botao de pesquisa");
 
             } });
 
-        mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
 
             @Override
             public boolean onClose() {
@@ -437,7 +453,7 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
             }
         });
 
-        mSearchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
@@ -446,11 +462,6 @@ public class Localizacao extends Activity implements SearchView.OnQueryTextListe
 
 
         return true;
-
-
-
-
-
 
     }
 
