@@ -58,12 +58,12 @@
         android:layout_alignEnd="@+id/nomeMenu" />
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:id="@+id/imagemTipo"
-        android:src="@drawable/antes_depois"
+        android:src="@drawable/ic_antes_depois"
         android:layout_gravity="right"
-        android:layout_marginRight="27dp"
+        android:layout_marginRight="10dp"
         android:layout_above="@+id/precoAntigo"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

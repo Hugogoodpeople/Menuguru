@@ -73,8 +73,8 @@
         android:layout_alignEnd="@+id/imagemTipo" />
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:id="@+id/imagemTipo"
         android:src="@drawable/i_map"
         android:layout_gravity="right"
@@ -82,11 +82,12 @@
         android:layout_alignRight="@+id/nomeRestaurante"
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="50dp"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="-10dp" />
 
     <TextView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:text="New Text"
         android:id="@+id/distancia"
         android:gravity="center"

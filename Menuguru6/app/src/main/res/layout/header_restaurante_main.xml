@@ -27,9 +27,9 @@
 
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="175dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="168dp"
         android:layout_marginRight="20dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
@@ -56,8 +56,8 @@
         android:layout_marginTop="5dp" />
 
     <TextView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="dist"
         android:id="@+id/distancia_restaurante_header"

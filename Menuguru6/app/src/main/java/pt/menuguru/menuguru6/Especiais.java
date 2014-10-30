@@ -104,7 +104,7 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
 
             if(some_array[position].tipo.equalsIgnoreCase("especial_doisprecos"))
             {
-                icon.setImageResource(R.drawable.antes_depois);
+                icon.setImageResource(R.drawable.ic_antes_depois);
                 TextView label3=(TextView)row.findViewById(R.id.precoAntigo);
                 label3.setPaintFlags(label3.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 label3.setText(some_array[position].precoAntigo+"€");
@@ -122,7 +122,7 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
             }
             else if(some_array[position].tipo.equalsIgnoreCase("especial_desconto"))
             {
-                icon.setImageResource(R.drawable.desc_fatura);
+                icon.setImageResource(R.drawable.ic_desc_fatura);
 
                 TextView label3=(TextView)row.findViewById(R.id.precoAntigo);
                 label3.setPaintFlags(label3.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -135,7 +135,7 @@ public class Especiais extends Fragment implements AbsListView.OnItemClickListen
             }
             else
             {
-                icon.setImageResource(R.drawable.menu_esp);
+                icon.setImageResource(R.drawable.ic_menu_esp);
                 TextView label5=(TextView)row.findViewById(R.id.desconto);
                 label5.setText(some_array[position].especialFita);
                 TextView label3=(TextView)row.findViewById(R.id.precoAntigo);

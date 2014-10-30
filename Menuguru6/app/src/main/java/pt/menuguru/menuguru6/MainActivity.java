@@ -38,6 +38,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Logger;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -46,6 +50,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -54,7 +59,13 @@ import pt.menuguru.menuguru6.Utils.Globals;
 import pt.menuguru.menuguru6.Utils.User;
 
 
+
+
+
 public class MainActivity extends FragmentActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, LocationListener {
+
+
+
 
 
     // para o fragmento... nao gosto muito mas por enquanto é o que se arranja
@@ -94,6 +105,8 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
     String regid;
 
 
+
+
     public void ReloadoTabs()
     {
            // android.support.v4.app.Fragment currentFragment = getSupportFragmentManager().findFragmentByTag("pagina_principal");
@@ -113,9 +126,32 @@ public class MainActivity extends FragmentActivity implements NavigationDrawerFr
      */
     private CharSequence mTitle;
 
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        //Get an Analytics tracker to report app starts & uncaught exceptions etc.
+        GoogleAnalytics.getInstance(this).reportActivityStart(this);
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        //Stop the analytics tracking
+        GoogleAnalytics.getInstance(this).reportActivityStop(this);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        //Get a Tracker (should auto-report)
+        ((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
+        // Disable periodic dispatch by setting dispatch period to a value less than 1.
+        GoogleAnalytics.getInstance(this).setLocalDispatchPeriod(0);
 
         Globals.getInstance();
 
