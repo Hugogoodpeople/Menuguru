@@ -7,7 +7,7 @@
     <string name="ambiente">Decoración</string>
     <string name="ant">Anterior</string>
     <string name="avaliar">Evaluar</string>
-    <string name="avalie_aqui" translatable="false">Evaluar su visita aquí</string>
+    <string name="avalie_aqui">Evaluar su visita aquí</string>
     <string name="bom">Buena</string>
     <string name="bt_face">Conéctate con Facebook</string>
     <string name="bt_iniciar">Inicia sesión</string>
@@ -41,7 +41,7 @@
     <string name="gravar">Salvar</string>
     <string name="guardar_agenda">Estamos reservando tu mesa en l\'agenda del restaurante.</string>
     <string name="horas">HRS</string>
-    <string name="horrivel" translatable="false">Horrible</string>
+    <string name="horrivel">Horrible</string>
     <string name="idealpara">Ideal para</string>
     <string name="idioma">Idioma</string>
     <string name="incorrecto">Dirección de correo electrónico o contraseña no válida.</string>
@@ -55,11 +55,11 @@
     <string name="mau">Mal</string>
     <string name="min_pass">La contraseña debe tener al menos 6 caracteres.</string>
     <string name="morada_errada">Dirección equivocada</string>
-    <string name="muito_bom" translatable="false">Muy bien</string>
+    <string name="muito_bom">Muy bien</string>
     <string name="n_exite_email">¿Quieres crear ahora?</string>
     <string name="nao">No</string>
     <string name="nao_encontrado">No hay ningún resultado para esta búsqueda.</string>
-    <string name="o_que_esta_errado" translatable="false">¿Qué pasa?</string>
+    <string name="o_que_esta_errado">¿Qué pasa?</string>
     <string name="o_que_pretende_pesquisar">¿Qué desea buscar?</string>
     <string name="oferta_exp">Oferta expira</string>
     <string name="ola">Hola</string>
@@ -105,7 +105,7 @@
     <string name="tranf_favoritos">¿Quieres descargar los favoritos de una cuenta de Facebook a tu cuenta Menu Guru?</string>
     <string name="ver_todos">Ver todos</string>
     <string name="votacoes">Evaluaciones</string>
-    <string name="Especias" translatable="false">Especiales</string>
+    <string name="Especias">Especiales</string>
     <string name="Reservas">Reserva</string>
     <string name="sugestoes">Sugerencias</string>
     <string name="agora">Ahora</string>
@@ -157,5 +157,32 @@
         <item>Sábado</item>
     </string-array>
     <string name="seleciona_data_reserva_oferta">Seleccione la fecha para reservar la mesa y tomar ventaja de la oferta</string>
+
+
+    <string-array name="cancelar_reserva">
+        <item>Cancelar Reserva</item>
+        <item>Obter direcções</item>
+        <item>Cancelar</item>
+    </string-array>
+
+    <string-array name="apagar_reserva">
+        <item>Apagar Reserva</item>
+        <item>Obter direcções</item>
+        <item>Cancelar</item>
+    </string-array>
+
+    <string-array name="linguas">
+        <item>Português</item>
+        <item>Italiano</item>
+        <item>Alemão</item>
+        <item>Espanhol</item>
+        <item>Francês</item>
+        <item>Inglês</item>
+    </string-array>
+
+    <string-array name="sexo">
+        <item>Homem</item>
+        <item>Mulher</item>
+    </string-array>
 
 </resources>

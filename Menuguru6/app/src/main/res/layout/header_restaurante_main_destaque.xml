@@ -262,7 +262,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="25dp"
-        android:id="@+id/text_oferta" />
+        android:id="@+id/text_oferta1" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -294,8 +294,8 @@
         android:layout_width="100dp"
         android:layout_height="1dp"
         android:background="@color/gray"
-        android:layout_alignLeft="@+id/text_oferta"
-        android:layout_alignStart="@+id/text_oferta"
+        android:layout_alignLeft="@+id/text_oferta1"
+        android:layout_alignStart="@+id/text_oferta1"
         android:layout_marginTop="100dp"
 
         android:layout_below="@+id/textView_avaliacoes"

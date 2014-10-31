@@ -48,7 +48,7 @@
             android:src="@drawable/uncheck" />
 
         <TextView
-            android:id="@+id/month"
+            android:id="@+id/month2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/morada_errada"

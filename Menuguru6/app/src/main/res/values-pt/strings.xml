@@ -2,85 +2,71 @@
 <resources>
     <string name="app_name">Menuguru</string>
     <string name="T_recuperar_pass">Recuperar password</string>
-    <string name="aberto" translatable="false">Aberto agora</string>
+    <string name="aberto">Aberto agora</string>
     <string name="adicionar_lista">Adicionar lista</string>
     <string name="ambiente">Ambiente</string>
     <string name="avaliar">Avaliar</string>
-    <string name="avalie_aqui" translatable="false">Avalie aqui a sua visita</string>
-    <string name="bom" translatable="false">Bom</string>
+    <string name="avalie_aqui">Avalie aqui a sua visita</string>
+    <string name="bom">Bom</string>
     <string name="bt_iniciar">Iniciar sessão</string>
     <string name="cancelar">Cancelar</string>
     <string name="cod_invalido">Código inválido. Tente de </string>
-    <string name="comentarios" translatable="false">Comentários</string>
-    <string name="como" translatable="false">Como\nfunciona?</string>
+    <string name="comentarios">Comentários</string>
+    <string name="como">Como\nfunciona?</string>
     <string name="conf">Confirme os dados para efectuarmos a sua reserva</string>
     <string name="conf_email">Por favor confirme o seu registo através do email que lhe enviamos.</string>
-    <string name="conf_reserva">A sua reserva foi efectuada com sucesso.</string>
     <string name="confirmar">Confirmar</string>
     <string name="cozinha">Cozinha</string>
-    <string name="definicao" translatable="false">Definições</string>
+    <string name="definicao">Definições</string>
     <string name="desc_criar_registo">Ao registar a sua conta está a concordar com os nossos Termos e Condições e com a nossa Política de Privacidade.</string>
     <string name="desc_erro_mail">Por favor verifique a sua caixa de email e valide-o ou recupere a password.</string>
     <string name="descobs">Quer fazer alguma recomendação ao restaurante? Escreva-a aqui.</string>
-    <string name="destaque" translatable="false">Destaques</string>
+    <string name="destaque">Destaques</string>
     <string name="detalhes_reserva">Detalhes da reserva</string>
-    <string name="dia">DIA</string>
     <string name="dias">DIAS</string>
-    <string name="email_espalhe_palavra" translatable="false"></string>
-    <string name="ementa_desactualizada" translatable="false">Ementa desatualizada</string>
-    <string name="enviar" translatable="false">Enviar</string>
+
+    <string name="ementa_desactualizada">Ementa desatualizada</string>
+    <string name="enviar">Enviar</string>
     <string name="erro_data_ant">Não é possível efectuar uma reserva numa data anterior à actual</string>
     <string name="erro_data_dep">Lamentamos mas não existem mesas disponíveis para este dia. Por favor tente numa nova data.</string>
     <string name="erro_email">Email inválido</string>
     <string name="erro_hora">Selecione a hora</string>
     <string name="erro_pes">Selecione o número de pessoas</string>
-    <string name="escreva_baixo" translatable="false">Escreva abaixo a sua opinião</string>
+    <string name="escreva_baixo">Escreva abaixo a sua opinião</string>
     <string name="esq_pass">Esqueceu-se da password?</string>
-    <string name="excelente" translatable="false">Excelente</string>
-    <string name="fav_tranf">Favoritos adicionados</string>
-    <string name="fechado" translatable="false">Fechado</string>
+    <string name="excelente">Excelente</string>
+    <string name="fechado">Fechado</string>
     <string name="filtrosavancados">Filtros Avançados</string>
     <string name="gravar">Gravar</string>
     <string name="guardar_agenda">Estamos a reservar a sua mesa na agenda do restaurante</string>
-    <string name="guardar_perfil">Perfil guardado com sucesso.</string>
-    <string name="hoje" translatable="false">Hoje</string>
-    <string name="hora">HORA</string>
     <string name="horas">HRS</string>
-    <string name="horrivel" translatable="false">Horrível</string>
+    <string name="horrivel">Horrível</string>
     <string name="idealpara">Ideal para</string>
     <string name="idioma">Idioma</string>
     <string name="incorrecto">Email ou password incorrecto.</string>
-    <string name="info">Info</string>
-    <string name="info_rest" translatable="false">Informações úteis</string>
+    <string name="info_rest">Informações úteis</string>
     <string name="inicio">Início</string>
     <string name="inserir_email">Por favor insira o seu endereço de email.</string>
     <string name="inserir_nome">Para fazer uma reserva, por favor introduza o seu nome</string>
     <string name="inserir_telefone">Para fazer uma reserva, por favor introduza o seu telefone</string>
     <string name="limpar">Limpar</string>
     <string name="listas">Listas</string>
-    <string name="localizacao" translatable="false">Localização</string>
-    <string name="mau" translatable="false">Mau</string>
-    <string name="min">MIN</string>
+    <string name="mau">Mau</string>
     <string name="min_pass">A password tem de ter no mínimo 6 carateres.</string>
-    <string name="mins">MIN</string>
-    <string name="morada_errada" translatable="false">Morada errada</string>
-    <string name="muito_bom" translatable="false">Muito bom</string>
+    <string name="morada_errada">Morada errada</string>
+    <string name="muito_bom">Muito bom</string>
     <string name="n_exite_email">Pretende registá-lo agora?</string>
     <string name="nao">Não</string>
     <string name="nao_encontrado">Não encontrámos nenhum resultado para esta pesquisa.</string>
-    <string name="nao_encontramos">Não encontramos nenhum destaque.</string>
-    <string name="navigation_drawer_open" translatable="false"></string>
-    <string name="o_que_esta_errado" translatable="false">O que está errado?</string>
+    <string name="o_que_esta_errado">O que está errado?</string>
     <string name="o_que_pretende_pesquisar">O que pretende pesquisar?</string>
     <string name="oferta_exp">Oferta expira</string>
-    <string name="ok">Ok</string>
     <string name="ola">Olá</string>
-    <string name="oops">Oops!</string>
     <string name="oops_favoritos">Não encontrámos nenhum resultado para esta pesquisa.</string>
     <string name="opcoes">Opções</string>
     <string name="ordenar">Ordenar</string>
     <string name="ou">ou</string>
-    <string name="outros_detalhes" translatable="false">Outros detalhes (Opcional)</string>
+    <string name="outros_detalhes">Outros detalhes (Opcional)</string>
     <string name="partilhar">Partilhar</string>
     <string name="pesquisa">Pesquisar</string>
     <string name="pessoa">pessoa</string>
@@ -92,21 +78,20 @@
     <string name="prencher_campos">Deve preencher todos os campos.</string>
     <string name="procurar">Procurar</string>
     <string name="registo">Registar-se na Menu Guru</string>
-    <string name="reportar_erro" translatable="false">Reportar erro</string>
+    <string name="reportar_erro">Reportar erro</string>
     <string name="reserva">Reserva para</string>
-    <string name="reservas" translatable="false">Reservas</string>
-    <string name="resposta">Resposta</string>
+    <string name="reservas">Reservas</string>
     <string name="restaurante">Restaurante</string>
     <string name="sec">SEC</string>
     <string name="secs">SEC</string>
     <string name="seg">Seguinte</string>
-    <string name="seja_o_primeiro_avaliar" translatable="false">Seja o primeiro a avaliar este restaurante</string>
-    <string name="seja_o_primeiro_c" translatable="false">Seja o primeiro a avaliar este restaurante</string>
+    <string name="seja_o_primeiro_avaliar">Seja o primeiro a avaliar este restaurante</string>
+    <string name="seja_o_primeiro_c">Seja o primeiro a avaliar este restaurante</string>
     <string name="sel_hora">Selecione a hora</string>
     <string name="sel_pessoa">Selecione o número de pessoas</string>
     <string name="selobs">Observações</string>
-    <string name="sem_comentarios" translatable="false">Sem comentários</string>
-    <string name="sem_coments" translatable="false">Sem comentários</string>
+    <string name="sem_comentarios">Sem comentários</string>
+    <string name="sem_coments">Sem comentários</string>
     <string name="sim">Sim</string>
     <string name="solicitar">Solicite a validação no restaurante</string>
     <string name="t_exite_email">Email sem registo</string>
@@ -114,23 +99,16 @@
     <string name="texto_recuperar">Por favor introduza o seu email.</string>
     <string name="tit_email">Email já registado</string>
     <string name="title_activity_criar_user">Criar Registo</string>
-    <string name="title_activity_inspiracao" translatable="false">Inspiração</string>
-    <string name="title_activity_localizacao" translatable="false">Localizacao</string>
-    <string name="title_activity_menu_especial">MenuEspecial</string>
-    <string name="title_activity_pesquisa_avancada" translatable="false">Pesquisa_avancada</string>
-    <string name="title_activity_recuperar_pass">Recuperar_pass</string>
-    <string name="title_activity_resultado_festivais">Resultado_festivais</string>
-    <string name="title_activity_teste_facebook">TesteFacebook</string>
+    <string name="title_activity_inspiracao">Inspiração</string>
     <string name="title_activity_voucher">Voucher</string>
     <string name="todos">Todos</string>
-    <string name="todostipo">Todos Tipo de</string>
     <string name="tranf_favoritos">Deseja transferir os favoritos de uma conta do Facebook para a sua conta Menu Guru?</string>
-    <string name="ver_todos" translatable="false">Ver todos</string>
+    <string name="ver_todos">Ver todos</string>
     <string name="ant">Anterior</string>
     <string name="bt_face">Entrar com Facebook</string>
     <string name="votacoes">Avaliações</string>
     <string name="Especias">Especias</string>
-    <string name="Reservas" translatable="false">Reservar</string>
+    <string name="Reservas">Reservar</string>
     <string name="sugestoes">Sugestões</string>
     <string name="agora">Agora</string>
     <string name="sem_data_especifica">Sem data específica</string>
@@ -175,6 +153,38 @@
         <item>Sexta-feira</item>
         <item>Sábado</item>
     </string-array>
+    <string-array name="refeicoes">
+        <item>Almoço</item>
+        <item>Jantar</item>
+    </string-array>
+
     <string name="seleciona_data_reserva_oferta">Selecione a data para reservar a\nmesa e usufruir da oferta</string>
+
+
+    <string-array name="cancelar_reserva">
+        <item>Cancelar Reserva</item>
+        <item>Obter direcções</item>
+        <item>Cancelar</item>
+    </string-array>
+
+    <string-array name="apagar_reserva">
+        <item>Apagar Reserva</item>
+        <item>Obter direcções</item>
+        <item>Cancelar</item>
+    </string-array>
+
+    <string-array name="linguas">
+        <item>Português</item>
+        <item>Italiano</item>
+        <item>Alemão</item>
+        <item>Espanhol</item>
+        <item>Francês</item>
+        <item>Inglês</item>
+    </string-array>
+
+    <string-array name="sexo">
+        <item>Homem</item>
+        <item>Mulher</item>
+    </string-array>
 
 </resources>

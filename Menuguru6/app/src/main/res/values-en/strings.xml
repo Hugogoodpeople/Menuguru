@@ -7,7 +7,7 @@
     <string name="ambiente">Décor</string>
     <string name="ant">Previous</string>
     <string name="avaliar">Evaluate</string>
-    <string name="avalie_aqui" translatable="false">Evaluate their visit here</string>
+    <string name="avalie_aqui">Evaluate their visit here</string>
     <string name="bom">Good</string>
     <string name="bt_face">Log in with Facebook</string>
     <string name="bt_iniciar">Log in</string>
@@ -19,13 +19,12 @@
     <string name="conf_email">Please check your email to confirm your registration.</string>
     <string name="confirmar">Confirm</string>
     <string name="cozinha">Cuisine</string>
-    <string name="definicao" translatable="false">Settings</string>
+    <string name="definicao">Settings</string>
     <string name="desc_criar_registo">By clicking sign up, you agree to our Menu Guru Terms and that you have read our Privacy Policy.</string>
     <string name="desc_erro_mail">Please check your email, validate the activation link or retrieve your password.</string>
     <string name="descobs">Would you like to make a recommendation to the restaurant? Write it up here.</string>
     <string name="destaque">Highlights</string>
     <string name="detalhes_reserva">Booking details</string>
-    <string name="dia" translatable="false"></string>
     <string name="dias">DAYS</string>
     <string name="ementa_desactualizada">Outdated menu</string>
     <string name="enviar">Send</string>
@@ -42,7 +41,7 @@
     <string name="gravar">Save</string>
     <string name="guardar_agenda">We are just booking your table in the restaurant\'s agenda.</string>
     <string name="horas">HR</string>
-    <string name="horrivel" translatable="false">Horrible</string>
+    <string name="horrivel">Horrible</string>
     <string name="idealpara">Ideal for</string>
     <string name="idioma">Language</string>
     <string name="incorrecto">Invalid email address or password.</string>
@@ -53,15 +52,14 @@
     <string name="inserir_telefone">To make a reservation, please enter your phone</string>
     <string name="limpar">Delete</string>
     <string name="listas">Lists</string>
-    <string name="mau" translatable="false">Bad</string>
-    <string name="min"></string>
+    <string name="mau">Bad</string>
     <string name="min_pass">Password must be at least 6 characters.</string>
     <string name="morada_errada">Wrong address</string>
-    <string name="muito_bom" translatable="false">Very good</string>
+    <string name="muito_bom">Very good</string>
     <string name="n_exite_email">Do you want to create it now?</string>
     <string name="nao">No</string>
     <string name="nao_encontrado">There are no results for this search.</string>
-    <string name="o_que_esta_errado" translatable="false">What\'s wrong?</string>
+    <string name="o_que_esta_errado">What\'s wrong?</string>
     <string name="o_que_pretende_pesquisar">What do you want to search?</string>
     <string name="oferta_exp">Offer expires</string>
     <string name="ola">Hello</string>
@@ -105,9 +103,9 @@
     <string name="title_activity_voucher">Voucher</string>
     <string name="todos">All</string>
     <string name="tranf_favoritos">Would you like to add the Favorites of a Facebook account to your Menu Guru account?</string>
-    <string name="ver_todos" translatable="false">View all</string>
+    <string name="ver_todos">View all</string>
     <string name="votacoes">Evaluations</string>
-    <string name="Especias" translatable="false">Special</string>
+    <string name="Especias">Special</string>
     <string name="Reservas">Booking</string>
     <string name="sugestoes">Suggestions</string>
     <string name="agora">Now</string>
@@ -160,5 +158,31 @@
         <item>Saturday</item>
     </string-array>
     <string name="seleciona_data_reserva_oferta">Select the date to book the table and take advantage of the offer</string>
+
+    <string-array name="cancelar_reserva">
+        <item>Cancelar Reserva</item>
+        <item>Obter direcções</item>
+        <item>Cancelar</item>
+    </string-array>
+
+    <string-array name="apagar_reserva">
+        <item>Apagar Reserva</item>
+        <item>Obter direcções</item>
+        <item>Cancelar</item>
+    </string-array>
+
+    <string-array name="linguas">
+        <item>Português</item>
+        <item>Italiano</item>
+        <item>Alemão</item>
+        <item>Espanhol</item>
+        <item>Francês</item>
+        <item>Inglês</item>
+    </string-array>
+
+    <string-array name="sexo">
+        <item>Homem</item>
+        <item>Mulher</item>
+    </string-array>
 
 </resources>

@@ -7,7 +7,7 @@
     <string name="ambiente">Arredamento</string>
     <string name="ant">Precedente</string>
     <string name="avaliar">Valutare</string>
-    <string name="avalie_aqui" translatable="false">Valutare la loro visita qui</string>
+    <string name="avalie_aqui">Valutare la loro visita qui</string>
     <string name="bom">Buona</string>
     <string name="bt_face">Connettiti con Facebook</string>
     <string name="bt_iniciar">Accedi</string>
@@ -66,7 +66,7 @@
     <string name="oops_favoritos">Non ci sono risultati per questa ricerca.</string>
     <string name="opcoes">opzioni</string>
     <string name="ordenar">Ordine</string>
-    <string name="outros_detalhes" translatable="false">Altri dettagli (Opzionale)</string>
+    <string name="outros_detalhes">Altri dettagli (Opzionale)</string>
     <string name="ou">o</string>
     <string name="partilhar">Condividi</string>
     <string name="pesquisa">Ricerca</string>
@@ -157,5 +157,31 @@
         <item>Sabato</item>
     </string-array>
     <string name="seleciona_data_reserva_oferta">Scegliete la data della prenotazione del tavolo, per approffitare dell\'offerta</string>
+
+    <string-array name="cancelar_reserva">
+        <item>Cancelar Reserva</item>
+        <item>Obter direcções</item>
+        <item>Cancelar</item>
+    </string-array>
+
+    <string-array name="apagar_reserva">
+        <item>Apagar Reserva</item>
+        <item>Obter direcções</item>
+        <item>Cancelar</item>
+    </string-array>
+
+    <string-array name="linguas">
+        <item>Português</item>
+        <item>Italiano</item>
+        <item>Alemão</item>
+        <item>Espanhol</item>
+        <item>Francês</item>
+        <item>Inglês</item>
+    </string-array>
+
+    <string-array name="sexo">
+        <item>Homem</item>
+        <item>Mulher</item>
+    </string-array>
 
 </resources>
