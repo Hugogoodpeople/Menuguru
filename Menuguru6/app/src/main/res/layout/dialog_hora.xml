@@ -98,7 +98,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:src="@drawable/ic_close_d"
-            android:background="@drawable/mega_shadow" />
+            android:background="@color/transparent" />
 
     </RelativeLayout>
 </LinearLayout>

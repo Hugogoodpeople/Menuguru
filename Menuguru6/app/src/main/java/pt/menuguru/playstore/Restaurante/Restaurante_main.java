@@ -229,6 +229,14 @@ public class Restaurante_main extends FragmentActivity {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 data_selec = df.format(c.getTime());
 
+                ImageButton close = (ImageButton)dialog1.findViewById(R.id.imageButton_close_dialogs);
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog1.dismiss();
+                    }
+                });
+
                 Date data_act = null;
                 try {
                     data_act = df.parse(data_selec);
@@ -372,6 +380,16 @@ public class Restaurante_main extends FragmentActivity {
         dialog_hora.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_hora.setContentView(R.layout.dialog_hora);
 
+
+        ImageButton close = (ImageButton)dialog_hora.findViewById(R.id.imageButton_close_dialogs);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog1.dismiss();
+                dialog_hora.dismiss();
+            }
+        });
+
         TextView bt_ant = (TextView) dialog_hora.findViewById(R.id.bt_ant_cal);
         TextView bt_seg = (TextView) dialog_hora.findViewById(R.id.bt_seg_nrp);
 
@@ -459,6 +477,16 @@ public class Restaurante_main extends FragmentActivity {
         dialog_pes.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_pes.setContentView(R.layout.dialog_pessoas);
 
+        ImageButton close = (ImageButton)dialog_pes.findViewById(R.id.imageButton_close_dialogs);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog1.dismiss();
+                dialog_hora.dismiss();
+                dialog_pes.dismiss();
+            }
+        });
+
         TextView bt_ant_hora = (TextView) dialog_pes.findViewById(R.id.bt_ant_hora);
         TextView bt_seg_obs = (TextView) dialog_pes.findViewById(R.id.bt_seg_obs);
 
@@ -514,6 +542,17 @@ public class Restaurante_main extends FragmentActivity {
         dialog_obs.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_obs.setContentView(R.layout.dialog_obs);
 
+        ImageButton close = (ImageButton)dialog_obs.findViewById(R.id.imageButton_close_dialogs);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog1.dismiss();
+                dialog_hora.dismiss();
+                dialog_pes.dismiss();
+                dialog_obs.dismiss();
+            }
+        });
+
         TextView bt_ant_pes = (TextView) dialog_obs.findViewById(R.id.bt_ant_pes);
         TextView bt_seg_dados = (TextView) dialog_obs.findViewById(R.id.bt_seg_dados);
         bt_ant_pes.setOnClickListener(new View.OnClickListener() {
@@ -541,6 +580,19 @@ public class Restaurante_main extends FragmentActivity {
         dialog_conf = new Dialog(Restaurante_main.this);
         dialog_conf.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_conf.setContentView(R.layout.dialog_conf_dados);
+
+
+        ImageButton close = (ImageButton)dialog_conf.findViewById(R.id.imageButton_close_dialogs);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog1.dismiss();
+                dialog_hora.dismiss();
+                dialog_pes.dismiss();
+                dialog_obs.dismiss();
+                dialog_conf.dismiss();
+            }
+        });
 
         TextView bt_ant_obs = (TextView) dialog_conf.findViewById(R.id.bt_ant_obs);
         TextView bt_conf = (TextView) dialog_conf.findViewById(R.id.bt_conf);

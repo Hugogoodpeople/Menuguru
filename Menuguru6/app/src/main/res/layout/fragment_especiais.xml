@@ -88,7 +88,7 @@
         android:layout_alignEnd="@+id/imagemTipo"
         android:layout_marginTop="0dp"
         android:gravity="right"
-        android:layout_marginRight="4dp" />
+        android:layout_marginRight="8dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -104,7 +104,7 @@
         android:layout_toEndOf="@+id/nomeMenu"
         android:gravity="right"
         android:textSize="18dp"
-        android:layout_marginRight="4dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="-4dp" />
 
