@@ -1751,6 +1751,9 @@ public class Restaurante_main extends FragmentActivity {
             ImageView icon2 = (ImageView) row.findViewById(R.id.imagem_menu_2);
             TextView label2=(TextView)row.findViewById(R.id.lista_menus_restaurante_1);
             RelativeLayout rel = (RelativeLayout)row.findViewById(R.id.odd_view);
+            RelativeLayout relsombra = (RelativeLayout)row.findViewById(R.id.odd_view_sombra);
+
+
             ImageView icon3 = (ImageView) row.findViewById(R.id.imagem_tipo1);
             ImageView icon4 = (ImageView) row.findViewById(R.id.imagem_tipo2);
 
@@ -1809,6 +1812,7 @@ public class Restaurante_main extends FragmentActivity {
 
                 setiamgeTipo(position*2 + 1, icon4);
                 rel.setVisibility(View.VISIBLE);
+                relsombra.setVisibility(View.VISIBLE);
 
                 icon2.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -1854,6 +1858,7 @@ public class Restaurante_main extends FragmentActivity {
             }else
             {
                 rel.setVisibility(View.GONE);
+                relsombra.setVisibility(View.GONE);
             }
 
             return row;
