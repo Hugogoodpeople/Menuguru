@@ -45,7 +45,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Desconto 21%"
         android:id="@+id/desconto"
@@ -53,7 +53,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_alignRight="@+id/nomeMenu"
         android:layout_alignEnd="@+id/nomeMenu" />
 
@@ -86,8 +86,9 @@
         android:layout_below="@+id/nomeRestaurante"
         android:layout_alignRight="@+id/imagemTipo"
         android:layout_alignEnd="@+id/imagemTipo"
-        android:layout_marginTop="5dp"
-        android:gravity="right" />
+        android:layout_marginTop="0dp"
+        android:gravity="right"
+        android:layout_marginRight="4dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -101,6 +102,10 @@
         android:textColor="@color/dourado"
         android:layout_toRightOf="@+id/nomeMenu"
         android:layout_toEndOf="@+id/nomeMenu"
-        android:gravity="right" />
+        android:gravity="right"
+        android:textSize="18dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="-4dp" />
 
 </RelativeLayout>

@@ -6,10 +6,10 @@ android:layout_height="match_parent">
 
 
 
-    <pt.menuguru.menuguru.Utils.BounceListView
+    <pt.menuguru.playstore.Utils.BounceListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/listV_localizacao"
         android:choiceMode="singleChoice">
-    </pt.menuguru.menuguru.Utils.BounceListView>
+    </pt.menuguru.playstore.Utils.BounceListView>
 </LinearLayout>
