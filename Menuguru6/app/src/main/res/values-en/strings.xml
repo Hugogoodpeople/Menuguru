@@ -160,29 +160,29 @@
     <string name="seleciona_data_reserva_oferta">Select the date to book the table and take advantage of the offer</string>
 
     <string-array name="cancelar_reserva">
-        <item>Cancelar Reserva</item>
-        <item>Obter direcções</item>
-        <item>Cancelar</item>
+        <item>Cancel Booking</item>
+        <item>Get Directions</item>
+        <item>Cancel</item>
     </string-array>
 
     <string-array name="apagar_reserva">
-        <item>Apagar Reserva</item>
-        <item>Obter direcções</item>
-        <item>Cancelar</item>
+        <item>Cancel Booking</item>
+        <item>Get Directions</item>
+        <item>Cancel</item>
     </string-array>
 
     <string-array name="linguas">
-        <item>Português</item>
-        <item>Italiano</item>
-        <item>Alemão</item>
-        <item>Espanhol</item>
-        <item>Francês</item>
-        <item>Inglês</item>
+        <item>Portuguese</item>
+        <item>Italien</item>
+        <item>German</item>
+        <item>Spanish</item>
+        <item>French</item>
+        <item>English</item>
     </string-array>
 
     <string-array name="sexo">
-        <item>Homem</item>
-        <item>Mulher</item>
+        <item>Men</item>
+        <item>Woman</item>
     </string-array>
 
 </resources>

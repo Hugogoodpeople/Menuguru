@@ -159,29 +159,29 @@
     <string name="seleciona_data_reserva_oferta">Scegliete la data della prenotazione del tavolo, per approffitare dell\'offerta</string>
 
     <string-array name="cancelar_reserva">
-        <item>Cancelar Reserva</item>
-        <item>Obter direcções</item>
-        <item>Cancelar</item>
+        <item>Cancellare la prenotazione</item>
+        <item>Ottenere indicazioni stradali</item>
+        <item>Annulla</item>
     </string-array>
 
     <string-array name="apagar_reserva">
-        <item>Apagar Reserva</item>
-        <item>Obter direcções</item>
-        <item>Cancelar</item>
+        <item>Cancellare la prenotazione</item>
+        <item>Ottenere indicazioni stradali</item>
+        <item>Annulla</item>
     </string-array>
 
     <string-array name="linguas">
-        <item>Português</item>
+        <item>Portoghese</item>
         <item>Italiano</item>
-        <item>Alemão</item>
-        <item>Espanhol</item>
-        <item>Francês</item>
-        <item>Inglês</item>
+        <item>Tedesco</item>
+        <item>Spagnolo</item>
+        <item>Francese</item>
+        <item>Inglese</item>
     </string-array>
 
     <string-array name="sexo">
-        <item>Homem</item>
-        <item>Mulher</item>
+        <item>Uomo</item>
+        <item>Donna</item>
     </string-array>
 
 </resources>

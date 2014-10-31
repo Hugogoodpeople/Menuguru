@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pt.menuguru.menuguru6" >
+    package="pt.menuguru.menuguru" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,7 +15,7 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
-    <permission android:name="pt.menuguru.menuguru6.permission.C2D_MESSAGE"
+    <permission android:name="pt.menuguru.menuguru.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
     <uses-permission android:name="pt.menuguru.menuguru6.permission.C2D_MESSAGE" />
 
@@ -32,7 +32,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.MyAppTheme"
-        android:name=".MyApplication"
+        android:name="pt.menuguru.menuguru.MyApplication"
         >
 
         <!-- Google Analytics Version v4 needs this value for easy tracking -->
@@ -40,19 +40,19 @@
             android:resource="@xml/global_tracker" />
 
         <receiver
-            android:name=".Utils.GcmBroadcastReceiver"
+            android:name="pt.menuguru.menuguru.Utils.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <category android:name="pt.menuguru.menuguru6" />
             </intent-filter>
         </receiver>
-        <service android:name=".Utils.GcmIntentService" />
+        <service android:name="pt.menuguru.menuguru.Utils.GcmIntentService" />
 
 
         <!-- Splash screen -->
         <activity
-            android:name=".SplashScreen.SplashScreen"
+            android:name="pt.menuguru.menuguru.SplashScreen.SplashScreen"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" >
@@ -65,14 +65,14 @@
 
         <!-- Main activity -->
         <activity
-            android:name=".MainActivity"
+            android:name="pt.menuguru.menuguru.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
         </activity>
 
 
         <activity
-            android:name=".testes.Teste_expandable"
+            android:name="pt.menuguru.menuguru.testes.Teste_expandable"
             android:label="@string/title_activity_inspiracao"
             android:screenOrientation="portrait">
         </activity>
@@ -98,79 +98,79 @@
 
         -->
         <activity
-            android:name="pt.menuguru.menuguru6.MinhaConta"
+            android:name="pt.menuguru.menuguru.MinhaConta"
             android:screenOrientation="portrait" />
         <activity
-            android:name="pt.menuguru.menuguru6.Localizacao"
+            android:name="pt.menuguru.menuguru.Localizacao"
             android:label="@string/title_activity_localizacao"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.Inspiracoes.Activity_Inspiracao"
+            android:name="pt.menuguru.menuguru.Inspiracoes.Activity_Inspiracao"
             android:label="@string/title_activity_inspiracao"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.ReadFileAssetsActivity"
+            android:name="pt.menuguru.menuguru.ReadFileAssetsActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Mapa.Mapa"
+            android:name="pt.menuguru.menuguru.Mapa.Mapa"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".os_tres_tipos.video"
+            android:name="pt.menuguru.menuguru.os_tres_tipos.video"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape"
             >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.Inspiracoes.Resultado_inspiracao"
+            android:name="pt.menuguru.menuguru.Inspiracoes.Resultado_inspiracao"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".menus.Menu_ementa"
+            android:name="pt.menuguru.menuguru.menus.Menu_ementa"
             android:screenOrientation="portrait" >
         </activity>
 
         <activity
-            android:name=".menus.Menu_diaria"
+            android:name="pt.menuguru.menuguru.menus.Menu_diaria"
             android:screenOrientation="portrait" >
         </activity>
         Menu_diaria
         <activity
-            android:name=".os_tres_tipos.Noticia"
+            android:name="pt.menuguru.menuguru.os_tres_tipos.Noticia"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.LoginMenuGuru"
+            android:name="pt.menuguru.menuguru.LoginMenuGuru"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.ResultadosProcurarMesa.Resultados"
+            android:name="pt.menuguru.menuguru.ResultadosProcurarMesa.Resultados"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".os_tres_tipos.lista_festivais_sugestoes"
+            android:name="pt.menuguru.menuguru.os_tres_tipos.lista_festivais_sugestoes"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.EscolherLingua"
+            android:name="pt.menuguru.menuguru.EscolherLingua"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.CriarUser"
+            android:name="pt.menuguru.menuguru.CriarUser"
             android:label="@string/title_activity_criar_user"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.Filtros_mega_avancados"
+            android:name="pt.menuguru.menuguru.Filtros_mega_avancados"
             android:label="@string/filtrosavancados"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.Resultados_filtros_avancados"
+            android:name="pt.menuguru.menuguru.Resultados_filtros_avancados"
             android:label="Login facebook"
             android:screenOrientation="portrait" >
         </activity>
@@ -180,63 +180,63 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.Restaurante.Restaurante_header"
+            android:name="pt.menuguru.menuguru.Restaurante.Restaurante_header"
             android:label="Restaurante"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.MenuEspecial_nos_especiais"
+            android:name="pt.menuguru.menuguru.MenuEspecial_nos_especiais"
             android:label="Especial"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.Restaurante.Info.InfoRestaurante"
+            android:name="pt.menuguru.menuguru.Restaurante.Info.InfoRestaurante"
             android:label="Info"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.Restaurante.Info.InfoRestReportarErro"
+            android:name="pt.menuguru.menuguru.Restaurante.Info.InfoRestReportarErro"
             android:label="Reportar erro"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.Restaurante.Avaliar.Avaliar_restaurante"
+            android:name="pt.menuguru.menuguru.Restaurante.Avaliar.Avaliar_restaurante"
             android:label="Avaliar"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.Restaurante.Comentarios.Lista_comentarios"
+            android:name="pt.menuguru.menuguru.Restaurante.Comentarios.Lista_comentarios"
             android:label="Avaliar"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.Favoritos.Favoritos"
+            android:name="pt.menuguru.menuguru.Favoritos.Favoritos"
             android:label="@string/favoritos"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Favoritos.Favoritos_gerir"
+            android:name="pt.menuguru.menuguru.Favoritos.Favoritos_gerir"
             android:label="@string/favoritos"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Favoritos.Favoritos_list_restaurantes"
+            android:name="pt.menuguru.menuguru.Favoritos.Favoritos_list_restaurantes"
             android:label="@string/favoritos"
             android:screenOrientation="portrait" >
         </activity>
 
         <activity
-            android:name="pt.menuguru.menuguru6.Restaurante.Restaurante_main"
+            android:name="pt.menuguru.menuguru.Restaurante.Restaurante_main"
             android:label="Restaurante"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.ComoFunciona"
+            android:name="pt.menuguru.menuguru.ComoFunciona"
             android:label="Como Funciona"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.Destaques"
+            android:name="pt.menuguru.menuguru.Destaques"
             android:label="Como Funciona"
             android:screenOrientation="portrait" >
         </activity>
@@ -246,17 +246,17 @@
             android:value="@string/app_id" />
 
         <activity
-            android:name="pt.menuguru.menuguru6.Resultado_festivais"
+            android:name="pt.menuguru.menuguru.Resultado_festivais"
             android:label="@string/title_activity_resultado_festivais"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.MenuEspecial"
+            android:name="pt.menuguru.menuguru.MenuEspecial"
             android:label="@string/title_activity_menu_especial"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="pt.menuguru.menuguru6.Voucher"
+            android:name="pt.menuguru.menuguru.Voucher"
             android:label="@string/title_activity_voucher"
             android:screenOrientation="portrait" >
         </activity>

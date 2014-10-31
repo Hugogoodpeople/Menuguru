@@ -160,29 +160,29 @@
 
 
     <string-array name="cancelar_reserva">
-        <item>Cancelar Reserva</item>
-        <item>Obter direcções</item>
-        <item>Cancelar</item>
+        <item>Reservierungen</item>
+        <item>Wegbeschreibung</item>
+        <item>Abbrechen</item>
     </string-array>
 
     <string-array name="apagar_reserva">
-        <item>Apagar Reserva</item>
+        <item>Reservierungen</item>
         <item>Obter direcções</item>
         <item>Cancelar</item>
     </string-array>
 
     <string-array name="linguas">
-        <item>Português</item>
-        <item>Italiano</item>
-        <item>Alemão</item>
-        <item>Espanhol</item>
-        <item>Francês</item>
-        <item>Inglês</item>
+        <item>Portuguiesisch</item>
+        <item>Italiensch</item>
+        <item>Deutsch</item>
+        <item>Spanisch</item>
+        <item>Franzosisch</item>
+        <item>Englisch</item>
     </string-array>
 
     <string-array name="sexo">
-        <item>Homem</item>
-        <item>Mulher</item>
+        <item>Männlich</item>
+        <item>Weiblich</item>
     </string-array>
 
 

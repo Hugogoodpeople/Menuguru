@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="pt.menuguru.menuguru6.Inspiracoes.Activity_Inspiracao" >
+    tools:context="pt.menuguru.menuguru.Inspiracoes.Activity_Inspiracao" >
     <item android:id="@+id/action_actualizar_inspiras"
         android:icon="@drawable/ico_random"
         android:title="@string/action_settings"
