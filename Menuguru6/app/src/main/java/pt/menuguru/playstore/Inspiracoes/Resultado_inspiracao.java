@@ -99,15 +99,14 @@ public class Resultado_inspiracao extends Activity {
         Intent intent = getIntent();
         value = intent.getStringExtra("local");
         //setTitle(value);
+
+
+
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-        getActionBar().setCustomView(R.layout.tab_header);
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
-        getActionBar().setHomeButtonEnabled(true);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        TextView t =(TextView) findViewById(R.id.mytext);
-        t.setText(value);
+        actionBar.setIcon(R.drawable.ic_left_b);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setTitle(value);
 
         Intent id_item = getIntent();
 

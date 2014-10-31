@@ -194,7 +194,9 @@ public class Restaurante_main extends FragmentActivity {
 
         delegado_principal = this;
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.ic_left_b);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
 
 
         Intent intent = this.getIntent();

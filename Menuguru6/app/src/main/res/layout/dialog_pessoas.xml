@@ -89,5 +89,15 @@
             android:textColor="@color/dourado"
             android:layout_alignParentStart="false" />
 
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageButton_close_dialogs"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_close_d"
+            android:background="@color/transparent" />
+
     </RelativeLayout>
 </LinearLayout>

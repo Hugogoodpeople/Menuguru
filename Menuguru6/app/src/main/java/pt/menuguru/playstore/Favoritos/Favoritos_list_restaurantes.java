@@ -68,13 +68,17 @@ public class Favoritos_list_restaurantes extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         setContentView(R.layout.favoritos_list_restaurantes);
         Intent intent = this.getIntent();
         idFav = intent.getStringExtra("idfav");
         String nome = intent.getStringExtra("nome");
+
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setIcon(R.drawable.ic_left_b);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
 
         actionBar.setTitle(nome);
 

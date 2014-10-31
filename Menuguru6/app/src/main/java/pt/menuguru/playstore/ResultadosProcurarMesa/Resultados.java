@@ -120,14 +120,10 @@ public class Resultados extends Activity
 
         //setTitle(value);
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-        getActionBar().setCustomView(R.layout.tab_header);
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
-        getActionBar().setHomeButtonEnabled(true);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        TextView t =(TextView) findViewById(R.id.mytext);
-        t.setText(Globals.get_instance().getCidadeÇ_nome());
+        actionBar.setIcon(R.drawable.ic_left_b);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setTitle(Globals.get_instance().getCidadeÇ_nome());
 
         Intent id_item = getIntent();
 

@@ -45,7 +45,9 @@ public class InfoRestReportarErro extends Activity
         super.onCreate(savedInstanceState);
 
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.ic_left_b);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
 
         actionBar.setTitle(getString(R.string.reportar_erro));
 

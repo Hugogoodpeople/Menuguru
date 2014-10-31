@@ -137,10 +137,10 @@ public class EscolherLingua extends Activity
 
         setContentView(R.layout.activity_language);
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.ic_left_b);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
 
-        getActionBar().setHomeButtonEnabled(true);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setTitle(R.string.idioma);
 
         preferences = this.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE);

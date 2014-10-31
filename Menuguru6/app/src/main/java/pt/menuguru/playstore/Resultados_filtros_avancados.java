@@ -90,7 +90,9 @@ public class Resultados_filtros_avancados extends Activity
 
         //setTitle(value);
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.ic_left_b);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
 
 
         if (prato.length()>0)

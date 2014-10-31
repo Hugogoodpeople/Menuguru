@@ -150,7 +150,9 @@ public class MenuEspecial_nos_especiais extends Activity {
         setContentView(R.layout.activity_menu_especial);
 
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.ic_left_b);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
 
 
 

@@ -59,9 +59,10 @@ public class ReadFileAssetsActivity extends Activity {
         setContentView(R.layout.activity_read_file);
 
         ActionBar actionBar = getActionBar();
+        actionBar.setIcon(R.drawable.ic_left_b);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
         actionBar.setTitle("Sobre a Menu Guru");
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         TextView txtContent = (TextView) findViewById(R.id.txtContent);
         TextView txtFileName = (TextView) findViewById(R.id.txtFileName);

@@ -128,10 +128,13 @@ public class MinhaConta extends Activity {
         //Get a Tracker (should auto-report)
         ((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
         setContentView(R.layout.activity_minha_conta);
+
+
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setIcon(R.drawable.ic_left_b);
         actionBar.setTitle("Minha conta");
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
 
         uiHelper = new UiLifecycleHelper(this, statusCallback);
         uiHelper.onCreate(savedInstanceState);

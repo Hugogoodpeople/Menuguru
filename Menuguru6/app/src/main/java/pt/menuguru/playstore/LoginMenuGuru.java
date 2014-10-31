@@ -81,11 +81,14 @@ public class LoginMenuGuru extends Activity
         uiHelper.onCreate(savedInstanceState);
 
         setContentView(R.layout.activitylogin);
-        ActionBar ab = getActionBar();
-        ab.setTitle("Login");
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.ic_close_b);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
+
+
+        actionBar.setTitle("Login");
+
 
         LoginB = (Button)findViewById(R.id.bt_login);
         Registo = (Button)findViewById(R.id.registo);

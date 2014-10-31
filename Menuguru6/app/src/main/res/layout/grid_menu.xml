@@ -14,7 +14,7 @@
         android:weightSum="100"
         android:layout_alignEnd="@+id/lista_avancada">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
@@ -22,9 +22,22 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:layout_width="176dp"
+                android:layout_height="203dp"
+                android:background="@drawable/abc_menu_dropdown_panel_holo_dark"
+                android:id="@+id/relativeLayout5"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="8dp" />
+
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/abc_menu_dropdown_panel_holo_light">
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:layout_alignBottom="@+id/relativeLayout5"
+                android:layout_marginRight="5dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -71,9 +84,9 @@
 
             </RelativeLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
@@ -82,11 +95,28 @@
             >
 
             <RelativeLayout
+                android:layout_width="176dp"
+                android:layout_height="203dp"
+                android:background="@drawable/abc_menu_dropdown_panel_holo_dark"
+                android:id="@+id/relativeLayout4"
+                android:layout_marginTop="2dp"></RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/abc_menu_dropdown_panel_holo_light"
                 android:clickable="false"
-                android:id="@+id/odd_view">
+                android:id="@+id/odd_view"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:layout_alignBottom="@+id/relativeLayout4"
+                android:layout_marginRight="10dp">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_alignBottom="@+id/frameLayout2"></RelativeLayout>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -134,6 +164,7 @@
 
             </RelativeLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
+
     </LinearLayout>
 </LinearLayout>

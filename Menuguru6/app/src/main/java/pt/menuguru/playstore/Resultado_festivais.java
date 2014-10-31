@@ -75,7 +75,9 @@ public class Resultado_festivais extends Activity {
 
         setContentView(R.layout.activity_resultado_festivais);
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.ic_left_b);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
         Intent intent = getIntent();
         id_festival = intent.getStringExtra("id");
         getActionBar().setTitle(Globals.getInstance().getCidadeÇ_nome());

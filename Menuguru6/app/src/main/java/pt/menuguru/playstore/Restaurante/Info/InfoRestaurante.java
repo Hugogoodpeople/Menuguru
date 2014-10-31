@@ -76,7 +76,9 @@ public class InfoRestaurante extends Activity
         ((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
 
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.ic_close_b);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
 
         actionBar.setTitle(getString(R.string.info_rest));
 

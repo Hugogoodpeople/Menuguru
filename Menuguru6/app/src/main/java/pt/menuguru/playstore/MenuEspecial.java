@@ -165,7 +165,9 @@ public class MenuEspecial extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.ic_left_b);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
         setContentView(R.layout.activity_menu_especial);
 
         rest_id = getIntent().getExtras().getString("rest_id");

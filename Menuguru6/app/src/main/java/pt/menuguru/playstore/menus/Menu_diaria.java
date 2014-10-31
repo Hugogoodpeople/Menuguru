@@ -76,7 +76,9 @@ public class Menu_diaria extends Activity
         ((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
 
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.ic_left_b);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
 
         setContentView(R.layout.activity_ementa);
         Intent intent = this.getIntent();

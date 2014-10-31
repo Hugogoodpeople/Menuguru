@@ -361,6 +361,9 @@ public class Inicio extends Fragment implements AbsListView.OnItemClickListener 
         setHasOptionsMenu(true);
 
         ActionBar ab = getActivity().getActionBar();
+        ab.setIcon(R.drawable.ic_menu_b);
+        ab.setDisplayHomeAsUpEnabled(false);
+        ab.setHomeButtonEnabled(true);
 
         String cidade = Globals.getInstance().getCidadeÇ_nome();
         String cidade_id = Globals.getInstance().getCidedade_id();

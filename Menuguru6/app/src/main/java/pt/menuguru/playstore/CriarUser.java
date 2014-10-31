@@ -83,8 +83,9 @@ public class CriarUser extends Activity {
         ((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
         setContentView(R.layout.activity_criar_user);
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.ic_left_b);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
 
         edit_pnome  = (EditText)findViewById(R.id.edit_criar_pnome);
         //edit_snome  = (EditText)findViewById(R.id.edit_criar_snome);

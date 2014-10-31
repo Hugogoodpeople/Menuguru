@@ -60,8 +60,11 @@ public class Avaliar_restaurante extends Activity
         //Get a Tracker (should auto-report)
         ((MyApplication) getApplication()).getTracker(MyApplication.TrackerName.APP_TRACKER);
 
+
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.ic_close_b);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
 
 
         Intent intent = this.getIntent();

@@ -62,7 +62,9 @@ public class Favoritos extends Activity
         super.onCreate(savedInstanceState);
 
         ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.ic_close_b);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
 
         setContentView(R.layout.favoritos);
         Intent intent = this.getIntent();
