@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="nome_user">Nome</string>
+    <string name="telefone_user">Telefone</string>
     <string name="app_name">Menuguru</string>
     <string name="seleciona_data_reserva_oferta">Selecione a data para reservar a\nmesa e usufruir da oferta</string>
     <string name="para_quando">Para quando gostaria de reservar mesa?</string>

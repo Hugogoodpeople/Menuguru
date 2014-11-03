@@ -880,7 +880,7 @@ public class Restaurante_main extends FragmentActivity {
         TextView tx_tele = (TextView) dialog_loading.findViewById(R.id.tv_telefone);
         TextView tx_email = (TextView) dialog_loading.findViewById(R.id.tv_email);
         TextView tx_obs = (TextView) dialog_loading.findViewById(R.id.tv_obs);
-        SurfaceView v = (SurfaceView) dialog_pes.findViewById(R.id.surfaceView_loading);
+        SurfaceView v = (SurfaceView) dialog_loading.findViewById(R.id.surfaceView_loading);
         GifRun w = new  GifRun();
         w.LoadGiff(v, this, R.drawable.loading2);
         tx_data.setText(reportDate);
@@ -1764,6 +1764,7 @@ public class Restaurante_main extends FragmentActivity {
         myIntent.putExtra("rest_cartao_id", "" + some_list.get(index).getDb_id());
         myIntent.putExtra("rest_id", "" + some_list.get(index).getId_rest());
         myIntent.putExtra("hora_min_reserva", some_list.get(index).getHora_minimo_antedencia_especial());
+        myIntent.putExtra("nome", some_list.get(index).getNome());
 
         startActivity(myIntent);
 
@@ -1823,6 +1824,7 @@ public class Restaurante_main extends FragmentActivity {
                         myIntent.putExtra("rest_cartao_id", "" + some_list.get(position * 2).getDb_id());
                         myIntent.putExtra("rest_id", "" + some_list.get(position * 2).getId_rest());
                         myIntent.putExtra("hora_min_reserva", some_list.get(position * 2).getHora_minimo_antedencia_especial());
+                        myIntent.putExtra("nome", some_list.get(position * 2 ).getNome());
 
                         startActivity(myIntent);
 
@@ -1844,6 +1846,7 @@ public class Restaurante_main extends FragmentActivity {
                         //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
                         myIntent.putExtra("rest_id", "" + rest_id);
                         myIntent.putExtra("url_foto", some_list.get(position *2).getUrlImage());
+                        myIntent.putExtra("nome", some_list.get(position * 2).getNome());
 
                         startActivity(myIntent);
                         overridePendingTransition(R.anim.push_view1, R.anim.push_view2);
@@ -1878,6 +1881,8 @@ public class Restaurante_main extends FragmentActivity {
                             myIntent.putExtra("rest_cartao_id", "" + some_list.get(position * 2 + 1).getDb_id());
                             myIntent.putExtra("rest_id", "" + some_list.get(position * 2 + 1).getId_rest());
                             myIntent.putExtra("vem_de_especias", false);
+                            myIntent.putExtra("hora_min_reserva", some_list.get(position * 2 +1).getHora_minimo_antedencia_especial());
+                            myIntent.putExtra("nome", some_list.get(position * 2 + 1).getNome());
 
                             startActivity(myIntent);
 
@@ -1898,6 +1903,7 @@ public class Restaurante_main extends FragmentActivity {
                             //myIntent.putExtra("rest_id", some_array[position].getRestaurante());
                             myIntent.putExtra("rest_id", "" + rest_id);
                             myIntent.putExtra("url_foto", some_list.get(position *2+1).getUrlImage());
+                            myIntent.putExtra("nome", some_list.get(position * 2+1).getNome());
 
                             startActivity(myIntent);
                             overridePendingTransition(R.anim.push_view1, R.anim.push_view2);

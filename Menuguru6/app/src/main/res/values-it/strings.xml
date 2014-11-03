@@ -183,5 +183,7 @@
         <item>Uomo</item>
         <item>Donna</item>
     </string-array>
+    <string name="nome_user">Nome</string>
+    <string name="telefone_user">Telefono</string>
 
 </resources>

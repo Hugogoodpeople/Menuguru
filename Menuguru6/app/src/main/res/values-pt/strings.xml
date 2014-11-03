@@ -186,5 +186,7 @@
         <item>Homem</item>
         <item>Mulher</item>
     </string-array>
+    <string name="nome_user">Nome</string>
+    <string name="telefone_user">Telefone</string>
 
 </resources>

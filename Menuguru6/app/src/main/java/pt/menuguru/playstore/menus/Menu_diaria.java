@@ -49,6 +49,7 @@ public class Menu_diaria extends Activity
     private String nome_cat_em;
     private String url_imagem;
     private String descricao_ementa;
+    private String nome_diaria;
 
     @Override
     public void onStart()
@@ -84,8 +85,9 @@ public class Menu_diaria extends Activity
         Intent intent = this.getIntent();
         rest_id = intent.getStringExtra("rest_id");
         url_imagem = intent.getStringExtra("url_foto");
+        nome_diaria = intent.getStringExtra("nome");
 
-        actionBar.setTitle(nome_cat_em);
+        actionBar.setTitle(nome_diaria);
 
 
         new AsyncTaskParseJson(this).execute();

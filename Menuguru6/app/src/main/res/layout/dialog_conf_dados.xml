@@ -60,7 +60,8 @@
             android:layout_alignLeft="@+id/bt_ant_obs"
             android:layout_alignStart="@+id/bt_ant_obs"
             android:layout_marginTop="10dp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:hint="@string/nome_user" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -74,7 +75,8 @@
             android:layout_marginTop="10dp"
             android:layout_alignLeft="@+id/edit_nome"
             android:layout_alignStart="@+id/edit_nome"
-            android:gravity="center" />
+            android:gravity="center"
+            android:hint="@string/telefone_user" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -88,7 +90,8 @@
             android:layout_alignRight="@+id/edit_telefone"
             android:layout_alignEnd="@+id/edit_telefone"
             android:layout_marginTop="10dp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:hint="email" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -133,5 +136,15 @@
             android:layout_alignRight="@+id/textView_data"
             android:layout_alignEnd="@+id/textView_data"
             android:layout_marginTop="5dp" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageButton_close_dialogs"
+            android:src="@drawable/ic_close_d"
+            android:background="@color/transparent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 </LinearLayout>

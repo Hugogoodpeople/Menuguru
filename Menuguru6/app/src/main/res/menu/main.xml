@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
     <item android:id="@+id/action_pesquisa" android:title="@string/pesquisa"
-        android:icon="@drawable/ic_find_b" android:orderInCategory="10"
+        android:icon="@drawable/ic_find_b_right" android:orderInCategory="10"
         android:showAsAction="withText|ifRoom" />
     <item android:id="@+id/action_localizacao" android:title="@string/localizacao"
         android:icon="@drawable/ic_local_b" android:orderInCategory="100"

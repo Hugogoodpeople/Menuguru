@@ -29,6 +29,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -181,6 +182,7 @@ public class MenuEspecial_nos_especiais extends Activity {
                 dialog1 = new Dialog(MenuEspecial_nos_especiais.this);
                 dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog1.setContentView(R.layout.dialog_reserva);
+
 
                 Calendar c = Calendar.getInstance();
                 System.out.println("Current time => " + c.getTime());
@@ -344,6 +346,16 @@ public class MenuEspecial_nos_especiais extends Activity {
 
                 //calendar.setMaxDate(oldMillis);
                 //calendar.setMinDate(nMillis);
+
+                ImageButton close = (ImageButton)dialog1.findViewById(R.id.imageButton_close_dialogs);
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog1.dismiss();
+
+                    }
+                });
+
 
                 dialog1.show();
 
@@ -545,6 +557,15 @@ public class MenuEspecial_nos_especiais extends Activity {
         dialog_hora.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_hora.setContentView(R.layout.dialog_hora);
 
+        ImageButton close = (ImageButton)dialog_hora.findViewById(R.id.imageButton_close_dialogs);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog1.dismiss();
+                dialog_hora.dismiss();
+            }
+        });
+
         TextView bt_ant = (TextView) dialog_hora.findViewById(R.id.bt_ant_cal);
         TextView bt_seg = (TextView) dialog_hora.findViewById(R.id.bt_seg_nrp);
 
@@ -617,6 +638,17 @@ public class MenuEspecial_nos_especiais extends Activity {
         dialog_pes.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_pes.setContentView(R.layout.dialog_pessoas);
 
+
+        ImageButton close = (ImageButton)dialog_pes.findViewById(R.id.imageButton_close_dialogs);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog1.dismiss();
+                dialog_hora.dismiss();
+                dialog_pes.dismiss();
+            }
+        });
+
         TextView bt_ant_hora = (TextView) dialog_pes.findViewById(R.id.bt_ant_hora);
         TextView bt_seg_obs = (TextView) dialog_pes.findViewById(R.id.bt_seg_obs);
 
@@ -672,6 +704,17 @@ public class MenuEspecial_nos_especiais extends Activity {
         dialog_obs.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_obs.setContentView(R.layout.dialog_obs);
 
+        ImageButton close = (ImageButton)dialog_obs.findViewById(R.id.imageButton_close_dialogs);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog1.dismiss();
+                dialog_hora.dismiss();
+                dialog_pes.dismiss();
+                dialog_obs.dismiss();
+            }
+        });
+
         TextView bt_ant_pes = (TextView) dialog_obs.findViewById(R.id.bt_ant_pes);
         TextView bt_seg_dados = (TextView) dialog_obs.findViewById(R.id.bt_seg_dados);
         bt_ant_pes.setOnClickListener(new View.OnClickListener() {
@@ -699,6 +742,18 @@ public class MenuEspecial_nos_especiais extends Activity {
         dialog_conf = new Dialog(MenuEspecial_nos_especiais.this);
         dialog_conf.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_conf.setContentView(R.layout.dialog_conf_dados);
+
+        ImageButton close = (ImageButton)dialog_conf.findViewById(R.id.imageButton_close_dialogs);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog1.dismiss();
+                dialog_hora.dismiss();
+                dialog_pes.dismiss();
+                dialog_obs.dismiss();
+                dialog_conf.dismiss();
+            }
+        });
 
         TextView bt_ant_obs = (TextView) dialog_conf.findViewById(R.id.bt_ant_obs);
         TextView bt_conf = (TextView) dialog_conf.findViewById(R.id.bt_conf);

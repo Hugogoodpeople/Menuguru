@@ -169,6 +169,8 @@ public class MenuEspecial extends Activity {
         actionBar.setIcon(R.drawable.ic_left_b);
         actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setHomeButtonEnabled(true);
+
+
         setContentView(R.layout.activity_menu_especial);
 
         rest_id = getIntent().getExtras().getString("rest_id");
@@ -179,8 +181,12 @@ public class MenuEspecial extends Activity {
         imagem_rest = getIntent().getExtras().getString("urlfoto");
         morada = getIntent().getExtras().getString("morada");
         hora_min_reserva = getIntent().getExtras().getString("hora_min_reserva");
+        String nome = getIntent().getExtras().getString("nome");
 //        Log.v("HORA MIN RESERVA",hora_min_reserva);
         // Set the adapter
+
+        actionBar.setTitle(nome);
+
         mListView = (ListView)findViewById(R.id.list_esp);
 
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
@@ -539,7 +545,7 @@ public class MenuEspecial extends Activity {
         TextView tx_tele = (TextView) dialog_loading.findViewById(R.id.tv_telefone);
         TextView tx_email = (TextView) dialog_loading.findViewById(R.id.tv_email);
         TextView tx_obs = (TextView) dialog_loading.findViewById(R.id.tv_obs);
-        SurfaceView v = (SurfaceView) dialog_pes.findViewById(R.id.surfaceView_loading);
+        SurfaceView v = (SurfaceView) dialog_loading.findViewById(R.id.surfaceView_loading);
         GifRun w = new  GifRun();
         w.LoadGiff(v, this, R.drawable.loading2);
         tx_data.setText(reportDate);
@@ -715,16 +721,7 @@ public class MenuEspecial extends Activity {
         dialog_obs.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_obs.setContentView(R.layout.dialog_obs);
 
-        ImageButton close = (ImageButton)dialog_obs.findViewById(R.id.imageButton_close_dialogs);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog1.dismiss();
-                dialog_hora.dismiss();
-                dialog_pes.dismiss();
-                dialog_obs.dismiss();
-            }
-        });
+
 
         TextView bt_ant_pes = (TextView) dialog_obs.findViewById(R.id.bt_ant_pes);
         TextView bt_seg_dados = (TextView) dialog_obs.findViewById(R.id.bt_seg_dados);
@@ -746,6 +743,17 @@ public class MenuEspecial extends Activity {
             }
         });
         dialog_obs.show();
+
+        ImageButton close = (ImageButton)dialog_obs.findViewById(R.id.imageButton_close_dialogs);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog1.dismiss();
+                dialog_hora.dismiss();
+                dialog_pes.dismiss();
+                dialog_obs.dismiss();
+            }
+        });
     }
 
     public void SelecionaConfDados() {
@@ -754,17 +762,7 @@ public class MenuEspecial extends Activity {
         dialog_conf.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog_conf.setContentView(R.layout.dialog_conf_dados);
 
-        ImageButton close = (ImageButton)dialog_conf.findViewById(R.id.imageButton_close_dialogs);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog1.dismiss();
-                dialog_hora.dismiss();
-                dialog_pes.dismiss();
-                dialog_obs.dismiss();
-                dialog_conf.dismiss();
-            }
-        });
+
 
         TextView bt_ant_obs = (TextView) dialog_conf.findViewById(R.id.bt_ant_obs);
         TextView bt_conf = (TextView) dialog_conf.findViewById(R.id.bt_conf);
@@ -834,6 +832,19 @@ public class MenuEspecial extends Activity {
             }
         });
         dialog_conf.show();
+
+
+        ImageButton close = (ImageButton)dialog_conf.findViewById(R.id.imageButton_close_dialogs);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog1.dismiss();
+                dialog_hora.dismiss();
+                dialog_pes.dismiss();
+                dialog_obs.dismiss();
+                dialog_conf.dismiss();
+            }
+        });
     }
 
 
@@ -990,7 +1001,7 @@ public class MenuEspecial extends Activity {
 
             LayoutInflater inflater =(LayoutInflater)myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView=inflater.inflate(R.layout.row_especial, parent, false);
-            getActionBar().setTitle(some_list.get(0).getNome());
+            //getActionBar().setTitle(some_list.get(0).getNome());
             LinearLayout linear_ris = (LinearLayout)convertView.findViewById(R.id.linearLayout_risca);
             LinearLayout linear_tit = (LinearLayout)convertView.findViewById(R.id.linear_tit);
 
@@ -1450,10 +1461,10 @@ public class MenuEspecial extends Activity {
                 dict.put("data", data_selec);
                 dict.put("rest_id", rest_id);
                 dict.put("user_nome",sel_nome);
-                if(Globals.getInstance().getUser().getTipoconta().equals("facebook")){
+                if(Globals.getInstance().getUser()!= null && Globals.getInstance().getUser().getTipoconta().equals("facebook")){
                     dict.put("face_id",Globals.get_instance().getUser().getId_face());
                     dict.put("user_id","0");
-                }else if(Globals.getInstance().getUser().getTipoconta().equals("guru")){
+                }else if(Globals.getInstance().getUser()!= null && Globals.getInstance().getUser().getTipoconta().equals("guru")){
                     dict.put("face_id","0");
                     dict.put("user_id",Globals.get_instance().getUser().getUserid());
                 }else{

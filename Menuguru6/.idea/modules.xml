@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Menuguru.iml" filepath="$PROJECT_DIR$/Menuguru.iml" />
       <module fileurl="file://$PROJECT_DIR$/Menuguru6.iml" filepath="$PROJECT_DIR$/Menuguru6.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraries/facebook/facebook.iml" filepath="$PROJECT_DIR$/libraries/facebook/facebook.iml" />
