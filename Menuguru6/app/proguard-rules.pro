@@ -34,6 +34,10 @@
     public static final ** CREATOR;
 }
 
+# para o facebook funcionar e essas cenas
+-keep class com.facebook.** {
+   *;
+}
 
 # para o analytics
 -keep class * extends java.util.ListResourceBundle {

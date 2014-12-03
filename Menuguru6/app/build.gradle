@@ -8,8 +8,8 @@ android {
         applicationId "pt.menuguru.playstore"
         minSdkVersion 16
         targetSdkVersion 20
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "2.01"
     }
 
     buildTypes {
@@ -23,6 +23,8 @@ android {
 repositories {
     maven { url 'http://clinker.47deg.com/nexus/content/groups/public' }
 }
+
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])

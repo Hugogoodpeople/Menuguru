@@ -127,13 +127,13 @@ public class Teste_expandable extends Activity implements ExpandableListView.OnC
 
             if (hora >= 17)
             {
-                refeicao =  getResources().getStringArray(R.array.refeicoes)[0];
-                ref_selecionado = 0;
+                refeicao =  getResources().getStringArray(R.array.refeicoes)[1];
+                ref_selecionado = 1;
             }
             else
             {
-                refeicao =  getResources().getStringArray(R.array.refeicoes)[1];
-                ref_selecionado = 1;
+                refeicao =  getResources().getStringArray(R.array.refeicoes)[0];
+                ref_selecionado = 0;
             }
 
             Button p1_button = (Button)findViewById(R.id.button_data);

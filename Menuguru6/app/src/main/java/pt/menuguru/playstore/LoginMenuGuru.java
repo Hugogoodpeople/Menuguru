@@ -19,9 +19,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/*
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphUser;
+import com.facebook.widget.LoginButton;
+*/
+import com.facebook.*;
 import com.facebook.model.GraphUser;
 import com.facebook.widget.LoginButton;
 
@@ -38,6 +43,8 @@ import pt.menuguru.playstore.Json_parser.JSONParser;
 import pt.menuguru.menuguru.R;
 import pt.menuguru.playstore.Utils.Globals;
 import pt.menuguru.playstore.Utils.User;
+
+
 
 /**
  * Created by hugocosta on 08/09/14.

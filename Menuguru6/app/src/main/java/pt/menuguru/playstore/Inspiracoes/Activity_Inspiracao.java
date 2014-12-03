@@ -107,6 +107,8 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
         dia_selecionado = cc.get(Calendar.DAY_OF_WEEK) -1;
         int hora = cc.get(Calendar.HOUR_OF_DAY);
 
+        Log.v("hora","hora do dia "+ hora );
+
         String refeicao;
 
         if (hora >= 17)
@@ -220,6 +222,7 @@ public class Activity_Inspiracao extends Activity implements ExpandableListView.
 
     private void chamarInspiras()
     {
+
         new AsyncTaskParseJson(this).execute();
     }
 
