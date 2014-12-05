@@ -59,13 +59,14 @@ public class MyFragment extends Fragment
         mTabsAdapter.addTab(mTabHost.newTabSpec("Vermelha").setIndicator(getString(R.string.Reservas)), Procurar_mesa.class, null);
         //mTabsAdapter.addTab(mTabHost.newTabSpec("Branca").setIndicator("Branca"), Branca.class, null);
 
+
         // Default Selected Tab tHost.setOnTabChangedListener(this);
         //mTabHost.getTabWidget().getChildAt(0).getLayoutParams().height = 40;
-        mTabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.rgb(229, 229, 229));
+        mTabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.rgb(53, 54, 58));
         //mTabHost.getTabWidget().getChildAt(1).getLayoutParams().height = 40;
-        mTabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.rgb(229, 229, 229));
+        mTabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.rgb(53, 54, 58));
         //mTabHost.getTabWidget().getChildAt(2).getLayoutParams().height = 40;
-        mTabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.rgb(229, 229, 229));
+        mTabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.rgb(53, 54, 58));
 
         // para a primeira vez tem de estar pintado a dourado
 
@@ -89,7 +90,8 @@ public class MyFragment extends Fragment
                 tv.setTextColor(Color.parseColor("#ffffff"));
                 // Currentab = 0;
             } else {
-                tv.setTextColor(Color.parseColor("#000000"));
+                //tv.setTextColor(Color.parseColor("#000000"));
+                tv.setTextColor(Color.parseColor("#ffffff"));
             }
         }
 

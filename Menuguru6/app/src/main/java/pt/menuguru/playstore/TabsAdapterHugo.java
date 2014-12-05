@@ -123,7 +123,8 @@ public class TabsAdapterHugo extends FragmentPagerAdapter implements TabHost.OnT
                     tv.setTextColor(Color.parseColor("#ffffff"));
                     // Currentab = 0;
                 } else {
-                    tv.setTextColor(Color.parseColor("#000000"));
+                    //tv.setTextColor(Color.parseColor("#000000"));
+                    tv.setTextColor(Color.parseColor("#ffffff"));
                 }
             }
 
@@ -131,17 +132,19 @@ public class TabsAdapterHugo extends FragmentPagerAdapter implements TabHost.OnT
 
             if (tabId.equals("Inicio")) {
                 mTabHost.getTabWidget().getChildAt(0).setBackgroundResource(R.drawable.tabselectedcolor_centro);
-                mTabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.rgb(229, 229, 229));
-                mTabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.rgb(229, 229, 229));
+                mTabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.rgb(53, 54, 58));
+                mTabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.rgb(53, 54, 58));
             } else if (tabId.equals("Verde")) {
                 mTabHost.getTabWidget().getChildAt(1).setBackgroundResource(R.drawable.tabselectedcolor_centro);
-                mTabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.rgb(229, 229, 229));
-                mTabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.rgb(229, 229, 229));
+                mTabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.rgb(53, 54, 58));
+                mTabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.rgb(53, 54, 58));
             } else if (tabId.equals("Vermelha")) {
                 mTabHost.getTabWidget().getChildAt(2).setBackgroundResource(R.drawable.tabselectedcolor_centro);
-                mTabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.rgb(229, 229, 229));
-                mTabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.rgb(229, 229, 229));
+                mTabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.rgb(53, 54, 58));
+                mTabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.rgb(53, 54, 58));
             }
+
+
         }
 
 

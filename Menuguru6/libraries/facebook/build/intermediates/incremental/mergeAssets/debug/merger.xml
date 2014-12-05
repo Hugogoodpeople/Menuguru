@@ -2,10 +2,10 @@
 <merger version="2" >
 
     <dataSet config="main" >
-        <source path="/Users/user/Desktop/MenuguruFinal/Menuguru6/libraries/facebook/src/main/assets" />
+        <source path="/Users/hugocosta/Documents/Menuguru VitorHugoCardinaly/Menuguru6/libraries/facebook/src/main/assets" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="/Users/user/Desktop/MenuguruFinal/Menuguru6/libraries/facebook/src/debug/assets" />
+        <source path="/Users/hugocosta/Documents/Menuguru VitorHugoCardinaly/Menuguru6/libraries/facebook/src/debug/assets" />
     </dataSet>
 
 </merger>
