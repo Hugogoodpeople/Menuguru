@@ -186,7 +186,8 @@ public class Restaurante_main extends FragmentActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         //Get a Tracker (should auto-report)
@@ -2071,7 +2072,7 @@ public class Restaurante_main extends FragmentActivity {
         final String TAG = "AsyncTaskParseJson.java";
 
 
-        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_mesa_dia_limite.php";
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao3/json_mesa_dia_limite2.php";
 
         // contacts JSONArray
         JSONArray dataJsonArr = null;
@@ -2232,7 +2233,7 @@ public class Restaurante_main extends FragmentActivity {
         final String TAG = "AsyncTaskParseJson.java";
 
 
-        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_reserva_mesa_criar.php";
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao4/json_reserva_mesa_criar2.php";
 
 
         private Restaurante_main delegate;

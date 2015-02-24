@@ -202,7 +202,7 @@ public class Resultados extends Activity
         final String TAG = "AsyncTaskParseJson.java";
 
 
-        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_pesquisareservamesa.php";
+        String yourJsonStringUrl = "http://menuguru.pt/menuguru/webservices/data/versao5/json_pesquisareservamesa2.php";
 
         // contacts JSONArray
         JSONArray dataJsonArr = null;
